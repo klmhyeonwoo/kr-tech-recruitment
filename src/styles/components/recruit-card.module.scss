@@ -125,7 +125,7 @@
 .card__title__container,
 .card__date__container {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   column-gap: 0.5rem;
 }
 
