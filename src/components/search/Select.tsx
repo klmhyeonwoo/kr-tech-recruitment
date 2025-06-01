@@ -11,12 +11,15 @@ import useClickOutside from "@/hooks/useClickOutside";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 type SelectType = {
-  data: string[];
+  data: {
+    code: string;
+    name: string;
+  }[];
   placeholder: string;
   isIcon?: boolean;
 };
 
-function Select({ data, placeholder, isIcon, ...props }: SelectType) {
+function Select({ data, placeholder, isIcon = true, ...props }: SelectType) {
   const selectRef = useRef<HTMLDivElement>(null);
   const searchParams = useSearchParams();
   const pathname = usePathname();
@@ -92,12 +95,12 @@ function Select({ data, placeholder, isIcon, ...props }: SelectType) {
         <div className={styles.search__container} ref={selectRef}>
           {data.map((item) => (
             <div
-              key={item}
+              key={item.code}
               className={styles.item__wrapper}
               data-item={item}
-              onClick={() => handleCloseSelect(item)}
+              onClick={() => handleCloseSelect(item.code)}
             >
-              <span> {scaledPositionName(item)} </span>
+              <span> {scaledPositionName(item.name)} </span>
             </div>
           ))}
         </div>

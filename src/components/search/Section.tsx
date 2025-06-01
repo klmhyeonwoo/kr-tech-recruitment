@@ -7,7 +7,10 @@ import { useAtom } from "jotai";
 import { SEARCH_KEYWORD_STORE } from "../../store";
 
 type SectionType = {
-  data: string[];
+  data: {
+    code: string;
+    name: string;
+  }[];
 };
 
 function SearchSection({ data }: SectionType) {
