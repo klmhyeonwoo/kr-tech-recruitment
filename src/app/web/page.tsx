@@ -23,13 +23,9 @@ export async function generateMetadata({
   });
 }
 
-async function getRecruitCategoryData({
-  companyCode,
-}: {
-  companyCode: string;
-}) {
+async function getStandardRecruitData() {
   try {
-    const { data } = await api.get(`/companies/${companyCode}/categories`);
+    const { data } = await api.get(`/companies/standard-categories`);
     return data;
   } catch (error) {
     return { data: [], error };
@@ -44,6 +40,7 @@ async function getRecruitData({
     page: number;
     pageSize: number;
     category?: string;
+    standardCategory?: string;
   };
 }) {
   try {
@@ -71,11 +68,11 @@ async function RecruitDataSection({
   company: string;
   category: string;
 }) {
-  const { categories } = await getRecruitCategoryData({ companyCode: company });
+  const { list } = await getStandardRecruitData();
 
   return (
     <Fragment>
-      <SearchSection data={categories || []} />
+      <SearchSection data={list || []} />
       <Suspense key={`${company}-${category}`} fallback={<EyesLoading />}>
         <RecruitListSection company={company} category={category} />
       </Suspense>
@@ -95,7 +92,7 @@ async function RecruitListSection({
       companyCode: company,
       page: 0,
       pageSize: 9999,
-      category: category,
+      standardCategory: category,
     },
   });
 

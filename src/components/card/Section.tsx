@@ -17,6 +17,7 @@ export type RecruitData = {
     corporateName: string;
     corporateCode: string;
   }[];
+  standardCategory: string;
   endAt: string;
   startAt: string;
   jobOfferTitle: string;
@@ -69,7 +70,7 @@ export default function CardSection({ data }: { data: RecruitData[] }) {
                 title={item.jobOfferTitle}
                 company={generateCompanyName(item)}
                 corporates={item.corporates}
-                position={item.categories[0]?.trim()}
+                position={item.standardCategory}
                 fromDate={item.startAt}
                 toDate={item.endAt}
                 link={item.url}
