@@ -12,6 +12,9 @@
   }
 }
 
+.input__container {
+}
+
 .search__container {
   position: absolute;
   top: 110%;
@@ -111,6 +114,10 @@
   &[data-is-open-data-list="true"] {
     pointer-events: none;
     cursor: default;
+  }
+
+  .arrow__icon {
+    margin-left: auto;
   }
 }
 

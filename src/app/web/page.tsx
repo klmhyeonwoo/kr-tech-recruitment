@@ -4,7 +4,7 @@ import CardSection from "@/components/card/Section";
 import SearchSection from "@/components/search/Section";
 import type { Metadata } from "next";
 import { Fragment, Suspense } from "react";
-import EyesLoading from "@/components/loading/EyesLoading";
+import EyesLoading from "@/components/loading/eyes-loading";
 import generateServiceOpenGraph from "@/og";
 
 type paramsType = {

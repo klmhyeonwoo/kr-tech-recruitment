@@ -3,7 +3,7 @@
 import Card from "@/components/card/RecruitCard";
 import styles from "@/styles/components/recruit-card.module.scss";
 import { useAtom } from "jotai";
-import { SEARCH_KEYWORD_STORE } from "../store";
+import { SEARCH_KEYWORD_STORE } from "../../store";
 import { scaledPositionName } from "@/utils/common";
 import NotDataSwimming from "../common/not-data";
 

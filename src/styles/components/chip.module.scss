@@ -1,0 +1,14 @@
+.chip__container {
+  padding: 0.8rem 1.5rem;
+  border: 0.1rem solid rgb(229, 232, 235);
+  border-radius: 10rem;
+  font-size: 1.4rem;
+  transition: 0.4s all;
+  cursor: pointer;
+
+  &[data-checked="true"] {
+    background-color: #222;
+    border: none;
+    color: #fff;
+  }
+}
