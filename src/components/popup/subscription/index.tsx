@@ -128,9 +128,9 @@ function SubscriptionPopup() {
 
   const handleGetStandardCategories = async () => {
     setLoader(true);
-    const { status, data } = await company.getStandardCategories();
-    setLoader(false);
     try {
+      const { status, data } = await company.getStandardCategories();
+      setLoader(false);
       if (status === 200) {
         return { data, status };
       } else {

@@ -56,6 +56,7 @@
 
   button {
     width: 100%;
+    padding: 1.6rem 2rem;
   }
 
   > button:nth-of-type(1) {
@@ -64,7 +65,7 @@
 
     &:hover {
       filter: grayscale(70%);
-      opacity: 90%;
+      opacity: 85%;
     }
   }
 

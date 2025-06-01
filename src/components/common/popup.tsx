@@ -43,7 +43,7 @@ function Popup({
           children
         ) : (
           <div className={styles.popup__content__text}>
-            <video preload="auto" autoPlay loop muted>
+            <video preload="auto" playsInline autoPlay loop muted>
               <source src="/video/basket.mp4" type="video/mp4" />
             </video>
           </div>
