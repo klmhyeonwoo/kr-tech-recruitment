@@ -6,23 +6,27 @@ import Image from "next/image";
 type InputType = {
   placeholder?: string;
   value: string;
+  isIcon?: boolean;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
-};
+} & React.InputHTMLAttributes<HTMLInputElement>;
 
 function Input({
   value,
   onChange,
   placeholder = "텍스트를 입력해주세요",
+  isIcon = true,
   ...props
 }: InputType) {
   return (
     <div className={styles.input__box}>
-      <Image
-        src={icon_search}
-        alt="채용 공고를 키워드로 검색해보세요"
-        width={16}
-        height={16}
-      />
+      {isIcon ? (
+        <Image
+          src={icon_search}
+          alt="채용 공고를 키워드로 검색해보세요"
+          width={16}
+          height={16}
+        />
+      ) : null}
       <input
         type="text"
         value={value}

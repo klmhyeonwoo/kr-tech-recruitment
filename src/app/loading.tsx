@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "@/styles/components/loading.module.scss";
-import EyesLoading from "@/components/loading/EyesLoading";
+import EyesLoading from "@/components/loading/eyes-loading";
 
 function Loading() {
   return (

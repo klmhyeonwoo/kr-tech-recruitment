@@ -9,5 +9,11 @@ const SELECTED_COMPANY_STORE = atom<{
   companyCode: "",
   name: "",
 });
+const PORTAL_STORE = atom<boolean>(false);
 
-export { CATEGORY_STORE, SEARCH_KEYWORD_STORE, SELECTED_COMPANY_STORE };
+export {
+  CATEGORY_STORE,
+  SEARCH_KEYWORD_STORE,
+  SELECTED_COMPANY_STORE,
+  PORTAL_STORE,
+};

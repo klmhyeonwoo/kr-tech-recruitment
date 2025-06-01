@@ -13,9 +13,10 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 type SelectType = {
   data: string[];
   placeholder: string;
+  isIcon?: boolean;
 };
 
-function Select({ data, placeholder, ...props }: SelectType) {
+function Select({ data, placeholder, isIcon, ...props }: SelectType) {
   const selectRef = useRef<HTMLDivElement>(null);
   const searchParams = useSearchParams();
   const pathname = usePathname();
@@ -61,7 +62,9 @@ function Select({ data, placeholder, ...props }: SelectType) {
         data-is-open-data-list={isOpenFilter}
         {...props}
       >
-        <Image src={icon_airplane} alt={placeholder} width={16} height={16} />
+        {isIcon ? (
+          <Image src={icon_airplane} alt={placeholder} width={16} height={16} />
+        ) : null}
         {category ? (
           <span>{scaledPositionName(category)}</span>
         ) : (
@@ -76,7 +79,13 @@ function Select({ data, placeholder, ...props }: SelectType) {
             onClick={removeSelectedFilter}
           />
         ) : (
-          <Image src={icon_arrow} alt={placeholder} width={18} height={18} />
+          <Image
+            className={styles.arrow__icon}
+            src={icon_arrow}
+            alt={placeholder}
+            width={18}
+            height={18}
+          />
         )}
       </div>
       {isOpenFilter && (

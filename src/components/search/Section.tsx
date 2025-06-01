@@ -4,7 +4,7 @@ import Select from "./Select";
 import Input from "./Input";
 import { ChangeEvent } from "react";
 import { useAtom } from "jotai";
-import { SEARCH_KEYWORD_STORE } from "../store";
+import { SEARCH_KEYWORD_STORE } from "../../store";
 
 type SectionType = {
   data: string[];

@@ -306,6 +306,11 @@ button {
   font-size: 1.6rem;
   cursor: pointer;
   transition: 0.4s all;
+
+  &:disabled {
+    cursor: not-allowed;
+    background-color: var(--grey300) !important;
+  }
 }
 
 .btn-schema-dark {

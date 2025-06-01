@@ -1,4 +1,4 @@
-import { CATEGORY_STORE } from "@/components/store";
+import { CATEGORY_STORE } from "@/store";
 import { useAtom } from "jotai";
 import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
