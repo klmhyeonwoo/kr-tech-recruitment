@@ -1,0 +1,44 @@
+.container {
+  display: inline-flex;
+  flex-wrap: wrap;
+}
+
+.segment {
+  opacity: 0;
+  transform: translateY(10px);
+  will-change: opacity, transform;
+}
+
+.fade {
+  &.visible {
+    animation: fadeIn 0.5s ease-out forwards;
+  }
+}
+
+.slide {
+  &.visible {
+    animation: slideIn 0.5s ease-out forwards;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}

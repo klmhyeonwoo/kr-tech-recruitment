@@ -7,6 +7,7 @@ import GreetingCard from "@/components/common/greeting-card";
 import greeting_image_eyes from "../../public/images/eyes.gif";
 import greeting_image_waving from "../../public/images/waving.gif";
 import HomeLogo from "@/components/common/home-logo";
+import { TextAnimation } from "@/components/common/animation/text-animation";
 
 export const dynamic = "force-dynamic";
 
@@ -112,6 +113,11 @@ export default async function Home() {
               </span>
             </Fragment>
           }
+        />
+        <TextAnimation
+          text={"테스트 입니다.\n테스트 입니다요?"}
+          unit="character"
+          delay={0.5}
         />
         <div className="announce__card__wrapper">
           {/* TODO: 새로 등록된 공고, 어제 올라온 공고 카드 섹션으로 제공하기 */}
