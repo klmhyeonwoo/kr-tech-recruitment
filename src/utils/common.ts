@@ -14,9 +14,13 @@ const scaledPositionName = (originalName: string) => {
     AI_ML: "AI · 머신러닝",
     DATA: "데이터",
     SECURITY: "정보보안",
-    SERVICE_PLANNER: "서비스 기획 · 관리",
+    SERVICE_PLANNER: "서비스 기획",
     OPERATION: "운영",
     SALES: "영업",
+    PM_PO: "PM/PO",
+    ART: "아트",
+    GAME_DESIGN: "게임 디자인",
+    GAME_PROGRAMMING: "게임 개발",
   };
 
   return set[originalName?.trim()] ?? originalName;
