@@ -3,10 +3,8 @@ import { Fragment } from "react";
 import AnnounceCard from "@/components/card/AnnounceCard";
 import "@/styles/domain/main.scss";
 import { api } from "@/api";
-import GreetingCard from "@/components/common/greeting-card";
-import greeting_image_eyes from "../../public/images/eyes.gif";
-import greeting_image_waving from "../../public/images/waving.gif";
 import HomeLogo from "@/components/common/home-logo";
+import GreetingSwiper from "@/components/swiper/GreetingSwiper";
 
 export const dynamic = "force-dynamic";
 
@@ -85,18 +83,7 @@ export default async function Home() {
       <article className="wrapper">
         <HomeLogo />
         <div className="greeting__card__wrapper">
-          <GreetingCard
-            title="빅테크 채용 공고 확인하기"
-            description="네카라쿠배 채용 공고를 한 눈에 확인해보세요"
-            image={greeting_image_eyes}
-            navigate="web"
-          />
-          <GreetingCard
-            title="서비스 문의하기"
-            description="다양한 서비스들을 준비하고 있어요"
-            image={greeting_image_waving}
-            navigate="channel-talk"
-          />
+          <GreetingSwiper />
         </div>
         <Banner
           title="이제 네카라쿠배 빅테크 공고를 한 서비스에서 경험해보세요"
