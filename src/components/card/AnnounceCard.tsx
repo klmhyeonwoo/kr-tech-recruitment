@@ -22,6 +22,13 @@ export default function AnnounceCard({
     }
   };
 
+  const generateCompanyName = (item: RecruitData) => {
+    if (item.corporates.length > 0) {
+      return item.corporates[0].corporateName;
+    }
+    return item.companyName;
+  };
+
   return (
     <div className={styles.card__wrapper}>
       <h2> {title} </h2>
@@ -40,7 +47,7 @@ export default function AnnounceCard({
               }
             >
               <span> {scaledIndex(index + 1)} </span>
-              <span> {item.companyName} </span>
+              <span> {generateCompanyName(item)} </span>
               <span> · </span>
               <span> {item.jobOfferTitle} </span>
             </div>

@@ -7,7 +7,7 @@ type GreetingCardProps = {
   title: string;
   subTitle: string;
   description: string;
-  navigate?: "web" | "channel-talk" | "not-yet" | "release-notes";
+  navigate?: "web" | "channel-talk" | "not-yet" | "release-notes" | string;
   colorSet?: string[];
   image?: StaticImageData;
 };
@@ -31,7 +31,12 @@ function GreetingCard({
     } else if (navigate === "not-yet") {
       alert("아직 준비 중인 기능이에요.\n조금만 기다려 주세요.");
     } else if (navigate === "release-notes") {
-      window.open("https://github.com/klmhyeonwoo/awesome-dori/releases/");
+      window.open(
+        "https://github.com/klmhyeonwoo/awesome-dori/releases/",
+        "_blank"
+      );
+    } else if (navigate) {
+      window.open(navigate, "_blank");
     }
   };
 
