@@ -1,10 +1,9 @@
-import Banner from "@/components/common/banner";
-import { Fragment } from "react";
 import AnnounceCard from "@/components/card/AnnounceCard";
 import "@/styles/domain/main.scss";
 import { api } from "@/api";
 import HomeLogo from "@/components/common/home-logo";
 import GreetingSwiper from "@/components/swiper/GreetingSwiper";
+import QuestionBanner from "@/components/question/question-banner";
 
 export const dynamic = "force-dynamic";
 
@@ -85,21 +84,7 @@ export default async function Home() {
         <div className="greeting__card__wrapper">
           <GreetingSwiper />
         </div>
-        <Banner
-          title="이제 네카라쿠배 빅테크 공고를 한 서비스에서 경험해보세요"
-          description={
-            <Fragment>
-              <span>
-                네이버 · 카카오 · 라인 · 쿠팡 · 배달의민족 (nklcb) 등 다양한
-                국내 빅테크 기업들의 채용정보를 한 눈에 확인해보세요
-              </span>
-              <span>
-                매 공고 별 수집은 매일 업데이트 되며 빠르게 최신 공고를 모아볼
-                수 있어요.
-              </span>
-            </Fragment>
-          }
-        />
+        <QuestionBanner />
         <div className="announce__card__wrapper">
           {/* TODO: 새로 등록된 공고, 어제 올라온 공고 카드 섹션으로 제공하기 */}
           <AnnounceCard
