@@ -4,6 +4,9 @@ import styles from "@/styles/components/announce-card.module.scss";
 import { scaledIndex } from "@/utils/common";
 import { RecruitData } from "./Section";
 import NotDataSwimming from "../common/not-data";
+import Image from "next/image";
+import icon_arrow from "../../../public/icon/arrow_black.svg";
+import Link from "next/link";
 
 type AnnounceCardType = {
   title: string;
@@ -55,6 +58,15 @@ export default function AnnounceCard({
         ) : (
           <NotDataSwimming description="데이터가 존재하지 않아요" />
         )}
+        <Link href="/web" className={styles.card__more__data}>
+          <span> 더 많은 공고 보러가기 </span>
+          <Image
+            src={icon_arrow}
+            width={14}
+            height={14}
+            alt="더 많은 공고 보러가기"
+          />
+        </Link>
       </div>
     </div>
   );
