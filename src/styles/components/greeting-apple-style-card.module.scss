@@ -1,3 +1,5 @@
+@import "../animation.scss";
+
 .container {
   position: relative;
   width: 19rem;
@@ -12,6 +14,7 @@
   justify-content: flex-end;
   gap: 1.2rem;
   transition: background 0.6s ease-in-out;
+  animation: scaledFadeIn 0.8s ease-in-out;
 }
 
 .wave__background {
