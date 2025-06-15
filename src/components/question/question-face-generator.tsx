@@ -34,6 +34,7 @@ function QuestionFaceGenerator({ faceName }: QuestionFaceGeneratorTypes) {
         className={styles.question__member__face}
         width={20}
         height={20}
+        priority={true}
       />
     </div>
   );
