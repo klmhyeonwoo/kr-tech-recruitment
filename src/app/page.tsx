@@ -61,6 +61,15 @@ async function getPopularRecruitData({
   }
 }
 
+async function getHotIssueQuestionData() {
+  try {
+    const { data } = await api.get(`/hot-issues/activated-list`);
+    return data;
+  } catch (error) {
+    return { data: [], error };
+  }
+}
+
 export default async function Home() {
   const yesterday = new Date();
   yesterday.setDate(yesterday.getDate() - 1);
@@ -76,6 +85,8 @@ export default async function Home() {
     },
   });
 
+  const { list: hotIssueList } = await getHotIssueQuestionData();
+
   return (
     <section className="container">
       <article className="banner__wrapper">{/* 배너 영역 */}</article>
@@ -84,7 +95,7 @@ export default async function Home() {
         <div className="greeting__card__wrapper">
           <GreetingSwiper />
         </div>
-        <QuestionBanner />
+        <QuestionBanner questionData={hotIssueList?.[0]} />
         <div className="announce__card__wrapper">
           {/* TODO: 새로 등록된 공고, 어제 올라온 공고 카드 섹션으로 제공하기 */}
           <AnnounceCard
