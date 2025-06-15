@@ -7,6 +7,7 @@ import dog_face from "../../../public/images/face/dog.gif";
 import fox_face from "../../../public/images/face/fox.gif";
 import frog_face from "../../../public/images/face/frog.gif";
 import hamster_face from "../../../public/images/face/hamster.gif";
+import bug_face from "../../../public/images/face/bug.gif";
 
 interface QuestionFaceGeneratorTypes {
   faceName: "cat" | "cow" | "dog" | "fox" | "frog" | "hamster";
@@ -20,11 +21,15 @@ function QuestionFaceGenerator({ faceName }: QuestionFaceGeneratorTypes) {
     fox: fox_face,
     frog: frog_face,
     hamster: hamster_face,
+    bug: bug_face,
   } as const;
   return (
     <div className={styles.question__member__face__wrapper}>
       <Image
-        src={animalFaces[faceName]}
+        src={
+          animalFaces[faceName as keyof typeof animalFaces] ||
+          animalFaces["bug"]
+        }
         alt="동물 얼굴"
         className={styles.question__member__face}
         width={20}
