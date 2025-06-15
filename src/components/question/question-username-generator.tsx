@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import QuestionFaceGenerator from "./question-face-generator";
 import styles from "@/styles/components/question-banner.module.scss";
 import { handleScaledAnimalName } from "./question-banner";

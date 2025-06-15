@@ -27,7 +27,7 @@ function QuestionCommentGenerator({
   const [userComment, setUserComment] = useState("");
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
+    e: React.ChangeEvent<HTMLInputElement> | { target: { value: string } },
     { type }: { type: "nickName" | "userComment" }
   ) => {
     if (type === "nickName") {
