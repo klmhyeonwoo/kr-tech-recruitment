@@ -25,7 +25,6 @@ export default async function RootLayout({
     <section>
       <article className="content-wrapper">
         <div>
-          <HomeLogo />
           <Suspense>
             <TabSection data={companies} />
           </Suspense>

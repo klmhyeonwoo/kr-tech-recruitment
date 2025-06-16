@@ -91,7 +91,6 @@ export default async function Home() {
     <section className="container">
       <article className="banner__wrapper">{/* 배너 영역 */}</article>
       <article className="wrapper">
-        <HomeLogo />
         <div className="greeting__card__wrapper">
           <GreetingSwiper />
         </div>
