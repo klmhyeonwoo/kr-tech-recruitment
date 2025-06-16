@@ -9,7 +9,6 @@ import "@/styles/error.scss";
 import "@/styles/common.scss";
 import { baseMetaData } from "@/og";
 import SubscriptionPopup from "@/components/popup/subscription";
-import Header from "@/components/common/header";
 
 export const metadata: Metadata = baseMetaData;
 export const viewport: Viewport = {
@@ -41,7 +40,6 @@ export default async function RootLayout({
       <body>
         <div id="portal" />
         <SubscriptionPopup />
-        <Header />
         {children}
       </body>
     </html>
