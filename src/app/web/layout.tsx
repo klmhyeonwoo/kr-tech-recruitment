@@ -2,7 +2,6 @@ import { api } from "@/api";
 import { Suspense } from "react";
 import TabSection from "@/components/tab/Section";
 import "@/styles/domain/web.scss";
-import HomeLogo from "@/components/common/home-logo";
 
 async function getCompanyList() {
   try {
@@ -25,7 +24,6 @@ export default async function RootLayout({
     <section>
       <article className="content-wrapper">
         <div>
-          <HomeLogo />
           <Suspense>
             <TabSection data={companies} />
           </Suspense>

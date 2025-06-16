@@ -1,7 +1,6 @@
 import AnnounceCard from "@/components/card/AnnounceCard";
 import "@/styles/domain/main.scss";
 import { api } from "@/api";
-import HomeLogo from "@/components/common/home-logo";
 import GreetingSwiper from "@/components/swiper/GreetingSwiper";
 import QuestionBanner from "@/components/question/question-banner";
 
@@ -91,7 +90,6 @@ export default async function Home() {
     <section className="container">
       <article className="banner__wrapper">{/* 배너 영역 */}</article>
       <article className="wrapper">
-        <HomeLogo />
         <div className="greeting__card__wrapper">
           <GreetingSwiper />
         </div>
