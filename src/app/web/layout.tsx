@@ -1,7 +1,8 @@
 import { api } from "@/api";
-import { Suspense } from "react";
+import { Fragment, Suspense } from "react";
 import TabSection from "@/components/tab/Section";
 import "@/styles/domain/web.scss";
+import Header from "@/components/common/header";
 
 async function getCompanyList() {
   try {
@@ -21,15 +22,18 @@ export default async function RootLayout({
   const { companies } = await getCompanyList();
 
   return (
-    <section>
-      <article className="content-wrapper">
-        <div>
-          <Suspense>
-            <TabSection data={companies} />
-          </Suspense>
-          {children}
-        </div>
-      </article>
-    </section>
+    <Fragment>
+      <Header />
+      <section>
+        <article className="content-wrapper">
+          <div>
+            <Suspense>
+              <TabSection data={companies} />
+            </Suspense>
+            {children}
+          </div>
+        </article>
+      </section>
+    </Fragment>
   );
 }

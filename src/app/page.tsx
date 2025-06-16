@@ -3,6 +3,8 @@ import "@/styles/domain/main.scss";
 import { api } from "@/api";
 import GreetingSwiper from "@/components/swiper/GreetingSwiper";
 import QuestionBanner from "@/components/question/question-banner";
+import { Fragment } from "react";
+import Header from "@/components/common/header";
 
 export const dynamic = "force-dynamic";
 
@@ -87,28 +89,31 @@ export default async function Home() {
   const { list: hotIssueList } = await getHotIssueQuestionData();
 
   return (
-    <section className="container">
-      <article className="banner__wrapper">{/* 배너 영역 */}</article>
-      <article className="wrapper">
-        <div className="greeting__card__wrapper">
-          <GreetingSwiper />
-        </div>
-        <QuestionBanner questionData={hotIssueList?.[0]} />
-        <div className="announce__card__wrapper">
-          {/* TODO: 새로 등록된 공고, 어제 올라온 공고 카드 섹션으로 제공하기 */}
-          <AnnounceCard
-            title="새롭게 등록된 공고"
-            description="새롭게 등록된 오늘의 공고를 확인해보세요"
-            items={recentRecruitList}
-          />
-          <AnnounceCard
-            title="어제 인기있었던 공고"
-            description="어제 조회수가 높았던 공고를 확인해보세요"
-            items={popularRecruitList.slice(0, 10)}
-          />
-        </div>
-      </article>
-      <article className="banner__wrapper">{/* 배너 영역 */}</article>
-    </section>
+    <Fragment>
+      <Header />
+      <section className="container">
+        <article className="banner__wrapper">{/* 배너 영역 */}</article>
+        <article className="wrapper">
+          <div className="greeting__card__wrapper">
+            <GreetingSwiper />
+          </div>
+          <QuestionBanner questionData={hotIssueList?.[0]} />
+          <div className="announce__card__wrapper">
+            {/* TODO: 새로 등록된 공고, 어제 올라온 공고 카드 섹션으로 제공하기 */}
+            <AnnounceCard
+              title="새롭게 등록된 공고"
+              description="새롭게 등록된 오늘의 공고를 확인해보세요"
+              items={recentRecruitList}
+            />
+            <AnnounceCard
+              title="어제 인기있었던 공고"
+              description="어제 조회수가 높았던 공고를 확인해보세요"
+              items={popularRecruitList.slice(0, 10)}
+            />
+          </div>
+        </article>
+        <article className="banner__wrapper">{/* 배너 영역 */}</article>
+      </section>
+    </Fragment>
   );
 }
