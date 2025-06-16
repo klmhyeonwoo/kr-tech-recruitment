@@ -1,7 +1,6 @@
 import AnnounceCard from "@/components/card/AnnounceCard";
 import "@/styles/domain/main.scss";
 import { api } from "@/api";
-import HomeLogo from "@/components/common/home-logo";
 import GreetingSwiper from "@/components/swiper/GreetingSwiper";
 import QuestionBanner from "@/components/question/question-banner";
 
