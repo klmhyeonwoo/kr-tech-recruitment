@@ -18,7 +18,7 @@ function GreetingSwiper() {
       spaceBetween={170}
       slidesPerView={2.5}
       loop={true}
-      speed={1500}
+      speed={2500}
       autoplay={{ delay: 2000, disableOnInteraction: false }}
       pagination={{ clickable: true }}
       modules={[Autoplay, Pagination, Navigation]}
@@ -43,9 +43,9 @@ function GreetingSwiper() {
         <GreetingCard
           title="빅테크 공고 모아보기"
           subTitle="빅테크 채용관"
-          description="네카라쿠배당토 · 게임사 등 국내 빅테크 기업들의 채용 공고를 한 눈에 확인해보세요"
+          description="네카라쿠배당토 · 몰두센 · 게임사 등 국내 빅테크 기업들의 채용 공고를 한 눈에 확인해보세요"
           navigate="web"
-          colorSet={["#16222A", "#3A6073"]}
+          colorSet={["#43cbff", "#9708cc"]}
           image={greeting_image_eyes}
         />
       </SwiperSlide>
@@ -86,17 +86,6 @@ function GreetingSwiper() {
           navigate="/recruitment-notices?id=2905&path=aHR0cHM6Ly93d3cuY291cGFuZy5qb2JzL2tyL2pvYnMvNjg5NjMyMQ=="
           description="쿠팡 이츠에서 모바일과 백엔드 개발자를 대상으로 신입 개발자 채용을 진행하고 있어요."
           colorSet={["#FF512F", "#DD2476"]}
-          image={greeting_image_popper}
-        />
-      </SwiperSlide>
-      {/* TODO: 네이버 파이낸셜 스크래핑이 완료되면 서비스 도메인 주소로 변경하기 */}
-      <SwiperSlide>
-        <GreetingCard
-          title="네이버 파이낸셜 채용 연계형 인턴 채용"
-          subTitle="따끈한 소식의 채용 연계형 인턴"
-          navigate="https://recruit.naverfincorp.com/rcrt/view.do?annoId=30003471&sw=&subJobCdArr=&sysCompanyCdArr=&empTypeCdArr=&entTypeCdArr=&workAreaCdArr="
-          description="네이버 파이낸셜에서 채용 연계형 인턴을 모집하고 있어요. 다양한 분야의 인턴십 기회를 확인해보세요."
-          colorSet={["#FA8BFF", "#2BD2FF"]}
           image={greeting_image_popper}
         />
       </SwiperSlide>
