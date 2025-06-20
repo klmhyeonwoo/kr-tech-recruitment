@@ -6,14 +6,14 @@ import { ChangeEvent } from "react";
 import { useAtom } from "jotai";
 import { SEARCH_KEYWORD_STORE } from "../../store";
 
-type SectionType = {
+export type SearchSectionType = {
   data: {
     code: string;
     name: string;
   }[];
 };
 
-function SearchSection({ data }: SectionType) {
+function SearchSection({ data }: SearchSectionType) {
   const [value, setValue] = useAtom(SEARCH_KEYWORD_STORE);
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
@@ -26,10 +26,7 @@ function SearchSection({ data }: SectionType) {
         value={value}
         onChange={handleChange}
       />
-      <Select
-        data={data}
-        placeholder={`해당 기업이 제공하는 카테고리 (${data.length})`}
-      />
+      <Select data={data} placeholder={`직무 카테고리 (${data.length})`} />
     </div>
   );
 }
