@@ -1,7 +1,6 @@
 import { SERVICE_CATEGORY } from "@/utils/const";
 import { api } from "@/api";
 import CardSection from "@/components/card/Section";
-import SearchSection from "@/components/search/Section";
 import type { Metadata } from "next";
 import { Fragment, Suspense } from "react";
 import EyesLoading from "@/components/loading/eyes-loading";
@@ -21,15 +20,6 @@ export async function generateMetadata({
   return generateServiceOpenGraph({
     companyName: companyName,
   });
-}
-
-async function getStandardRecruitData() {
-  try {
-    const { data } = await api.get(`/companies/standard-categories`);
-    return data;
-  } catch (error) {
-    return { data: [], error };
-  }
 }
 
 async function getRecruitData({
@@ -68,11 +58,8 @@ async function RecruitDataSection({
   company: string;
   category: string;
 }) {
-  const { list } = await getStandardRecruitData();
-
   return (
     <Fragment>
-      <SearchSection data={list || []} />
       <Suspense key={`${company}-${category}`} fallback={<EyesLoading />}>
         <RecruitListSection company={company} category={category} />
       </Suspense>

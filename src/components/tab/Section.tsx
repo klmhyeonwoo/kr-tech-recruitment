@@ -3,7 +3,7 @@ import styles from "@/styles/components/tab.module.scss";
 import Tab from "./Tab";
 import useTab from "@/hooks/useTab";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { useAtom } from "jotai";
 import { SEARCH_KEYWORD_STORE } from "../../store";
 
@@ -45,7 +45,7 @@ function TabSection({ data, currentIndex }: TabData) {
     const params = new URLSearchParams(searchParams.toString());
     params.set("company", data[index].companyCode);
     // 카테고리 이동 시 기존 카테고리 및 키워드 파라미터를 제거
-    if (params.has("category")) params.delete("category");
+    // if (params.has("category")) params.delete("category");
     if (keyword) setKeyword("");
     router.replace(`${pathname}/?${params.toString()}`);
   };
@@ -61,6 +61,10 @@ function TabSection({ data, currentIndex }: TabData) {
       }),
     [data]
   );
+
+  useEffect(() => {
+    setTab(getCompanyCodeArray(data).indexOf(company));
+  }, [company]);
 
   return (
     <div className={styles.tab__container}>

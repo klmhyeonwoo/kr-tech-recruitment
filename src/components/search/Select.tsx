@@ -43,6 +43,11 @@ function Select({ data, placeholder, isIcon = true, ...props }: SelectType) {
     setIsOpenFilter(true);
   };
 
+  const handleCleanUpFilter = (event: React.MouseEvent<HTMLImageElement>) => {
+    event.stopPropagation();
+    removeSelectedFilter();
+  };
+
   const handleCloseSelect = (item: string) => {
     setIsOpenFilter(false);
     setSelectedGlobalFilter(item);
@@ -79,7 +84,7 @@ function Select({ data, placeholder, isIcon = true, ...props }: SelectType) {
             alt={placeholder}
             width={12}
             height={12}
-            onClick={removeSelectedFilter}
+            onClick={handleCleanUpFilter}
           />
         ) : (
           <Image
