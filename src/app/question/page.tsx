@@ -3,6 +3,8 @@ import QuestionCommentPost from "@/components/question/question-comment-post";
 import QuestionTitle from "@/components/question/question-title";
 import { Fragment } from "react";
 
+export const dynamic = "force-dynamic";
+
 async function getHotIssueQuestionData() {
   try {
     const { data } = await hotIssue.getActivatedList();
