@@ -10,6 +10,7 @@ export default function EyesLoading() {
         width={40}
         height={40}
         alt="데이터를 로딩중이에요"
+        priority={true}
       />
     </div>
   );

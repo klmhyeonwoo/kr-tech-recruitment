@@ -7,7 +7,13 @@ type GreetingCardProps = {
   title: string;
   subTitle: string;
   description: string;
-  navigate?: "web" | "channel-talk" | "not-yet" | "release-notes" | string;
+  navigate?:
+    | "web"
+    | "channel-talk"
+    | "not-yet"
+    | "release-notes"
+    | "question"
+    | string;
   colorSet?: string[];
   image?: StaticImageData;
 };
@@ -24,8 +30,8 @@ function GreetingCard({
   const [firstColor, secondColor] = colorSet;
 
   const handleNavigate = () => {
-    if (navigate === "web") {
-      router.push("/web");
+    if (["web", "question"].includes(navigate!)) {
+      router.push(navigate!);
     } else if (navigate === "channel-talk") {
       window.open("https://6oo1v.channel.io/home", "_blank");
     } else if (navigate === "not-yet") {
