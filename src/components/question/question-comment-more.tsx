@@ -20,6 +20,7 @@ export default function QuestionCommentMore() {
         setIsVisible(isVisible);
 
         if (circleRef.current && isVisible) {
+          moreContainerRef.current?.setAttribute("data-visible", "true");
           const scrollProgress = Math.max(0, windowHeight - containerTop);
           const normalizedProgress = scrollProgress / 100;
           const scale = 0.5 + normalizedProgress * 1.5;
@@ -31,25 +32,19 @@ export default function QuestionCommentMore() {
     };
 
     window.addEventListener("scroll", handleScroll);
+    handleScroll();
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
-  useEffect(() => {
-    if (isVisible) {
-      moreContainerRef.current?.setAttribute("data-visible", "true");
-    } else {
-      moreContainerRef.current?.setAttribute("data-visible", "false");
-    }
-  }, [isVisible]);
-
   return (
     <Link
       href={"/question"}
       className={styles.question__comment__more__container}
       ref={moreContainerRef}
+      data-visible={isVisible}
     >
       <div className={styles.question__comment__circle} ref={circleRef} />
       <span>다른 사람들은 어떤 고민들을 하고 있을까요?</span>

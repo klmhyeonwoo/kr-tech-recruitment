@@ -173,6 +173,13 @@
   color: var(--grey100);
   background-color: var(--blue400);
 
+  &[data-visible="false"] {
+    span,
+    .question__comment__more__link {
+      opacity: 0;
+    }
+  }
+
   &[data-visible="true"] {
     z-index: 1;
 
