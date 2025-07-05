@@ -5,6 +5,7 @@ import GreetingSwiper from "@/components/swiper/GreetingSwiper";
 import QuestionBanner from "@/components/question/question-banner";
 import { Fragment } from "react";
 import Header from "@/components/common/header";
+import hotIssue from "@/api/domain/hotIssue";
 
 export const dynamic = "force-dynamic";
 
@@ -64,7 +65,7 @@ async function getPopularRecruitData({
 
 async function getHotIssueQuestionData() {
   try {
-    const { data } = await api.get(`/hot-issues/activated-list`);
+    const { data } = await hotIssue.getActivatedList();
     return data;
   } catch (error) {
     return { data: [], error };
