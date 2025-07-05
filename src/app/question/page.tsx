@@ -1,8 +1,6 @@
 import hotIssue from "@/api/domain/hotIssue";
-import QuestionCommentList from "@/components/question/question-comment-list";
 import QuestionCommentPost from "@/components/question/question-comment-post";
 import QuestionTitle from "@/components/question/question-title";
-import styles from "@/styles/components/question-banner.module.scss";
 import { Fragment } from "react";
 
 async function getHotIssueQuestionData() {
