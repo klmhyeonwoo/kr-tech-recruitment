@@ -141,7 +141,7 @@ function QuestionBanner({ questionData }: QuestionTypes) {
         <div className={styles.question__banner__wrapper}>
           <div className={styles.question__question__container}>
             {localQuestionData.comments.length > 0 ? (
-              localQuestionData.comments.slice(0, 5).map((item) => {
+              localQuestionData.comments.map((item) => {
                 return (
                   <div
                     className={styles.question__member__container}
