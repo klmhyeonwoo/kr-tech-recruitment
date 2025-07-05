@@ -19,4 +19,7 @@ export default {
   getActivatedList: () => {
     return api.get("/hot-issues/activated-list");
   },
+  getCommentsList: ({ questionId }: { questionId: number }) => {
+    return api.get(`/hot-issues/${questionId}`);
+  },
 };
