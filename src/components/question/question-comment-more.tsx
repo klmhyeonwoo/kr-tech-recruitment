@@ -3,17 +3,12 @@ import styles from "@/styles/components/question-banner.module.scss";
 import Image from "next/image";
 import icon_arrow from "../../../public/icon/arrow_white.svg";
 import { useEffect, useRef, useState } from "react";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function QuestionCommentMore() {
-  const moreContainerRef = useRef<HTMLDivElement>(null);
+  const moreContainerRef = useRef<HTMLAnchorElement>(null);
   const circleRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
-  const router = useRouter();
-
-  const handleMoveCommentPath = () => {
-    router.push("question");
-  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -51,10 +46,10 @@ export default function QuestionCommentMore() {
   }, [isVisible]);
 
   return (
-    <div
+    <Link
+      href={"/question"}
       className={styles.question__comment__more__container}
       ref={moreContainerRef}
-      onClick={handleMoveCommentPath}
     >
       <div className={styles.question__comment__circle} ref={circleRef} />
       <span>다른 사람들은 어떤 고민들을 하고 있을까요?</span>
@@ -68,6 +63,6 @@ export default function QuestionCommentMore() {
           alt="더 많은 답변 보러가기"
         />
       </div>
-    </div>
+    </Link>
   );
 }
