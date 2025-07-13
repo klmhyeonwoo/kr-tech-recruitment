@@ -40,6 +40,7 @@ export const handleScaledAnimalName = ({ name }: { name: string }) => {
 };
 
 function QuestionBanner({ questionData }: QuestionTypes) {
+  if (!questionData) return null;
   return (
     <div>
       <div className={styles.question__banner__container}>
