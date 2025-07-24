@@ -19,6 +19,7 @@ const scaledPositionName = (originalName: string) => {
     SALES: "영업",
     PM_PO: "PM/PO",
     ART: "아트",
+    MARKETING: "마케팅",
     GAME_DESIGN: "게임 디자인",
     GAME_PROGRAMMING: "게임 개발",
   };
