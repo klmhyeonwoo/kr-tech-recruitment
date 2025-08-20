@@ -6,6 +6,7 @@ import styles from "@/styles/components/list.module.scss";
 
 interface listItemProps {
   title: string;
+  content: string;
   writer: string;
   date: string;
   commentCount: number;
@@ -14,6 +15,7 @@ interface listItemProps {
 
 export default function ListItem({
   title,
+  content,
   writer,
   date,
   commentCount,
@@ -22,6 +24,7 @@ export default function ListItem({
   return (
     <div className={styles.item__container}>
       <span className={styles.title}>{title}</span>
+      <span className={styles.content}>{content}</span>
       <div className={styles.util__container}>
         <span>
           {writer} · {date}
@@ -30,8 +33,8 @@ export default function ListItem({
           <Image
             src={ellipsis_icon}
             alt="ellipsis icon"
-            width={25}
-            height={25}
+            width={20}
+            height={20}
           />
           <span>{commentCount}</span>
         </div>
