@@ -1,15 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import mock from "@/mock/hot-community.json";
 import ListItem from "./list-item";
 import styles from "@/styles/components/list.module.scss";
 import volt_gif from "../../../public/images/volt.gif";
 import Image from "next/image";
+import community from "@/api/domain/community";
 
 export default function HotListItem() {
-  console.log("HotListItem data:", mock);
   const { data } = mock;
 
-  console.log(data);
+  useEffect(() => {
+    (async () => {
+      const { status, data } = await community.bestList();
+      console.log(status, data);
+    })();
+  }, []);
 
   return (
     <div className={styles.hot__list__container}>

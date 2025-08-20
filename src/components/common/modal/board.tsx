@@ -7,15 +7,19 @@ import Image from "next/image";
 import Input from "@/components/search/Input";
 import Button from "../button";
 import Textarea from "@/components/search/Textarea";
+import community from "@/api/domain/community";
+import useClickOutside from "@/hooks/useClickOutside";
 
 interface BoardProps {
-  showModal: React.Dispatch<React.SetStateAction<boolean>>;
+  closeModal: () => void;
+  refreshData: () => void;
 }
 
-export default function Board({ showModal }: BoardProps) {
+export default function Board({ refreshData, closeModal }: BoardProps) {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
     const el = textareaRef.current;
@@ -24,12 +28,22 @@ export default function Board({ showModal }: BoardProps) {
     el.style.height = `${el.scrollHeight}px`;
   }, [content]);
 
+  useClickOutside({
+    ref: containerRef as React.RefObject<HTMLElement>,
+    callback: () => {
+      closeModal();
+    },
+  });
+
   const handleClose = () => {
-    showModal(false);
+    closeModal();
     handleCleanUp();
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
+    const { status, data } = await community.createBoard({ title, content });
+    console.log(status, data);
+    refreshData();
     handleClose();
   };
 
@@ -41,7 +55,7 @@ export default function Board({ showModal }: BoardProps) {
   return (
     <Portal id="portal" antiScroll={true}>
       <div className={styles.modal__container}>
-        <div className={styles.modal__wrapper}>
+        <div className={styles.modal__wrapper} ref={containerRef}>
           <div className={styles.modal__header}>
             <Image src={star_icon} alt="별 아이콘" width={50} height={50} />
             <span>

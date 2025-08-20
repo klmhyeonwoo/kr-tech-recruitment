@@ -9,6 +9,7 @@ import {
   handleKakaoSocialLogin,
 } from "@/utils/socialUtil";
 import Cookies from "js-cookie";
+import user from "@/api/domain/user";
 
 const AVATAR_NAMES = [
   "Maya Angelou",
@@ -34,10 +35,13 @@ export default function UserStatusBlock() {
     if (isLogin) {
       (async () => {
         try {
-          const response = await window.Kakao.API.request({
+          await window.Kakao.API.request({
             url: "/v2/user/me",
           });
-          setUserName(response.kakao_account.profile.nickname);
+          const { status, data } = await user.userInfo();
+          if (status === 200) {
+            setUserName(data.nickname);
+          }
         } catch (error) {
           console.error("Failed to fetch user info:", error);
           Cookies.remove("nklcb__tk");

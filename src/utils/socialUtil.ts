@@ -6,7 +6,7 @@ const handleKakaoSocialLogin = () => {
 
 const checkInitializedKakaoSDK = () => {
   if (!window.Kakao?.isInitialized()) {
-    window.Kakao.init(process.env.NEXT_KAKAO_JAVASCRIPT_KEY);
+    window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_JAVASCRIPT_KEY);
   }
 };
 

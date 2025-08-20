@@ -14,7 +14,7 @@ export default async function Page() {
         description="커뮤니티에서 여러분들의 고민과 노하우들을 자유롭게 이야기해보세요"
       />
       <UserStatusBlock />
-      <List data={data} />
+      <List />
     </Fragment>
   );
 }
