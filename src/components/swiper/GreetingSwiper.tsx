@@ -64,7 +64,7 @@ function GreetingSwiper() {
           title="취업 및 이직 커뮤니티"
           subTitle="커뮤니티 참여하기"
           description="커뮤니티를 통해 여러분들의 생각과 다른 사람들과 이야기하며 다양한 의견을 나누어보세요."
-          navigate="not-yet"
+          navigate="community"
           colorSet={["#1E40AF", "#3B82F6"]}
           image={greeting_image_earth}
         />
