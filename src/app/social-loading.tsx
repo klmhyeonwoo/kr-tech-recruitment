@@ -4,7 +4,6 @@ import styles from "@/styles/components/loading.module.scss";
 import EyesLoading from "@/components/loading/eyes-loading";
 import social from "@/api/domain/social";
 import { api } from "@/api";
-import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 import { checkInitializedKakaoSDK } from "@/utils/socialUtil";
 import useUser from "@/hooks/useUser";
