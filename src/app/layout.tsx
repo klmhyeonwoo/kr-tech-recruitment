@@ -9,6 +9,7 @@ import "@/styles/error.scss";
 import "@/styles/common.scss";
 import { baseMetaData } from "@/og";
 import SubscriptionPopup from "@/components/popup/subscription";
+import KakaoScript from "@/components/auth/kakao-script";
 
 export const metadata: Metadata = baseMetaData;
 export const viewport: Viewport = {
@@ -32,12 +33,6 @@ export default async function RootLayout({
         crossOrigin="anonymous"
       ></script>
       <script
-        async
-        src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.6/kakao.min.js"
-        integrity="sha384-WAtVcQYcmTO/N+C1N+1m6Gp8qxh+3NlnP7X1U7qP6P5dQY/MsRBNTh+e1ahJrkEm"
-        crossOrigin="anonymous"
-      ></script>
-      <script
         type="text/javascript"
         src="//t1.daumcdn.net/kas/static/ba.min.js"
         async
@@ -48,6 +43,7 @@ export default async function RootLayout({
         <SubscriptionPopup />
         {children}
       </body>
+      <KakaoScript />
     </html>
   );
 }
