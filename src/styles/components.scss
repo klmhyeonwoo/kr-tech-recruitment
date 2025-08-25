@@ -1,3 +1,10 @@
 .custom-button {
   background-color: red;
 }
+
+.spacer__line {
+  width: 95%;
+  height: 0.15rem;
+  background-color: var(--greyOpacity200);
+  margin: 3rem auto;
+}

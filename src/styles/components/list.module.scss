@@ -39,6 +39,14 @@
     }
   }
 
+  .list__item__container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+    min-height: 30rem;
+  }
+
   .list__more {
     width: 100%;
     display: flex;
@@ -71,11 +79,28 @@
   border-radius: 1.2rem;
   transition: all 0.4s ease;
 
-  .title {
-    font-size: 2.1rem;
-    font-weight: 600;
-    color: #333d4b;
+  .title__wrapper {
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.8rem;
     margin-bottom: 1rem;
+
+    .my__post__flag {
+      color: #fa7979;
+      font-weight: 300;
+      font-size: 1.4rem;
+    }
+
+    .title {
+      font-size: 2.1rem;
+      font-weight: 600;
+      color: #333d4b;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+    }
   }
 
   .content {
