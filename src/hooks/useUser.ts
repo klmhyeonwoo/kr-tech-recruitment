@@ -12,6 +12,7 @@ export default function useUser() {
 
   const logout = () => {
     Cookies.remove("nklcb__tk");
+    Cookies.remove("nklcb__un");
     setIsLogin(false);
   };
 
