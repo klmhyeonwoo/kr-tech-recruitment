@@ -1,7 +1,9 @@
 const handleKakaoSocialLogin = () => {
-  window.Kakao.Auth.authorize({
-    redirectUri: `${window.document.location.origin}/auth`,
-  });
+  if (typeof window !== "undefined" && window.Kakao) {
+    window.Kakao.Auth.authorize({
+      redirectUri: `${window.document.location.origin}/auth`,
+    });
+  }
 };
 
 const checkInitializedKakaoSDK = () => {
