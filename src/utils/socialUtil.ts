@@ -1,6 +1,6 @@
 const handleKakaoSocialLogin = () => {
   window.Kakao.Auth.authorize({
-    redirectUri: "http://localhost:3000/auth",
+    redirectUri: `${window.document.location.origin}/auth`,
   });
 };
 
