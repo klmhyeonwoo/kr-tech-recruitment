@@ -2,6 +2,8 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   width: 100%;
+  gap: 1rem;
+  align-items: start;
 
   &[data-exists="false"] {
     display: flex;
@@ -10,8 +12,6 @@
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
   }
-  gap: 1rem;
-  align-items: start;
 }
 
 .card__section > * {

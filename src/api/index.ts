@@ -38,7 +38,7 @@ const onError = (status: number, message: string, data?: ErrorResponse) => {
 const onRequest = (
   config: AxiosRequestConfig
 ): Promise<InternalAxiosRequestConfig> => {
-  const token = Cookies.get("accessToken");
+  const token = Cookies.get("nklcb__tk");
   const { method, url, headers = {} } = config;
   headers.Authorization = token ? `Bearer ${token}` : "";
   logOnDev(`[API REQUEST] ${method?.toUpperCase()} ${url}`);

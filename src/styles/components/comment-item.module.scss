@@ -1,0 +1,25 @@
+.comment__item__container {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--grey50);
+  width: 100%;
+  height: fit-content;
+  border-radius: 1rem;
+  padding: 2rem;
+  row-gap: 1rem;
+  box-sizing: border-box;
+
+  .comment__content {
+    word-break: break-all;
+    line-height: 1.6;
+    font-size: 1.6rem;
+    font-weight: 400;
+  }
+
+  .comment__info__wrapper {
+    display: flex;
+    align-items: center;
+    column-gap: 0.5rem;
+    color: var(--greyOpacity500);
+  }
+}

@@ -4,9 +4,8 @@ import React from "react";
 import DefaultLayout from "../layout/DefaultLayout";
 
 export const metadata: Metadata = {
-  title: "이번 질문 답변하기",
-  description:
-    "이번 주 질문을 통해 여러분의 생각을 익명으로 나눠보세요. 다른 사람들의 의견도 확인할 수 있어요.",
+  title: "커뮤니티",
+  description: "커뮤니티",
 };
 
 export default async function RootLayout({

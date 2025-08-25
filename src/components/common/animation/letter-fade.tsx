@@ -1,4 +1,4 @@
-import { motion } from "motion/react";
+import { motion, easeInOut } from "motion/react";
 import { ElementType } from "react";
 
 type MotionTextProps = {
@@ -32,8 +32,8 @@ export default function LetterFade({
       x: 0,
       y: 3,
       transition: {
-        type: "tween",
-        ease: "easeInOut",
+        type: "tween" as const,
+        ease: easeInOut,
         duration: 0.3,
       },
     },
@@ -42,8 +42,8 @@ export default function LetterFade({
       x: 0,
       y: 0,
       transition: {
-        type: "tween",
-        ease: "easeInOut",
+        type: "tween" as const,
+        ease: easeInOut,
         duration: 0.3,
       },
     },
