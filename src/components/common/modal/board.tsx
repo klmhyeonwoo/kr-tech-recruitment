@@ -69,6 +69,7 @@ export default function Board({ refreshData, closeModal }: BoardProps) {
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               isIcon={false}
+              maxLength={69}
             />
           </div>
           <div className={styles.modal__content}>
@@ -78,6 +79,7 @@ export default function Board({ refreshData, closeModal }: BoardProps) {
               value={content}
               onChange={(e) => setContent(e.target.value)}
               ref={textareaRef}
+              maxLength={2999}
             />
           </div>
           <div className={styles.button__container}>

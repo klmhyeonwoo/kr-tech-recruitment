@@ -9,7 +9,6 @@ import "@/styles/error.scss";
 import "@/styles/common.scss";
 import { baseMetaData } from "@/og";
 import SubscriptionPopup from "@/components/popup/subscription";
-import Script from "next/script";
 
 export const metadata: Metadata = baseMetaData;
 export const viewport: Viewport = {

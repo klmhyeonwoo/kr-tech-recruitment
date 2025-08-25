@@ -2,6 +2,7 @@
 import styles from "@/styles/components/greeting-apple-style-card.module.scss";
 import Image, { StaticImageData } from "next/image";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 type GreetingCardProps = {
   title: string;
@@ -10,6 +11,7 @@ type GreetingCardProps = {
   navigate?:
     | "web"
     | "channel-talk"
+    | "community"
     | "not-yet"
     | "release-notes"
     | "question"
@@ -31,11 +33,13 @@ function GreetingCard({
 
   const handleNavigate = () => {
     if (["web", "question"].includes(navigate!)) {
-      router.push(navigate!);
+      router.replace(navigate!);
     } else if (navigate === "channel-talk") {
       window.open("https://6oo1v.channel.io/home", "_blank");
     } else if (navigate === "not-yet") {
       alert("아직 준비 중인 기능이에요.\n조금만 기다려 주세요.");
+    } else if (navigate === "community") {
+      router.replace("/community");
     } else if (navigate === "release-notes") {
       window.open(
         "https://github.com/klmhyeonwoo/awesome-dori/releases/",
@@ -45,6 +49,12 @@ function GreetingCard({
       window.open(navigate, "_blank");
     }
   };
+
+  useEffect(() => {
+    if (navigate && ["web", "question", "community"].includes(navigate)) {
+      router.prefetch(`/${navigate}`);
+    }
+  }, [navigate, router]);
 
   return (
     <div

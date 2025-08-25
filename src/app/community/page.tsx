@@ -1,12 +1,9 @@
 import Title from "@/components/commnuity/title";
 import UserStatusBlock from "@/components/commnuity/user-status-block";
 import React, { Fragment } from "react";
-import mock from "@/mock/community.json";
 import List from "@/components/commnuity/list";
 
 export default async function Page() {
-  const { data } = mock;
-
   return (
     <Fragment>
       <Title

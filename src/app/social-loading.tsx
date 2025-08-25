@@ -7,9 +7,11 @@ import { api } from "@/api";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 import { checkInitializedKakaoSDK } from "@/utils/socialUtil";
+import useUser from "@/hooks/useUser";
 
 function SocialLoading() {
   const router = useRouter();
+  const { login } = useUser();
 
   useEffect(() => {
     (async () => {
@@ -34,7 +36,7 @@ function SocialLoading() {
           const { access_token } = data;
           window.Kakao.Auth.setAccessToken(access_token);
           const response = await social.kakao({ token: access_token });
-          Cookies.set("nklcb__tk", response.data.accessToken);
+          login(response.data.accessToken);
           router.replace("/community");
         }
       }

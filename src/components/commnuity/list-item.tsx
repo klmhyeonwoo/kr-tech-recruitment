@@ -1,48 +1,51 @@
+"use client";
 import React from "react";
-import ellipsis_icon from "../../../public/icon/commnuity/ellipsis.svg";
-import heart from "../../../public/icon/commnuity/heart.svg";
-import Image from "next/image";
 import styles from "@/styles/components/list.module.scss";
-
+import BoardInfo from "./board-info";
+import Link from "next/link";
+import Cookies from "js-cookie";
+import dateUtil from "@/utils/dateUtil";
 interface listItemProps {
+  id: number;
   title: string;
   content: string;
   writer: string;
+  writerId: number;
   date: string;
   commentCount: number;
   likeCount: number;
 }
 
 export default function ListItem({
+  id,
   title,
   content,
   writer,
+  writerId,
   date,
   commentCount,
   likeCount,
 }: listItemProps) {
+  const userId = Cookies.get("nklcb__un");
+  const isMyPost = userId === writerId.toString();
+
   return (
-    <div className={styles.item__container}>
-      <span className={styles.title}>{title}</span>
+    <Link className={styles.item__container} href={`/community/detail/${id}`}>
+      <div className={styles.title__wrapper}>
+        <span className={styles.title}>{title}</span>
+        {isMyPost && (
+          <span className={styles.my__post__flag}>
+            내가 작성한 글이 여기있어요!
+          </span>
+        )}
+      </div>
       <span className={styles.content}>{content}</span>
       <div className={styles.util__container}>
         <span>
-          {writer} · {date}
+          {writer} · {dateUtil.formattedDate(date)}
         </span>
-        <div className={styles.util__wrapper}>
-          <Image
-            src={ellipsis_icon}
-            alt="ellipsis icon"
-            width={20}
-            height={20}
-          />
-          <span>{commentCount}</span>
-        </div>
-        <div className={styles.util__wrapper}>
-          <Image src={heart} alt="heart icon" width={25} height={25} />
-          <span>{likeCount}</span>
-        </div>
+        <BoardInfo commentCount={commentCount} likeCount={likeCount} />
       </div>
-    </div>
+    </Link>
   );
 }
