@@ -17,6 +17,7 @@
     "google": "link:@next/third-parties/google",
     "jotai": "^2.12.3",
     "js-cookie": "^3.0.5",
+    "kr-corekit": "^0.0.8",
     "motion": "^12.15.0",
     "next": "15.1.7",
     "react": "^19.0.0",

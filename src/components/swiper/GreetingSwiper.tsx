@@ -6,10 +6,13 @@ import greeting_image_popper from "../../../public/images/popper.gif";
 import greeting_image_earth from "../../../public/images/earth.png";
 import GreetingCard from "../common/greeting-card";
 import Marquee from "react-fast-marquee";
+import { getDevice } from "kr-corekit";
 
 function GreetingSwiper() {
+  const isMobile = typeof window !== "undefined" ? getDevice().isMobile : false;
+
   return (
-    <Marquee speed={50} gradient={false} pauseOnHover={true}>
+    <Marquee speed={80} gradient={false} pauseOnHover={isMobile ? false : true}>
       <div className="d-flex column-gap-3 ml-3">
         <GreetingCard
           title="빅테크 공고 모아보기"

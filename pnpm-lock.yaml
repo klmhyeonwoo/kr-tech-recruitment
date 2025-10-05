@@ -32,6 +32,9 @@ importers:
       js-cookie:
         specifier: ^3.0.5
         version: 3.0.5
+      kr-corekit:
+        specifier: ^0.0.8
+        version: 0.0.8
       motion:
         specifier: ^12.15.0
         version: 12.23.9(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -1347,6 +1350,9 @@ packages:
 
   keyv@4.5.4:
     resolution: {integrity: sha512-oxVHkHR/EJf2CNXnWxRLW6mg7JyCCUcG0DtEGmL2ctUo1PNTin1PUil+r/+4r5MpVgC/fn1kjsx7mjSujKqIpw==}
+
+  kr-corekit@0.0.8:
+    resolution: {integrity: sha512-7GzCWdsMFj5I1zOiWjmR3pInbfbq7K8r8hPHOqmDsdwyx4qPxYxlL8gRhXnRYNyE06VGAXIuepYYBjwdUZMfqQ==}
 
   language-subtag-registry@0.3.23:
     resolution: {integrity: sha512-0K65Lea881pHotoGEa5gDlMxt3pctLi2RplBb7Ezh4rRdLEOtgi7n4EwK9lamnUCkKBqaeKRVebTq6BAxSkpXQ==}
@@ -3195,6 +3201,8 @@ snapshots:
   keyv@4.5.4:
     dependencies:
       json-buffer: 3.0.1
+
+  kr-corekit@0.0.8: {}
 
   language-subtag-registry@0.3.23: {}
 
