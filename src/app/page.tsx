@@ -7,6 +7,9 @@ import { Fragment } from "react";
 import Header from "@/components/common/header";
 import hotIssue from "@/api/domain/hotIssue";
 import AdsSection from "@/components/ads/AdsSection";
+import community from "@/api/domain/community";
+import ListItem from "@/components/commnuity/list-item";
+import { ListProps } from "@/components/commnuity/list";
 
 export const dynamic = "force-dynamic";
 
@@ -31,6 +34,18 @@ async function getRecruitData({
       })),
     };
     return scaledData;
+  } catch (error) {
+    return { data: [], error };
+  }
+}
+
+async function getCommunityData() {
+  try {
+    const { data } = await community.standardList({
+      page: 0,
+      pageSize: 3,
+    });
+    return data;
   } catch (error) {
     return { data: [], error };
   }
@@ -89,6 +104,7 @@ export default async function Home() {
   });
 
   const { list: hotIssueList } = await getHotIssueQuestionData();
+  const { list: communityList } = await getCommunityData();
 
   return (
     <Fragment>
@@ -101,6 +117,25 @@ export default async function Home() {
           </div>
           <AdsSection />
           <QuestionBanner questionData={hotIssueList?.[0]} />
+          <div className="d-flex flex-column row-gap-2">
+            <span className="title"> 최근 커뮤니티 게시글 </span>
+            <span className="description">
+              다양한 주제로 올라온 게시글들을 확인해보세요
+            </span>
+            {communityList.map((item: ListProps["list"][number]) => (
+              <ListItem
+                key={item.boardId}
+                id={item.boardId}
+                title={item.title}
+                content={item.content}
+                writer={item.nickname}
+                writerId={item.userId}
+                date={item.createdAt}
+                commentCount={item.comments.length}
+                likeCount={item.likes.length}
+              />
+            ))}
+          </div>
           <div className="announce__card__wrapper">
             {/* TODO: 새로 등록된 공고, 어제 올라온 공고 카드 섹션으로 제공하기 */}
             <AnnounceCard
