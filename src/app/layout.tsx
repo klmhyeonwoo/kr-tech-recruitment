@@ -7,6 +7,7 @@ import "@/styles/components.scss";
 import "@/styles/schema.scss";
 import "@/styles/error.scss";
 import "@/styles/common.scss";
+import "@/styles/utility.scss";
 import { baseMetaData } from "@/og";
 import SubscriptionPopup from "@/components/popup/subscription";
 import KakaoScript from "@/components/auth/kakao-script";
