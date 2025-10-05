@@ -23,6 +23,15 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  redirects: async () => {
+    return [
+      {
+        source: "/ads.txt",
+        destination: "https://srv.adstxtmanager.com/79067/nklcb.kr",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;
