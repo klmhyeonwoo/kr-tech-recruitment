@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import Script from "next/script";
 import { Analytics } from "@vercel/analytics/react";
 import { GoogleAnalytics } from "@next/third-parties/google";
 
@@ -28,16 +29,41 @@ export default async function RootLayout({
     <html lang="ko">
       <Analytics />
       <GoogleAnalytics gaId="G-6M2JP9HLCY" />
-      <script
-        async
+      <Script
+        src="https://cmp.gatekeeperconsent.com/min.js"
+        data-cfasync="false"
+        strategy="afterInteractive"
+      />
+      <Script
+        src="https://the.gatekeeperconsent.com/cmp.min.js"
+        data-cfasync="false"
+        strategy="afterInteractive"
+      />
+      <Script
+        src="https://www.ezojs.com/ezoic/sa.min.js"
+        strategy="afterInteractive"
+      />
+      <Script
+        id="ezoic-standalone"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: `
+              window.ezstandalone = window.ezstandalone || {};
+              ezstandalone.cmd = ezstandalone.cmd || [];
+            `,
+        }}
+      />
+      <Script
         src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1550225145364569"
         crossOrigin="anonymous"
-      ></script>
-      <script
-        type="text/javascript"
+        strategy="afterInteractive"
+      />
+
+      {/* Daum/Kakao Ads */}
+      <Script
         src="//t1.daumcdn.net/kas/static/ba.min.js"
-        async
-      ></script>
+        strategy="afterInteractive"
+      />
       <head />
       <body>
         <div id="portal" />

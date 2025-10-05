@@ -6,6 +6,7 @@ import QuestionBanner from "@/components/question/question-banner";
 import { Fragment } from "react";
 import Header from "@/components/common/header";
 import hotIssue from "@/api/domain/hotIssue";
+import AdsSection from "@/components/ads/AdsSection";
 
 export const dynamic = "force-dynamic";
 
@@ -98,6 +99,7 @@ export default async function Home() {
           <div className="greeting__card__wrapper">
             <GreetingSwiper />
           </div>
+          <AdsSection />
           <QuestionBanner questionData={hotIssueList?.[0]} />
           <div className="announce__card__wrapper">
             {/* TODO: 새로 등록된 공고, 어제 올라온 공고 카드 섹션으로 제공하기 */}

@@ -1,0 +1,3 @@
+# Redirect to Ezoic Ads.txt Manager
+subdomain=serving
+https://srv.adstxtmanager.com/19390/nklcb.kr
