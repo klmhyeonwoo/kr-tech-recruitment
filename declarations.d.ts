@@ -7,7 +7,7 @@ declare module "*.gif" {
   export default src;
 }
 declare module "*.png" {
-  const src: string |StaticImageData
+  const src: string | StaticImageData;
   export default src;
 }
 declare module "*.svg" {
@@ -16,4 +16,8 @@ declare module "*.svg" {
   >;
   const src: string;
   export default src;
+}
+declare module "*.scss" {
+  const classes: { [key: string]: string };
+  export default classes;
 }
