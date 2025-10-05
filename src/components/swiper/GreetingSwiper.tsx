@@ -1,45 +1,16 @@
 "use client";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import greeting_image_eyes from "../../../public/images/eyes.gif";
 import greeting_image_waving from "../../../public/images/waving.gif";
 import greeting_image_rocket from "../../../public/images/rocket.gif";
 import greeting_image_popper from "../../../public/images/popper.gif";
 import greeting_image_earth from "../../../public/images/earth.png";
-import "swiper/css";
-import "swiper/css/pagination";
-import "swiper/css/navigation";
-import "@/styles/swiper.scss";
 import GreetingCard from "../common/greeting-card";
+import Marquee from "react-fast-marquee";
 
 function GreetingSwiper() {
   return (
-    <Swiper
-      spaceBetween={170}
-      slidesPerView={2.5}
-      loop={true}
-      speed={2500}
-      autoplay={{ delay: 2000, disableOnInteraction: false }}
-      pagination={{ clickable: true }}
-      modules={[Autoplay, Pagination, Navigation]}
-      breakpoints={{
-        480: {
-          slidesPerView: 1.8,
-          spaceBetween: 30,
-          centeredSlides: true,
-        },
-        768: {
-          slidesPerView: 2.5,
-          spaceBetween: -50,
-        },
-        // 데스크톱 (1024px 이상)
-        1024: {
-          slidesPerView: 3.5,
-          spaceBetween: -170,
-        },
-      }}
-    >
-      <SwiperSlide>
+    <Marquee speed={50} gradient={false} pauseOnHover={true}>
+      <div className="d-flex column-gap-3 ml-3">
         <GreetingCard
           title="빅테크 공고 모아보기"
           subTitle="빅테크 채용관"
@@ -48,8 +19,6 @@ function GreetingSwiper() {
           colorSet={["#43cbff", "#9708cc"]}
           image={greeting_image_eyes}
         />
-      </SwiperSlide>
-      <SwiperSlide>
         <GreetingCard
           title="이용에 불편함이 있으신가요?"
           subTitle="서비스 문의하기"
@@ -58,8 +27,6 @@ function GreetingSwiper() {
           colorSet={["#141E30", "#243B55"]}
           image={greeting_image_waving}
         />
-      </SwiperSlide>
-      <SwiperSlide>
         <GreetingCard
           title="취업 및 이직 커뮤니티"
           subTitle="커뮤니티 참여하기"
@@ -68,8 +35,6 @@ function GreetingSwiper() {
           colorSet={["#1E40AF", "#3B82F6"]}
           image={greeting_image_earth}
         />
-      </SwiperSlide>
-      <SwiperSlide>
         <GreetingCard
           title="더 많은 기능들이 다가오고 있어요"
           subTitle="로켓처럼 빠르게 발전하고 있어요"
@@ -78,8 +43,6 @@ function GreetingSwiper() {
           colorSet={["#FF512F", "#DD2476"]}
           image={greeting_image_rocket}
         />
-      </SwiperSlide>
-      <SwiperSlide>
         <GreetingCard
           title="취준 · 이직 5초만에 고민 해결하기"
           subTitle="이번 주 질문이 도착했어요"
@@ -88,8 +51,8 @@ function GreetingSwiper() {
           colorSet={["#667eea", "#764ba2"]}
           image={greeting_image_popper}
         />
-      </SwiperSlide>
-    </Swiper>
+      </div>
+    </Marquee>
   );
 }
 
