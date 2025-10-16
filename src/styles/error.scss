@@ -14,10 +14,12 @@
 .error__content__container {
   display: flex;
   flex-direction: column;
-  row-gap: 2.5rem;
+  align-items: center;
+  row-gap: 2.8rem;
 
   & > span:nth-of-type(1) {
-    font-weight: 400;
-    font-size: 1.6rem;
+    text-align: center;
+    font-size: 1.7rem;
+    font-weight: 500;
   }
 }
