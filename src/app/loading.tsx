@@ -6,7 +6,9 @@ interface LoadingProps {
   message?: string;
 }
 
-function Loading({ message = "데이터를 가져오고 있어요" }: LoadingProps) {
+function Loading({
+  message = "정보들을 열심히 가져오고 있어요",
+}: LoadingProps) {
   return (
     <div className={styles.loading__container}>
       <EyesLoading />
