@@ -10,6 +10,7 @@ import company from "@/api/domain/company";
 import useCheckEmail from "@/hooks/useCheckEmail";
 import Complete from "./phase/Complete";
 import Cookies from "js-cookie";
+import CountUp from "react-countup";
 
 type SubscriptionContextType = {
   handleNext: () => void;
@@ -146,7 +147,13 @@ function SubscriptionPopup() {
   // 순차적으로 퍼널이 진행하기 위한 텍스트 및 함수 세팅 작업이 진행되어요
   const phaseTextSet = [
     {
-      title: `서비스의 다양한 소식들을 \n 누구보다 빠르게 전달해드려요`,
+      title: (
+        <>
+          서비스의 다양한 소식과 <br />
+          여러 빅테크 기업의 채용 소식을 <br />
+          벌써 <CountUp end={200} />명 이상 구독하고 있어요
+        </>
+      ),
       positiveText: "5초만에 구독해볼래요",
       negativeText: "오늘 하루 보지 않기",
       positiveCallback: handleNext,
