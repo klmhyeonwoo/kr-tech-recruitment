@@ -217,7 +217,9 @@ export default function generateServiceOpenGraph({
       companyName ? `${companyName} 채용 공고` : "",
       companyName ? `${companyName} 채용 정보` : "",
       companyName ? `${companyName} 공고` : "",
-    ].filter(Boolean),
+    ]
+      .filter(Boolean)
+      .filter((value, index, self) => self.indexOf(value) === index), // Remove duplicates
     authors: [{ name: "네카라쿠배 채용" }],
     creator: "네카라쿠배 채용",
     publisher: "네카라쿠배 채용",
