@@ -10,6 +10,8 @@ import dateUtil from "@/utils/dateUtil";
 import BreadcrumbData from "@/components/seo/breadcrumb-data";
 import { BASE_URL } from "@/utils/const";
 
+const MAX_DESCRIPTION_LENGTH = 160;
+
 type paramsType = Promise<{
   detailId: string;
 }>;
@@ -32,12 +34,14 @@ const getDetailBoardData = async (params: paramsType) => {
 export async function generateMetadata({ params }: { params: paramsType }) {
   const data = await getDetailBoardData(params);
   const { detailId } = await params;
+  const description =
+    data.content?.substring(0, MAX_DESCRIPTION_LENGTH) || data.title;
   return {
     title: data.title,
-    description: data.content?.substring(0, 160) || data.title,
+    description,
     openGraph: {
       title: data.title,
-      description: data.content?.substring(0, 160) || data.title,
+      description,
       url: `${BASE_URL}/community/detail/${detailId}`,
       type: "article",
     },
