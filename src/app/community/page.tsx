@@ -3,6 +3,7 @@ import UserStatusBlock from "@/components/commnuity/user-status-block";
 import React, { Fragment } from "react";
 import List from "@/components/commnuity/list";
 import type { Metadata } from "next";
+import { BASE_URL } from "@/utils/const";
 
 export const metadata: Metadata = {
   title: "취준 · 취업 커뮤니티",
@@ -22,11 +23,11 @@ export const metadata: Metadata = {
     title: "취준 · 취업 커뮤니티 | 네카라쿠배 채용",
     description:
       "IT 기업 취업 준비생들을 위한 커뮤니티. 면접 후기, 채용 정보, 이직 노하우 등 다양한 취업 정보를 공유하세요.",
-    url: "https://nklcb.io/community",
+    url: `${BASE_URL}/community`,
     type: "website",
   },
   alternates: {
-    canonical: "https://nklcb.io/community",
+    canonical: `${BASE_URL}/community`,
   },
 };
 

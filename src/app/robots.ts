@@ -1,4 +1,5 @@
 import { MetadataRoute } from "next";
+import { BASE_URL } from "@/utils/const";
 
 export default function robots(): MetadataRoute.Robots {
   return {
@@ -7,6 +8,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: ["/", "/web", "/community", "/question", "/recruitment-notices"],
       disallow: ["/private/", "/admin/", "/api/", "/auth"],
     },
-    sitemap: "https://nklcb.kr/sitemap.xml",
+    sitemap: `${BASE_URL}/sitemap.xml`,
   };
 }

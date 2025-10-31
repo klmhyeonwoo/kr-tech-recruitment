@@ -1,4 +1,5 @@
 import Script from "next/script";
+import { safeJsonStringify } from "@/utils/seo";
 
 interface JobPostingDataProps {
   title: string;
@@ -48,7 +49,7 @@ export default function JobPostingData({
     <Script
       id="job-posting-data"
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(jobPostingData) }}
+      dangerouslySetInnerHTML={{ __html: safeJsonStringify(jobPostingData) }}
     />
   );
 }

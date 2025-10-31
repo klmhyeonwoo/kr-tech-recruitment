@@ -8,6 +8,7 @@ import arrow_icon from "../../../../../public/icon/arrow_black.svg";
 import Image from "next/image";
 import dateUtil from "@/utils/dateUtil";
 import BreadcrumbData from "@/components/seo/breadcrumb-data";
+import { BASE_URL } from "@/utils/const";
 
 type paramsType = Promise<{
   detailId: string;
@@ -37,11 +38,11 @@ export async function generateMetadata({ params }: { params: paramsType }) {
     openGraph: {
       title: data.title,
       description: data.content?.substring(0, 160) || data.title,
-      url: `https://nklcb.io/community/detail/${detailId}`,
+      url: `${BASE_URL}/community/detail/${detailId}`,
       type: "article",
     },
     alternates: {
-      canonical: `https://nklcb.io/community/detail/${detailId}`,
+      canonical: `${BASE_URL}/community/detail/${detailId}`,
     },
   };
 }
@@ -56,11 +57,11 @@ export default async function Page({ params }: { params: paramsType }) {
     <div className="board__container">
       <BreadcrumbData
         items={[
-          { name: "홈", url: "https://nklcb.io" },
-          { name: "커뮤니티", url: "https://nklcb.io/community" },
+          { name: "홈", url: BASE_URL },
+          { name: "커뮤니티", url: `${BASE_URL}/community` },
           {
             name: data.title || "게시글",
-            url: `https://nklcb.io/community/detail/${detailId}`,
+            url: `${BASE_URL}/community/detail/${detailId}`,
           },
         ]}
       />

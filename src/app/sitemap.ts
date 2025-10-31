@@ -1,11 +1,9 @@
 import { MetadataRoute } from "next";
-import { SERVICE_CATEGORY } from "@/utils/const";
+import { SERVICE_CATEGORY, BASE_URL } from "@/utils/const";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://nklcb.kr";
-
   const companyUrls = Object.keys(SERVICE_CATEGORY).map((company) => ({
-    url: `${baseUrl}/web?company=${company}`,
+    url: `${BASE_URL}/web?company=${company}`,
     lastModified: new Date(),
     changeFrequency: "daily" as const,
     priority: 0.8,
@@ -13,31 +11,31 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return [
     {
-      url: baseUrl,
+      url: BASE_URL,
       lastModified: new Date(),
       changeFrequency: "daily",
       priority: 1,
     },
     {
-      url: `${baseUrl}/web`,
+      url: `${BASE_URL}/web`,
       lastModified: new Date(),
       changeFrequency: "daily",
       priority: 0.9,
     },
     {
-      url: `${baseUrl}/community`,
+      url: `${BASE_URL}/community`,
       lastModified: new Date(),
       changeFrequency: "hourly",
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/question`,
+      url: `${BASE_URL}/question`,
       lastModified: new Date(),
       changeFrequency: "daily",
       priority: 0.7,
     },
     {
-      url: `${baseUrl}/recruitment-notices`,
+      url: `${BASE_URL}/recruitment-notices`,
       lastModified: new Date(),
       changeFrequency: "daily",
       priority: 0.8,

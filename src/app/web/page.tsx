@@ -1,4 +1,4 @@
-import { SERVICE_CATEGORY } from "@/utils/const";
+import { SERVICE_CATEGORY, BASE_URL } from "@/utils/const";
 import { api } from "@/api";
 import CardSection from "@/components/card/Section";
 import type { Metadata } from "next";
@@ -94,14 +94,14 @@ export default async function Home({ searchParams }: paramsType) {
       ?.name || "전체";
 
   const breadcrumbItems = [
-    { name: "홈", url: "https://nklcb.io" },
-    { name: "채용 공고", url: "https://nklcb.io/web" },
+    { name: "홈", url: BASE_URL },
+    { name: "채용 공고", url: `${BASE_URL}/web` },
   ];
 
   if (companyName !== "전체") {
     breadcrumbItems.push({
       name: companyName,
-      url: `https://nklcb.io/web?company=${company}`,
+      url: `${BASE_URL}/web?company=${company}`,
     });
   }
 

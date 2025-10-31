@@ -1,4 +1,5 @@
 const WALLA = "https://walla.my/v/KsaWEsXPHLu0DxkLrJ6R";
+const BASE_URL = "https://nklcb.io";
 const SERVICE_CATEGORY: {
   [key in
     | "naver"
@@ -47,4 +48,4 @@ const SERVICE_CATEGORY: {
   },
 };
 
-export { WALLA, SERVICE_CATEGORY };
+export { WALLA, SERVICE_CATEGORY, BASE_URL };

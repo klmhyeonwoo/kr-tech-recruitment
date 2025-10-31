@@ -1,4 +1,5 @@
 import Script from "next/script";
+import { safeJsonStringify } from "@/utils/seo";
 
 interface FAQItem {
   question: string;
@@ -27,7 +28,7 @@ export default function FAQData({ items }: FAQDataProps) {
     <Script
       id="faq-data"
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(faqData) }}
+      dangerouslySetInnerHTML={{ __html: safeJsonStringify(faqData) }}
     />
   );
 }

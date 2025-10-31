@@ -1,4 +1,5 @@
 import Script from "next/script";
+import { safeJsonStringify } from "@/utils/seo";
 
 interface BreadcrumbItem {
   name: string;
@@ -25,7 +26,7 @@ export default function BreadcrumbData({ items }: BreadcrumbDataProps) {
     <Script
       id="breadcrumb-data"
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbData) }}
+      dangerouslySetInnerHTML={{ __html: safeJsonStringify(breadcrumbData) }}
     />
   );
 }
