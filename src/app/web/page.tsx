@@ -5,6 +5,7 @@ import type { Metadata } from "next";
 import { Fragment, Suspense } from "react";
 import EyesLoading from "@/components/loading/eyes-loading";
 import generateServiceOpenGraph from "@/og";
+import BreadcrumbData from "@/components/seo/breadcrumb-data";
 
 type paramsType = {
   searchParams: Promise<{ company: string; category: string }>;
@@ -88,9 +89,28 @@ async function RecruitListSection({
 
 export default async function Home({ searchParams }: paramsType) {
   const { company, category } = await searchParams;
+  const companyName =
+    SERVICE_CATEGORY[company?.toLowerCase() as keyof typeof SERVICE_CATEGORY]
+      ?.name || "전체";
+
+  const breadcrumbItems = [
+    { name: "홈", url: "https://nklcb.io" },
+    { name: "채용 공고", url: "https://nklcb.io/web" },
+  ];
+
+  if (companyName !== "전체") {
+    breadcrumbItems.push({
+      name: companyName,
+      url: `https://nklcb.io/web?company=${company}`,
+    });
+  }
+
   return (
-    <Suspense key={`${company}`} fallback={<EyesLoading />}>
-      <RecruitDataSection company={company ?? "NAVER"} category={category} />
-    </Suspense>
+    <Fragment>
+      <BreadcrumbData items={breadcrumbItems} />
+      <Suspense key={`${company}`} fallback={<EyesLoading />}>
+        <RecruitDataSection company={company ?? "NAVER"} category={category} />
+      </Suspense>
+    </Fragment>
   );
 }

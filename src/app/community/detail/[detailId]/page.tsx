@@ -7,6 +7,7 @@ import Link from "next/link";
 import arrow_icon from "../../../../../public/icon/arrow_black.svg";
 import Image from "next/image";
 import dateUtil from "@/utils/dateUtil";
+import BreadcrumbData from "@/components/seo/breadcrumb-data";
 
 type paramsType = Promise<{
   detailId: string;
@@ -29,9 +30,19 @@ const getDetailBoardData = async (params: paramsType) => {
 
 export async function generateMetadata({ params }: { params: paramsType }) {
   const data = await getDetailBoardData(params);
+  const { detailId } = await params;
   return {
     title: data.title,
-    description: data.content,
+    description: data.content?.substring(0, 160) || data.title,
+    openGraph: {
+      title: data.title,
+      description: data.content?.substring(0, 160) || data.title,
+      url: `https://nklcb.io/community/detail/${detailId}`,
+      type: "article",
+    },
+    alternates: {
+      canonical: `https://nklcb.io/community/detail/${detailId}`,
+    },
   };
 }
 
@@ -39,9 +50,20 @@ export default async function Page({ params }: { params: paramsType }) {
   const data = await getDetailBoardData(params);
   const cookie = await cookies();
   const userId = cookie.get("nklcb__un");
+  const { detailId } = await params;
 
   return (
     <div className="board__container">
+      <BreadcrumbData
+        items={[
+          { name: "홈", url: "https://nklcb.io" },
+          { name: "커뮤니티", url: "https://nklcb.io/community" },
+          {
+            name: data.title || "게시글",
+            url: `https://nklcb.io/community/detail/${detailId}`,
+          },
+        ]}
+      />
       <Link href="/community" className="board__back__link">
         <Image src={arrow_icon} width={17} height={17} alt="뒤로가기 아이콘" />
         <span> 리스트로 돌아가기</span>
