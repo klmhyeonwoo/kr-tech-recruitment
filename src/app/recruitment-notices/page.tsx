@@ -4,6 +4,10 @@ import { Metadata } from "next";
 import StructuredData from "@/components/seo/structured-data";
 import { Suspense } from "react";
 
+// Default validity period for job postings (90 days in milliseconds)
+const DEFAULT_JOB_VALIDITY_DAYS = 90;
+const MILLISECONDS_PER_DAY = 24 * 60 * 60 * 1000;
+
 interface RecruitmentNoticeData {
   recruitmentNoticeId: number;
   jobOfferTitle: string;
@@ -39,6 +43,7 @@ async function trackClick({ id }: { id: number }): Promise<void> {
   try {
     await api.post(`/recruitment-notices/${id}/click`);
   } catch (error) {
+    // Intentionally silent: Click tracking failures should not impact user experience
     console.error("Failed to track click:", error);
   }
 }
@@ -139,14 +144,17 @@ async function RecruitmentContent({
     return redirect("/error");
   }
 
-  // Track the click asynchronously (fire and forget)
-  trackClick({ id }).catch(() => {
-    // Ignore errors in tracking
+  // Track the click asynchronously - errors are logged but don't affect user flow
+  trackClick({ id }).catch((error) => {
+    console.error("Click tracking failed:", error);
   });
 
   const companyName = data.corporates?.[0]?.corporateName || data.companyName || "회사";
   const jobTitle = data.jobOfferTitle || "채용 공고";
   const decodedUrl = atob(path);
+
+  // Calculate default end date (90 days from now)
+  const defaultEndDate = new Date(Date.now() + (DEFAULT_JOB_VALIDITY_DAYS * MILLISECONDS_PER_DAY));
 
   // Create JobPosting structured data for Google
   const jobPostingData = {
@@ -166,7 +174,7 @@ async function RecruitmentContent({
       },
     },
     datePosted: data.startAt || new Date().toISOString(),
-    validThrough: data.endAt || new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString(),
+    validThrough: data.endAt || defaultEndDate.toISOString(),
     employmentType: data.categories?.includes("인턴") ? "INTERN" : "FULL_TIME",
     url: decodedUrl,
     directApply: true,

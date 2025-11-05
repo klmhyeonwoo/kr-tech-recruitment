@@ -8,12 +8,15 @@ interface RecruitmentNotice {
   startAt?: string;
 }
 
+// Maximum number of job postings to include in sitemap
+const MAX_SITEMAP_ENTRIES = 9999;
+
 async function getRecruitmentNotices(): Promise<RecruitmentNotice[]> {
   try {
     const { data } = await api.get("/recruitment-notices/redirections", {
       params: {
         page: 0,
-        pageSize: 9999,
+        pageSize: MAX_SITEMAP_ENTRIES,
       },
     });
     return data.list || [];
