@@ -119,12 +119,15 @@ export async function generateMetadata({
 }
 
 function RedirectScript({ url }: { url: string }) {
+  // Sanitize URL to prevent XSS by ensuring it's a valid URL
+  const sanitizedUrl = url.replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+  
   return (
     <>
-      <meta httpEquiv="refresh" content={`0;url=${url}`} />
+      <meta httpEquiv="refresh" content={`0;url=${sanitizedUrl}`} />
       <script
         dangerouslySetInnerHTML={{
-          __html: `window.location.href = "${url}";`,
+          __html: `window.location.href = "${sanitizedUrl}";`,
         }}
       />
     </>
@@ -151,7 +154,15 @@ async function RecruitmentContent({
 
   const companyName = data.corporates?.[0]?.corporateName || data.companyName || "회사";
   const jobTitle = data.jobOfferTitle || "채용 공고";
-  const decodedUrl = atob(path);
+  
+  // Safely decode the URL
+  let decodedUrl: string;
+  try {
+    decodedUrl = atob(path);
+  } catch (error) {
+    console.error("Failed to decode URL path:", error);
+    return redirect("/error");
+  }
 
   // Calculate default end date (90 days from now)
   const defaultEndDate = new Date(Date.now() + (DEFAULT_JOB_VALIDITY_DAYS * MILLISECONDS_PER_DAY));
