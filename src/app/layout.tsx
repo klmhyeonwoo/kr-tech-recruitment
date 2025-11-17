@@ -108,20 +108,6 @@ export default async function RootLayout({
         strategy="afterInteractive"
       />
       <Script
-        src="https://www.ezojs.com/ezoic/sa.min.js"
-        strategy="afterInteractive"
-      />
-      <Script
-        id="ezoic-standalone"
-        strategy="afterInteractive"
-        dangerouslySetInnerHTML={{
-          __html: `
-              window.ezstandalone = window.ezstandalone || {};
-              ezstandalone.cmd = ezstandalone.cmd || [];
-            `,
-        }}
-      />
-      <Script
         src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1550225145364569"
         crossOrigin="anonymous"
         strategy="afterInteractive"
