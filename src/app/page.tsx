@@ -10,6 +10,7 @@ import AdsSection from "@/components/ads/AdsSection";
 import community from "@/api/domain/community";
 import ListItem from "@/components/commnuity/list-item";
 import { ListProps } from "@/components/commnuity/list";
+import Ads from "@/components/common/ads";
 
 export const dynamic = "force-dynamic";
 
@@ -115,7 +116,6 @@ export default async function Home() {
           <div className="greeting__card__wrapper">
             <GreetingSwiper />
           </div>
-          <AdsSection />
           <QuestionBanner questionData={hotIssueList?.[0]} />
           <div className="d-flex flex-column row-gap-2">
             <span className="title"> 최근 커뮤니티 게시글 </span>
@@ -136,6 +136,7 @@ export default async function Home() {
               />
             ))}
           </div>
+          <Ads />
           <div className="announce__card__wrapper">
             {/* TODO: 새로 등록된 공고, 어제 올라온 공고 카드 섹션으로 제공하기 */}
             <AnnounceCard
