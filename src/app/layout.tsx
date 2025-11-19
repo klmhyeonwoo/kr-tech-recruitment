@@ -93,11 +93,6 @@ export default async function RootLayout({
       <GoogleAnalytics gaId="G-6M2JP9HLCY" />
       <StructuredData data={organizationStructuredData} />
       <Script
-        async
-        custom-element="amp-ad"
-        src="https://cdn.ampproject.org/v0/amp-ad-0.1.js"
-      />
-      <Script
         src="https://cmp.gatekeeperconsent.com/min.js"
         data-cfasync="false"
         strategy="afterInteractive"
