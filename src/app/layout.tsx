@@ -93,12 +93,6 @@ export default async function RootLayout({
       <GoogleAnalytics gaId="G-6M2JP9HLCY" />
       <StructuredData data={organizationStructuredData} />
       <Script
-        async
-        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1550225145364569"
-        crossOrigin="anonymous"
-      ></Script>
-      <Script>(adsbygoogle = window.adsbygoogle || []).push({});</Script>
-      <Script
         src="https://cmp.gatekeeperconsent.com/min.js"
         data-cfasync="false"
         strategy="afterInteractive"
