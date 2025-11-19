@@ -6,11 +6,10 @@ import QuestionBanner from "@/components/question/question-banner";
 import { Fragment } from "react";
 import Header from "@/components/common/header";
 import hotIssue from "@/api/domain/hotIssue";
-import AdsSection from "@/components/ads/AdsSection";
 import community from "@/api/domain/community";
 import ListItem from "@/components/commnuity/list-item";
 import { ListProps } from "@/components/commnuity/list";
-import Ads from "@/components/common/ads";
+import Ads from "@/components/ads/ads";
 
 export const dynamic = "force-dynamic";
 

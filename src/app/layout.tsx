@@ -94,9 +94,10 @@ export default async function RootLayout({
       <StructuredData data={organizationStructuredData} />
       <Script
         async
-        custom-element="amp-ad"
-        src="https://cdn.ampproject.org/v0/amp-ad-0.1.js"
-      />
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1550225145364569"
+        crossOrigin="anonymous"
+      ></Script>
+      <Script>(adsbygoogle = window.adsbygoogle || []).push({});</Script>
       <Script
         src="https://cmp.gatekeeperconsent.com/min.js"
         data-cfasync="false"
@@ -106,20 +107,6 @@ export default async function RootLayout({
         src="https://the.gatekeeperconsent.com/cmp.min.js"
         data-cfasync="false"
         strategy="afterInteractive"
-      />
-      <Script
-        src="https://www.ezojs.com/ezoic/sa.min.js"
-        strategy="afterInteractive"
-      />
-      <Script
-        id="ezoic-standalone"
-        strategy="afterInteractive"
-        dangerouslySetInnerHTML={{
-          __html: `
-              window.ezstandalone = window.ezstandalone || {};
-              ezstandalone.cmd = ezstandalone.cmd || [];
-            `,
-        }}
       />
       <Script
         src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1550225145364569"
