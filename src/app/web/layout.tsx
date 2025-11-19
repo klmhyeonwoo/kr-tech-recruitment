@@ -5,6 +5,7 @@ import "@/styles/domain/web.scss";
 import Header from "@/components/common/header";
 import SearchSection from "@/components/search/Section";
 import { Metadata } from "next";
+import Ads from "@/components/ads/ads";
 
 export const metadata: Metadata = {
   title: "기업별 채용 정보",
@@ -85,6 +86,7 @@ export default async function RootLayout({
         <article className="content-wrapper">
           <div>
             <Suspense>
+              <Ads />
               <TabSection data={companies} />
               <SearchSection data={list || []} />
             </Suspense>

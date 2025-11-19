@@ -94,9 +94,10 @@ export default async function RootLayout({
       <StructuredData data={organizationStructuredData} />
       <Script
         async
-        custom-element="amp-ad"
-        src="https://cdn.ampproject.org/v0/amp-ad-0.1.js"
-      />
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1550225145364569"
+        crossOrigin="anonymous"
+      ></Script>
+      <Script>(adsbygoogle = window.adsbygoogle || []).push({});</Script>
       <Script
         src="https://cmp.gatekeeperconsent.com/min.js"
         data-cfasync="false"
