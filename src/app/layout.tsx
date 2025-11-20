@@ -90,7 +90,7 @@ export default async function RootLayout({
   return (
     <html lang="ko">
       <head>
-        <meta name="google-site-verification" content="google-site-verification-code" />
+        <meta name="google-site-verification" content="kDGhfVdkir6aw8kHb_QmcXGWlqD2isyyJ-Jj3b_-riw" />
         <meta name="naver-site-verification" content="naver-site-verification-code" />
         <link rel="canonical" href="https://nklcb.io" />
       </head>
