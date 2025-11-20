@@ -24,11 +24,11 @@ export const viewport: Viewport = {
 const organizationStructuredData = {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  name: "네카라쿠배 채용",
-  alternateName: ["nklcb", "네카라쿠배", "빅테크 채용"],
+  name: "네카라쿠배 채용 - 네이버 채용, 카카오 채용, 토스 채용",
+  alternateName: ["nklcb", "네카라쿠배", "빅테크 채용", "네이버 채용", "카카오 채용", "토스 채용"],
   url: "https://nklcb.io",
   description:
-    "네이버, 카카오, 라인, 쿠팡, 배달의민족, 토스, 당근, 두나무 등 대한민국 대표 IT 기업의 채용 정보를 한눈에 확인하세요. 빅테크 기업 채용 공고를 실시간으로 확인하고 지원하세요.",
+    "네이버 채용, 카카오 채용, 토스 채용 정보를 한눈에! 네이버, 카카오, 라인, 쿠팡, 배달의민족, 토스, 당근, 두나무 등 대한민국 대표 IT 기업의 최신 채용 공고를 실시간으로 확인하고 지원하세요.",
   potentialAction: {
     "@type": "SearchAction",
     target: {
@@ -89,6 +89,11 @@ export default async function RootLayout({
 }>) {
   return (
     <html lang="ko">
+      <head>
+        <meta name="google-site-verification" content="google-site-verification-code" />
+        <meta name="naver-site-verification" content="naver-site-verification-code" />
+        <link rel="canonical" href="https://nklcb.io" />
+      </head>
       <Analytics />
       <GoogleAnalytics gaId="G-6M2JP9HLCY" />
       <StructuredData data={organizationStructuredData} />
@@ -113,7 +118,6 @@ export default async function RootLayout({
         src="//t1.daumcdn.net/kas/static/ba.min.js"
         strategy="afterInteractive"
       />
-      <head />
       <body>
         <div id="portal" />
         <SubscriptionPopup />
