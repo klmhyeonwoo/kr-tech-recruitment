@@ -104,7 +104,7 @@ export const baseMetaData = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "네이버 채용, 카카오 채용, 토스 채용 - 네카라쿠배 IT 기업 채용정보",
+    title: "네카라쿠배 채용 - IT 기업 채용정보 플랫폼",
     description:
       "네이버 채용, 카카오 채용, 라인 채용, 쿠팡 채용, 배달의 민족 채용, 당근 채용, 토스 채용 정보를 한눈에! 네이버, 카카오, 라인, 쿠팡, 배달의민족, 토스, 당근, 두나무 등 대한민국 대표 IT 기업의 최신 채용 공고를 실시간으로 확인하고 지원하세요.",
     images: ["https://raw.githubusercontent.com/klmhyeonwoo/Asset-Archieve./main/nklcb.png"],
