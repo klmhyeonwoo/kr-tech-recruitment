@@ -24,7 +24,7 @@ export const viewport: Viewport = {
 const organizationStructuredData = {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  name: "네카라쿠배 채용 - 네이버 채용, 카카오 채용, 토스 채용",
+  name: "네카라쿠배 채용",
   alternateName: ["nklcb", "네카라쿠배", "빅테크 채용", "네이버 채용", "카카오 채용", "토스 채용"],
   url: "https://nklcb.io",
   description:
