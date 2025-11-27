@@ -17,13 +17,13 @@ export default function UserAds() {
     setIsDesktop(isDesktop);
   }, []);
 
-  const naviagateExternalService = () => {
+  const navigateExternalService = () => {
     window.open(TARGET_LINK);
   };
 
   return (
     <div className={styles.container}>
-      <div className={styles.image__wrapper} onClick={naviagateExternalService}>
+      <div className={styles.image__wrapper} onClick={navigateExternalService}>
         <Image
           sizes="100vw"
           src={isDesktop ? desktopImage : mobileImage}
