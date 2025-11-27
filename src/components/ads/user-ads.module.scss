@@ -1,0 +1,26 @@
+.container {
+  width: 100%;
+  height: auto;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.image__wrapper {
+  position: relative;
+  width: 100%;
+  background-color: black;
+  border-radius: 1.2rem;
+  overflow: hidden;
+  aspect-ratio: 18 / 3;
+  cursor: pointer;
+  transition: 0.4s all;
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  @media (max-width: 768px) {
+    aspect-ratio: 10 / 4;
+  }
+}
