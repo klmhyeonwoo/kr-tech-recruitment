@@ -85,7 +85,7 @@ function Select({ data, placeholder, isIcon = true, ...props }: SelectType) {
     return;
   }
 
-  // 모바일에서는 네이티브 select 사용
+  // Use native select on mobile
   if (isMobile) {
     return (
       <div className={styles.select__box} data-mobile="true">
