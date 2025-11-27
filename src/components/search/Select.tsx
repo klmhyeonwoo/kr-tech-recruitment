@@ -65,7 +65,7 @@ function Select({ data, placeholder, isIcon = true, ...props }: SelectType) {
     router.replace(`${pathname}/?${params.toString()}`);
   };
 
-  // 네이티브 select 변경 핸들러
+  // Native select change handler
   const handleNativeSelectChange = (
     event: React.ChangeEvent<HTMLSelectElement>
   ) => {
