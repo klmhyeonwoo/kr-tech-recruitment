@@ -10,6 +10,7 @@ import community from "@/api/domain/community";
 import ListItem from "@/components/commnuity/list-item";
 import { ListProps } from "@/components/commnuity/list";
 import Ads from "@/components/ads/ads";
+import UserAds from "@/components/ads/user-ads";
 
 export const dynamic = "force-dynamic";
 
@@ -149,6 +150,7 @@ export default async function Home() {
               items={popularRecruitList.slice(0, 10)}
             />
           </div>
+          <UserAds />
         </article>
         <article className="banner__wrapper">{/* 배너 영역 */}</article>
       </section>

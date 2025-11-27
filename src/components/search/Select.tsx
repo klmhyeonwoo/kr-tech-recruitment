@@ -1,5 +1,5 @@
 "use client";
-import React, { Fragment, useRef } from "react";
+import React, { Fragment, useRef, useEffect, useState } from "react";
 import icon_arrow from "../../../public/icon/arrow_gray.svg";
 import icon_airplane from "../../../public/icon/airplane.svg";
 import icon_quit from "../../../public/icon/quit.svg";
@@ -9,6 +9,7 @@ import styles from "@/styles/components/input.module.scss";
 import { useFilter } from "@/hooks/useFilter";
 import useClickOutside from "@/hooks/useClickOutside";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { getDevice } from "kr-corekit";
 
 type SelectType = {
   data: {
@@ -25,6 +26,12 @@ function Select({ data, placeholder, isIcon = true, ...props }: SelectType) {
   const pathname = usePathname();
   const router = useRouter();
   const category = searchParams.get("category");
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const { isMobile } = getDevice();
+    setIsMobile(isMobile);
+  }, []);
 
   useClickOutside({
     ref: selectRef as React.RefObject<HTMLElement>,
@@ -40,7 +47,9 @@ function Select({ data, placeholder, isIcon = true, ...props }: SelectType) {
   } = useFilter();
 
   const handleOpenSelect = () => {
-    setIsOpenFilter(true);
+    if (!isMobile) {
+      setIsOpenFilter(true);
+    }
   };
 
   const handleCleanUpFilter = (event: React.MouseEvent<HTMLImageElement>) => {
@@ -56,11 +65,60 @@ function Select({ data, placeholder, isIcon = true, ...props }: SelectType) {
     router.replace(`${pathname}/?${params.toString()}`);
   };
 
+  // Native select change handler
+  const handleNativeSelectChange = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    const value = event.target.value;
+    if (value) {
+      setSelectedGlobalFilter(value);
+      const params = new URLSearchParams(searchParams.toString());
+      params.set("category", value);
+      router.replace(`${pathname}/?${params.toString()}`);
+    } else {
+      removeSelectedFilter();
+    }
+  };
+
   // data가 없을 경우에는 노출시키지 않음
   if (data.length === 0) {
     return;
   }
 
+  // Use native select on mobile
+  if (isMobile) {
+    return (
+      <div className={styles.select__box} data-mobile="true">
+        {isIcon && (
+          <Image src={icon_airplane} alt={placeholder} width={16} height={16} />
+        )}
+        <select
+          value={category || ""}
+          onChange={handleNativeSelectChange}
+          className={styles.native__select}
+        >
+          <option value="">{placeholder}</option>
+          {data.map((item) => (
+            <option key={item.code} value={item.code}>
+              {scaledPositionName(item.name)}
+            </option>
+          ))}
+        </select>
+        {category && (
+          <Image
+            src={icon_quit}
+            alt="선택 해제"
+            width={12}
+            height={12}
+            onClick={handleCleanUpFilter}
+            className={styles.clear__button}
+          />
+        )}
+      </div>
+    );
+  }
+
+  // Use custom select on desktop
   return (
     <Fragment>
       <div

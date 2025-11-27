@@ -123,6 +123,13 @@
 .select__box {
   cursor: pointer;
 
+  &[data-mobile="true"] {
+    select {
+      width: 100%;
+      color: inherit;
+    }
+  }
+
   &[data-selected="true"] > span {
     color: var(--grey800);
   }
