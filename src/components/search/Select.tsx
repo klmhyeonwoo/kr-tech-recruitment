@@ -118,7 +118,7 @@ function Select({ data, placeholder, isIcon = true, ...props }: SelectType) {
     );
   }
 
-  // 데스크탑에서는 커스텀 select 사용
+  // Use custom select on desktop
   return (
     <Fragment>
       <div
