@@ -3,7 +3,7 @@ import React from "react";
 import styles from "@/styles/components/question-banner.module.scss";
 import QuestionCommentList from "./question-comment-list";
 import QuestionTitle from "./question-title";
-import QuestionCommentMore from "./question-comment-more";
+import Anchor from "../common/anchor";
 
 export type QuestionTypes = {
   questionData: {
@@ -47,8 +47,9 @@ function QuestionBanner({ questionData }: QuestionTypes) {
         <QuestionTitle title={questionData?.title} />
         <div className={styles.question__banner__wrapper}>
           <QuestionCommentList comments={questionData.comments} />
-          <QuestionCommentMore />
+          {/* <QuestionCommentMore /> */}
         </div>
+        <Anchor href="/question" text="질문에 답변하러가기" />
       </div>
     </div>
   );
