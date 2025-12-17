@@ -19,7 +19,7 @@
     "js-cookie": "^3.0.5",
     "kr-corekit": "^0.0.8",
     "motion": "^12.15.0",
-    "next": "15.1.9",
+    "next": "15.1.11",
     "react": "^19.0.0",
     "react-countup": "^6.5.3",
     "react-dom": "^19.0.0",
