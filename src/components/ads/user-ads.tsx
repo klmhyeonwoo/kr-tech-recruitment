@@ -7,7 +7,8 @@ import Image from "next/image";
 import { getDevice } from "kr-corekit";
 import Anchor from "../common/anchor";
 
-const TARGET_LINK = "https://layerapp.io";
+const TARGET_LINK =
+  "https://www.layerapp.io/?utm_source=nklcb&utm_medium=display";
 
 export default function UserAds() {
   const [isDesktop, setIsDesktop] = useState(false);
