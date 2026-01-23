@@ -60,7 +60,7 @@ async function getCompanyList() {
     return data;
   } catch (error) {
     console.error("Error fetching data:", error);
-    return [];
+    return { companies: [] };
   }
 }
 
@@ -69,7 +69,7 @@ async function getStandardRecruitData() {
     const { data } = await api.get(`/companies/standard-categories`);
     return data;
   } catch (error) {
-    return { data: [], error };
+    return { list: [], error };
   }
 }
 

@@ -37,7 +37,7 @@ async function getRecruitData({
     };
     return scaledData;
   } catch (error) {
-    return { data: [], error };
+    return { list: [], error };
   }
 }
 
@@ -49,7 +49,7 @@ async function getCommunityData() {
     });
     return data;
   } catch (error) {
-    return { data: [], error };
+    return { list: [], error };
   }
 }
 
@@ -77,7 +77,7 @@ async function getPopularRecruitData({
     };
     return scaledData;
   } catch (error) {
-    return { data: [], error };
+    return { list: [], error };
   }
 }
 
@@ -86,7 +86,7 @@ async function getHotIssueQuestionData() {
     const { data } = await hotIssue.getActivatedList();
     return data;
   } catch (error) {
-    return { data: [], error };
+    return { list: [], error };
   }
 }
 
