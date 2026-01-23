@@ -52,6 +52,8 @@ export const metadata: Metadata = {
   },
 };
 
+export const revalidate = 3600; // Revalidate every hour
+
 async function getCompanyList() {
   try {
     const { data } = await api.get("/companies");
@@ -76,8 +78,11 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const { companies } = await getCompanyList();
-  const { list } = await getStandardRecruitData();
+  // Fetch data in parallel for better performance
+  const [{ companies }, { list }] = await Promise.all([
+    getCompanyList(),
+    getStandardRecruitData(),
+  ]);
 
   return (
     <Fragment>

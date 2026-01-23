@@ -1,6 +1,8 @@
 import { MetadataRoute } from "next";
 import { SERVICE_CATEGORY } from "@/utils/const";
 
+export const revalidate = 86400; // Revalidate once per day
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://nklcb.kr";
 

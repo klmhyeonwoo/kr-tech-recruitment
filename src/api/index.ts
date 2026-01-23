@@ -14,7 +14,7 @@ export type ErrorResponse = { name: string; message: string };
 
 const baseApi = axios.create({
   baseURL: API_URL,
-  timeout: 5000,
+  timeout: 3000,
 
   headers: {
     "Content-Type": "application/json",

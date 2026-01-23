@@ -13,7 +13,7 @@ import Ads from "@/components/ads/ads";
 import UserAds from "@/components/ads/user-ads";
 import Anchor from "@/components/common/anchor";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 3600; // Revalidate every hour
 
 async function getRecruitData({
   params,
@@ -93,20 +93,28 @@ async function getHotIssueQuestionData() {
 export default async function Home() {
   const yesterday = new Date();
   yesterday.setDate(yesterday.getDate() - 1);
-  const { list: recentRecruitList } = await getRecruitData({
-    params: {
-      page: 0,
-      pageSize: 10,
-    },
-  });
-  const { list: popularRecruitList } = await getPopularRecruitData({
-    params: {
-      date: yesterday.toISOString().split("T")[0],
-    },
-  });
-
-  const { list: hotIssueList } = await getHotIssueQuestionData();
-  const { list: communityList } = await getCommunityData();
+  
+  // Fetch all data in parallel for better performance
+  const [
+    { list: recentRecruitList },
+    { list: popularRecruitList },
+    { list: hotIssueList },
+    { list: communityList },
+  ] = await Promise.all([
+    getRecruitData({
+      params: {
+        page: 0,
+        pageSize: 10,
+      },
+    }),
+    getPopularRecruitData({
+      params: {
+        date: yesterday.toISOString().split("T")[0],
+      },
+    }),
+    getHotIssueQuestionData(),
+    getCommunityData(),
+  ]);
 
   return (
     <Fragment>

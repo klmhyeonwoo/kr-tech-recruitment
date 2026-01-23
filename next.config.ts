@@ -1,6 +1,15 @@
 import { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Optimize production builds
+  poweredByHeader: false,
+  compress: true,
+  
+  // Optimize images
+  images: {
+    formats: ['image/avif', 'image/webp'],
+  },
+  
   headers: async () => {
     return [
       {
