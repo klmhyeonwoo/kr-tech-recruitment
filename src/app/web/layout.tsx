@@ -54,7 +54,12 @@ export const metadata: Metadata = {
 
 export const revalidate = 3600; // Revalidate every hour
 
-async function getCompanyList() {
+type CompanyType = { companyCode: string; name: string };
+type SearchCategoryType = { code: string; name: string };
+type CompanyListResponse = { companies: CompanyType[] };
+type StandardRecruitResponse = { list: SearchCategoryType[]; error?: unknown };
+
+async function getCompanyList(): Promise<CompanyListResponse> {
   try {
     const { data } = await api.get("/companies");
     return data;
@@ -64,7 +69,7 @@ async function getCompanyList() {
   }
 }
 
-async function getStandardRecruitData() {
+async function getStandardRecruitData(): Promise<StandardRecruitResponse> {
   try {
     const { data } = await api.get(`/companies/standard-categories`);
     return data;

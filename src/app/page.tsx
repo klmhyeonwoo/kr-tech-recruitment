@@ -2,7 +2,7 @@ import AnnounceCard from "@/components/card/AnnounceCard";
 import "@/styles/domain/main.scss";
 import { api } from "@/api";
 import GreetingSwiper from "@/components/swiper/GreetingSwiper";
-import QuestionBanner from "@/components/question/question-banner";
+import QuestionBanner, { QuestionTypes } from "@/components/question/question-banner";
 import { Fragment } from "react";
 import Header from "@/components/common/header";
 import hotIssue from "@/api/domain/hotIssue";
@@ -12,8 +12,11 @@ import { ListProps } from "@/components/commnuity/list";
 import Ads from "@/components/ads/ads";
 import UserAds from "@/components/ads/user-ads";
 import Anchor from "@/components/common/anchor";
+import { RecruitData } from "@/components/card/Section";
 
 export const revalidate = 3600; // Revalidate every hour
+
+type DataResponse<T> = { list: T[]; error?: unknown };
 
 async function getRecruitData({
   params,
@@ -22,7 +25,7 @@ async function getRecruitData({
     page: number;
     pageSize: number;
   };
-}) {
+}): Promise<DataResponse<RecruitData>> {
   try {
     const { data } = await api.get(`/recruitment-notices/redirections`, {
       params,
@@ -41,7 +44,7 @@ async function getRecruitData({
   }
 }
 
-async function getCommunityData() {
+async function getCommunityData(): Promise<DataResponse<ListProps["list"][number]>> {
   try {
     const { data } = await community.standardList({
       page: 0,
@@ -59,7 +62,7 @@ async function getPopularRecruitData({
   params: {
     date: string;
   };
-}) {
+}): Promise<DataResponse<RecruitData>> {
   try {
     const { data } = await api.get(
       `/recruitment-notices/redirections/daily-rank`,
@@ -81,7 +84,7 @@ async function getPopularRecruitData({
   }
 }
 
-async function getHotIssueQuestionData() {
+async function getHotIssueQuestionData(): Promise<DataResponse<QuestionTypes["questionData"]>> {
   try {
     const { data } = await hotIssue.getActivatedList();
     return data;
