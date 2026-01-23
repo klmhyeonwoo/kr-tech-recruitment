@@ -2,7 +2,7 @@ import AnnounceCard from "@/components/card/AnnounceCard";
 import "@/styles/domain/main.scss";
 import { api } from "@/api";
 import GreetingSwiper from "@/components/swiper/GreetingSwiper";
-import QuestionBanner from "@/components/question/question-banner";
+import QuestionBanner, { QuestionTypes } from "@/components/question/question-banner";
 import { Fragment } from "react";
 import Header from "@/components/common/header";
 import hotIssue from "@/api/domain/hotIssue";
@@ -12,8 +12,11 @@ import { ListProps } from "@/components/commnuity/list";
 import Ads from "@/components/ads/ads";
 import UserAds from "@/components/ads/user-ads";
 import Anchor from "@/components/common/anchor";
+import { RecruitData } from "@/components/card/Section";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 3600; // Revalidate every hour
+
+type DataResponse<T> = { list: T[]; error?: unknown };
 
 async function getRecruitData({
   params,
@@ -22,7 +25,7 @@ async function getRecruitData({
     page: number;
     pageSize: number;
   };
-}) {
+}): Promise<DataResponse<RecruitData>> {
   try {
     const { data } = await api.get(`/recruitment-notices/redirections`, {
       params,
@@ -37,11 +40,11 @@ async function getRecruitData({
     };
     return scaledData;
   } catch (error) {
-    return { data: [], error };
+    return { list: [], error };
   }
 }
 
-async function getCommunityData() {
+async function getCommunityData(): Promise<DataResponse<ListProps["list"][number]>> {
   try {
     const { data } = await community.standardList({
       page: 0,
@@ -49,7 +52,7 @@ async function getCommunityData() {
     });
     return data;
   } catch (error) {
-    return { data: [], error };
+    return { list: [], error };
   }
 }
 
@@ -59,7 +62,7 @@ async function getPopularRecruitData({
   params: {
     date: string;
   };
-}) {
+}): Promise<DataResponse<RecruitData>> {
   try {
     const { data } = await api.get(
       `/recruitment-notices/redirections/daily-rank`,
@@ -77,36 +80,44 @@ async function getPopularRecruitData({
     };
     return scaledData;
   } catch (error) {
-    return { data: [], error };
+    return { list: [], error };
   }
 }
 
-async function getHotIssueQuestionData() {
+async function getHotIssueQuestionData(): Promise<DataResponse<QuestionTypes["questionData"]>> {
   try {
     const { data } = await hotIssue.getActivatedList();
     return data;
   } catch (error) {
-    return { data: [], error };
+    return { list: [], error };
   }
 }
 
 export default async function Home() {
   const yesterday = new Date();
   yesterday.setDate(yesterday.getDate() - 1);
-  const { list: recentRecruitList } = await getRecruitData({
-    params: {
-      page: 0,
-      pageSize: 10,
-    },
-  });
-  const { list: popularRecruitList } = await getPopularRecruitData({
-    params: {
-      date: yesterday.toISOString().split("T")[0],
-    },
-  });
-
-  const { list: hotIssueList } = await getHotIssueQuestionData();
-  const { list: communityList } = await getCommunityData();
+  
+  // Fetch all data in parallel for better performance
+  const [
+    { list: recentRecruitList },
+    { list: popularRecruitList },
+    { list: hotIssueList },
+    { list: communityList },
+  ] = await Promise.all([
+    getRecruitData({
+      params: {
+        page: 0,
+        pageSize: 10,
+      },
+    }),
+    getPopularRecruitData({
+      params: {
+        date: yesterday.toISOString().split("T")[0],
+      },
+    }),
+    getHotIssueQuestionData(),
+    getCommunityData(),
+  ]);
 
   return (
     <Fragment>

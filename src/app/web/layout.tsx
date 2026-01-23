@@ -52,22 +52,29 @@ export const metadata: Metadata = {
   },
 };
 
-async function getCompanyList() {
+export const revalidate = 3600; // Revalidate every hour
+
+type CompanyType = { companyCode: string; name: string };
+type SearchCategoryType = { code: string; name: string };
+type CompanyListResponse = { companies: CompanyType[] };
+type StandardRecruitResponse = { list: SearchCategoryType[]; error?: unknown };
+
+async function getCompanyList(): Promise<CompanyListResponse> {
   try {
     const { data } = await api.get("/companies");
     return data;
   } catch (error) {
     console.error("Error fetching data:", error);
-    return [];
+    return { companies: [] };
   }
 }
 
-async function getStandardRecruitData() {
+async function getStandardRecruitData(): Promise<StandardRecruitResponse> {
   try {
     const { data } = await api.get(`/companies/standard-categories`);
     return data;
   } catch (error) {
-    return { data: [], error };
+    return { list: [], error };
   }
 }
 
@@ -76,8 +83,11 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const { companies } = await getCompanyList();
-  const { list } = await getStandardRecruitData();
+  // Fetch data in parallel for better performance
+  const [{ companies }, { list }] = await Promise.all([
+    getCompanyList(),
+    getStandardRecruitData(),
+  ]);
 
   return (
     <Fragment>
