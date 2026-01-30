@@ -1,6 +1,5 @@
 "use client";
 import Image from "next/image";
-import React from "react";
 import Button from "@/components/common/button";
 import Link from "next/link";
 import icon_swimming from "../../../public/icon/swimming.gif";
@@ -10,7 +9,7 @@ export default function Page504() {
     <section className="error__section">
       <div className="error__content__container">
         <span>서버 점검 중입니다</span>
-        <span style={{ fontSize: "1.4rem", color: "var(--greyOpacity500)" }}>
+        <span>
           서버 이전 작업으로 인해 일시적으로 서비스를 이용할 수 없습니다.
           <br />
           잠시 후 다시 시도해 주세요.

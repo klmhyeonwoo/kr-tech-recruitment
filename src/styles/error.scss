@@ -22,4 +22,10 @@
     font-size: 1.7rem;
     font-weight: 500;
   }
+
+  & > span:nth-of-type(2) {
+    text-align: center;
+    font-size: 1.4rem;
+    color: var(--greyOpacity500);
+  }
 }
