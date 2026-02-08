@@ -11,7 +11,7 @@ import { useParams } from "next/navigation";
 import NotDataSwimming from "../common/not-data";
 import CommentItem from "./comment-item";
 import BoardInfo from "./board-info";
-import useUser from "@/hooks/useUser";
+import useUser from "@/hooks/common/useUser";
 import { debounce } from "es-toolkit";
 
 export interface CommentsProps {
@@ -63,7 +63,7 @@ export default function Comments({
 
   const handleRefreshData = async () => {
     const { data, status } = await community.viewBoard(
-      params.detailId as string
+      params.detailId as string,
     );
     if (status === 200) {
       setComments(data.comments);
@@ -84,7 +84,7 @@ export default function Comments({
         setIsLiked((prev) => !prev);
       }
       await handleRefreshData();
-    }, 300)
+    }, 300),
   ).current;
 
   const handleToggleList = async () => {

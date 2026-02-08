@@ -4,14 +4,23 @@ const nextConfig: NextConfig = {
   // Optimize production builds
   poweredByHeader: false,
   compress: true,
-  
+
   // Optimize images
   images: {
-    formats: ['image/avif', 'image/webp'],
+    formats: ["image/avif", "image/webp"],
   },
-  
+
   headers: async () => {
     return [
+      {
+        source: "/video/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
+        ],
+      },
       {
         source: "/:path*",
         headers: [

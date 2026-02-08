@@ -1,7 +1,7 @@
 "use client";
 import styles from "@/styles/components/tab.module.scss";
 import Tab from "./Tab";
-import useTab from "@/hooks/useTab";
+import useTab from "@/hooks/common/useTab";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useMemo } from "react";
 import { useAtom } from "jotai";
@@ -34,7 +34,7 @@ function TabSection({ data, currentIndex }: TabData) {
 
   const { currentTab, setTab } = useTab({
     initialTab: setCurrentIndex(
-      currentIndex ?? getCompanyCodeArray(data).indexOf(company)
+      currentIndex ?? getCompanyCodeArray(data).indexOf(company),
     ),
     totalTabs: data.length,
   });
@@ -59,7 +59,7 @@ function TabSection({ data, currentIndex }: TabData) {
           id: index,
         };
       }),
-    [data]
+    [data],
   );
 
   useEffect(() => {

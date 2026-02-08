@@ -8,7 +8,7 @@ import Input from "@/components/search/Input";
 import Button from "../button";
 import Textarea from "@/components/search/Textarea";
 import community from "@/api/domain/community";
-import useClickOutside from "@/hooks/useClickOutside";
+import useClickOutside from "@/hooks/common/useClickOutside";
 
 interface BoardProps {
   closeModal: () => void;

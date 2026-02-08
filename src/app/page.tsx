@@ -2,7 +2,9 @@ import AnnounceCard from "@/components/card/AnnounceCard";
 import "@/styles/domain/main.scss";
 import { api } from "@/api";
 import GreetingSwiper from "@/components/swiper/GreetingSwiper";
-import QuestionBanner, { QuestionTypes } from "@/components/question/question-banner";
+import QuestionBanner, {
+  QuestionTypes,
+} from "@/components/question/question-banner";
 import { Fragment } from "react";
 import Header from "@/components/common/header";
 import hotIssue from "@/api/domain/hotIssue";
@@ -44,7 +46,9 @@ async function getRecruitData({
   }
 }
 
-async function getCommunityData(): Promise<DataResponse<ListProps["list"][number]>> {
+async function getCommunityData(): Promise<
+  DataResponse<ListProps["list"][number]>
+> {
   try {
     const { data } = await community.standardList({
       page: 0,
@@ -68,7 +72,7 @@ async function getPopularRecruitData({
       `/recruitment-notices/redirections/daily-rank`,
       {
         params,
-      }
+      },
     );
     const list = data.list || [];
     const scaledData = {
@@ -84,7 +88,9 @@ async function getPopularRecruitData({
   }
 }
 
-async function getHotIssueQuestionData(): Promise<DataResponse<QuestionTypes["questionData"]>> {
+async function getHotIssueQuestionData(): Promise<
+  DataResponse<QuestionTypes["questionData"]>
+> {
   try {
     const { data } = await hotIssue.getActivatedList();
     return data;
@@ -96,8 +102,7 @@ async function getHotIssueQuestionData(): Promise<DataResponse<QuestionTypes["qu
 export default async function Home() {
   const yesterday = new Date();
   yesterday.setDate(yesterday.getDate() - 1);
-  
-  // Fetch all data in parallel for better performance
+
   const [
     { list: recentRecruitList },
     { list: popularRecruitList },

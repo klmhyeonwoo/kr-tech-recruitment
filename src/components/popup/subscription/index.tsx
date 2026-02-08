@@ -1,16 +1,16 @@
 "use client";
-import React, { createContext, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import { Portal } from "../../common/portal";
 import Popup from "../../common/popup";
 import { useAtom } from "jotai";
 import { PORTAL_STORE } from "@/store";
 import Progress from "./phase/Progress";
 import subscribe from "@/api/domain/subscribe";
-import company from "@/api/domain/company";
-import useCheckEmail from "@/hooks/useCheckEmail";
+import useCheckEmail from "@/hooks/common/useCheckEmail";
 import Complete from "./phase/Complete";
 import Cookies from "js-cookie";
 import CountUp from "react-countup";
+import { useGetStandardJobCategories } from "@/hooks/api/useGetStandardJobCategories";
 
 type SubscriptionContextType = {
   handleNext: () => void;
@@ -40,18 +40,31 @@ function SubscriptionPopup() {
   }>({});
   const [selectedSubscriptionCategories, setSelectedSubscriptionCategories] =
     useState<string[]>([]);
+
   // TODO: 추후 tanstack query의 isLoading을 사용하여 로딩 상태 관리 필요
   const [loader, setLoader] = useState(false);
   const [phase, setPhase] = useState(0);
+  const [shouldFetchCategoriesFlag, setShouldFetchCategoriesFlag] =
+    useState(false);
+
+  const {
+    data: standardJobCategories,
+    isSuccess: isSuccessStandardJobCategories,
+    isLoading: isLoadingStandardJobCategories,
+  } = useGetStandardJobCategories({
+    enabled: shouldFetchCategoriesFlag,
+  });
+
   const handleNext = async () => {
     // 현재 페이즈가 마지막 페이즈라면 아무 작업도 하지 않음
     if (phase === phaseTextSet.length) return;
 
     // 페이즈 시작 단계
     if (phase === 0) {
-      const { data, status } = await handleGetStandardCategories();
-      if (status === 200) {
-        setStandardCategories(data);
+      setShouldFetchCategoriesFlag(true); // tanstack-query enabled flag
+      // * 캐싱 처리를 위해 tanstack-query 사용함으로써 초기 데이터 패칭 성공 여부는 useEffect에서 처리
+      if (standardJobCategories) {
+        // * 데이터가 존재하면 다음 페이즈로 이동시킴
         setPhase((prev) => prev + 1);
       }
     }
@@ -127,23 +140,6 @@ function SubscriptionPopup() {
     }
   };
 
-  const handleGetStandardCategories = async () => {
-    setLoader(true);
-    try {
-      const { status, data } = await company.getStandardCategories();
-      setLoader(false);
-      if (status === 200) {
-        return { data, status };
-      } else {
-        return { status };
-      }
-    } catch (error) {
-      setLoader(false);
-      console.error("Error fetching standard categories:", error);
-      return { status: 500 };
-    }
-  };
-
   // 순차적으로 퍼널이 진행하기 위한 텍스트 및 함수 세팅 작업이 진행되어요
   const phaseTextSet = [
     {
@@ -179,6 +175,16 @@ function SubscriptionPopup() {
     },
   ];
 
+  /**
+   * @description 직무 별 카테고리 성공 여부 감지를 위한 UseEffect 함수
+   */
+  useEffect(() => {
+    if (isSuccessStandardJobCategories) {
+      setStandardCategories(standardJobCategories);
+      setPhase((prev) => prev + 1);
+    }
+  }, [isSuccessStandardJobCategories]);
+
   return (
     <Portal id="portal">
       {isShowPopup ? (
@@ -199,7 +205,7 @@ function SubscriptionPopup() {
             negativeButtonText={phaseTextSet[phase]?.negativeText}
             isDisabledButton={phaseTextSet[phase]?.isDisabledButton}
             options={phaseTextSet[phase]?.options}
-            loader={loader}
+            loader={loader || isLoadingStandardJobCategories}
           >
             {phase === 1 && (
               <Progress

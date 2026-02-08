@@ -10,7 +10,7 @@ import {
 import Cookies from "js-cookie";
 import user from "@/api/domain/user";
 import UserAvatar from "./user-avatar";
-import useUser from "@/hooks/useUser";
+import useUser from "@/hooks/common/useUser";
 
 const UserStatusBlock = () => {
   const [userName, setUserName] = useState(Cookies.get("nklcb__nn") || "");

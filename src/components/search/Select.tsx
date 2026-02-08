@@ -6,8 +6,8 @@ import icon_quit from "../../../public/icon/quit.svg";
 import Image from "next/image";
 import { scaledPositionName } from "@/utils/common";
 import styles from "@/styles/components/input.module.scss";
-import { useFilter } from "@/hooks/useFilter";
-import useClickOutside from "@/hooks/useClickOutside";
+import { useFilter } from "@/hooks/common/useFilter";
+import useClickOutside from "@/hooks/common/useClickOutside";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { getDevice } from "kr-corekit";
 
@@ -67,7 +67,7 @@ function Select({ data, placeholder, isIcon = true, ...props }: SelectType) {
 
   // Native select change handler
   const handleNativeSelectChange = (
-    event: React.ChangeEvent<HTMLSelectElement>
+    event: React.ChangeEvent<HTMLSelectElement>,
   ) => {
     const value = event.target.value;
     if (value) {
