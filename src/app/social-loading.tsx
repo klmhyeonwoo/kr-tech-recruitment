@@ -6,7 +6,7 @@ import social from "@/api/domain/social";
 import { api } from "@/api";
 import { useRouter } from "next/navigation";
 import { checkInitializedKakaoSDK } from "@/utils/socialUtil";
-import useUser from "@/hooks/useUser";
+import useUser from "@/hooks/common/useUser";
 
 function SocialLoading() {
   const router = useRouter();
@@ -29,7 +29,7 @@ function SocialLoading() {
             headers: {
               "Content-Type": "application/x-www-form-urlencoded",
             },
-          }
+          },
         );
         if (status === 200) {
           const { access_token } = data;

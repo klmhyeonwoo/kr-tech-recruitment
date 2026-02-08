@@ -11,7 +11,7 @@ import Loading from "@/app/loading";
 import { debounce } from "es-toolkit";
 import NotDataSwimming from "../common/not-data";
 import { useRouter, useSearchParams } from "next/navigation";
-import useUser from "@/hooks/useUser";
+import useUser from "@/hooks/common/useUser";
 
 export interface ListProps {
   list: {
@@ -58,15 +58,15 @@ export default function List() {
   const [isShowModal, setShowModal] = useState(false);
   const [keyword, setKeyword] = useState("");
   const [currentPage, setCurrentPage] = useState(
-    paramsPage ? paramsPage - 1 : 0
+    paramsPage ? paramsPage - 1 : 0,
   );
   const { isLogin } = useUser();
   const [loader, setLoader] = useState(true);
   const [pageBoardData, setPageBoardData] = useState<ListProps>(
-    INITIAL_PAGE_BOARD_DATA
+    INITIAL_PAGE_BOARD_DATA,
   );
   const totalPageCount = Math.ceil(
-    pageBoardData?.metadata?.totalElements / BOARD_PAGE_MAX_COUNT
+    pageBoardData?.metadata?.totalElements / BOARD_PAGE_MAX_COUNT,
   );
 
   useEffect(() => {
@@ -123,7 +123,7 @@ export default function List() {
   const debounceGetBoardDataForKeyword = useRef(
     debounce((keyword: string) => {
       getPageBoardData({ page: 0, keyword });
-    }, 500)
+    }, 500),
   ).current;
 
   /**

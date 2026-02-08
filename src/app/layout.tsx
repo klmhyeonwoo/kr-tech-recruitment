@@ -13,6 +13,7 @@ import { baseMetaData } from "@/og";
 import SubscriptionPopup from "@/components/popup/subscription";
 import KakaoScript from "@/components/auth/kakao-script";
 import StructuredData from "@/components/seo/structured-data";
+import QueryProvider from "@/lib/tanstack/react-query/query-provider";
 
 export const metadata: Metadata = baseMetaData;
 export const viewport: Viewport = {
@@ -132,9 +133,11 @@ export default async function RootLayout({
         strategy="afterInteractive"
       />
       <body>
-        <div id="portal" />
-        <SubscriptionPopup />
-        {children}
+        <QueryProvider>
+          <div id="portal" />
+          <SubscriptionPopup />
+          {children}
+        </QueryProvider>
       </body>
       <KakaoScript />
     </html>
