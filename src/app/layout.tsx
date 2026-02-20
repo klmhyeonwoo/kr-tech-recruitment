@@ -14,6 +14,7 @@ import SubscriptionPopup from "@/components/popup/subscription";
 import KakaoScript from "@/components/auth/kakao-script";
 import StructuredData from "@/components/seo/structured-data";
 import QueryProvider from "@/lib/tanstack/react-query/query-provider";
+import ClarityProvider from "@/lib/clarity/clarity-provider";
 
 export const metadata: Metadata = baseMetaData;
 export const viewport: Viewport = {
@@ -133,11 +134,13 @@ export default async function RootLayout({
         strategy="afterInteractive"
       />
       <body>
-        <QueryProvider>
-          <div id="portal" />
-          <SubscriptionPopup />
-          {children}
-        </QueryProvider>
+        <ClarityProvider>
+          <QueryProvider>
+            <div id="portal" />
+            <SubscriptionPopup />
+            {children}
+          </QueryProvider>
+        </ClarityProvider>
       </body>
       <KakaoScript />
     </html>
