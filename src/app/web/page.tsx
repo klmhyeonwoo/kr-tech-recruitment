@@ -84,22 +84,3 @@ export default async function Home({ searchParams }: paramsType) {
     </Suspense>
   );
 }
-
-async function RecruitListSection({
-  company,
-  category,
-}: {
-  company: string;
-  category: string;
-}) {
-  const { list } = await getRecruitData({
-    params: {
-      companyCode: company,
-      page: 0,
-      pageSize: 9999,
-      standardCategory: category,
-    },
-  });
-
-  return <CardSection data={list} />;
-}
