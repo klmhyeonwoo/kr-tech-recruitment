@@ -1,6 +1,6 @@
 import React, { ChangeEvent } from "react";
 import styles from "@/styles/components/input.module.scss";
-import icon_search from "../../../public/icon/search.svg";
+import icon_search from "@public/icon/search.svg";
 import Image from "next/image";
 
 type InputType = {

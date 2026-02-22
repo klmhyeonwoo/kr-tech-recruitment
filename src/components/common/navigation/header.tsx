@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import styles from "@/styles/components/headers.module.scss";
-import logo from "../../../public/images/logo.svg";
+import logo from "@public/images/logo.svg";
 import Image from "next/image";
 import Link from "next/link";
 

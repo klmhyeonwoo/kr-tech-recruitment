@@ -2,7 +2,7 @@ import { api } from "@/api";
 import { Fragment, Suspense } from "react";
 import TabSection from "@/components/tab/Section";
 import "@/styles/domain/web.scss";
-import Header from "@/components/common/header";
+import Header from "@/components/common/navigation/header";
 import SearchSection from "@/components/search/Section";
 import { Metadata } from "next";
 import UserAds from "@/components/ads/user-ads";

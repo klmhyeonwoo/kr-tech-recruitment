@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import ListItem from "./list-item";
 import styles from "@/styles/components/list.module.scss";
-import volt_gif from "../../../public/images/volt.gif";
+import volt_gif from "@public/images/volt.gif";
 import Image from "next/image";
 import community from "@/api/domain/community";
 import { ListProps } from "./list";
-import NotDataSwimming from "../common/not-data";
+import NotDataSwimming from "@/components/common/feedback/not-data";
 
 export default function HotListItem() {
   const [hotList, setHotList] = useState<ListProps["list"][number] | null>(
-    null
+    null,
   );
 
   useEffect(() => {

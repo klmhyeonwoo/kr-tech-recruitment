@@ -1,11 +1,11 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import styles from "./user-ads.module.scss";
-import desktopImage from "../../../public/images/ads/desktop.webp";
-import mobileImage from "../../../public/images/ads/mobile.webp";
+import desktopImage from "@public/images/ads/desktop.webp";
+import mobileImage from "@public/images/ads/mobile.webp";
 import Image from "next/image";
 import { getDevice } from "kr-corekit";
-import Anchor from "../common/anchor";
+import Anchor from "../common/navigation/anchor";
 
 const TARGET_LINK =
   "https://www.layerapp.io/?utm_source=nklcb&utm_medium=display";

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import styles from "@/styles/components/question-banner.module.scss";
 import QuestionUsernameGenerator from "./question-username-generator";
-import Input from "../search/Input";
-import Button from "../common/button";
+import Input from "@/components/search/Input";
+import Button from "@/components/common/button";
 
 type QuestionCommentGeneratorTypes = {
   refresh: () => void;
@@ -28,7 +28,7 @@ function QuestionCommentGenerator({
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement> | { target: { value: string } },
-    { type }: { type: "nickName" | "userComment" }
+    { type }: { type: "nickName" | "userComment" },
   ) => {
     if (type === "nickName") {
       setNickName(e.target.value);

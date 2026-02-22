@@ -2,14 +2,14 @@
 import React, { Fragment, useEffect, useRef, useState } from "react";
 import ListItem from "./list-item";
 import styles from "@/styles/components/list.module.scss";
-import Button from "../common/button";
-import Input from "../search/Input";
+import Button from "@/components/common/button";
+import Input from "@/components/search/Input";
 import HotListItem from "./hot-list-item";
-import Board from "../common/modal/board";
+import BoardPostModal from "@/app/community/_components/board-post-modal";
 import community from "@/api/domain/community";
 import Loading from "@/app/loading";
 import { debounce } from "es-toolkit";
-import NotDataSwimming from "../common/not-data";
+import NotDataSwimming from "@/components/common/feedback/not-data";
 import { useRouter, useSearchParams } from "next/navigation";
 import useUser from "@/hooks/common/useUser";
 
@@ -163,7 +163,10 @@ export default function List() {
   return (
     <Fragment>
       {isShowModal && (
-        <Board refreshData={handleWriteBoard} closeModal={handleCloseModal} />
+        <BoardPostModal
+          refreshData={handleWriteBoard}
+          closeModal={handleCloseModal}
+        />
       )}
       <div className={styles.list__container}>
         <HotListItem />

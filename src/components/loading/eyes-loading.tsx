@@ -1,6 +1,6 @@
 import styles from "@/styles/components/loading.module.scss";
 import Image from "next/image";
-import icon_eyes from "../../../public/icon/eyes.gif";
+import icon_eyes from "@public/icon/eyes.gif";
 
 export default function EyesLoading() {
   return (

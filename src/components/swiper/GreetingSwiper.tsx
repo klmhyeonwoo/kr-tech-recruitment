@@ -1,9 +1,9 @@
 "use client";
-import greeting_image_eyes from "../../../public/images/eyes.gif";
-import greeting_image_waving from "../../../public/images/waving.gif";
-import greeting_image_rocket from "../../../public/images/rocket.gif";
-import greeting_image_popper from "../../../public/images/popper.gif";
-import greeting_image_earth from "../../../public/images/earth.png";
+import greeting_image_eyes from "@public/images/eyes.gif";
+import greeting_image_waving from "@public/images/waving.gif";
+import greeting_image_rocket from "@public/images/rocket.gif";
+import greeting_image_popper from "@public/images/popper.gif";
+import greeting_image_earth from "@public/images/earth.png";
 import GreetingCard from "../common/greeting-card";
 import Marquee from "react-fast-marquee";
 import { getDevice } from "kr-corekit";

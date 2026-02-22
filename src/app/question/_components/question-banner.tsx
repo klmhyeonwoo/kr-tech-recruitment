@@ -3,7 +3,7 @@ import React from "react";
 import styles from "@/styles/components/question-banner.module.scss";
 import QuestionCommentList from "./question-comment-list";
 import QuestionTitle from "./question-title";
-import Anchor from "../common/anchor";
+import Anchor from "@/components/common/navigation/anchor";
 
 export type QuestionTypes = {
   questionData: {

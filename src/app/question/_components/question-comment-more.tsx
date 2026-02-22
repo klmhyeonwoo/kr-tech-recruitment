@@ -1,7 +1,7 @@
 "use client";
 import styles from "@/styles/components/question-banner.module.scss";
 import Image from "next/image";
-import icon_arrow from "../../../public/icon/arrow_white.svg";
+import icon_arrow from "@public/icon/arrow_white.svg";
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 

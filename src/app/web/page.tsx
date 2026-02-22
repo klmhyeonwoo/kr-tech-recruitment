@@ -58,12 +58,30 @@ async function RecruitDataSection({
   company: string;
   category: string;
 }) {
+  const { list } = await getRecruitData({
+    params: {
+      companyCode: company,
+      page: 0,
+      pageSize: 9999,
+      standardCategory: category,
+    },
+  });
+
   return (
     <Fragment>
       <Suspense key={`${company}-${category}`} fallback={<EyesLoading />}>
-        <RecruitListSection company={company} category={category} />
+        <CardSection data={list} />
       </Suspense>
     </Fragment>
+  );
+}
+
+export default async function Home({ searchParams }: paramsType) {
+  const { company, category } = await searchParams;
+  return (
+    <Suspense key={`${company}`} fallback={<EyesLoading />}>
+      <RecruitDataSection company={company ?? "NAVER"} category={category} />
+    </Suspense>
   );
 }
 
@@ -84,13 +102,4 @@ async function RecruitListSection({
   });
 
   return <CardSection data={list} />;
-}
-
-export default async function Home({ searchParams }: paramsType) {
-  const { company, category } = await searchParams;
-  return (
-    <Suspense key={`${company}`} fallback={<EyesLoading />}>
-      <RecruitDataSection company={company ?? "NAVER"} category={category} />
-    </Suspense>
-  );
 }

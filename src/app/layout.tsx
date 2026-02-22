@@ -11,8 +11,8 @@ import "@/styles/common.scss";
 import "@/styles/utility.scss";
 import { baseMetaData } from "@/og";
 import SubscriptionPopup from "@/components/popup/subscription";
-import KakaoScript from "@/components/auth/kakao-script";
-import StructuredData from "@/components/seo/structured-data";
+import KakaoScript from "@/lib/auth/kakao-script";
+import StructuredData from "@/lib/seo/structured-data";
 import QueryProvider from "@/lib/tanstack/react-query/query-provider";
 import ClarityProvider from "@/lib/clarity/clarity-provider";
 

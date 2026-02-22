@@ -1,7 +1,7 @@
 import "@/styles/domain/web.scss";
 import { Metadata } from "next";
 import React from "react";
-import DefaultLayout from "../layout/DefaultLayout";
+import DefaultLayout from "@/components/layout/DefaultLayout";
 
 export const metadata: Metadata = {
   title: "이번 주 질문",

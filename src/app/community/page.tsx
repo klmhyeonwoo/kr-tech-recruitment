@@ -1,7 +1,7 @@
-import Title from "@/components/commnuity/title";
-import UserStatusBlock from "@/components/commnuity/user-status-block";
 import React, { Fragment } from "react";
-import List from "@/components/commnuity/list";
+import Title from "./_components/title";
+import UserStatusBlock from "./_components/user-status-block";
+import List from "./_components/list";
 
 export default async function Page() {
   return (

@@ -1,8 +1,8 @@
 import Image from "next/image";
 import React from "react";
-import Button from "./button";
+import Button from "../button";
 import Link from "next/link";
-import icon_hands_pushing from "../../../public/icon/hands_pushing.gif";
+import icon_hands_pushing from "@public/icon/hands_pushing.gif";
 
 interface ErrorMessageProps {
   message?: string;
