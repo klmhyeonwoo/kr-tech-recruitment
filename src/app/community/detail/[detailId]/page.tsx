@@ -1,10 +1,10 @@
 import community from "@/api/domain/community";
 import React from "react";
 import "@/styles/domain/community-detail.scss";
-import Comments, { CommentsProps } from "@/components/commnuity/comments";
+import Comments, { CommentsProps } from "@/app/community/_components/comments";
 import { cookies } from "next/headers";
 import Link from "next/link";
-import arrow_icon from "../../../../../public/icon/arrow_black.svg";
+import arrow_icon from "@public/icon/arrow_black.svg";
 import Image from "next/image";
 import dateUtil from "@/utils/dateUtil";
 

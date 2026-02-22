@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import LetterFade from "../common/animation/letter-fade";
+import LetterFade from "@/components/common/animation/letter-fade";
 import styles from "@/styles/components/question-banner.module.scss";
 
 export default function QuestionTitle({ title } = { title: "" }) {

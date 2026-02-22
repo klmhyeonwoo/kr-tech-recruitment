@@ -3,9 +3,9 @@ import React from "react";
 import styles from "@/styles/components/announce-card.module.scss";
 import { scaledIndex } from "@/utils/common";
 import { RecruitData } from "./Section";
-import NotDataSwimming from "../common/not-data";
+import NotDataSwimming from "../common/feedback/not-data";
 import Image from "next/image";
-import icon_arrow from "../../../public/icon/arrow_black.svg";
+import icon_arrow from "@public/icon/arrow_black.svg";
 import Link from "next/link";
 
 type AnnounceCardType = {

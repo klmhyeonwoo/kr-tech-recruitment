@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "@/styles/components/loading.module.scss";
-import icon_clapping from "../../../public/icon/clapping.gif";
+import icon_clapping from "@public/icon/clapping.gif";
 import Image from "next/image";
 
 function Loading() {

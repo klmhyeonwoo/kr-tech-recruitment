@@ -58,22 +58,6 @@ async function RecruitDataSection({
   company: string;
   category: string;
 }) {
-  return (
-    <Fragment>
-      <Suspense key={`${company}-${category}`} fallback={<EyesLoading />}>
-        <RecruitListSection company={company} category={category} />
-      </Suspense>
-    </Fragment>
-  );
-}
-
-async function RecruitListSection({
-  company,
-  category,
-}: {
-  company: string;
-  category: string;
-}) {
   const { list } = await getRecruitData({
     params: {
       companyCode: company,
@@ -83,7 +67,13 @@ async function RecruitListSection({
     },
   });
 
-  return <CardSection data={list} />;
+  return (
+    <Fragment>
+      <Suspense key={`${company}-${category}`} fallback={<EyesLoading />}>
+        <CardSection data={list} />
+      </Suspense>
+    </Fragment>
+  );
 }
 
 export default async function Home({ searchParams }: paramsType) {

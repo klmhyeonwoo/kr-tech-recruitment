@@ -1,8 +1,8 @@
 import React, { Fragment } from "react";
 import styles from "@/styles/components/board-info.module.scss";
 import Image from "next/image";
-import ellipsis_icon from "../../../public/icon/commnuity/ellipsis.svg";
-import heart from "../../../public/icon/commnuity/heart.svg";
+import ellipsis_icon from "@public/icon/commnuity/ellipsis.svg";
+import heart from "@public/icon/commnuity/heart.svg";
 
 interface BoardInfoProps extends React.HTMLAttributes<HTMLDivElement> {
   commentCount: number;

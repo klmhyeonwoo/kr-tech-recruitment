@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import icon_swimming from "../../../public/icon/swimming.gif";
+import icon_swimming from "@public/icon/swimming.gif";
 import "@/styles/common.scss";
 
 function NotDataSwimming({

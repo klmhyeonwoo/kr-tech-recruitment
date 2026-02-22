@@ -1,4 +1,4 @@
-import Header from "@/components/common/header";
+import Header from "@/components/common/navigation/header";
 import React, { Fragment } from "react";
 
 export default function DefaultLayout({

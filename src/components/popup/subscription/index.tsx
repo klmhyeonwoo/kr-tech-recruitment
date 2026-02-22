@@ -1,7 +1,7 @@
 "use client";
 import React, { createContext, useEffect, useState } from "react";
-import { Portal } from "../../common/portal";
-import Popup from "../../common/popup";
+import { Portal } from "../../common/overlay/portal";
+import Popup from "../../common/overlay/popup";
 import { useAtom } from "jotai";
 import { PORTAL_STORE } from "@/store";
 import Progress from "./phase/Progress";

@@ -2,7 +2,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import React, { Fragment } from "react";
-import icon_arrow from "../../../public/icon/arrow_black.svg";
+import icon_arrow from "@public/icon/arrow_black.svg";
 import styles from "./anchor.module.scss";
 
 interface AnchorProps {

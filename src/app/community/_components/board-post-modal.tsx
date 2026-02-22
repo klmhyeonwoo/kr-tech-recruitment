@@ -1,11 +1,11 @@
 "use client";
 import React, { useLayoutEffect, useRef, useState } from "react";
 import styles from "@/styles/components/board-modal.module.scss";
-import { Portal } from "../portal";
-import star_icon from "../../../../public/icon/star.gif";
+import { Portal } from "@/components/common/overlay/portal";
+import star_icon from "@public/icon/star.gif";
 import Image from "next/image";
 import Input from "@/components/search/Input";
-import Button from "../button";
+import Button from "@/components/common/button";
 import Textarea from "@/components/search/Textarea";
 import community from "@/api/domain/community";
 import useClickOutside from "@/hooks/common/useClickOutside";
@@ -15,7 +15,10 @@ interface BoardProps {
   refreshData: () => void;
 }
 
-export default function Board({ refreshData, closeModal }: BoardProps) {
+export default function BoardPostModal({
+  refreshData,
+  closeModal,
+}: BoardProps) {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const textareaRef = useRef<HTMLTextAreaElement>(null);

@@ -1,6 +1,6 @@
 import hotIssue from "@/api/domain/hotIssue";
-import QuestionCommentPost from "@/components/question/question-comment-post";
-import QuestionTitle from "@/components/question/question-title";
+import QuestionCommentPost from "./_components/question-comment-post";
+import QuestionTitle from "./_components/question-title";
 import { Fragment } from "react";
 
 export const dynamic = "force-dynamic";

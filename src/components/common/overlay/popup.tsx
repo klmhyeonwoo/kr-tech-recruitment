@@ -1,6 +1,6 @@
 import React, { Children } from "react";
 import styles from "@/styles/components/popup.module.scss";
-import Button from "./button";
+import Button from "../button";
 
 type PopupType = {
   title?: string | React.ReactNode;

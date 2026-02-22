@@ -1,8 +1,8 @@
 "use client";
 import React, { Fragment, useRef, useEffect, useState } from "react";
-import icon_arrow from "../../../public/icon/arrow_gray.svg";
-import icon_airplane from "../../../public/icon/airplane.svg";
-import icon_quit from "../../../public/icon/quit.svg";
+import icon_arrow from "@public/icon/arrow_gray.svg";
+import icon_airplane from "@public/icon/airplane.svg";
+import icon_quit from "@public/icon/quit.svg";
 import Image from "next/image";
 import { scaledPositionName } from "@/utils/common";
 import styles from "@/styles/components/input.module.scss";

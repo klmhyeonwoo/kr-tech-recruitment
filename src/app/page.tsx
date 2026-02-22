@@ -4,16 +4,16 @@ import { api } from "@/api";
 import GreetingSwiper from "@/components/swiper/GreetingSwiper";
 import QuestionBanner, {
   QuestionTypes,
-} from "@/components/question/question-banner";
+} from "./question/_components/question-banner";
 import { Fragment } from "react";
-import Header from "@/components/common/header";
+import Header from "@/components/common/navigation/header";
 import hotIssue from "@/api/domain/hotIssue";
 import community from "@/api/domain/community";
-import ListItem from "@/components/commnuity/list-item";
-import { ListProps } from "@/components/commnuity/list";
+import ListItem from "./community/_components/list-item";
+import { ListProps } from "./community/_components/list";
 import Ads from "@/components/ads/ads";
 import UserAds from "@/components/ads/user-ads";
-import Anchor from "@/components/common/anchor";
+import Anchor from "@/components/common/navigation/anchor";
 import { RecruitData } from "@/components/card/Section";
 
 export const revalidate = 3600; // Revalidate every hour

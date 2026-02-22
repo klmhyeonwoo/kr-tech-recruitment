@@ -1,7 +1,7 @@
 "use client";
 import React, { memo, useEffect, useState } from "react";
 import styles from "@/styles/components/user-status-block.module.scss";
-import kakao_image from "../../../public/images/kakao.png";
+import kakao_image from "@public/images/kakao.png";
 import Image from "next/image";
 import {
   checkInitializedKakaoSDK,

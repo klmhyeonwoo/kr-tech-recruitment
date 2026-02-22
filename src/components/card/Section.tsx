@@ -5,7 +5,7 @@ import styles from "@/styles/components/recruit-card.module.scss";
 import { useAtom } from "jotai";
 import { SEARCH_KEYWORD_STORE } from "../../store";
 import { scaledPositionName } from "@/utils/common";
-import NotDataSwimming from "../common/not-data";
+import NotDataSwimming from "../common/feedback/not-data";
 
 export type RecruitData = {
   recruitmentNoticeId: number;
@@ -35,7 +35,7 @@ export default function CardSection({ data }: { data: RecruitData[] }) {
         item.categories?.some((category) => {
           const originalCategory = category?.toLowerCase().trim();
           const scaledCategory = scaledPositionName(
-            category?.trim()
+            category?.trim(),
           )?.toLowerCase();
           return (
             originalCategory?.includes(keyword) ||

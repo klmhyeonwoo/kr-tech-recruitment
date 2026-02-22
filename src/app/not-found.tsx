@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { useSearchParams } from "next/navigation";
-import ErrorMessage from "@/components/common/error-message";
+import ErrorMessage from "@/components/common/feedback/error-message";
 
 function NotFound() {
   const params = useSearchParams();

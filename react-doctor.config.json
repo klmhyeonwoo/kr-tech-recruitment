@@ -1,0 +1,6 @@
+{
+  "ignore": {
+    "rules": ["react/no-danger", "jsx-a11y/no-autofocus", "knip/exports"],
+    "files": ["src/generated/**"]
+  }
+}

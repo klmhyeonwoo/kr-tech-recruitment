@@ -3,7 +3,7 @@ import React from "react";
 import { handleScaledAnimalName, QuestionTypes } from "./question-banner";
 import styles from "@/styles/components/question-banner.module.scss";
 import QuestionFaceGenerator from "./question-face-generator";
-import NotDataSwimming from "../common/not-data";
+import NotDataSwimming from "@/components/common/feedback/not-data";
 
 export default function QuestionCommentList({
   comments,

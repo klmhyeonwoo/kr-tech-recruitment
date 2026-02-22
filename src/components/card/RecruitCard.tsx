@@ -1,10 +1,10 @@
 "use client";
 import styles from "@/styles/components/recruit-card.module.scss";
-import icon_arrow from "../../../public/icon/arrow_white.svg";
-import icon_calendar from "../../../public/icon/calendar.svg";
-import icon_calendar_light from "../../../public/icon/calendar_light.svg";
-import icon_cube from "../../../public/icon/cube.svg";
-import icon_cube_light from "../../../public/icon/cube_light.svg";
+import icon_arrow from "@public/icon/arrow_white.svg";
+import icon_calendar from "@public/icon/calendar.svg";
+import icon_calendar_light from "@public/icon/calendar_light.svg";
+import icon_cube from "@public/icon/cube.svg";
+import icon_cube_light from "@public/icon/cube_light.svg";
 
 import Image from "next/image";
 import { formatDate, scaledPositionName } from "@/utils/common";
