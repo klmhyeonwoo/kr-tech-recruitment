@@ -1,5 +1,11 @@
 "use client";
-import React, { Fragment, useRef, useEffect, useState } from "react";
+import React, {
+  Fragment,
+  useRef,
+  useEffect,
+  useState,
+  useTransition,
+} from "react";
 import icon_arrow from "@public/icon/arrow_gray.svg";
 import icon_airplane from "@public/icon/airplane.svg";
 import icon_quit from "@public/icon/quit.svg";
@@ -27,6 +33,7 @@ function Select({ data, placeholder, isIcon = true, ...props }: SelectType) {
   const router = useRouter();
   const category = searchParams.get("category");
   const [isMobile, setIsMobile] = useState(false);
+  const [, startTransition] = useTransition();
 
   useEffect(() => {
     const { isMobile } = getDevice();
@@ -62,7 +69,15 @@ function Select({ data, placeholder, isIcon = true, ...props }: SelectType) {
     setSelectedGlobalFilter(item);
     const params = new URLSearchParams(searchParams.toString());
     params.set("category", item);
-    router.replace(`${pathname}/?${params.toString()}`);
+    const nextQuery = params.toString();
+    const nextUrl = nextQuery ? `${pathname}?${nextQuery}` : pathname;
+    const currentQuery = searchParams.toString();
+    const currentUrl = currentQuery ? `${pathname}?${currentQuery}` : pathname;
+    if (nextUrl === currentUrl) return;
+
+    startTransition(() => {
+      router.replace(nextUrl, { scroll: false });
+    });
   };
 
   // Native select change handler
@@ -74,7 +89,15 @@ function Select({ data, placeholder, isIcon = true, ...props }: SelectType) {
       setSelectedGlobalFilter(value);
       const params = new URLSearchParams(searchParams.toString());
       params.set("category", value);
-      router.replace(`${pathname}/?${params.toString()}`);
+      const nextQuery = params.toString();
+      const nextUrl = nextQuery ? `${pathname}?${nextQuery}` : pathname;
+      const currentQuery = searchParams.toString();
+      const currentUrl = currentQuery ? `${pathname}?${currentQuery}` : pathname;
+      if (nextUrl === currentUrl) return;
+
+      startTransition(() => {
+        router.replace(nextUrl, { scroll: false });
+      });
     } else {
       removeSelectedFilter();
     }
