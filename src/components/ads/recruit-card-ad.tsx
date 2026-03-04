@@ -54,7 +54,7 @@ export default function RecruitCardAd() {
       aria-label="스폰서 광고"
     >
       <div className={styles.card__container}>
-        <span className={styles.card__ad__badge}>SPONSORED</span>
+        <span className={styles.card__ad__badge}>ADS</span>
         <div className={styles.card__ad__slot}>
           <Script
             async

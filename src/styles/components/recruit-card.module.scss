@@ -148,14 +148,16 @@
   width: 100%;
   min-height: 12rem;
   padding: 0.6rem;
-  border-radius: 1.2rem;
+  border-radius: 1rem;
   box-sizing: border-box;
   overflow: hidden;
-  background: #fff;
+  background: rgba(255, 255, 255, 0.8);
 }
 
 .card__ad__slot :global(.adsbygoogle) {
   min-height: 10.8rem;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 .not__data {
