@@ -2,6 +2,12 @@
 
 import Script from "next/script";
 import { useEffect, useState } from "react";
+import {
+  ADSENSE_CLIENT,
+  ADSENSE_SCRIPT_ID,
+  ADSENSE_SCRIPT_URL,
+  markAdSenseScriptLoaded,
+} from "@/utils/adsense";
 
 export default function Ads() {
   const [isRendered, setIsRendered] = useState(false);
@@ -16,15 +22,17 @@ export default function Ads() {
         <>
           <Script
             async
-            id="adsbygoogle-lib"
-            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1550225145364569"
+            id={ADSENSE_SCRIPT_ID}
+            src={ADSENSE_SCRIPT_URL}
             crossOrigin="anonymous"
             strategy="lazyOnload"
+            onLoad={markAdSenseScriptLoaded}
+            onReady={markAdSenseScriptLoaded}
           />
           <ins
             className="adsbygoogle"
             style={{ display: "block" }}
-            data-ad-client="ca-pub-1550225145364569"
+            data-ad-client={ADSENSE_CLIENT}
             data-ad-slot="6016093098"
             data-ad-format="auto"
             data-full-width-responsive="true"

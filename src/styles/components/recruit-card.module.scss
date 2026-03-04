@@ -87,6 +87,14 @@
   }
 }
 
+.card__wrapper[data-ad-card="true"] {
+  &:hover {
+    background-color: rgb(249, 250, 251);
+    color: inherit;
+    transform: none;
+  }
+}
+
 .card__title {
   font-size: 1.65rem;
   font-weight: 600;
@@ -126,6 +134,28 @@
   display: flex;
   align-items: center;
   column-gap: 0.5rem;
+}
+
+.card__ad__badge {
+  align-self: flex-start;
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--greyOpacity500);
+}
+
+.card__ad__slot {
+  width: 100%;
+  min-height: 12rem;
+  padding: 0.6rem;
+  border-radius: 1.2rem;
+  box-sizing: border-box;
+  overflow: hidden;
+  background: #fff;
+}
+
+.card__ad__slot :global(.adsbygoogle) {
+  min-height: 10.8rem;
 }
 
 .not__data {
