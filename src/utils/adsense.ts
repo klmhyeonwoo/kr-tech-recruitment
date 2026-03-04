@@ -15,8 +15,11 @@ export type AdSenseWindow = Window & {
 export function markAdSenseScriptLoaded() {
   if (typeof window === "undefined") return;
   const adWindow = window as AdSenseWindow;
+  if (adWindow.__adsenseScriptLoaded) return;
   adWindow.__adsenseScriptLoaded = true;
-  document.getElementById(ADSENSE_SCRIPT_ID)?.setAttribute("data-loaded", "true");
+  document
+    .getElementById(ADSENSE_SCRIPT_ID)
+    ?.setAttribute("data-loaded", "true");
   window.dispatchEvent(new Event(ADSENSE_LOADED_EVENT));
 }
 
