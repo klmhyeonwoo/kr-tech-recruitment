@@ -98,6 +98,7 @@ async function getCommunitySitemapEntries(
 
     return [...communityPageUrls, ...communityDetailUrls];
   } catch (error) {
+    console.error(error);
     return [];
   }
 }
@@ -110,6 +111,7 @@ async function getQuestionLastModified() {
     const latestQuestion = parsedData.list?.[0];
     return toDate(latestQuestion?.modifiedAt ?? latestQuestion?.createdAt);
   } catch (error) {
+    console.error(error);
     return new Date();
   }
 }
