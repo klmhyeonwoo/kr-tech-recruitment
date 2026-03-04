@@ -147,7 +147,6 @@
 .card__ad__slot {
   width: 100%;
   min-height: 12rem;
-  overflow: auto;
   padding: 0.6rem;
   border-radius: 1rem;
   box-sizing: border-box;
@@ -158,7 +157,7 @@
 .card__ad__slot :global(.adsbygoogle) {
   min-height: 10.8rem;
   box-sizing: border-box;
-  overflow: auto;
+  overflow: hidden;
 }
 
 .not__data {
