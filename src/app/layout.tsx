@@ -39,21 +39,21 @@ const organizationStructuredData = {
     "토스 채용",
     "당근 채용",
   ],
-  url: "https://nklcb.io",
+  url: "https://nklcb.kr",
   description:
     "네이버 채용, 카카오 채용, 라인 채용, 쿠팡 채용, 배달의 민족 채용, 당근 채용, 토스 채용 정보를 한눈에! 네이버, 카카오, 라인, 쿠팡, 배달의민족, 토스, 당근, 두나무 등 대한민국 대표 IT 기업의 최신 채용 공고를 실시간으로 확인하고 지원하세요.",
   potentialAction: {
     "@type": "SearchAction",
     target: {
       "@type": "EntryPoint",
-      urlTemplate: "https://nklcb.io/web?search={search_term_string}",
+      urlTemplate: "https://nklcb.kr/web?search={search_term_string}",
     },
     "query-input": "required name=search_term_string",
   },
   publisher: {
     "@type": "Organization",
     name: "네카라쿠배 채용",
-    url: "https://nklcb.io",
+    url: "https://nklcb.kr",
   },
   about: [
     {
@@ -107,7 +107,6 @@ export default async function RootLayout({
           name="naver-site-verification"
           content="628fcc13f939f4cf5b58a91fc0c19cc04c9c4acb"
         />
-        <link rel="canonical" href="https://nklcb.io" />
       </head>
       <Analytics />
       <GoogleAnalytics gaId="G-6M2JP9HLCY" />
@@ -120,11 +119,6 @@ export default async function RootLayout({
       <Script
         src="https://the.gatekeeperconsent.com/cmp.min.js"
         data-cfasync="false"
-        strategy="afterInteractive"
-      />
-      <Script
-        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1550225145364569"
-        crossOrigin="anonymous"
         strategy="afterInteractive"
       />
 

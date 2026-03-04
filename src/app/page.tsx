@@ -127,53 +127,57 @@ export default async function Home() {
   return (
     <Fragment>
       <Header />
-      <section className="container">
-        <article className="banner__wrapper">{/* 배너 영역 */}</article>
-        <article className="wrapper">
-          <div className="greeting__card__wrapper" id="service-menu">
-            <GreetingSwiper />
-          </div>
-          <QuestionBanner questionData={hotIssueList?.[0]} />
-          <div id="community">
-            <div className="d-flex flex-column row-gap-2">
-              <span className="title"> 최근 커뮤니티 게시글 </span>
-              <span className="description">
-                다양한 주제로 올라온 게시글들을 확인해보세요
-              </span>
-              {communityList.map((item: ListProps["list"][number]) => (
-                <ListItem
-                  key={item.boardId}
-                  id={item.boardId}
-                  title={item.title}
-                  content={item.content}
-                  writer={item.nickname}
-                  writerId={item.userId}
-                  date={item.createdAt}
-                  commentCount={item.comments.length}
-                  likeCount={item.likes.length}
-                />
-              ))}
+      <main>
+        <section className="container">
+          <article className="banner__wrapper">{/* 배너 영역 */}</article>
+          <article className="wrapper">
+            <div className="greeting__card__wrapper" id="service-menu">
+              <GreetingSwiper />
             </div>
-            <Anchor href="/community" text="게시글 더 보러가기" />
-          </div>
-          <Ads />
-          <div className="announce__card__wrapper" id="ranking-announce">
-            {/* TODO: 새로 등록된 공고, 어제 올라온 공고 카드 섹션으로 제공하기 */}
-            <AnnounceCard
-              title="새롭게 등록된 공고"
-              description="새롭게 등록된 오늘의 공고를 확인해보세요"
-              items={recentRecruitList}
-            />
-            <AnnounceCard
-              title="어제 인기있었던 공고"
-              description="어제 조회수가 높았던 공고를 확인해보세요"
-              items={popularRecruitList.slice(0, 10)}
-            />
-          </div>
-          <UserAds />
-        </article>
-        <article className="banner__wrapper">{/* 배너 영역 */}</article>
-      </section>
+            <QuestionBanner questionData={hotIssueList?.[0]} />
+            <section id="community" aria-labelledby="community-title">
+              <div className="d-flex flex-column row-gap-2">
+                <h2 id="community-title" className="title" style={{ margin: 0 }}>
+                  최근 커뮤니티 게시글
+                </h2>
+                <p className="description">
+                  다양한 주제로 올라온 게시글들을 확인해보세요
+                </p>
+                {communityList.map((item: ListProps["list"][number]) => (
+                  <ListItem
+                    key={item.boardId}
+                    id={item.boardId}
+                    title={item.title}
+                    content={item.content}
+                    writer={item.nickname}
+                    writerId={item.userId}
+                    date={item.createdAt}
+                    commentCount={item.comments.length}
+                    likeCount={item.likes.length}
+                  />
+                ))}
+              </div>
+              <Anchor href="/community" text="게시글 더 보러가기" />
+            </section>
+            <Ads />
+            <div className="announce__card__wrapper" id="ranking-announce">
+              {/* TODO: 새로 등록된 공고, 어제 올라온 공고 카드 섹션으로 제공하기 */}
+              <AnnounceCard
+                title="새롭게 등록된 공고"
+                description="새롭게 등록된 오늘의 공고를 확인해보세요"
+                items={recentRecruitList}
+              />
+              <AnnounceCard
+                title="어제 인기있었던 공고"
+                description="어제 조회수가 높았던 공고를 확인해보세요"
+                items={popularRecruitList.slice(0, 10)}
+              />
+            </div>
+            <UserAds />
+          </article>
+          <article className="banner__wrapper">{/* 배너 영역 */}</article>
+        </section>
+      </main>
     </Fragment>
   );
 }

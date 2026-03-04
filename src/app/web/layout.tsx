@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     description:
       "각 기업별 채용 정보를 상세히 확인하세요. 기업별로 필터링하여 원하는 채용 공고를 쉽게 찾을 수 있습니다.",
     type: "website",
-    url: "https://nklcb.io/web",
+    url: "https://nklcb.kr/web",
   },
   twitter: {
     card: "summary_large_image",
@@ -48,7 +48,7 @@ export const metadata: Metadata = {
     description: "각 기업별 채용 정보를 상세히 확인하세요",
   },
   alternates: {
-    canonical: "https://nklcb.io/web",
+    canonical: "https://nklcb.kr/web",
   },
 };
 

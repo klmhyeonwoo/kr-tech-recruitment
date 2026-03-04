@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     description:
       "주요 IT 기업의 최신 채용 공고를 확인하세요. 신입부터 경력직까지 다양한 포지션 정보를 제공합니다.",
     type: "website",
-    url: "https://nklcb.io/recruitment-notices",
+    url: "https://nklcb.kr/recruitment-notices",
   },
   twitter: {
     card: "summary_large_image",
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     description: "주요 IT 기업의 최신 채용 공고를 확인하세요",
   },
   alternates: {
-    canonical: "https://nklcb.io/recruitment-notices",
+    canonical: "https://nklcb.kr/recruitment-notices",
   },
 };
 

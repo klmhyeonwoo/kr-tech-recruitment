@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     description:
       "IT 기업 채용 정보와 취업 팁을 공유하고, 다른 구직자들과 소통하세요",
     type: "website",
-    url: "https://nklcb.io/community",
+    url: "https://nklcb.kr/community",
   },
   twitter: {
     card: "summary_large_image",
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
       "IT 기업 채용 정보와 취업 팁을 공유하고, 다른 구직자들과 소통하세요",
   },
   alternates: {
-    canonical: "https://nklcb.io/community",
+    canonical: "https://nklcb.kr/community",
   },
 };
 

@@ -1,10 +1,12 @@
 import { SERVICE_CATEGORY } from "@/utils/const";
 import { api } from "@/api";
 import CardSection from "@/components/card/Section";
+import type { RecruitData } from "@/components/card/Section";
 import type { Metadata } from "next";
 import { Fragment, Suspense } from "react";
 import EyesLoading from "@/components/loading/eyes-loading";
 import generateServiceOpenGraph from "@/og";
+import StructuredData from "@/lib/seo/structured-data";
 
 type paramsType = {
   searchParams: Promise<{ company: string; category: string }>;
@@ -32,7 +34,7 @@ async function getRecruitData({
     category?: string;
     standardCategory?: string;
   };
-}) {
+}): Promise<{ list: RecruitData[]; error?: unknown }> {
   try {
     const { data } = await api.get(`/recruitment-notices/redirections`, {
       params,
@@ -47,7 +49,7 @@ async function getRecruitData({
     };
     return scaledData;
   } catch (error) {
-    return { data: [], error };
+    return { list: [], error };
   }
 }
 
@@ -67,8 +69,42 @@ async function RecruitDataSection({
     },
   });
 
+  const companyName =
+    SERVICE_CATEGORY[company?.toLowerCase() as keyof typeof SERVICE_CATEGORY]
+      ?.name ?? company;
+  const queryParams = new URLSearchParams();
+  if (company) queryParams.set("company", company);
+  if (category) queryParams.set("category", category);
+  const query = queryParams.toString();
+  const pageUrl = `https://nklcb.kr/web${query ? `?${query}` : ""}`;
+  const collectionStructuredData = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: `${companyName} 채용 공고`,
+    description: `${companyName}의 최신 채용 공고를 모아보는 페이지`,
+    url: pageUrl,
+    mainEntity: {
+      "@type": "ItemList",
+      itemListOrder: "https://schema.org/ItemListUnordered",
+      numberOfItems: list.length,
+      itemListElement: list.slice(0, 30).map((item, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        name: item.jobOfferTitle,
+        url: `https://nklcb.kr/recruitment-notices?${new URLSearchParams({
+          id: String(item.recruitmentNoticeId),
+          path: item.url,
+        }).toString()}`,
+      })),
+    },
+  };
+
   return (
     <Fragment>
+      <StructuredData
+        id={`structured-data-web-${company || "all"}-${category || "all"}`}
+        data={collectionStructuredData}
+      />
       <Suspense key={`${company}-${category}`} fallback={<EyesLoading />}>
         <CardSection data={list} />
       </Suspense>
