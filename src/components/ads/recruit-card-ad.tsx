@@ -1,33 +1,58 @@
 "use client";
 
 import Script from "next/script";
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import styles from "@/styles/components/recruit-card.module.scss";
+import {
+  ADSENSE_CLIENT,
+  ADSENSE_LOADED_EVENT,
+  ADSENSE_SCRIPT_ID,
+  ADSENSE_SCRIPT_URL,
+  isAdSenseScriptLoaded,
+  markAdSenseScriptLoaded,
+  requestAdSenseRender,
+} from "@/utils/adsense";
 
-const AD_CLIENT = "ca-pub-1550225145364569";
 const INLINE_AD_SLOT = "6016093098";
-const ADSENSE_SCRIPT_ID = "adsbygoogle-lib";
-
-type AdSenseWindow = Window & {
-  adsbygoogle?: unknown[];
-};
 
 export default function RecruitCardAd() {
   const adRef = useRef<HTMLModElement | null>(null);
 
-  useEffect(() => {
+  const renderInlineAd = useCallback(() => {
     const adElement = adRef.current;
-    if (!adElement) return;
-    if (adElement.getAttribute("data-adsbygoogle-status")) return;
+    if (!adElement) return false;
+    if (adElement.getAttribute("data-adsbygoogle-status")) return true;
+    if (!isAdSenseScriptLoaded()) return false;
 
     try {
-      const adWindow = window as AdSenseWindow;
-      adWindow.adsbygoogle = adWindow.adsbygoogle || [];
-      adWindow.adsbygoogle.push({});
+      requestAdSenseRender();
+      return true;
     } catch (error) {
       console.error("Failed to render inline ad card:", error);
+      return false;
     }
   }, []);
+
+  useEffect(() => {
+    if (renderInlineAd()) return;
+
+    const handleScriptLoaded = () => {
+      renderInlineAd();
+    };
+
+    window.addEventListener(ADSENSE_LOADED_EVENT, handleScriptLoaded);
+
+    const retryTimer = window.setInterval(() => {
+      if (renderInlineAd()) {
+        window.clearInterval(retryTimer);
+      }
+    }, 300);
+
+    return () => {
+      window.removeEventListener(ADSENSE_LOADED_EVENT, handleScriptLoaded);
+      window.clearInterval(retryTimer);
+    };
+  }, [renderInlineAd]);
 
   return (
     <aside
@@ -41,15 +66,17 @@ export default function RecruitCardAd() {
           <Script
             async
             id={ADSENSE_SCRIPT_ID}
-            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${AD_CLIENT}`}
+            src={ADSENSE_SCRIPT_URL}
             crossOrigin="anonymous"
             strategy="lazyOnload"
+            onLoad={markAdSenseScriptLoaded}
+            onReady={markAdSenseScriptLoaded}
           />
           <ins
             ref={adRef}
             className="adsbygoogle"
             style={{ display: "block" }}
-            data-ad-client={AD_CLIENT}
+            data-ad-client={ADSENSE_CLIENT}
             data-ad-slot={INLINE_AD_SLOT}
             data-ad-format="auto"
             data-full-width-responsive="true"
