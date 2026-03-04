@@ -114,7 +114,7 @@ function CardContent({
           src={icon_arrow}
           alt="해당 모집 공고가 관심있다면 클릭해보세요"
         />
-        <span> 해당 모집 공고로 이동할 수 있어요 </span>
+        <span> 여기를 클릭해 모집 공고로 이동할 수 있어요 </span>
       </div>
     </div>
   );
