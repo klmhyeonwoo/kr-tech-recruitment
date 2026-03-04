@@ -1,6 +1,7 @@
 "use client";
 
 import Card from "@/components/card/RecruitCard";
+import RecruitCardAd from "@/components/ads/recruit-card-ad";
 import styles from "@/styles/components/recruit-card.module.scss";
 import { useAtom } from "jotai";
 import { SEARCH_KEYWORD_STORE } from "../../store";
@@ -25,6 +26,8 @@ export type RecruitData = {
 };
 
 export default function CardSection({ data }: { data: RecruitData[] }) {
+  const AD_INSERT_INTERVAL = 6;
+  const MAX_INLINE_ADS = 4;
   const [keyword] = useAtom(SEARCH_KEYWORD_STORE);
   const filteredData =
     data?.filter((item) => {
@@ -56,24 +59,55 @@ export default function CardSection({ data }: { data: RecruitData[] }) {
     }
     return item.companyName;
   };
+
+  let insertedAds = 0;
+  const sectionFeedItems = filteredData.reduce<
+    Array<
+      | { type: "recruit"; key: string; item: RecruitData }
+      | { type: "ad"; key: string }
+    >
+  >((acc, item, index) => {
+    acc.push({
+      type: "recruit",
+      key: `recruit-${item.recruitmentNoticeId}-${index}`,
+      item,
+    });
+
+    const isLastCard = index === filteredData.length - 1;
+    const canInsertAd = insertedAds < MAX_INLINE_ADS;
+    const shouldInsertAd =
+      (index + 1) % AD_INSERT_INTERVAL === 0 && !isLastCard && canInsertAd;
+
+    if (shouldInsertAd) {
+      insertedAds += 1;
+      acc.push({ type: "ad", key: `inline-ad-${insertedAds}` });
+    }
+
+    return acc;
+  }, []);
+
   return (
     <section
       className={styles.card__section}
       data-exists={!!filteredData.length}
     >
       {filteredData.length ? (
-        filteredData.map((item) => {
+        sectionFeedItems.map((entry) => {
+          if (entry.type === "ad") {
+            return <RecruitCardAd key={entry.key} />;
+          }
+
           return (
-            <Card key={item.recruitmentNoticeId}>
+            <Card key={entry.key}>
               <Card.CardContent
-                id={item.recruitmentNoticeId}
-                title={item.jobOfferTitle}
-                company={generateCompanyName(item)}
-                corporates={item.corporates}
-                position={item.standardCategory}
-                fromDate={item.startAt}
-                toDate={item.endAt}
-                link={item.url}
+                id={entry.item.recruitmentNoticeId}
+                title={entry.item.jobOfferTitle}
+                company={generateCompanyName(entry.item)}
+                corporates={entry.item.corporates}
+                position={entry.item.standardCategory}
+                fromDate={entry.item.startAt}
+                toDate={entry.item.endAt}
+                link={entry.item.url}
               />
             </Card>
           );
