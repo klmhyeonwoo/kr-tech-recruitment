@@ -77,6 +77,10 @@
       cursor: pointer;
       width: 100%;
       max-width: fit-content;
+
+      &:is(:hover) {
+        opacity: 0.8;
+      }
     }
 
     img[data-theme="dark"] {
