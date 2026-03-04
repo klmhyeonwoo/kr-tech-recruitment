@@ -16,6 +16,7 @@
 
 .card__section > * {
   max-width: 100%;
+  min-width: 0;
   word-wrap: break-word;
 }
 
@@ -33,6 +34,7 @@
   word-break: break-all;
   transition: 0.4s all;
   width: 100%;
+  min-width: 0;
   box-sizing: border-box;
 
   img[data-theme="dark"] {
@@ -88,6 +90,8 @@
 }
 
 .card__wrapper[data-ad-card="true"] {
+  overflow: hidden;
+
   &:hover {
     background-color: rgb(249, 250, 251);
     color: inherit;
@@ -146,6 +150,8 @@
 
 .card__ad__slot {
   width: 100%;
+  max-width: 100%;
+  min-width: 0;
   min-height: 12rem;
   padding: 0.6rem;
   border-radius: 1rem;
@@ -155,9 +161,17 @@
 }
 
 .card__ad__slot :global(.adsbygoogle) {
+  width: 100%;
+  max-width: 100% !important;
+  min-width: 0 !important;
   min-height: 10.8rem;
   box-sizing: border-box;
   overflow: hidden;
+}
+
+.card__ad__slot :global(.adsbygoogle iframe) {
+  width: 100% !important;
+  max-width: 100% !important;
 }
 
 .not__data {
