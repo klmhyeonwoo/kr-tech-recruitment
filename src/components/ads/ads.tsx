@@ -11,13 +11,15 @@ export default function Ads() {
   }, []);
 
   return (
-    <section>
+    <aside aria-label="스폰서 광고 영역">
       {isRendered && (
         <>
           <Script
             async
+            id="adsbygoogle-lib"
             src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1550225145364569"
             crossOrigin="anonymous"
+            strategy="lazyOnload"
           />
           <ins
             className="adsbygoogle"
@@ -30,6 +32,6 @@ export default function Ads() {
           <Script id="adsbygoogle-init">{`(adsbygoogle = window.adsbygoogle || []).push({});`}</Script>
         </>
       )}
-    </section>
+    </aside>
   );
 }
