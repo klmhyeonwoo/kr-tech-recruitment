@@ -42,15 +42,8 @@ export default function RecruitCardAd() {
 
     window.addEventListener(ADSENSE_LOADED_EVENT, handleScriptLoaded);
 
-    const retryTimer = window.setInterval(() => {
-      if (renderInlineAd()) {
-        window.clearInterval(retryTimer);
-      }
-    }, 300);
-
     return () => {
       window.removeEventListener(ADSENSE_LOADED_EVENT, handleScriptLoaded);
-      window.clearInterval(retryTimer);
     };
   }, [renderInlineAd]);
 
