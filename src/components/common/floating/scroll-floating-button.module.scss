@@ -1,0 +1,51 @@
+.floating-wrapper {
+  position: fixed;
+  z-index: 9999;
+  bottom: 2.5rem;
+  right: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  row-gap: 1.5rem;
+}
+
+.scroll-button {
+  width: 4.125rem;
+  height: 4.125rem;
+  border: 1px solid #dfe3ea;
+  border-radius: 50%;
+  background-color: #ffffff;
+  color: #1f2937;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  flex-shrink: 0;
+  cursor: pointer;
+  box-shadow: 0 8px 16px rgba(15, 23, 42, 0.12);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.scroll-button:hover {
+  transform: translateY(-1px);
+  background-color: #f8fafc;
+  box-shadow: 0 10px 20px rgba(15, 23, 42, 0.18);
+}
+
+.scroll-button:active {
+  transform: translateY(0);
+}
+
+.arrow-icon {
+  display: block;
+}
+
+.arrow-up {
+  transform: rotate(-90deg);
+}
+
+.arrow-down {
+  transform: rotate(90deg);
+}
