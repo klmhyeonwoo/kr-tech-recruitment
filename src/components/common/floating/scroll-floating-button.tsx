@@ -32,7 +32,7 @@ export default function ScrollFloationButton() {
       >
         <Image
           src="/icon/arrow_black.svg"
-          alt="스크롤 최상단으로 이동"
+          alt=""
           width={18}
           height={18}
           className={`${styles["arrow-icon"]} ${styles["arrow-up"]}`}
@@ -47,7 +47,7 @@ export default function ScrollFloationButton() {
       >
         <Image
           src="/icon/arrow_black.svg"
-          alt="스크롤 최하단으로 이동"
+          alt=""
           width={18}
           height={18}
           className={`${styles["arrow-icon"]} ${styles["arrow-down"]}`}
