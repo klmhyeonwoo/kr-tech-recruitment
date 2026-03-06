@@ -25,6 +25,16 @@
   column-gap: 2rem;
 }
 
+.home-section-card {
+  border-radius: 1.6rem;
+  border: 0.1rem solid #e5e8eb;
+  background: #fff;
+  padding-inline: 2rem;
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
+  box-sizing: border-box;
+}
+
 .announce__card__wrapper {
   @media (max-width: 768px) {
     display: grid;

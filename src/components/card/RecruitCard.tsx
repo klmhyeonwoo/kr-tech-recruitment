@@ -9,6 +9,7 @@ import icon_cube_light from "@public/icon/cube_light.svg";
 import Image from "next/image";
 import { formatDate, scaledPositionName } from "@/utils/common";
 import { useRef } from "react";
+import { saveRecentRecruitItem } from "@/utils/recentRecruit";
 
 type cardType = {
   id: number;
@@ -38,8 +39,27 @@ function CardContent({
   toDate,
   link,
 }: cardType) {
-  const handleCardClick = ({ id, path }: { id: number; path: string }) => {
+  const handleCardClick = ({
+    id,
+    path,
+    title,
+    companyName,
+    positionName,
+  }: {
+    id: number;
+    path: string;
+    title: string;
+    companyName: string;
+    positionName?: string;
+  }) => {
     if (id) {
+      saveRecentRecruitItem({
+        recruitmentNoticeId: id,
+        path,
+        title,
+        companyName,
+        position: positionName,
+      });
       window.open(`/recruitment-notices?id=${id}&path=${path}`, "_blank");
     }
   };
@@ -106,7 +126,15 @@ function CardContent({
       </span>
       <div
         className={styles.card__path__container}
-        onClick={() => handleCardClick({ id: id, path: link })}
+        onClick={() =>
+          handleCardClick({
+            id,
+            path: link,
+            title,
+            companyName: company,
+            positionName: position,
+          })
+        }
       >
         <Image
           width={12}

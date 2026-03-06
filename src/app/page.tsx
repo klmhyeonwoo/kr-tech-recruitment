@@ -15,6 +15,8 @@ import Ads from "@/components/ads/ads";
 import UserAds from "@/components/ads/user-ads";
 import Anchor from "@/components/common/navigation/anchor";
 import { RecruitData } from "@/components/card/Section";
+import DailyMission from "@/components/common/engagement/daily-mission";
+import RecentRecruitBoard from "@/components/common/engagement/recent-recruit-board";
 
 export const revalidate = 3600; // Revalidate every hour
 
@@ -134,8 +136,14 @@ export default async function Home() {
             <div className="greeting__card__wrapper" id="service-menu">
               <GreetingSwiper />
             </div>
+            <DailyMission />
+            <RecentRecruitBoard />
             <QuestionBanner questionData={hotIssueList?.[0]} />
-            <section id="community" aria-labelledby="community-title">
+            <section
+              id="community"
+              aria-labelledby="community-title"
+              className="home-section-card"
+            >
               <div className="d-flex flex-column row-gap-2">
                 <h2 id="community-title" className="title" style={{ margin: 0 }}>
                   최근 커뮤니티 게시글

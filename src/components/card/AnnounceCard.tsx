@@ -7,6 +7,7 @@ import NotDataSwimming from "../common/feedback/not-data";
 import Image from "next/image";
 import icon_arrow from "@public/icon/arrow_black.svg";
 import Link from "next/link";
+import { saveRecentRecruitItem } from "@/utils/recentRecruit";
 
 type AnnounceCardType = {
   title: string;
@@ -19,8 +20,27 @@ export default function AnnounceCard({
   description,
   items,
 }: AnnounceCardType) {
-  const handleCardClick = ({ id, path }: { id: number; path: string }) => {
+  const handleCardClick = ({
+    id,
+    path,
+    title,
+    companyName,
+    positionName,
+  }: {
+    id: number;
+    path: string;
+    title: string;
+    companyName: string;
+    positionName?: string;
+  }) => {
     if (id) {
+      saveRecentRecruitItem({
+        recruitmentNoticeId: id,
+        path,
+        title,
+        companyName,
+        position: positionName,
+      });
       window.open(`/recruitment-notices?id=${id}&path=${path}`, "_blank");
     }
   };
@@ -46,6 +66,9 @@ export default function AnnounceCard({
                 handleCardClick({
                   id: item.recruitmentNoticeId,
                   path: item.url,
+                  title: item.jobOfferTitle,
+                  companyName: generateCompanyName(item),
+                  positionName: item.standardCategory,
                 })
               }
             >
