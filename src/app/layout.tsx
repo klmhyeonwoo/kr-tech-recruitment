@@ -16,6 +16,7 @@ import StructuredData from "@/lib/seo/structured-data";
 import QueryProvider from "@/lib/tanstack/react-query/query-provider";
 import ClarityProvider from "@/lib/clarity/clarity-provider";
 import ScrollFloationButton from "@/components/common/floating/scroll-floating-button";
+import CareerTrackerFloating from "@/components/common/floating/career-tracker-floating";
 
 export const metadata: Metadata = baseMetaData;
 export const viewport: Viewport = {
@@ -133,6 +134,7 @@ export default async function RootLayout({
           <QueryProvider>
             <div id="portal" />
             <SubscriptionPopup />
+            <CareerTrackerFloating />
             <ScrollFloationButton />
             {children}
           </QueryProvider>

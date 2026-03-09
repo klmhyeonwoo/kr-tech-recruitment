@@ -26,6 +26,13 @@
   row-gap: 1.2rem;
 }
 
+.card__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  column-gap: 0.9rem;
+}
+
 .card__wrapper {
   background-color: rgb(249, 250, 251);
   border-radius: 2rem;
@@ -83,6 +90,12 @@
       }
     }
 
+    .card__scrap__button {
+      border-color: rgba(255, 255, 255, 0.38);
+      background: rgba(255, 255, 255, 0.12);
+      color: #fff;
+    }
+
     img[data-theme="dark"] {
       display: block;
     }
@@ -120,6 +133,44 @@
   font-size: 1.4rem;
   font-weight: 400;
   color: var(--greyOpacity500);
+}
+
+.card__scrap__button {
+  position: static;
+  width: auto;
+  height: 3.2rem;
+  border: 1px solid #d7dee7;
+  border-radius: 9999px;
+  background: #fff;
+  color: #222;
+  font-size: 1.22rem;
+  font-weight: 600;
+  line-height: 1.2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1.1rem;
+  white-space: nowrap;
+  box-sizing: border-box;
+  min-width: 0;
+  min-height: 0;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.card__scrap__button:hover {
+  transform: translateY(-1px);
+  background: #f3f4f6;
+}
+
+.card__scrap__button:focus-visible {
+  outline: 2px solid #222;
+  outline-offset: 2px;
 }
 
 .card__coporate {
