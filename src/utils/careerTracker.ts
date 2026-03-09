@@ -198,6 +198,80 @@ export const isCompanyScrappedInCareerTracker = (companyName: string) => {
   );
 };
 
+export const isRecruitmentNoticeScrappedInCareerTracker = (
+  recruitmentNoticeId: number,
+) => {
+  if (typeof window === "undefined") {
+    return false;
+  }
+
+  if (!Number.isFinite(recruitmentNoticeId) || recruitmentNoticeId <= 0) {
+    return false;
+  }
+
+  const previous = getCareerTrackerStorage();
+  return previous.companies.some((company) =>
+    company.scraps.some(
+      (scrap) => scrap.recruitmentNoticeId === recruitmentNoticeId,
+    ),
+  );
+};
+
+export const removeRecruitmentNoticeFromCareerTracker = (
+  recruitmentNoticeId: number,
+) => {
+  if (typeof window === "undefined") {
+    return false;
+  }
+
+  if (!Number.isFinite(recruitmentNoticeId) || recruitmentNoticeId <= 0) {
+    return false;
+  }
+
+  try {
+    const previous = getCareerTrackerStorage();
+    const hadTarget = previous.companies.some((company) =>
+      company.scraps.some(
+        (scrap) => scrap.recruitmentNoticeId === recruitmentNoticeId,
+      ),
+    );
+
+    if (!hadTarget) {
+      return false;
+    }
+
+    const companies = previous.companies
+      .map((company) => ({
+        ...company,
+        scraps: company.scraps.filter(
+          (scrap) => scrap.recruitmentNoticeId !== recruitmentNoticeId,
+        ),
+      }))
+      .filter((company) => company.scraps.length > 0);
+
+    const selectedCompanyId =
+      typeof previous.selectedCompanyId === "string" &&
+      companies.some((company) => company.id === previous.selectedCompanyId)
+        ? previous.selectedCompanyId
+        : (companies[0]?.id ?? null);
+
+    window.localStorage.setItem(
+      CAREER_TRACKER_STORAGE_KEY,
+      JSON.stringify({
+        todos: previous.todos,
+        companies,
+        selectedCompanyId,
+      }),
+    );
+
+    emitCareerTrackerUpdated();
+    return true;
+  } catch (error) {
+    console.error("Failed to remove recruitment notice from career tracker:", error);
+    return false;
+  }
+};
+
 export const removeCompanyFromCareerTracker = (companyName: string) => {
   if (typeof window === "undefined") {
     return false;
