@@ -8,8 +8,13 @@ import icon_cube_light from "@public/icon/cube_light.svg";
 
 import Image from "next/image";
 import { formatDate, scaledPositionName } from "@/utils/common";
-import { useRef } from "react";
-import { saveCompanyToCareerTracker } from "@/utils/careerTracker";
+import { useEffect, useRef, useState } from "react";
+import {
+  CAREER_TRACKER_UPDATED_EVENT,
+  isCompanyScrappedInCareerTracker,
+  removeCompanyFromCareerTracker,
+  saveCompanyToCareerTracker,
+} from "@/utils/careerTracker";
 
 type cardType = {
   id: number;
@@ -49,9 +54,31 @@ function CardContent({
   });
   const isMoreCorporeates = useRef(corporates.length > 1);
   const scrapTargetCompanyName = scaledDetailCorpotateName[0] ?? company;
+  const [isCompanyScrapped, setIsCompanyScrapped] = useState(false);
+
+  useEffect(() => {
+    const syncScrapState = () => {
+      setIsCompanyScrapped(
+        isCompanyScrappedInCareerTracker(scrapTargetCompanyName),
+      );
+    };
+
+    syncScrapState();
+    window.addEventListener(CAREER_TRACKER_UPDATED_EVENT, syncScrapState);
+
+    return () => {
+      window.removeEventListener(CAREER_TRACKER_UPDATED_EVENT, syncScrapState);
+    };
+  }, [scrapTargetCompanyName]);
 
   const handleScrapClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
+
+    if (isCompanyScrapped) {
+      removeCompanyFromCareerTracker(scrapTargetCompanyName);
+      return;
+    }
+
     saveCompanyToCareerTracker({
       companyName: scrapTargetCompanyName,
       recruitmentNoticeId: id,
@@ -73,10 +100,14 @@ function CardContent({
           type="button"
           className={styles.card__scrap__button}
           onClick={handleScrapClick}
-          aria-label={`${scrapTargetCompanyName} 공고를 내 스크랩에 담기`}
-          title="내 스크랩에 담기"
+          aria-label={
+            isCompanyScrapped
+              ? `${scrapTargetCompanyName} 스크랩 취소하기`
+              : `${scrapTargetCompanyName} 공고를 내 스크랩에 담기`
+          }
+          title={isCompanyScrapped ? "스크랩 취소하기" : "내 스크랩에 담기"}
         >
-          스크랩하기
+          {isCompanyScrapped ? "스크랩 취소하기" : "스크랩하기"}
         </button>
       </div>
       {isMoreCorporeates.current && (

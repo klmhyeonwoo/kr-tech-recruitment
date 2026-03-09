@@ -1,10 +1,17 @@
 "use client";
 
-import React, { useCallback, useEffect, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import styles from "./career-tracker-floating.module.scss";
 import {
   CAREER_TRACKER_SCRAP_ADDED_EVENT,
   CAREER_TRACKER_STORAGE_KEY,
+  CAREER_TRACKER_UPDATED_EVENT,
 } from "@/utils/careerTracker";
 
 type CompanyStatus = "planned" | "applying" | "accepted" | "rejected";
@@ -21,6 +28,7 @@ type ScrapItem = {
   title: string;
   path: string;
   addedAt: string;
+  status: CompanyStatus;
 };
 
 type CompanyBoardItem = {
@@ -31,10 +39,11 @@ type CompanyBoardItem = {
   scraps: ScrapItem[];
 };
 
-type TrackerTab = "todo" | "kanban" | "company";
+type TrackerTab = "todo" | "kanban";
 
 type KanbanCardItem = {
   cardId: string;
+  scrapId: string;
   companyId: string;
   companyName: string;
   status: CompanyStatus;
@@ -49,14 +58,18 @@ const STATUS_META: ReadonlyArray<{
   label: string;
   emptyHint: string;
 }> = [
-  { key: "planned", label: "지원 예정", emptyHint: "지원 예정 항목이 아직 없어요." },
-  { key: "applying", label: "지원 중", emptyHint: "지원 중인 공고가 아직 없어요." },
-  { key: "accepted", label: "합격", emptyHint: "합격한 공고가 아직 없어요." },
-  { key: "rejected", label: "불합격", emptyHint: "불합격 공고가 아직 없어요." },
+  { key: "planned", label: "지원 예정", emptyHint: "아직 공고가 없어요." },
+  { key: "applying", label: "지원 중", emptyHint: "아직 공고가 없어요." },
+  { key: "accepted", label: "합격", emptyHint: "아직 공고가 없어요." },
+  { key: "rejected", label: "불합격", emptyHint: "아직 공고가 없어요." },
 ];
 
 const DEFAULT_TODOS: ChecklistItem[] = [
-  { id: "todo-default-1", text: "오늘 지원할 공고 1개만 먼저 정하기", done: false },
+  {
+    id: "todo-default-1",
+    text: "오늘 지원할 공고 1개만 먼저 정하기",
+    done: false,
+  },
   { id: "todo-default-2", text: "이력서 최신 버전 점검하기", done: false },
 ];
 
@@ -95,7 +108,10 @@ const toChecklistItemArray = (value: unknown): ChecklistItem[] => {
   });
 };
 
-const toScrapItemArray = (value: unknown): ScrapItem[] => {
+const toScrapItemArray = (
+  value: unknown,
+  fallbackStatus: CompanyStatus,
+): ScrapItem[] => {
   if (!Array.isArray(value)) {
     return [];
   }
@@ -115,6 +131,11 @@ const toScrapItemArray = (value: unknown): ScrapItem[] => {
       typeof item.path === "string" &&
       typeof item.addedAt === "string"
     ) {
+      const status =
+        "status" in item && isCompanyStatus(item.status)
+          ? item.status
+          : fallbackStatus;
+
       return [
         {
           id: item.id,
@@ -122,6 +143,7 @@ const toScrapItemArray = (value: unknown): ScrapItem[] => {
           title: item.title,
           path: item.path,
           addedAt: item.addedAt,
+          status,
         },
       ];
     }
@@ -147,10 +169,17 @@ const toCompanyArray = (value: unknown): CompanyBoardItem[] => {
       isCompanyStatus(item.status)
     ) {
       const tasks =
-        "tasks" in item ? toChecklistItemArray(item.tasks) : ([] as ChecklistItem[]);
-      const scraps = "scraps" in item ? toScrapItemArray(item.scraps) : ([] as ScrapItem[]);
+        "tasks" in item
+          ? toChecklistItemArray(item.tasks)
+          : ([] as ChecklistItem[]);
+      const scraps =
+        "scraps" in item
+          ? toScrapItemArray(item.scraps, item.status)
+          : ([] as ScrapItem[]);
 
-      return [{ id: item.id, name: item.name, status: item.status, tasks, scraps }];
+      return [
+        { id: item.id, name: item.name, status: item.status, tasks, scraps },
+      ];
     }
 
     return [];
@@ -159,36 +188,41 @@ const toCompanyArray = (value: unknown): CompanyBoardItem[] => {
 
 export default function CareerTrackerFloating() {
   const [isOpen, setIsOpen] = useState(false);
-  const [isExpanded, setIsExpanded] = useState(false);
-  const [openStatusMenuCardId, setOpenStatusMenuCardId] = useState<string | null>(null);
+  const [openStatusMenuCardId, setOpenStatusMenuCardId] = useState<
+    string | null
+  >(null);
   const [isScrapToastVisible, setIsScrapToastVisible] = useState(false);
   const [isStorageReady, setIsStorageReady] = useState(false);
   const [isStorageAvailable, setIsStorageAvailable] = useState(true);
   const [storageWarning, setStorageWarning] = useState<string | null>(null);
   const [todos, setTodos] = useState<ChecklistItem[]>(DEFAULT_TODOS);
   const [companies, setCompanies] = useState<CompanyBoardItem[]>([]);
-  const [draggingCompanyId, setDraggingCompanyId] = useState<string | null>(null);
-  const [dragOverStatus, setDragOverStatus] = useState<CompanyStatus | null>(null);
-  const [selectedCompanyId, setSelectedCompanyId] = useState<string | null>(null);
+  const [draggingCardId, setDraggingCardId] = useState<string | null>(null);
+  const [touchDraggingCardId, setTouchDraggingCardId] = useState<string | null>(
+    null,
+  );
+  const [dragOverStatus, setDragOverStatus] = useState<CompanyStatus | null>(
+    null,
+  );
   const [todoInput, setTodoInput] = useState("");
-  const [companyInput, setCompanyInput] = useState("");
-  const [taskInput, setTaskInput] = useState("");
-  const [companySearchInput, setCompanySearchInput] = useState("");
   const [activeTab, setActiveTab] = useState<TrackerTab>("todo");
+  const [activeKanbanStatus, setActiveKanbanStatus] =
+    useState<CompanyStatus>("planned");
+  const todoInputRef = useRef<HTMLInputElement | null>(null);
+  const longPressTimerRef = useRef<number | null>(null);
+  const touchStartPointRef = useRef<{ x: number; y: number } | null>(null);
 
   const restoreFromStorage = useCallback(() => {
     try {
       const saved = localStorage.getItem(CAREER_TRACKER_STORAGE_KEY);
       if (!saved) {
         setCompanies([]);
-        setSelectedCompanyId(null);
         return;
       }
 
       const parsed = JSON.parse(saved) as {
         todos?: unknown;
         companies?: unknown;
-        selectedCompanyId?: unknown;
       };
 
       const restoredTodos = toChecklistItemArray(parsed.todos);
@@ -198,17 +232,6 @@ export default function CareerTrackerFloating() {
         setTodos(restoredTodos);
       }
       setCompanies(restoredCompanies);
-
-      if (
-        typeof parsed.selectedCompanyId === "string" &&
-        restoredCompanies.some((company) => company.id === parsed.selectedCompanyId)
-      ) {
-        setSelectedCompanyId(parsed.selectedCompanyId);
-      } else if (restoredCompanies.length > 0) {
-        setSelectedCompanyId(restoredCompanies[0].id);
-      } else {
-        setSelectedCompanyId(null);
-      }
     } catch (error) {
       console.error("Failed to parse career tracker storage", error);
     }
@@ -239,7 +262,6 @@ export default function CareerTrackerFloating() {
   useEffect(() => {
     const handleScrapAdded = () => {
       setIsScrapToastVisible(true);
-      restoreFromStorage();
     };
 
     window.addEventListener(
@@ -251,6 +273,24 @@ export default function CareerTrackerFloating() {
       window.removeEventListener(
         CAREER_TRACKER_SCRAP_ADDED_EVENT,
         handleScrapAdded as EventListener,
+      );
+    };
+  }, []);
+
+  useEffect(() => {
+    const handleTrackerUpdated = () => {
+      restoreFromStorage();
+    };
+
+    window.addEventListener(
+      CAREER_TRACKER_UPDATED_EVENT,
+      handleTrackerUpdated as EventListener,
+    );
+
+    return () => {
+      window.removeEventListener(
+        CAREER_TRACKER_UPDATED_EVENT,
+        handleTrackerUpdated as EventListener,
       );
     };
   }, [restoreFromStorage]);
@@ -286,6 +326,42 @@ export default function CareerTrackerFloating() {
   }, [activeTab, isOpen]);
 
   useEffect(() => {
+    if (!isOpen || activeTab !== "todo") {
+      return;
+    }
+
+    window.requestAnimationFrame(() => {
+      todoInputRef.current?.focus();
+    });
+  }, [activeTab, isOpen]);
+
+  const clearLongPressTimer = useCallback(() => {
+    if (longPressTimerRef.current !== null) {
+      window.clearTimeout(longPressTimerRef.current);
+      longPressTimerRef.current = null;
+    }
+  }, []);
+
+  useEffect(
+    () => () => {
+      clearLongPressTimer();
+    },
+    [clearLongPressTimer],
+  );
+
+  useEffect(() => {
+    if (isOpen && activeTab === "kanban") {
+      return;
+    }
+
+    clearLongPressTimer();
+    touchStartPointRef.current = null;
+    setTouchDraggingCardId(null);
+    setDraggingCardId(null);
+    setDragOverStatus(null);
+  }, [activeTab, clearLongPressTimer, isOpen]);
+
+  useEffect(() => {
     if (!openStatusMenuCardId) {
       return;
     }
@@ -308,7 +384,7 @@ export default function CareerTrackerFloating() {
     };
 
     window.addEventListener("mousedown", handlePointerDown);
-    window.addEventListener("touchstart", handlePointerDown);
+    window.addEventListener("touchstart", handlePointerDown, { passive: true });
     window.addEventListener("keydown", handleEscClose);
 
     return () => {
@@ -329,7 +405,6 @@ export default function CareerTrackerFloating() {
         JSON.stringify({
           todos,
           companies,
-          selectedCompanyId,
         }),
       );
     } catch (error) {
@@ -339,23 +414,7 @@ export default function CareerTrackerFloating() {
         "시크릿 모드 또는 브라우저 설정에 따라 내용 저장이 제한될 수 있어요. 새로고침 시 데이터가 사라질 수 있습니다.",
       );
     }
-  }, [companies, isStorageAvailable, isStorageReady, selectedCompanyId, todos]);
-
-  useEffect(() => {
-    if (companies.length === 0) {
-      if (selectedCompanyId !== null) {
-        setSelectedCompanyId(null);
-      }
-      return;
-    }
-
-    if (!selectedCompanyId || !companies.some((company) => company.id === selectedCompanyId)) {
-      setSelectedCompanyId(companies[0].id);
-    }
-  }, [companies, selectedCompanyId]);
-
-  const selectedCompany =
-    companies.find((company) => company.id === selectedCompanyId) ?? null;
+  }, [companies, isStorageAvailable, isStorageReady, todos]);
 
   const handleAddTodo = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -365,13 +424,26 @@ export default function CareerTrackerFloating() {
       return;
     }
 
-    setTodos((prev) => [...prev, { id: createId(), text: trimmedText, done: false }]);
+    const isDuplicate = todos.some(
+      (todo) => todo.text.trim().toLowerCase() === trimmedText.toLowerCase(),
+    );
+    if (isDuplicate) {
+      setTodoInput("");
+      return;
+    }
+
+    setTodos((prev) => [
+      ...prev,
+      { id: createId(), text: trimmedText, done: false },
+    ]);
     setTodoInput("");
   };
 
   const toggleTodo = (todoId: string) => {
     setTodos((prev) =>
-      prev.map((todo) => (todo.id === todoId ? { ...todo, done: !todo.done } : todo)),
+      prev.map((todo) =>
+        todo.id === todoId ? { ...todo, done: !todo.done } : todo,
+      ),
     );
   };
 
@@ -383,89 +455,18 @@ export default function CareerTrackerFloating() {
     setTodos((prev) => prev.filter((todo) => !todo.done));
   };
 
-  const handleAddCompany = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    const trimmedName = companyInput.trim();
-    if (!trimmedName) {
-      return;
-    }
-
-    const newCompany: CompanyBoardItem = {
-      id: createId(),
-      name: trimmedName,
-      status: "planned",
-      tasks: [],
-      scraps: [],
-    };
-
-    setCompanies((prev) => [...prev, newCompany]);
-    setSelectedCompanyId(newCompany.id);
-    setCompanyInput("");
-  };
-
-  const updateCompanyStatus = (companyId: string, status: CompanyStatus) => {
-    setCompanies((prev) =>
-      prev.map((company) => (company.id === companyId ? { ...company, status } : company)),
-    );
-  };
-
-  const handleCompanyDragStart = (companyId: string) => {
-    setDraggingCompanyId(companyId);
-  };
-
-  const handleCompanyDragEnd = () => {
-    setDraggingCompanyId(null);
-    setDragOverStatus(null);
-  };
-
-  const handleColumnDrop = (status: CompanyStatus) => {
-    if (!draggingCompanyId) {
-      return;
-    }
-
-    updateCompanyStatus(draggingCompanyId, status);
-    setDraggingCompanyId(null);
-    setDragOverStatus(null);
-  };
-
-  const removeCompany = (companyId: string) => {
-    setCompanies((prev) => prev.filter((company) => company.id !== companyId));
-  };
-
-  const handleAddCompanyTask = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    if (!selectedCompany) {
-      return;
-    }
-
-    const trimmedTask = taskInput.trim();
-    if (!trimmedTask) {
-      return;
-    }
-
-    setCompanies((prev) =>
-      prev.map((company) =>
-        company.id === selectedCompany.id
-          ? {
-              ...company,
-              tasks: [...company.tasks, { id: createId(), text: trimmedTask, done: false }],
-            }
-          : company,
-      ),
-    );
-    setTaskInput("");
-  };
-
-  const toggleCompanyTask = (companyId: string, taskId: string) => {
+  const updateScrapStatus = (
+    companyId: string,
+    scrapId: string,
+    status: CompanyStatus,
+  ) => {
     setCompanies((prev) =>
       prev.map((company) =>
         company.id === companyId
           ? {
               ...company,
-              tasks: company.tasks.map((task) =>
-                task.id === taskId ? { ...task, done: !task.done } : task,
+              scraps: company.scraps.map((scrap) =>
+                scrap.id === scrapId ? { ...scrap, status } : scrap,
               ),
             }
           : company,
@@ -473,83 +474,227 @@ export default function CareerTrackerFloating() {
     );
   };
 
-  const removeCompanyTask = (companyId: string, taskId: string) => {
+  const handleCardDragStart = (cardId: string) => {
+    setDraggingCardId(cardId);
+  };
+
+  const handleCardDragEnd = () => {
+    setDraggingCardId(null);
+    setDragOverStatus(null);
+  };
+
+  const handleColumnDrop = (
+    status: CompanyStatus,
+    options?: { focusDroppedStatus?: boolean },
+  ) => {
+    if (!draggingCardId) {
+      return;
+    }
+
     setCompanies((prev) =>
-      prev.map((company) =>
-        company.id === companyId
-          ? { ...company, tasks: company.tasks.filter((task) => task.id !== taskId) }
-          : company,
-      ),
+      prev.map((company) => ({
+        ...company,
+        scraps: company.scraps.map((scrap) =>
+          scrap.id === draggingCardId ? { ...scrap, status } : scrap,
+        ),
+      })),
+    );
+    setDraggingCardId(null);
+    setDragOverStatus(null);
+
+    if (options?.focusDroppedStatus) {
+      setActiveKanbanStatus(status);
+    }
+  };
+
+  const getStatusFromPoint = useCallback((x: number, y: number) => {
+    const hoveredElement = document.elementFromPoint(x, y);
+    if (!(hoveredElement instanceof Element)) {
+      return null;
+    }
+
+    const columnElement = hoveredElement.closest("[data-kanban-status]");
+    const statusValue = columnElement?.getAttribute("data-kanban-status");
+
+    return isCompanyStatus(statusValue) ? statusValue : null;
+  }, []);
+
+  const startTouchDragging = useCallback(
+    (cardId: string, touchX: number, touchY: number) => {
+      setOpenStatusMenuCardId(null);
+      setTouchDraggingCardId(cardId);
+      setDraggingCardId(cardId);
+
+      const hoveredStatus = getStatusFromPoint(touchX, touchY);
+      setDragOverStatus(hoveredStatus);
+    },
+    [getStatusFromPoint],
+  );
+
+  const stopTouchDragging = useCallback(
+    (touchX?: number, touchY?: number) => {
+      if (!touchDraggingCardId) {
+        return;
+      }
+
+      let nextStatus: CompanyStatus | null = dragOverStatus;
+      if (typeof touchX === "number" && typeof touchY === "number") {
+        nextStatus = getStatusFromPoint(touchX, touchY) ?? dragOverStatus;
+      }
+
+      if (nextStatus) {
+        setCompanies((prev) =>
+          prev.map((company) => ({
+            ...company,
+            scraps: company.scraps.map((scrap) =>
+              scrap.id === touchDraggingCardId
+                ? { ...scrap, status: nextStatus }
+                : scrap,
+            ),
+          })),
+        );
+      }
+
+      setTouchDraggingCardId(null);
+      setDraggingCardId(null);
+      setDragOverStatus(null);
+    },
+    [dragOverStatus, getStatusFromPoint, touchDraggingCardId],
+  );
+
+  const handleCardTouchStart = (
+    cardId: string,
+    event: React.TouchEvent<HTMLDivElement>,
+  ) => {
+    if (event.touches.length !== 1) {
+      return;
+    }
+
+    const target = event.target;
+    if (!(target instanceof Element)) {
+      return;
+    }
+
+    // Keep tap interactions for buttons/menus inside card.
+    if (
+      target.closest(`.${styles["status-menu"]}`) ||
+      target.closest(`.${styles["kanban-card-delete-button"]}`)
+    ) {
+      return;
+    }
+
+    clearLongPressTimer();
+    const touch = event.touches[0];
+    touchStartPointRef.current = { x: touch.clientX, y: touch.clientY };
+
+    longPressTimerRef.current = window.setTimeout(() => {
+      startTouchDragging(cardId, touch.clientX, touch.clientY);
+    }, 320);
+  };
+
+  const handleCardTouchMove = (event: React.TouchEvent<HTMLDivElement>) => {
+    const touch = event.touches[0];
+    if (!touch) {
+      return;
+    }
+
+    if (!touchDraggingCardId) {
+      if (longPressTimerRef.current !== null && touchStartPointRef.current) {
+        const movedX = Math.abs(touch.clientX - touchStartPointRef.current.x);
+        const movedY = Math.abs(touch.clientY - touchStartPointRef.current.y);
+
+        // Cancel long press when user is scrolling or swiping.
+        if (movedX > 10 || movedY > 10) {
+          clearLongPressTimer();
+          touchStartPointRef.current = null;
+        }
+      }
+      return;
+    }
+
+    event.preventDefault();
+    const hoveredStatus = getStatusFromPoint(touch.clientX, touch.clientY);
+    if (hoveredStatus !== dragOverStatus) {
+      setDragOverStatus(hoveredStatus);
+    }
+  };
+
+  const handleCardTouchEnd = (event: React.TouchEvent<HTMLDivElement>) => {
+    clearLongPressTimer();
+    touchStartPointRef.current = null;
+
+    if (!touchDraggingCardId) {
+      return;
+    }
+
+    const touch = event.changedTouches[0];
+    if (!touch) {
+      stopTouchDragging();
+      return;
+    }
+
+    stopTouchDragging(touch.clientX, touch.clientY);
+  };
+
+  const handleCardTouchCancel = () => {
+    clearLongPressTimer();
+    touchStartPointRef.current = null;
+    stopTouchDragging();
+  };
+
+  const removeScrapFromCompany = (companyId: string, scrapId: string) => {
+    setCompanies((prev) =>
+      prev.flatMap((company) => {
+        if (company.id !== companyId) {
+          return [company];
+        }
+
+        const nextScraps = company.scraps.filter(
+          (scrap) => scrap.id !== scrapId,
+        );
+        if (nextScraps.length === 0) {
+          return [];
+        }
+
+        return [{ ...company, scraps: nextScraps }];
+      }),
     );
   };
 
-  const clearCompletedCompanyTasks = (companyId: string) => {
-    setCompanies((prev) =>
-      prev.map((company) =>
-        company.id === companyId
-          ? { ...company, tasks: company.tasks.filter((task) => !task.done) }
-          : company,
-      ),
-    );
-  };
-
-  const normalizedCompanySearch = companySearchInput.trim().toLowerCase();
   const completedTodoCount = todos.filter((todo) => todo.done).length;
   const pendingTodoCount = todos.filter((todo) => !todo.done).length;
-  const completedSelectedCompanyTaskCount =
-    selectedCompany?.tasks.filter((task) => task.done).length ?? 0;
-  const pendingSelectedCompanyTaskCount =
-    selectedCompany?.tasks.filter((task) => !task.done).length ?? 0;
+  const sortedTodos = useMemo(
+    () => [...todos].sort((a, b) => Number(a.done) - Number(b.done)),
+    [todos],
+  );
   const totalCompanyCount = companies.length;
   const totalScrapCount = companies.reduce(
     (acc, company) => acc + company.scraps.length,
     0,
   );
-  const kanbanCards: KanbanCardItem[] = companies.flatMap<KanbanCardItem>((company) => {
-    const pendingTaskCount = company.tasks.filter((task) => !task.done).length;
-    const totalTaskCount = company.tasks.length;
+  const kanbanCards: KanbanCardItem[] = companies.flatMap<KanbanCardItem>(
+    (company) => {
+      const pendingTaskCount = company.tasks.filter(
+        (task) => !task.done,
+      ).length;
+      const totalTaskCount = company.tasks.length;
 
-    if (company.scraps.length === 0) {
-      const emptyCard: KanbanCardItem = {
-        cardId: `${company.id}-empty`,
+      return company.scraps.map<KanbanCardItem>((scrap) => ({
+        cardId: scrap.id,
+        scrapId: scrap.id,
         companyId: company.id,
         companyName: company.name,
-        status: company.status,
-        scrapCount: 0,
-        scrapTitle: null,
+        status: scrap.status,
+        scrapCount: company.scraps.length,
+        scrapTitle: scrap.title,
         pendingTaskCount,
         totalTaskCount,
-      };
-
-      return [emptyCard];
-    }
-
-    return company.scraps.map<KanbanCardItem>((scrap) => ({
-      cardId: scrap.id,
-      companyId: company.id,
-      companyName: company.name,
-      status: company.status,
-      scrapCount: company.scraps.length,
-      scrapTitle: scrap.title,
-      pendingTaskCount,
-      totalTaskCount,
-    }));
-  });
+      }));
+    },
+  );
 
   const getKanbanCardsByStatus = (status: CompanyStatus) =>
-    kanbanCards.filter((card) => {
-      if (card.status !== status) {
-        return false;
-      }
-      if (!normalizedCompanySearch) {
-        return true;
-      }
-
-      return (
-        card.companyName.toLowerCase().includes(normalizedCompanySearch) ||
-        (card.scrapTitle?.toLowerCase().includes(normalizedCompanySearch) ?? false)
-      );
-    });
+    kanbanCards.filter((card) => card.status === status);
 
   const handleTrackerToggle = () => {
     setIsScrapToastVisible(false);
@@ -566,7 +711,7 @@ export default function CareerTrackerFloating() {
       />
       <aside
         id="career-tracker-panel"
-        className={`${styles["tracker-panel"]} ${isOpen ? styles["panel-open"] : styles["panel-closed"]} ${isExpanded ? styles["panel-expanded"] : ""}`}
+        className={`${styles["tracker-panel"]} ${isOpen ? styles["panel-open"] : styles["panel-closed"]}`}
         aria-hidden={!isOpen}
       >
         <div className={styles["panel-header"]}>
@@ -577,15 +722,6 @@ export default function CareerTrackerFloating() {
           <div className={styles["panel-header-actions"]}>
             <button
               type="button"
-              className={styles["panel-expand-button"]}
-              onClick={() => setIsExpanded((prev) => !prev)}
-              aria-label={isExpanded ? "작업실 기본 너비로 보기" : "작업실 풀너비로 보기"}
-              title={isExpanded ? "기본 너비" : "풀너비"}
-            >
-              {isExpanded ? "기본" : "넓게"}
-            </button>
-            <button
-              type="button"
               className={styles["panel-close-button"]}
               onClick={() => setIsOpen(false)}
               aria-label="작업실 닫기"
@@ -594,7 +730,9 @@ export default function CareerTrackerFloating() {
             </button>
           </div>
         </div>
-        {storageWarning ? <p className={styles["storage-warning"]}>{storageWarning}</p> : null}
+        {storageWarning ? (
+          <p className={styles["storage-warning"]}>{storageWarning}</p>
+        ) : null}
 
         <div className={styles["panel-tabs"]}>
           <button
@@ -602,7 +740,7 @@ export default function CareerTrackerFloating() {
             className={`${styles["panel-tab"]} ${activeTab === "todo" ? styles["panel-tab-active"] : ""}`}
             onClick={() => setActiveTab("todo")}
           >
-            오늘 작업
+            투두리스트
             <span>{pendingTodoCount}</span>
           </button>
           <button
@@ -612,14 +750,6 @@ export default function CareerTrackerFloating() {
           >
             스크랩 공고
             <span>{totalScrapCount}</span>
-          </button>
-          <button
-            type="button"
-            className={`${styles["panel-tab"]} ${activeTab === "company" ? styles["panel-tab-active"] : ""}`}
-            onClick={() => setActiveTab("company")}
-          >
-            기업 노트
-            <span>{pendingSelectedCompanyTaskCount}</span>
           </button>
         </div>
 
@@ -641,13 +771,10 @@ export default function CareerTrackerFloating() {
         <div className={styles["panel-content"]}>
           {activeTab === "todo" ? (
             <section className={styles["panel-section"]}>
-              <div className={styles["section-heading"]}>
-                <h3>오늘의 작업 목록</h3>
-                <span>
-                  {completedTodoCount}/{todos.length}
+              <div className={styles["todo-toolbar"]}>
+                <span className={styles["todo-progress-chip"]}>
+                  {pendingTodoCount} / {todos.length}
                 </span>
-              </div>
-              <div className={styles["action-row"]}>
                 <button
                   type="button"
                   onClick={clearCompletedTodos}
@@ -658,16 +785,17 @@ export default function CareerTrackerFloating() {
               </div>
               <form className={styles["inline-form"]} onSubmit={handleAddTodo}>
                 <input
+                  ref={todoInputRef}
                   type="text"
                   value={todoInput}
                   onChange={(event) => setTodoInput(event.target.value)}
-                  placeholder="예: 코딩테스트 1문제 풀기"
+                  placeholder="ex. 오늘의 공고 지원해보기"
                   aria-label="오늘 할 일 입력"
                 />
-                <button type="submit">등록</button>
+                <button type="submit">일정 등록하기</button>
               </form>
               <ul className={styles["checklist"]}>
-                {todos.map((todo) => (
+                {sortedTodos.map((todo) => (
                   <li key={todo.id}>
                     <label className={todo.done ? styles["done-item"] : ""}>
                       <input
@@ -696,40 +824,60 @@ export default function CareerTrackerFloating() {
                 <h3>스크랩한 공고</h3>
                 <span>{totalScrapCount}개 공고</span>
               </div>
-              <article className={styles["scrap-overview"]}>
-                <strong>{totalScrapCount}</strong>
-                <p>저장한 공고를 카드로 모아보고, 진행 상태를 쉽게 바꿔보세요.</p>
-              </article>
-              <div className={styles["inline-form"]}>
-                <input
-                  type="text"
-                  value={companySearchInput}
-                  onChange={(event) => setCompanySearchInput(event.target.value)}
-                  placeholder="기업명 또는 공고 제목 검색"
-                  aria-label="스크랩 공고 검색"
-                />
-              </div>
-              <form className={styles["inline-form"]} onSubmit={handleAddCompany}>
-                <input
-                  type="text"
-                  value={companyInput}
-                  onChange={(event) => setCompanyInput(event.target.value)}
-                  placeholder="예: 토스"
-                  aria-label="기업명 입력"
-                />
-                <button type="submit">추가</button>
-              </form>
-
-              <p className={styles["kanban-hint"]}>
-                카드를 드래그하거나 상태 선택으로 바로 이동할 수 있어요.
-              </p>
-
-              <div className={styles["kanban-status-row"]}>
-                {STATUS_META.map((status) => (
-                  <span key={status.key} className={styles["kanban-status-chip"]}>
-                    {status.label} {getKanbanCardsByStatus(status.key).length}
-                  </span>
-                ))}
+              <div className={styles["kanban-meta-row"]}>
+                <div className={styles["kanban-status-row"]}>
+                  {STATUS_META.map((status) => (
+                    <button
+                      key={status.key}
+                      type="button"
+                      className={`${styles["kanban-status-chip"]} ${activeKanbanStatus === status.key ? styles["kanban-status-chip-active"] : ""} ${draggingCardId && dragOverStatus === status.key ? styles["kanban-status-chip-drop-target"] : ""}`}
+                      data-kanban-status={status.key}
+                      onClick={() => setActiveKanbanStatus(status.key)}
+                      onDragOver={(event) => {
+                        if (!draggingCardId) {
+                          return;
+                        }
+                        event.preventDefault();
+                        if (dragOverStatus !== status.key) {
+                          setDragOverStatus(status.key);
+                        }
+                      }}
+                      onDragEnter={() => {
+                        if (!draggingCardId) {
+                          return;
+                        }
+                        setDragOverStatus(status.key);
+                      }}
+                      onDragLeave={(event) => {
+                        if (!draggingCardId) {
+                          return;
+                        }
+                        const nextTarget = event.relatedTarget as Node | null;
+                        if (
+                          nextTarget &&
+                          event.currentTarget.contains(nextTarget)
+                        ) {
+                          return;
+                        }
+                        if (dragOverStatus === status.key) {
+                          setDragOverStatus(null);
+                        }
+                      }}
+                      onDrop={(event) => {
+                        if (!draggingCardId) {
+                          return;
+                        }
+                        event.preventDefault();
+                        handleColumnDrop(status.key, {
+                          focusDroppedStatus: true,
+                        });
+                      }}
+                      aria-pressed={activeKanbanStatus === status.key}
+                    >
+                      {status.label} {getKanbanCardsByStatus(status.key).length}
+                    </button>
+                  ))}
+                </div>
               </div>
 
               <div className={styles["kanban-board"]}>
@@ -739,7 +887,8 @@ export default function CareerTrackerFloating() {
                   return (
                     <article
                       key={status.key}
-                      className={`${styles["kanban-column"]} ${dragOverStatus === status.key ? styles["kanban-column-drop-target"] : ""}`}
+                      className={`${styles["kanban-column"]} ${dragOverStatus === status.key ? styles["kanban-column-drop-target"] : ""} ${activeKanbanStatus !== status.key ? styles["kanban-column-mobile-hidden"] : ""}`}
+                      data-kanban-status={status.key}
                       onDragOver={(event) => {
                         event.preventDefault();
                         if (dragOverStatus !== status.key) {
@@ -749,7 +898,10 @@ export default function CareerTrackerFloating() {
                       onDragEnter={() => setDragOverStatus(status.key)}
                       onDragLeave={(event) => {
                         const nextTarget = event.relatedTarget as Node | null;
-                        if (nextTarget && event.currentTarget.contains(nextTarget)) {
+                        if (
+                          nextTarget &&
+                          event.currentTarget.contains(nextTarget)
+                        ) {
                           return;
                         }
                         if (dragOverStatus === status.key) {
@@ -767,58 +919,54 @@ export default function CareerTrackerFloating() {
                       </header>
                       <div className={styles["kanban-list"]}>
                         {items.length === 0 ? (
-                          <p className={styles["empty-state"]}>{status.emptyHint}</p>
+                          <p
+                            className={`${styles["empty-state"]} ${styles["kanban-empty-card"]}`}
+                          >
+                            {status.emptyHint}
+                          </p>
                         ) : (
                           items.map((card) => (
                             <div
                               key={card.cardId}
-                              className={`${styles["kanban-card"]} ${selectedCompanyId === card.companyId ? styles["kanban-card-active"] : ""} ${draggingCompanyId === card.companyId ? styles["kanban-card-dragging"] : ""}`}
+                              className={`${styles["kanban-card"]} ${draggingCardId === card.cardId ? styles["kanban-card-dragging"] : ""} ${touchDraggingCardId === card.cardId ? styles["kanban-card-touch-dragging"] : ""} ${openStatusMenuCardId === card.cardId ? styles["kanban-card-menu-open"] : ""}`}
                               draggable
-                              onDragStart={() => handleCompanyDragStart(card.companyId)}
-                              onDragEnd={handleCompanyDragEnd}
+                              onDragStart={() =>
+                                handleCardDragStart(card.cardId)
+                              }
+                              onDragEnd={handleCardDragEnd}
+                              onTouchStart={(event) =>
+                                handleCardTouchStart(card.cardId, event)
+                              }
+                              onTouchMove={handleCardTouchMove}
+                              onTouchEnd={handleCardTouchEnd}
+                              onTouchCancel={handleCardTouchCancel}
                             >
                               <div className={styles["kanban-card-top"]}>
-                                <button
-                                  type="button"
-                                  className={styles["company-focus-button"]}
-                                  onClick={() => {
-                                    setSelectedCompanyId(card.companyId);
-                                    setActiveTab("company");
-                                  }}
-                                >
+                                <p className={styles["company-focus-button"]}>
                                   {card.companyName}
-                                </button>
-                                <span className={styles["kanban-card-status"]}>
-                                  {getStatusLabel(card.status)}
-                                </span>
-                              </div>
-                              <p className={styles["kanban-card-scrap-count"]}>
-                                스크랩 공고 {card.scrapCount}개
-                              </p>
-                              {card.scrapTitle ? (
-                                <p className={styles["kanban-card-scrap-title"]}>
-                                  공고: {card.scrapTitle}
                                 </p>
-                              ) : null}
-                              <div className={styles["kanban-card-footer"]}>
-                                <span>
-                                  남은 할 일 {card.pendingTaskCount}/{card.totalTaskCount}
-                                </span>
                                 <div className={styles["status-menu"]}>
                                   <button
                                     type="button"
                                     className={`${styles["status-menu-trigger"]} ${openStatusMenuCardId === card.cardId ? styles["status-menu-trigger-open"] : ""}`}
                                     onClick={() =>
                                       setOpenStatusMenuCardId((prev) =>
-                                        prev === card.cardId ? null : card.cardId,
+                                        prev === card.cardId
+                                          ? null
+                                          : card.cardId,
                                       )
                                     }
                                     aria-haspopup="menu"
-                                    aria-expanded={openStatusMenuCardId === card.cardId}
+                                    aria-expanded={
+                                      openStatusMenuCardId === card.cardId
+                                    }
                                     aria-label={`${card.companyName} 상태 변경`}
                                   >
                                     <span>{getStatusLabel(card.status)}</span>
-                                    <span className={styles["status-menu-caret"]} aria-hidden="true">
+                                    <span
+                                      className={styles["status-menu-caret"]}
+                                      aria-hidden="true"
+                                    >
                                       ▾
                                     </span>
                                   </button>
@@ -829,7 +977,8 @@ export default function CareerTrackerFloating() {
                                       aria-label={`${card.companyName} 상태 선택`}
                                     >
                                       {STATUS_META.map((option) => {
-                                        const isCurrent = option.key === card.status;
+                                        const isCurrent =
+                                          option.key === card.status;
 
                                         return (
                                           <button
@@ -839,14 +988,20 @@ export default function CareerTrackerFloating() {
                                             aria-checked={isCurrent}
                                             className={`${styles["status-menu-option"]} ${isCurrent ? styles["status-menu-option-active"] : ""}`}
                                             onClick={() => {
-                                              updateCompanyStatus(card.companyId, option.key);
+                                              updateScrapStatus(
+                                                card.companyId,
+                                                card.scrapId,
+                                                option.key,
+                                              );
                                               setOpenStatusMenuCardId(null);
                                             }}
                                           >
                                             <span>{option.label}</span>
                                             {isCurrent ? (
                                               <span
-                                                className={styles["status-menu-check"]}
+                                                className={
+                                                  styles["status-menu-check"]
+                                                }
                                                 aria-hidden="true"
                                               >
                                                 ✓
@@ -859,6 +1014,36 @@ export default function CareerTrackerFloating() {
                                   ) : null}
                                 </div>
                               </div>
+                              <p className={styles["kanban-card-scrap-count"]}>
+                                스크랩 공고 {card.scrapCount}개
+                              </p>
+                              {card.scrapTitle ? (
+                                <p
+                                  className={styles["kanban-card-scrap-title"]}
+                                >
+                                  공고: {card.scrapTitle}
+                                </p>
+                              ) : null}
+                              <div className={styles["kanban-card-footer"]}>
+                                <span>
+                                  남은 할 일 {card.pendingTaskCount}/
+                                  {card.totalTaskCount}
+                                </span>
+                                <button
+                                  type="button"
+                                  className={
+                                    styles["kanban-card-delete-button"]
+                                  }
+                                  onClick={() =>
+                                    removeScrapFromCompany(
+                                      card.companyId,
+                                      card.scrapId,
+                                    )
+                                  }
+                                >
+                                  스크랩 삭제
+                                </button>
+                              </div>
                             </div>
                           ))
                         )}
@@ -867,126 +1052,6 @@ export default function CareerTrackerFloating() {
                   );
                 })}
               </div>
-            </section>
-          ) : null}
-
-          {activeTab === "company" ? (
-            <section className={styles["panel-section"]}>
-              <div className={styles["section-heading"]}>
-                <h3>기업별 작업 노트</h3>
-                <span>{selectedCompany ? selectedCompany.name : "기업을 먼저 선택하세요"}</span>
-              </div>
-
-              {companies.length > 0 ? (
-                <div className={styles["company-switcher"]}>
-                  {companies.map((company) => {
-                    const isActive = selectedCompany?.id === company.id;
-
-                    return (
-                      <button
-                        key={company.id}
-                        type="button"
-                        className={`${styles["company-switcher-button"]} ${isActive ? styles["company-switcher-button-active"] : ""}`}
-                        onClick={() => setSelectedCompanyId(company.id)}
-                      >
-                        <strong>{company.name}</strong>
-                        <span>
-                          공고 {company.scraps.length} · 할 일 {company.tasks.length}
-                        </span>
-                      </button>
-                    );
-                  })}
-                </div>
-              ) : null}
-
-              {!selectedCompany ? (
-                <p className={styles["empty-state"]}>
-                  스크랩 공고 탭에서 기업 카드를 눌러주세요.
-                </p>
-              ) : (
-                <>
-                  <div className={styles["selected-company-row"]}>
-                    <strong>{selectedCompany.name}</strong>
-                    <button
-                      type="button"
-                      className={styles["delete-company-button"]}
-                      onClick={() => removeCompany(selectedCompany.id)}
-                    >
-                      기업 삭제
-                    </button>
-                  </div>
-                  <section className={styles["scrap-list-section"]}>
-                    <h4>스크랩한 공고</h4>
-                    {selectedCompany.scraps.length === 0 ? (
-                      <p className={styles["empty-state"]}>아직 스크랩한 공고가 없어요.</p>
-                    ) : (
-                      <ul className={styles["scrap-list"]}>
-                        {selectedCompany.scraps.map((scrap) => (
-                          <li key={scrap.id}>
-                            <button
-                              type="button"
-                              onClick={() =>
-                                window.open(
-                                  `/recruitment-notices?id=${scrap.recruitmentNoticeId}&path=${scrap.path}`,
-                                  "_blank",
-                                )
-                              }
-                            >
-                              {scrap.title}
-                            </button>
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-                  </section>
-                  <form className={styles["inline-form"]} onSubmit={handleAddCompanyTask}>
-                    <input
-                      type="text"
-                      value={taskInput}
-                      onChange={(event) => setTaskInput(event.target.value)}
-                      placeholder={`${selectedCompany.name} 관련 할 일을 입력하세요`}
-                      aria-label="기업별 할 일 입력"
-                    />
-                    <button type="submit">등록</button>
-                  </form>
-                  <div className={styles["action-row"]}>
-                    <button
-                      type="button"
-                      onClick={() => clearCompletedCompanyTasks(selectedCompany.id)}
-                      disabled={completedSelectedCompanyTaskCount === 0}
-                    >
-                      완료한 항목 정리
-                    </button>
-                  </div>
-                  <ul className={styles["checklist"]}>
-                    {selectedCompany.tasks.length === 0 ? (
-                      <li className={styles["empty-checklist"]}>등록된 할 일이 없어요.</li>
-                    ) : (
-                      selectedCompany.tasks.map((task) => (
-                        <li key={task.id}>
-                          <label className={task.done ? styles["done-item"] : ""}>
-                            <input
-                              type="checkbox"
-                              checked={task.done}
-                              onChange={() =>
-                                toggleCompanyTask(selectedCompany.id, task.id)
-                              }
-                            />
-                            <span>{task.text}</span>
-                          </label>
-                          <button
-                            type="button"
-                            onClick={() => removeCompanyTask(selectedCompany.id, task.id)}
-                            aria-label="기업 할 일 삭제"
-                          >
-                            삭제
-                          </button>
-                        </li>
-                      ))
-                    )}
-                  </ul>
-                </>
-              )}
             </section>
           ) : null}
         </div>
@@ -1007,6 +1072,9 @@ export default function CareerTrackerFloating() {
         aria-label={isOpen ? "작업실 닫기" : "작업실 열기"}
         title={isOpen ? "작업실 닫기" : "작업실 열기"}
       >
+        {totalCompanyCount > 0 ? (
+          <span className={styles["tracker-count"]}>{totalCompanyCount}</span>
+        ) : null}
         {isOpen ? (
           <span className={styles["tracker-symbol"]} aria-hidden="true">
             <svg viewBox="0 0 24 24" focusable="false">
