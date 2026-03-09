@@ -11,8 +11,8 @@ import { formatDate, scaledPositionName } from "@/utils/common";
 import { useEffect, useRef, useState } from "react";
 import {
   CAREER_TRACKER_UPDATED_EVENT,
-  isCompanyScrappedInCareerTracker,
-  removeCompanyFromCareerTracker,
+  isRecruitmentNoticeScrappedInCareerTracker,
+  removeRecruitmentNoticeFromCareerTracker,
   saveCompanyToCareerTracker,
 } from "@/utils/careerTracker";
 
@@ -54,12 +54,12 @@ function CardContent({
   });
   const isMoreCorporeates = useRef(corporates.length > 1);
   const scrapTargetCompanyName = scaledDetailCorpotateName[0] ?? company;
-  const [isCompanyScrapped, setIsCompanyScrapped] = useState(false);
+  const [isNoticeScrapped, setIsNoticeScrapped] = useState(false);
 
   useEffect(() => {
     const syncScrapState = () => {
-      setIsCompanyScrapped(
-        isCompanyScrappedInCareerTracker(scrapTargetCompanyName),
+      setIsNoticeScrapped(
+        isRecruitmentNoticeScrappedInCareerTracker(id),
       );
     };
 
@@ -69,13 +69,13 @@ function CardContent({
     return () => {
       window.removeEventListener(CAREER_TRACKER_UPDATED_EVENT, syncScrapState);
     };
-  }, [scrapTargetCompanyName]);
+  }, [id]);
 
   const handleScrapClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
 
-    if (isCompanyScrapped) {
-      removeCompanyFromCareerTracker(scrapTargetCompanyName);
+    if (isNoticeScrapped) {
+      removeRecruitmentNoticeFromCareerTracker(id);
       return;
     }
 
@@ -101,13 +101,13 @@ function CardContent({
           className={styles.card__scrap__button}
           onClick={handleScrapClick}
           aria-label={
-            isCompanyScrapped
+            isNoticeScrapped
               ? `${scrapTargetCompanyName} 스크랩 취소하기`
               : `${scrapTargetCompanyName} 공고를 내 스크랩에 담기`
           }
-          title={isCompanyScrapped ? "스크랩 취소하기" : "내 스크랩에 담기"}
+          title={isNoticeScrapped ? "스크랩 취소하기" : "내 스크랩에 담기"}
         >
-          {isCompanyScrapped ? "스크랩 취소하기" : "스크랩하기"}
+          {isNoticeScrapped ? "스크랩 취소하기" : "스크랩하기"}
         </button>
       </div>
       {isMoreCorporeates.current && (
