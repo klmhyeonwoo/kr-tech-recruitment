@@ -1,7 +1,7 @@
 .tracker-root {
   position: fixed;
-  right: 0;
-  bottom: 0;
+  right: 2.8rem;
+  bottom: calc(2.8rem + (5.2rem * 2) + (0.9rem * 2));
   z-index: 9999;
 }
 
