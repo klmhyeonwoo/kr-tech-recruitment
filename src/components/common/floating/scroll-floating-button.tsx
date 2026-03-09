@@ -1,10 +1,37 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import styles from "./scroll-floating-button.module.scss";
 
 export default function ScrollFloationButton() {
+  const [isScrolling, setIsScrolling] = useState(false);
+  const scrollIdleTimerRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    const handleWindowScroll = () => {
+      setIsScrolling(true);
+
+      if (scrollIdleTimerRef.current !== null) {
+        window.clearTimeout(scrollIdleTimerRef.current);
+      }
+
+      scrollIdleTimerRef.current = window.setTimeout(() => {
+        setIsScrolling(false);
+      }, 180);
+    };
+
+    window.addEventListener("scroll", handleWindowScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", handleWindowScroll);
+
+      if (scrollIdleTimerRef.current !== null) {
+        window.clearTimeout(scrollIdleTimerRef.current);
+      }
+    };
+  }, []);
+
   /**
    * @description 뷰 포트의 상단으로 이동
    */
@@ -23,7 +50,9 @@ export default function ScrollFloationButton() {
   };
 
   return (
-    <div className={styles["floating-wrapper"]}>
+    <div
+      className={`${styles["floating-wrapper"]} ${isScrolling ? styles["floating-wrapper-scrolling"] : ""}`}
+    >
       <button
         type="button"
         className={styles["scroll-button"]}

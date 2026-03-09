@@ -59,7 +59,7 @@ const STATUS_META: ReadonlyArray<{
   emptyHint: string;
 }> = [
   { key: "planned", label: "지원 예정", emptyHint: "아직 공고가 없어요." },
-  { key: "applying", label: "지원 중", emptyHint: "아직 공고가 없어요." },
+  { key: "applying", label: "전형 진행 중", emptyHint: "아직 공고가 없어요." },
   { key: "accepted", label: "합격", emptyHint: "아직 공고가 없어요." },
   { key: "rejected", label: "불합격", emptyHint: "아직 공고가 없어요." },
 ];
@@ -188,6 +188,7 @@ const toCompanyArray = (value: unknown): CompanyBoardItem[] => {
 
 export default function CareerTrackerFloating() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isWindowScrolling, setIsWindowScrolling] = useState(false);
   const [openStatusMenuCardId, setOpenStatusMenuCardId] = useState<
     string | null
   >(null);
@@ -209,6 +210,7 @@ export default function CareerTrackerFloating() {
   const [activeKanbanStatus, setActiveKanbanStatus] =
     useState<CompanyStatus>("planned");
   const todoInputRef = useRef<HTMLInputElement | null>(null);
+  const scrollIdleTimerRef = useRef<number | null>(null);
   const longPressTimerRef = useRef<number | null>(null);
   const touchStartPointRef = useRef<{ x: number; y: number } | null>(null);
 
@@ -257,6 +259,40 @@ export default function CareerTrackerFloating() {
       document.body.style.overflow = previousBodyOverflow;
       window.removeEventListener("keydown", handleEscClose);
     };
+  }, [isOpen]);
+
+  useEffect(() => {
+    const handleWindowScroll = () => {
+      if (isOpen) {
+        return;
+      }
+
+      setIsWindowScrolling(true);
+
+      if (scrollIdleTimerRef.current !== null) {
+        window.clearTimeout(scrollIdleTimerRef.current);
+      }
+
+      scrollIdleTimerRef.current = window.setTimeout(() => {
+        setIsWindowScrolling(false);
+      }, 180);
+    };
+
+    window.addEventListener("scroll", handleWindowScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", handleWindowScroll);
+
+      if (scrollIdleTimerRef.current !== null) {
+        window.clearTimeout(scrollIdleTimerRef.current);
+      }
+    };
+  }, [isOpen]);
+
+  useEffect(() => {
+    if (isOpen) {
+      setIsWindowScrolling(false);
+    }
   }, [isOpen]);
 
   useEffect(() => {
@@ -698,11 +734,14 @@ export default function CareerTrackerFloating() {
 
   const handleTrackerToggle = () => {
     setIsScrapToastVisible(false);
+    setIsWindowScrolling(false);
     setIsOpen((prev) => !prev);
   };
 
   return (
-    <div className={styles["tracker-root"]}>
+    <div
+      className={`${styles["tracker-root"]} ${isWindowScrolling && !isOpen ? styles["tracker-root-scrolling"] : ""}`}
+    >
       <button
         type="button"
         className={`${styles["panel-backdrop"]} ${isOpen ? styles["backdrop-open"] : styles["backdrop-closed"]}`}
