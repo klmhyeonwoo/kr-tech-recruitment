@@ -8,12 +8,19 @@
   row-gap: 0.9rem;
 }
 
+.floating-wrapper-scrolling {
+  opacity: 1;
+  transform: none;
+}
+
 .scroll-button {
   width: 5.2rem;
   height: 5.2rem;
   border: 1px solid #d4d4d4;
   border-radius: 999px;
-  background-color: #fff;
+  background-color: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -27,6 +34,7 @@
 
 .scroll-button:hover {
   transform: translateY(-1px);
+  background-color: rgba(255, 255, 255, 0.97);
   box-shadow: 0 0.3rem 0.8rem rgba(0, 0, 0, 0.15);
 }
 
@@ -42,10 +50,19 @@
   transform: rotate(90deg);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 768px), (hover: none) and (pointer: coarse) {
   .floating-wrapper {
-    right: 1.4rem;
-    bottom: 1.4rem;
+    right: max(1.4rem, calc(env(safe-area-inset-right) + 0.4rem));
+    bottom: max(1.4rem, calc(env(safe-area-inset-bottom) + 0.4rem));
+    will-change: opacity, transform;
+    transition:
+      opacity 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .floating-wrapper-scrolling {
+    opacity: 0.08;
+    transform: translateY(0.3rem) scale(0.97);
   }
 
   .scroll-button {
