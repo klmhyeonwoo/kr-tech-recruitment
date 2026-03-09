@@ -9,6 +9,11 @@ import icon_cube_light from "@public/icon/cube_light.svg";
 import Image from "next/image";
 import { formatDate, scaledPositionName } from "@/utils/common";
 import { useRef } from "react";
+<<<<<<< Updated upstream
+=======
+import { saveRecentRecruitItem } from "@/utils/recentRecruit";
+import { saveCompanyToCareerTracker } from "@/utils/careerTracker";
+>>>>>>> Stashed changes
 
 type cardType = {
   id: number;
@@ -47,15 +52,37 @@ function CardContent({
     return corporate.corporateName;
   });
   const isMoreCorporeates = useRef(corporates.length > 1);
+  const scrapTargetCompanyName = scaledDetailCorpotateName[0] ?? company;
+
+  const handleScrapClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.stopPropagation();
+    saveCompanyToCareerTracker({
+      companyName: scrapTargetCompanyName,
+      recruitmentNoticeId: id,
+      title,
+      path: link,
+    });
+  };
 
   return (
     <div className={styles.card__container}>
-      <span
-        className={styles.card__company}
-        data-is-more-corporates={isMoreCorporeates.current}
-      >
-        {company}
-      </span>
+      <div className={styles.card__head}>
+        <span
+          className={styles.card__company}
+          data-is-more-corporates={isMoreCorporeates.current}
+        >
+          {company}
+        </span>
+        <button
+          type="button"
+          className={styles.card__scrap__button}
+          onClick={handleScrapClick}
+          aria-label={`${scrapTargetCompanyName} 공고를 내 스크랩에 담기`}
+          title="내 스크랩에 담기"
+        >
+          스크랩하기
+        </button>
+      </div>
       {isMoreCorporeates.current && (
         <span className={styles.card__coporate}>
           {`${scaledDetailCorpotateName.join(" · ")} 채용 중`}

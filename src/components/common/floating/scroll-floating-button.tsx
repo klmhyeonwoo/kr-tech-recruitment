@@ -33,8 +33,8 @@ export default function ScrollFloationButton() {
         <Image
           src="/icon/arrow_black.svg"
           alt=""
-          width={18}
-          height={18}
+          width={20}
+          height={20}
           className={`${styles["arrow-icon"]} ${styles["arrow-up"]}`}
           aria-hidden="true"
         />
@@ -48,8 +48,8 @@ export default function ScrollFloationButton() {
         <Image
           src="/icon/arrow_black.svg"
           alt=""
-          width={18}
-          height={18}
+          width={20}
+          height={20}
           className={`${styles["arrow-icon"]} ${styles["arrow-down"]}`}
           aria-hidden="true"
         />
