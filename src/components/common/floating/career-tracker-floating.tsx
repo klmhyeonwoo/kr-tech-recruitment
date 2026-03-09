@@ -505,26 +505,26 @@ export default function CareerTrackerFloating() {
     (acc, company) => acc + company.scraps.length,
     0,
   );
-  const kanbanCards: KanbanCardItem[] = companies.flatMap((company) => {
+  const kanbanCards: KanbanCardItem[] = companies.flatMap<KanbanCardItem>((company) => {
     const pendingTaskCount = company.tasks.filter((task) => !task.done).length;
     const totalTaskCount = company.tasks.length;
 
     if (company.scraps.length === 0) {
-      return [
-        {
-          cardId: `${company.id}-empty`,
-          companyId: company.id,
-          companyName: company.name,
-          status: company.status,
-          scrapCount: 0,
-          scrapTitle: null,
-          pendingTaskCount,
-          totalTaskCount,
-        },
-      ];
+      const emptyCard: KanbanCardItem = {
+        cardId: `${company.id}-empty`,
+        companyId: company.id,
+        companyName: company.name,
+        status: company.status,
+        scrapCount: 0,
+        scrapTitle: null,
+        pendingTaskCount,
+        totalTaskCount,
+      };
+
+      return [emptyCard];
     }
 
-    return company.scraps.map((scrap) => ({
+    return company.scraps.map<KanbanCardItem>((scrap) => ({
       cardId: scrap.id,
       companyId: company.id,
       companyName: company.name,

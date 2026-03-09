@@ -9,11 +9,7 @@ import icon_cube_light from "@public/icon/cube_light.svg";
 import Image from "next/image";
 import { formatDate, scaledPositionName } from "@/utils/common";
 import { useRef } from "react";
-<<<<<<< Updated upstream
-=======
-import { saveRecentRecruitItem } from "@/utils/recentRecruit";
 import { saveCompanyToCareerTracker } from "@/utils/careerTracker";
->>>>>>> Stashed changes
 
 type cardType = {
   id: number;
