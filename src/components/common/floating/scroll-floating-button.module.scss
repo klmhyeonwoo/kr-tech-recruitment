@@ -1,16 +1,16 @@
 .floating-wrapper {
   position: fixed;
-  z-index: 9999;
-  right: 2rem;
-  bottom: 2rem;
+  z-index: 9998;
+  right: 2.8rem;
+  bottom: 2.8rem;
   display: flex;
   flex-direction: column;
   row-gap: 0.9rem;
 }
 
 .scroll-button {
-  width: 4.6rem;
-  height: 4.6rem;
+  width: 5.2rem;
+  height: 5.2rem;
   border: 1px solid #d4d4d4;
   border-radius: 999px;
   background-color: #fff;
@@ -19,7 +19,6 @@
   justify-content: center;
   padding: 0;
   cursor: pointer;
-  box-shadow: 0 0.8rem 1.6rem rgba(0, 0, 0, 0.16);
   transition:
     transform 0.2s ease,
     box-shadow 0.2s ease,
@@ -28,8 +27,7 @@
 
 .scroll-button:hover {
   transform: translateY(-1px);
-  background-color: #f5f5f5;
-  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.24);
+  box-shadow: 0 0.3rem 0.8rem rgba(0, 0, 0, 0.15);
 }
 
 .arrow-icon {
@@ -46,12 +44,12 @@
 
 @media (max-width: 768px) {
   .floating-wrapper {
-    right: 1rem;
-    bottom: 1rem;
+    right: 1.4rem;
+    bottom: 1.4rem;
   }
 
   .scroll-button {
-    width: 4.1rem;
-    height: 4.1rem;
+    width: 4.6rem;
+    height: 4.6rem;
   }
 }

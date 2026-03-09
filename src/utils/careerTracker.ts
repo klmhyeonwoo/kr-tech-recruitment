@@ -12,6 +12,7 @@ export type CareerTrackerScrapItem = {
   title: string;
   path: string;
   addedAt: string;
+  status: CareerTrackerStatus;
 };
 
 export type CareerTrackerCompanyItem = {
@@ -30,6 +31,7 @@ type CareerTrackerStorageShape = {
 
 export const CAREER_TRACKER_STORAGE_KEY = "nklcb-career-tracker-v1";
 export const CAREER_TRACKER_SCRAP_ADDED_EVENT = "career-tracker:scrap-added";
+export const CAREER_TRACKER_UPDATED_EVENT = "career-tracker:updated";
 
 const createId = () =>
   typeof crypto !== "undefined" && "randomUUID" in crypto
@@ -63,7 +65,10 @@ const toChecklistItemArray = (value: unknown): CareerTrackerChecklistItem[] => {
   });
 };
 
-const toScrapArray = (value: unknown): CareerTrackerScrapItem[] => {
+const toScrapArray = (
+  value: unknown,
+  fallbackStatus: CareerTrackerStatus,
+): CareerTrackerScrapItem[] => {
   if (!Array.isArray(value)) {
     return [];
   }
@@ -83,6 +88,11 @@ const toScrapArray = (value: unknown): CareerTrackerScrapItem[] => {
       typeof item.path === "string" &&
       typeof item.addedAt === "string"
     ) {
+      const status =
+        "status" in item && isCareerTrackerStatus(item.status)
+          ? item.status
+          : fallbackStatus;
+
       return [
         {
           id: item.id,
@@ -90,6 +100,7 @@ const toScrapArray = (value: unknown): CareerTrackerScrapItem[] => {
           title: item.title,
           path: item.path,
           addedAt: item.addedAt,
+          status,
         },
       ];
     }
@@ -117,7 +128,9 @@ const toCompanyArray = (value: unknown): CareerTrackerCompanyItem[] => {
       const tasks =
         "tasks" in item ? toChecklistItemArray(item.tasks) : ([] as CareerTrackerChecklistItem[]);
       const scraps =
-        "scraps" in item ? toScrapArray(item.scraps) : ([] as CareerTrackerScrapItem[]);
+        "scraps" in item
+          ? toScrapArray(item.scraps, item.status)
+          : ([] as CareerTrackerScrapItem[]);
 
       return [{ id: item.id, name: item.name, status: item.status, tasks, scraps }];
     }
@@ -158,6 +171,78 @@ const getCareerTrackerStorage = (): CareerTrackerStorageShape => {
   }
 };
 
+const emitCareerTrackerUpdated = () => {
+  if (typeof window === "undefined") {
+    return;
+  }
+
+  window.dispatchEvent(new CustomEvent(CAREER_TRACKER_UPDATED_EVENT));
+};
+
+const isSameCompanyName = (left: string, right: string) =>
+  left.trim().toLowerCase() === right.trim().toLowerCase();
+
+export const isCompanyScrappedInCareerTracker = (companyName: string) => {
+  if (typeof window === "undefined") {
+    return false;
+  }
+
+  const trimmedCompanyName = companyName.trim();
+  if (!trimmedCompanyName) {
+    return false;
+  }
+
+  const previous = getCareerTrackerStorage();
+  return previous.companies.some((company) =>
+    isSameCompanyName(company.name, trimmedCompanyName),
+  );
+};
+
+export const removeCompanyFromCareerTracker = (companyName: string) => {
+  if (typeof window === "undefined") {
+    return false;
+  }
+
+  const trimmedCompanyName = companyName.trim();
+  if (!trimmedCompanyName) {
+    return false;
+  }
+
+  try {
+    const previous = getCareerTrackerStorage();
+    const targetCompany = previous.companies.find((company) =>
+      isSameCompanyName(company.name, trimmedCompanyName),
+    );
+
+    if (!targetCompany) {
+      return false;
+    }
+
+    const companies = previous.companies.filter(
+      (company) => company.id !== targetCompany.id,
+    );
+    const selectedCompanyId =
+      previous.selectedCompanyId === targetCompany.id
+        ? (companies[0]?.id ?? null)
+        : previous.selectedCompanyId;
+
+    window.localStorage.setItem(
+      CAREER_TRACKER_STORAGE_KEY,
+      JSON.stringify({
+        todos: previous.todos,
+        companies,
+        selectedCompanyId,
+      }),
+    );
+
+    emitCareerTrackerUpdated();
+    return true;
+  } catch (error) {
+    console.error("Failed to remove company from career tracker:", error);
+    return false;
+  }
+};
+
 export const saveCompanyToCareerTracker = ({
   companyName,
   recruitmentNoticeId,
@@ -182,9 +267,18 @@ export const saveCompanyToCareerTracker = ({
 
   try {
     const previous = getCareerTrackerStorage();
-    const existingCompanyIndex = previous.companies.findIndex(
-      (company) =>
-        company.name.trim().toLowerCase() === trimmedCompanyName.toLowerCase(),
+    const isAlreadyScrapped = previous.companies.some((company) =>
+      company.scraps.some(
+        (scrap) => scrap.recruitmentNoticeId === recruitmentNoticeId,
+      ),
+    );
+
+    if (isAlreadyScrapped) {
+      return false;
+    }
+
+    const existingCompanyIndex = previous.companies.findIndex((company) =>
+      isSameCompanyName(company.name, trimmedCompanyName),
     );
     const nextScrap: CareerTrackerScrapItem = {
       id: createId(),
@@ -192,6 +286,7 @@ export const saveCompanyToCareerTracker = ({
       title: trimmedTitle,
       path,
       addedAt: new Date().toISOString(),
+      status: "planned",
     };
 
     const companies = [...previous.companies];
@@ -237,6 +332,7 @@ export const saveCompanyToCareerTracker = ({
         },
       }),
     );
+    emitCareerTrackerUpdated();
     return true;
   } catch (error) {
     console.error("Failed to save company to career tracker:", error);
