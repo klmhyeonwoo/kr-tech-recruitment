@@ -52,8 +52,9 @@ const allCompanies = (remoteCompaniesData.companies as RemoteCompany[])
 
 const summary = {
   total: allCompanies.length,
-  fullRemoteCount: allCompanies.filter((company) => company.remoteCategory === "full")
-    .length,
+  fullRemoteCount: allCompanies.filter(
+    (company) => company.remoteCategory === "full",
+  ).length,
   partialRemoteCount: allCompanies.filter(
     (company) => company.remoteCategory === "partial",
   ).length,
@@ -162,8 +163,7 @@ export default async function RemoteWorkCompaniesPage({
     "@context": "https://schema.org",
     "@type": "CollectionPage",
     name: "재택 근무 가능 회사 모음",
-    description:
-      "한국의 재택/원격 근무 가능 회사 정보를 모아둔 컬렉션 페이지",
+    description: "한국의 재택/원격 근무 가능 회사 정보를 모아둔 컬렉션 페이지",
     url: pageUrl,
     mainEntity: {
       "@type": "ItemList",
@@ -212,13 +212,13 @@ export default async function RemoteWorkCompaniesPage({
           <div>
             <h1 className="title">재택 근무 가능 회사 모음</h1>
             <p className="description">
-              공개된 회사 근무제 정보를 기준으로, 재택/원격 근무 가능 회사를
-              빠르게 확인할 수 있어요.
+              공개된 회사의 재택 · 원격 근무 가능 회사를 빠르게 확인할 수
+              있어요.
             </p>
           </div>
           <p className={styles.summaryText}>
-            전체 {summary.total}개 · 완전 원격 {summary.fullRemoteCount}개 · 부분
-            원격 {summary.partialRemoteCount}개
+            전체 {summary.total}개 · 완전 원격 {summary.fullRemoteCount}개 ·
+            부분 원격 {summary.partialRemoteCount}개
           </p>
         </section>
 
@@ -227,7 +227,10 @@ export default async function RemoteWorkCompaniesPage({
             {(
               [
                 { key: "all", label: `전체 (${summary.total})` },
-                { key: "full", label: `완전 원격 (${summary.fullRemoteCount})` },
+                {
+                  key: "full",
+                  label: `완전 원격 (${summary.fullRemoteCount})`,
+                },
                 {
                   key: "partial",
                   label: `부분 원격 (${summary.partialRemoteCount})`,
