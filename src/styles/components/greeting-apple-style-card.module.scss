@@ -4,10 +4,13 @@
   position: relative;
   width: 19rem;
   height: 29rem;
+  border: none;
   border-radius: 2rem;
   overflow: hidden;
   cursor: pointer;
   padding: 2.4rem;
+  text-align: left;
+  font: inherit;
   color: white;
   display: flex;
   flex-direction: column;

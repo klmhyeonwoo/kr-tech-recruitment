@@ -135,14 +135,8 @@ export default async function Home() {
               <GreetingSwiper />
             </div>
             <QuestionBanner questionData={hotIssueList?.[0]} />
-            <section id="community" aria-labelledby="community-title">
+            <section id="community">
               <div className="d-flex flex-column row-gap-2">
-                <h2 id="community-title" className="title" style={{ margin: 0 }}>
-                  최근 커뮤니티 게시글
-                </h2>
-                <p className="description">
-                  다양한 주제로 올라온 게시글들을 확인해보세요
-                </p>
                 {communityList.map((item: ListProps["list"][number]) => (
                   <ListItem
                     key={item.boardId}

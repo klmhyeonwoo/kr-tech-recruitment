@@ -1,0 +1,1522 @@
+{
+  "source": "https://raw.githubusercontent.com/milooy/remote-or-flexible-work-company-in-korea/master/README.md",
+  "generatedAt": "2026-03-10T08:10:54.940Z",
+  "totalCompanies": 103,
+  "remoteEligibleCount": 95,
+  "companies": [
+    {
+      "id": "viva-republica",
+      "companyName": "Viva Republica(토스)",
+      "flexibleWork": "O",
+      "remoteWork": "O",
+      "remoteCategory": "partial",
+      "isRemotePossible": true,
+      "links": [
+        {
+          "label": "토스 채용 페이지",
+          "url": "https://toss.im/career"
+        }
+      ]
+    },
+    {
+      "id": "deepsearch",
+      "companyName": "DeepSearch",
+      "flexibleWork": "O",
+      "remoteWork": "완전한 원격 근무",
+      "remoteCategory": "full",
+      "isRemotePossible": true,
+      "links": [
+        {
+          "label": "회사 소개",
+          "url": "https://www.uberple.com/"
+        },
+        {
+          "label": "로켓펀치 채용 공고",
+          "url": "https://www.rocketpunch.com/companies/uberple/jobs"
+        }
+      ]
+    },
+    {
+      "id": "op-gg",
+      "companyName": "OP.GG",
+      "flexibleWork": "무컨펌 자율출퇴근",
+      "remoteWork": "장소/횟수 무제한 원격 근무 (팀 동료들의 컨펌이 필요, 조직장에게는 통보)",
+      "remoteCategory": "full",
+      "isRemotePossible": true,
+      "links": [
+        {
+          "label": "회사 소개",
+          "url": "http://www.op.gg/about/"
+        },
+        {
+          "label": "채용 공고",
+          "url": "http://log.op.gg/op-gg-recruit-wanted/"
+        }
+      ]
+    },
+    {
+      "id": "styleshare",
+      "companyName": "StyleShare",
+      "flexibleWork": "진짜로 자율 출퇴근",
+      "remoteWork": "진짜로 원격 근무",
+      "remoteCategory": "partial",
+      "isRemotePossible": true,
+      "links": [
+        {
+          "label": "회사 소개",
+          "url": "https://about.stylesha.re/"
+        },
+        {
+          "label": "채용 공고",
+          "url": "http://bit.ly/styleshare-careers"
+        }
+      ]
+    },
+    {
+      "id": "스포카",
+      "companyName": "스포카",
+      "flexibleWork": "O",
+      "remoteWork": "O",
+      "remoteCategory": "partial",
+      "isRemotePossible": true,
+      "links": [
+        {
+          "label": "채용 정보",
+          "url": "http://spoqa.recruiter.co.kr/"
+        }
+      ]
+    },
+    {
+      "id": "라인플러스",
+      "companyName": "라인플러스(LINE+)",
+      "flexibleWork": "기준 근무시간이 있으나 꼭 채우지 않아도 무방",
+      "remoteWork": "월 1회 조직장 승인하에 원격근무",
+      "remoteCategory": "partial",
+      "isRemotePossible": true,
+      "links": [
+        {
+          "label": "엔지니어 채용공고",
+          "url": "https://recruit.linepluscorp.com/lineplus/career/list?classId=148"
+        }
+      ]
+    },
+    {
+      "id": "odk-media",
+      "companyName": "ODK Media",
+      "flexibleWork": "O",
+      "remoteWork": "O",
+      "remoteCategory": "partial",
+      "isRemotePossible": true,
+      "links": [
+        {
+          "label": "회사 소개",
+          "url": "https://odkmedia.net/"
+        },
+        {
+          "label": "채용 공고",
+          "url": "https://odkmedia.bamboohr.com/jobs"
+        }
+      ]
+    },
+    {
+      "id": "세일즈부스트",
+      "companyName": "세일즈부스트(Salesboost, Inc.)",
+      "flexibleWork": "",
+      "remoteWork": "월, 금만 미팅을 위해 출근",
+      "remoteCategory": "partial",
+      "isRemotePossible": true,
+      "links": [
+        {
+          "label": "세일즈부스트 채용 공고",
+          "url": "https://www.rocketpunch.com/companies/salesboost/jobs"
+        },
+        {
+          "label": "리모트 근무는 실화고, 사무실은 먹는것 0편",
+          "url": "https://medium.com/salesboost-people/%EB%A6%AC%EB%AA%A8%ED%8A%B8-%EA%B7%BC%EB%AC%B4%EB%8A%94-%EC%8B%A4%ED%99%94%EA%B3%A0-%EC%82%AC%EB%AC%B4%EC%8B%A4%EC%9D%80-%EB%A8%B9%EB%8A%94%EA%B2%83-0%ED%8E%B8-65d9aa8dced1"
+        }
+      ]
+    },
+    {
+      "id": "studio-xid-korea",
+      "companyName": "Studio XID Korea(프로토파이)",
+      "flexibleWork": "O",
+      "remoteWork": "O",
+      "remoteCategory": "partial",
+      "isRemotePossible": true,
+      "links": [
+        {
+          "label": "Protopie",
+          "url": "https://protopie.io"
+        },
+        {
+          "label": "채용 공고",
+          "url": "https://bit.ly/xid-career"
+        }
+      ]
+    },
+    {
+      "id": "쿠팡",
+      "companyName": "쿠팡",
+      "flexibleWork": "O",
+      "remoteWork": "주 1회",
+      "remoteCategory": "partial",
+      "isRemotePossible": true,
+      "links": [
+        {
+          "label": "쿠팡 채용공고",
+          "url": "https://www.coupang.com/np/jobs"
+        }
+      ]
+    },
+    {
+      "id": "센트비",
+      "companyName": "센트비(SENTBE)",
+      "flexibleWork": "9am to 12pm 자율 출퇴근",
+      "remoteWork": "월요일만 싱크 미팅을 위해 사무실 출근",
+      "remoteCategory": "partial",
+      "isRemotePossible": true,
+      "links": [
+        {
+          "label": "회사 문화, 복지, 채용 공고",
+          "url": "https://bit.ly/2UXZrrc"
+        }
+      ]
+    },
+    {
+      "id": "브랜더진",
+      "companyName": "브랜더진(Brandazine)",
+      "flexibleWork": "O",
+      "remoteWork": "컨펌 없는 완전한 자율 근무",
+      "remoteCategory": "full",
+      "isRemotePossible": true,
+      "links": []
+    },
+    {
+      "id": "위키북스",
+      "companyName": "위키북스",
+      "flexibleWork": "O",
+      "remoteWork": "O",
+      "remoteCategory": "partial",
+      "isRemotePossible": true,
+      "links": [
+        {
+          "label": "우연이었지만 당연하게 된 리모트",
+          "url": "https://brunch.co.kr/@wikibook/1"
+        },
+        {
+          "label": "문제는 공간이 아니야!",
+          "url": "https://brunch.co.kr/@wikibook/2"
+        }
+      ]
+    },
+    {
+      "id": "체커",
+      "companyName": "체커(CHEQUER)",
+      "flexibleWork": "주 5일 / 주당 40시간 자율 근무 (자율 출퇴근)",
+      "remoteWork": "O",
+      "remoteCategory": "partial",
+      "isRemotePossible": true,
+      "links": [
+        {
+          "label": "회사 문화,복지,채용",
+          "url": "https://querypie.com/recruit"
+        }
+      ]
+    },
+    {
+      "id": "로그프레소",
+      "companyName": "로그프레소(Logpresso)",
+      "flexibleWork": "주 5일 / (자율 출퇴근)",
+      "remoteWork": "O",
+      "remoteCategory": "partial",
+      "isRemotePossible": true,
+      "links": [
+        {
+          "label": "회사 소개",
+          "url": "https://ko.logpresso.com/"
+        }
+      ]
+    },
+    {
+      "id": "빠띠",
+      "companyName": "빠띠",
+      "flexibleWork": "O",
+      "remoteWork": "O",
+      "remoteCategory": "partial",
+      "isRemotePossible": true,
+      "links": [
+        {
+          "label": "빠띠 가브크래프트",
+          "url": "https://govcraft.org/"
+        },
+        {
+          "label": "빠띠 타운홀",
+          "url": "https://townhall.kr/"
+        },
+        {
+          "label": "빠띠xyz",
+          "url": "https://parti.xyz/"
+        }
+      ]
+    },
+    {
+      "id": "자비스앤빌런즈",
+      "companyName": "자비스앤빌런즈",
+      "flexibleWork": "O",
+      "remoteWork": "O",
+      "remoteCategory": "partial",
+      "isRemotePossible": true,
+      "links": []
+    },
+    {
+      "id": "google-korea",
+      "companyName": "Google Korea",
+      "flexibleWork": "O",
+      "remoteWork": "O",
+      "remoteCategory": "partial",
+      "isRemotePossible": true,
+      "links": []
+    },
+    {
+      "id": "microsoft-korea",
+      "companyName": "Microsoft Korea",
+      "flexibleWork": "O",
+      "remoteWork": "O",
+      "remoteCategory": "partial",
+      "isRemotePossible": true,
+      "links": []
+    },
+    {
+      "id": "로켓펀치",
+      "companyName": "로켓펀치",
+      "flexibleWork": "O",
+      "remoteWork": "O",
+      "remoteCategory": "partial",
+      "isRemotePossible": true,
+      "links": []
+    },
+    {
+      "id": "말랑",
+      "companyName": "말랑",
+      "flexibleWork": "O",
+      "remoteWork": "O",
+      "remoteCategory": "partial",
+      "isRemotePossible": true,
+      "links": []
+    },
+    {
+      "id": "주식회사-준타",
+      "companyName": "주식회사 준타",
+      "flexibleWork": "O",
+      "remoteWork": "O",
+      "remoteCategory": "partial",
+      "isRemotePossible": true,
+      "links": []
+    },
+    {
+      "id": "마이크로소프트웨어",
+      "companyName": "마이크로소프트웨어",
+      "flexibleWork": "O",
+      "remoteWork": "O",
+      "remoteCategory": "partial",
+      "isRemotePossible": true,
+      "links": []
+    },
+    {
+      "id": "제니퍼소프트",
+      "companyName": "제니퍼소프트",
+      "flexibleWork": "O",
+      "remoteWork": "O",
+      "remoteCategory": "partial",
+      "isRemotePossible": true,
+      "links": [
+        {
+          "label": "회사 소개",
+          "url": "https://jennifersoft.com/ko/company/"
+        }
+      ]
+    },
+    {
+      "id": "moontm",
+      "companyName": "Moontm",
+      "flexibleWork": "O",
+      "remoteWork": "O",
+      "remoteCategory": "partial",
+      "isRemotePossible": true,
+      "links": []
+    },
+    {
+      "id": "festa",
+      "companyName": "Festa",
+      "flexibleWork": "O",
+      "remoteWork": "O",
+      "remoteCategory": "partial",
+      "isRemotePossible": true,
+      "links": []
+    },
+    {
+      "id": "elastic",
+      "companyName": "Elastic",
+      "flexibleWork": "O",
+      "remoteWork": "O",
+      "remoteCategory": "partial",
+      "isRemotePossible": true,
+      "links": []
+    },
+    {
+      "id": "해빗팩토리",
+      "companyName": "해빗팩토리(Habitfactory)",
+      "flexibleWork": "O",
+      "remoteWork": "O",
+      "remoteCategory": "partial",
+      "isRemotePossible": true,
+      "links": []
+    },
+    {
+      "id": "skt",
+      "companyName": "SKT",
+      "flexibleWork": "2주80시간 기준 완전 자율",
+      "remoteWork": "팀장 재량에 따라 무제한",
+      "remoteCategory": "full",
+      "isRemotePossible": true,
+      "links": [
+        {
+          "label": "채용공고",
+          "url": "https://tas-sktelecom.taleo.net/careersection/ex/moresearch.ftl"
+        }
+      ]
+    },
+    {
+      "id": "레몬베이스",
+      "companyName": "레몬베이스(lemonbase)",
+      "flexibleWork": "O",
+      "remoteWork": "O",
+      "remoteCategory": "partial",
+      "isRemotePossible": true,
+      "links": [
+        {
+          "label": "서비스",
+          "url": "https://lemonbase.com/"
+        },
+        {
+          "label": "팀소개",
+          "url": "https://lemonbase.team"
+        }
+      ]
+    },
+    {
+      "id": "아이엠지베이스",
+      "companyName": "아이엠지베이스(ImgBase)",
+      "flexibleWork": "O",
+      "remoteWork": "O",
+      "remoteCategory": "partial",
+      "isRemotePossible": true,
+      "links": [
+        {
+          "label": "회사 소개",
+          "url": "https://www.imgbase.me/"
+        },
+        {
+          "label": "채용 공고",
+          "url": "https://www.imgbase.me/ko/careers"
+        }
+      ]
+    },
+    {
+      "id": "슬로워크",
+      "companyName": "슬로워크",
+      "flexibleWork": "O",
+      "remoteWork": "O",
+      "remoteCategory": "partial",
+      "isRemotePossible": true,
+      "links": [
+        {
+          "label": "채용 공고",
+          "url": "https://slowalk.co.kr/archives/category/news/recruit"
+        },
+        {
+          "label": "블로그 글",
+          "url": "http://slowalk.tistory.com/2547"
+        }
+      ]
+    },
+    {
+      "id": "티켓몬스터",
+      "companyName": "티켓몬스터",
+      "flexibleWork": "",
+      "remoteWork": "월 2회",
+      "remoteCategory": "partial",
+      "isRemotePossible": true,
+      "links": [
+        {
+          "label": "회사 소개",
+          "url": "http://corp.ticketmonster.co.kr/"
+        },
+        {
+          "label": "채용 공고",
+          "url": "https://recruit.tmon.co.kr//recruit/list/000#page=1"
+        }
+      ]
+    },
+    {
+      "id": "크리마랩",
+      "companyName": "크리마랩",
+      "flexibleWork": "O",
+      "remoteWork": "O",
+      "remoteCategory": "partial",
+      "isRemotePossible": true,
+      "links": [
+        {
+          "label": "채용 공고 및 상세 설명",
+          "url": "https://www.rocketpunch.com/companies/cremafactory/jobs"
+        }
+      ]
+    },
+    {
+      "id": "히든트랙",
+      "companyName": "히든트랙",
+      "flexibleWork": "O",
+      "remoteWork": "매주 목요일",
+      "remoteCategory": "partial",
+      "isRemotePossible": true,
+      "links": [
+        {
+          "label": "채용 공고",
+          "url": "https://www.rocketpunch.com/companies/hiddentrack/jobs"
+        },
+        {
+          "label": "회사소개",
+          "url": "https://www.rocketpunch.com/companies/hiddentrack"
+        }
+      ]
+    },
+    {
+      "id": "삼성전자",
+      "companyName": "삼성전자",
+      "flexibleWork": "O",
+      "remoteWork": "O",
+      "remoteCategory": "partial",
+      "isRemotePossible": true,
+      "links": [
+        {
+          "label": "홈페이지",
+          "url": "https://www.samsung.com/sec/"
+        }
+      ]
+    },
+    {
+      "id": "헤이비트",
+      "companyName": "헤이비트",
+      "flexibleWork": "13:00~18:00 집중근무시간 외 자율",
+      "remoteWork": "팀장 재량 무제한",
+      "remoteCategory": "full",
+      "isRemotePossible": true,
+      "links": [
+        {
+          "label": "회사 소개",
+          "url": "https://heybit.io"
+        }
+      ]
+    },
+    {
+      "id": "플링크",
+      "companyName": "플링크",
+      "flexibleWork": "O",
+      "remoteWork": "O",
+      "remoteCategory": "partial",
+      "isRemotePossible": true,
+      "links": [
+        {
+          "label": "홈페이지",
+          "url": "https://engineering.pplink.net/"
+        }
+      ]
+    },
+    {
+      "id": "리디",
+      "companyName": "리디(Ridibooks)",
+      "flexibleWork": "O",
+      "remoteWork": "주 1회",
+      "remoteCategory": "partial",
+      "isRemotePossible": true,
+      "links": [
+        {
+          "label": "채용 공고",
+          "url": "https://www.ridicorp.com/"
+        }
+      ]
+    },
+    {
+      "id": "비드라이브",
+      "companyName": "비드라이브",
+      "flexibleWork": "11:00~15:00 집중근무시간 외 자율",
+      "remoteWork": "O",
+      "remoteCategory": "partial",
+      "isRemotePossible": true,
+      "links": [
+        {
+          "label": "관련 링크",
+          "url": "https://www.netdrive.net"
+        }
+      ]
+    },
+    {
+      "id": "당근마켓",
+      "companyName": "당근마켓",
+      "flexibleWork": "9시~11시 탄력 출근",
+      "remoteWork": "매주 목요일 원격 근무",
+      "remoteCategory": "partial",
+      "isRemotePossible": true,
+      "links": [
+        {
+          "label": "팀 페이지",
+          "url": "http://team.daangn.com"
+        },
+        {
+          "label": "채용 공고",
+          "url": "https://dngn.kr/join-us-dev"
+        }
+      ]
+    },
+    {
+      "id": "엔젤스윙",
+      "companyName": "엔젤스윙",
+      "flexibleWork": "O",
+      "remoteWork": "월2회",
+      "remoteCategory": "partial",
+      "isRemotePossible": true,
+      "links": [
+        {
+          "label": "채용 공고",
+          "url": "http://bit.ly/2ujipxc"
+        }
+      ]
+    },
+    {
+      "id": "skelter-labs",
+      "companyName": "Skelter Labs",
+      "flexibleWork": "O",
+      "remoteWork": "O",
+      "remoteCategory": "partial",
+      "isRemotePossible": true,
+      "links": [
+        {
+          "label": "회사 소개",
+          "url": "https://skelterlabs.com/about-us"
+        },
+        {
+          "label": "채용 공고",
+          "url": "https://www.rocketpunch.com/companies/skelterlabs/jobs"
+        }
+      ]
+    },
+    {
+      "id": "aply",
+      "companyName": "APLY",
+      "flexibleWork": "O",
+      "remoteWork": "O",
+      "remoteCategory": "partial",
+      "isRemotePossible": true,
+      "links": [
+        {
+          "label": "회사 소개",
+          "url": "https://aply.biz"
+        }
+      ]
+    },
+    {
+      "id": "드림어스컴퍼니",
+      "companyName": "드림어스컴퍼니",
+      "flexibleWork": "O",
+      "remoteWork": "주 1회 출근 원격 근무",
+      "remoteCategory": "partial",
+      "isRemotePossible": true,
+      "links": [
+        {
+          "label": "회사 소개",
+          "url": "https://www.dreamuscompany.com/"
+        }
+      ]
+    },
+    {
+      "id": "센드버드코리아",
+      "companyName": "센드버드코리아 (Sendbird)",
+      "flexibleWork": "O (8시~10시 유연 출근)",
+      "remoteWork": "O (팀내 협의 후 재택 근무. 현재 대부분의 인원이 재택중)",
+      "remoteCategory": "partial",
+      "isRemotePossible": true,
+      "links": [
+        {
+          "label": "회사 소개",
+          "url": "https://sendbird.com/"
+        },
+        {
+          "label": "채용 공고",
+          "url": "https://sendbird.com/careers"
+        }
+      ]
+    },
+    {
+      "id": "원티드랩",
+      "companyName": "원티드랩",
+      "flexibleWork": "8시~10시 유연 출근 (a.k.a 일출먼들)",
+      "remoteWork": "월 2회",
+      "remoteCategory": "partial",
+      "isRemotePossible": true,
+      "links": [
+        {
+          "label": "회사소개 및 채용공고",
+          "url": "https://www.wanted.co.kr/company/79"
+        }
+      ]
+    },
+    {
+      "id": "gracenote",
+      "companyName": "Gracenote(A Nielsen Company)",
+      "flexibleWork": "O",
+      "remoteWork": "O",
+      "remoteCategory": "partial",
+      "isRemotePossible": true,
+      "links": [
+        {
+          "label": "회사소개 및 채용공고",
+          "url": "https://www.wanted.co.kr/company/7776"
+        }
+      ]
+    },
+    {
+      "id": "데이블",
+      "companyName": "데이블(dable)",
+      "flexibleWork": "11:00 ~ 16:00 코어타임 외 자율",
+      "remoteWork": "매주 목요일 + 년간 10일, (현재 주 2일 재택 시험 적용 중.)",
+      "remoteCategory": "partial",
+      "isRemotePossible": true,
+      "links": [
+        {
+          "label": "회사소개",
+          "url": "https://dable.io/ko/careers/"
+        },
+        {
+          "label": "채용공고",
+          "url": "https://www.notion.so/dableglobal/Join-Us-Now-e92b1d419e4d49a087f4c246610e5a51"
+        }
+      ]
+    },
+    {
+      "id": "마키나락스",
+      "companyName": "마키나락스 (MakinaRocks)",
+      "flexibleWork": "자율 출퇴근 & 휴가 무제한",
+      "remoteWork": "필요시 원격 근무",
+      "remoteCategory": "partial",
+      "isRemotePossible": true,
+      "links": [
+        {
+          "label": "회사 링크",
+          "url": "http://makinarocks.ai/"
+        },
+        {
+          "label": "채용 링크",
+          "url": "https://github.com/makinarocks/jobs"
+        }
+      ]
+    },
+    {
+      "id": "플라네타리움",
+      "companyName": "플라네타리움",
+      "flexibleWork": "8~14시 자율 출근",
+      "remoteWork": "팀 협의하에 자유로운 원격근무",
+      "remoteCategory": "partial",
+      "isRemotePossible": true,
+      "links": [
+        {
+          "label": "회사소개 및 채용공고",
+          "url": "https://bit.ly/join-planet"
+        }
+      ]
+    },
+    {
+      "id": "뉴로핏",
+      "companyName": "뉴로핏",
+      "flexibleWork": "10:00 - 19:00, 유연 근무",
+      "remoteWork": "X, 하지만 협상 후 가능",
+      "remoteCategory": "partial",
+      "isRemotePossible": true,
+      "links": [
+        {
+          "label": "채용공고",
+          "url": "https://www.rocketpunch.com/companies/neurophet-1/jobs"
+        }
+      ]
+    },
+    {
+      "id": "delightroom",
+      "companyName": "Delightroom",
+      "flexibleWork": "11:00-16:00 코어타임 외 자율",
+      "remoteWork": "필요 시 재택근무",
+      "remoteCategory": "partial",
+      "isRemotePossible": true,
+      "links": [
+        {
+          "label": "회사소개",
+          "url": "https://team.alar.my/"
+        },
+        {
+          "label": "채용 바로가기",
+          "url": "https://team.alar.my/0d0480e4930542a6a08e9344db688c0b"
+        }
+      ]
+    },
+    {
+      "id": "텀블벅",
+      "companyName": "텀블벅",
+      "flexibleWork": "9~10시 자율 출퇴근",
+      "remoteWork": "주 1회",
+      "remoteCategory": "partial",
+      "isRemotePossible": true,
+      "links": [
+        {
+          "label": "회사소개",
+          "url": "https://bit.ly/2ZkOXXW"
+        },
+        {
+          "label": "채용공고",
+          "url": "https://www.rocketpunch.com/companies/tumblbug/jobs"
+        }
+      ]
+    },
+    {
+      "id": "라인웍스",
+      "companyName": "라인웍스",
+      "flexibleWork": "11:00~17:00 코어타임 외 주40시간 자율근무",
+      "remoteWork": "필요시 원격근무 (COVID-19 로 전체 원격근무 중)",
+      "remoteCategory": "partial",
+      "isRemotePossible": true,
+      "links": [
+        {
+          "label": "홈페이지",
+          "url": "https://linewalks.com"
+        },
+        {
+          "label": "채용공고",
+          "url": "https://linewalks.com/recruit"
+        }
+      ]
+    },
+    {
+      "id": "코그넥스-딥러닝-랩",
+      "companyName": "코그넥스 딥러닝 랩",
+      "flexibleWork": "완전 자율 줄퇴근",
+      "remoteWork": "원격 근무 가능",
+      "remoteCategory": "partial",
+      "isRemotePossible": true,
+      "links": [
+        {
+          "label": "회사 페이지",
+          "url": "http://sualab.com/"
+        },
+        {
+          "label": "블로그",
+          "url": "http://research.sualab.com/"
+        }
+      ]
+    },
+    {
+      "id": "miso",
+      "companyName": "Miso",
+      "flexibleWork": "x",
+      "remoteWork": "주 5회 재택근무",
+      "remoteCategory": "partial",
+      "isRemotePossible": true,
+      "links": [
+        {
+          "label": "회사소개",
+          "url": "https://www.rocketpunch.com/companies/miso"
+        },
+        {
+          "label": "채용공고",
+          "url": "https://www.rocketpunch.com/jobs/84304"
+        }
+      ]
+    },
+    {
+      "id": "유니티테크놀로지스코리아",
+      "companyName": "유니티테크놀로지스코리아",
+      "flexibleWork": "팀 마다 다름",
+      "remoteWork": "주2회 재택근무 가능",
+      "remoteCategory": "partial",
+      "isRemotePossible": true,
+      "links": [
+        {
+          "label": "홈페이지",
+          "url": "https://unity.com/kr"
+        },
+        {
+          "label": "채용공고",
+          "url": "https://careers.unity.com/"
+        }
+      ]
+    },
+    {
+      "id": "nota",
+      "companyName": "Nota",
+      "flexibleWork": "완전 자율 출퇴근 (유연근무제X 정해진 근무시간 없음)",
+      "remoteWork": "완전 자율 원격근무",
+      "remoteCategory": "full",
+      "isRemotePossible": true,
+      "links": [
+        {
+          "label": "회사 페이지",
+          "url": "https://nota.ai/"
+        },
+        {
+          "label": "채용공고",
+          "url": "https://nota.ai/recruiting.html"
+        }
+      ]
+    },
+    {
+      "id": "이스트소프트",
+      "companyName": "이스트소프트",
+      "flexibleWork": "시차출퇴근제",
+      "remoteWork": "원격근무(주3회)",
+      "remoteCategory": "partial",
+      "isRemotePossible": true,
+      "links": [
+        {
+          "label": "홈페이지",
+          "url": "https://www.estsoft.ai/"
+        },
+        {
+          "label": "회사소개",
+          "url": "https://bit.ly/3dYpCc4"
+        }
+      ]
+    },
+    {
+      "id": "한화정밀기계",
+      "companyName": "한화정밀기계",
+      "flexibleWork": "자율 줄퇴근",
+      "remoteWork": "원격 근무 코로나때 2주 빤짝",
+      "remoteCategory": "partial",
+      "isRemotePossible": true,
+      "links": [
+        {
+          "label": "회사 페이지",
+          "url": "https://www.hanwhaprecisionmachinery.co.kr/"
+        }
+      ]
+    },
+    {
+      "id": "메리츠화재해상보험",
+      "companyName": "메리츠화재해상보험(주)",
+      "flexibleWork": "출퇴근자율",
+      "remoteWork": "주 5회",
+      "remoteCategory": "partial",
+      "isRemotePossible": true,
+      "links": [
+        {
+          "label": "회사소개",
+          "url": "https://www.meritzfire.com/"
+        },
+        {
+          "label": "채용공고",
+          "url": "https://053.alba.co.kr/job/Detail.asp?adid=102558817"
+        }
+      ]
+    },
+    {
+      "id": "트레바리",
+      "companyName": "트레바리",
+      "flexibleWork": "9~11시 자율 출퇴근 후 8시간 근무 (디폴트는 10시~19시)",
+      "remoteWork": "필요시 재택근무 가능",
+      "remoteCategory": "partial",
+      "isRemotePossible": true,
+      "links": [
+        {
+          "label": "홈페이지",
+          "url": "https://trevari.co.kr/"
+        },
+        {
+          "label": "채용공고",
+          "url": "https://www.notion.so/929fe3235c4b46bd877aada98834b39e"
+        }
+      ]
+    },
+    {
+      "id": "루닛",
+      "companyName": "루닛",
+      "flexibleWork": "완전 자율 출퇴근 / 무컨펌 무제한 휴가",
+      "remoteWork": "완전 알아서 원격 근무(면대면 회의가 필요할때만 나와도 됩니다)",
+      "remoteCategory": "full",
+      "isRemotePossible": true,
+      "links": [
+        {
+          "label": "홈페이지",
+          "url": "https://www.lunit.io/ko/"
+        },
+        {
+          "label": "채용공고",
+          "url": "https://apply.workable.com/lunit/"
+        }
+      ]
+    },
+    {
+      "id": "코드스테이츠",
+      "companyName": "코드스테이츠",
+      "flexibleWork": "8~11시 자율 출퇴근 후 8시간 근무",
+      "remoteWork": "필요시 재택근무 가능",
+      "remoteCategory": "partial",
+      "isRemotePossible": true,
+      "links": [
+        {
+          "label": "홈페이지",
+          "url": "https://codestates.com/"
+        },
+        {
+          "label": "채용공고",
+          "url": "https://code-states.breezy.hr/"
+        },
+        {
+          "label": "블로그",
+          "url": "https://medium.com/code-states"
+        }
+      ]
+    },
+    {
+      "id": "휴먼스케이프",
+      "companyName": "휴먼스케이프",
+      "flexibleWork": "자율 출퇴근 (11:00 ~ 17:00 코워킹 타임)",
+      "remoteWork": "팀원간의 협의 후 재택근무 가능",
+      "remoteCategory": "partial",
+      "isRemotePossible": true,
+      "links": [
+        {
+          "label": "홈페이지",
+          "url": "https://humanscape.io"
+        },
+        {
+          "label": "Software Engineer 채용 공고",
+          "url": "https://bit.ly/recruit_human_dev"
+        }
+      ]
+    },
+    {
+      "id": "뱅크샐러드",
+      "companyName": "뱅크샐러드(레이니스트)",
+      "flexibleWork": "O",
+      "remoteWork": "O",
+      "remoteCategory": "partial",
+      "isRemotePossible": true,
+      "links": [
+        {
+          "label": "회사소개",
+          "url": "https://career.banksalad.com/about/"
+        },
+        {
+          "label": "채용공고",
+          "url": "https://career.banksalad.com/jobs/"
+        }
+      ]
+    },
+    {
+      "id": "11번가",
+      "companyName": "11번가",
+      "flexibleWork": "자율 출퇴근제 (2주동안 80시간)",
+      "remoteWork": "전사 재택 (코로나 현황에 따라 변동)",
+      "remoteCategory": "partial",
+      "isRemotePossible": true,
+      "links": [
+        {
+          "label": "홈페이지",
+          "url": "https://www.11stcorp.com"
+        },
+        {
+          "label": "Software Engineer 채용 공고",
+          "url": "https://careers.11stcorp.com/jobs/engineering"
+        }
+      ]
+    },
+    {
+      "id": "셀렉트스타",
+      "companyName": "셀렉트스타",
+      "flexibleWork": "자율 출퇴근 (13:00 ~ 17:00 코어 타임)",
+      "remoteWork": "COVID-19 유행 단계에 따라 재택근무 중",
+      "remoteCategory": "partial",
+      "isRemotePossible": true,
+      "links": [
+        {
+          "label": "홈페이지",
+          "url": "https://selectstar.ai/"
+        },
+        {
+          "label": "채용공고",
+          "url": "https://www.notion.so/2387860beacf47048f74e0863550697a"
+        }
+      ]
+    },
+    {
+      "id": "그렙",
+      "companyName": "그렙",
+      "flexibleWork": "9:00~10:00 중 자율 출근",
+      "remoteWork": "O",
+      "remoteCategory": "partial",
+      "isRemotePossible": true,
+      "links": [
+        {
+          "label": "홈페이지",
+          "url": "https://www.grepp.co/"
+        },
+        {
+          "label": "채용공고",
+          "url": "https://www.notion.so/prgrms/772559b20f9f451c94b568468eb53f47"
+        },
+        {
+          "label": "블로그",
+          "url": "https://prgms.tistory.com/"
+        }
+      ]
+    },
+    {
+      "id": "원프레딕트",
+      "companyName": "원프레딕트",
+      "flexibleWork": "07:30 ~ 10:30 사이 자율 출퇴근",
+      "remoteWork": "주1회 재택근무 가능",
+      "remoteCategory": "partial",
+      "isRemotePossible": true,
+      "links": [
+        {
+          "label": "홈페이지",
+          "url": "https://onepredict.ai/"
+        },
+        {
+          "label": "채용 공고",
+          "url": "https://blog.onepredict.ai/d665b60a-2196-4cb6-b4bf-d42f39eeeac4"
+        }
+      ]
+    },
+    {
+      "id": "아임웹",
+      "companyName": "아임웹",
+      "flexibleWork": "07:00 ~ 11:00 사이 자율 출퇴근",
+      "remoteWork": "비정기 재택근무 시행",
+      "remoteCategory": "partial",
+      "isRemotePossible": true,
+      "links": [
+        {
+          "label": "홈페이지",
+          "url": "https://imweb.me/"
+        },
+        {
+          "label": "채용 공고",
+          "url": "https://recruit.imweb.me/"
+        }
+      ]
+    },
+    {
+      "id": "네오사피엔스",
+      "companyName": "네오사피엔스(타입캐스트)",
+      "flexibleWork": "O (선택적 근로시간제)",
+      "remoteWork": "O (완전 자율)",
+      "remoteCategory": "full",
+      "isRemotePossible": true,
+      "links": [
+        {
+          "label": "회사소개 및 채용공고",
+          "url": "https://tycs.io/hire"
+        }
+      ]
+    },
+    {
+      "id": "일루미나리안",
+      "companyName": "일루미나리안",
+      "flexibleWork": "주 4일제(월요일휴무) / 07 ~ 10시 사이 자율 출근 / 8시간 근무",
+      "remoteWork": "코로나로 인한 전체 원격근무",
+      "remoteCategory": "partial",
+      "isRemotePossible": true,
+      "links": [
+        {
+          "label": "홈페이지",
+          "url": "https://www.illuminarean.com/"
+        },
+        {
+          "label": "채용 공고",
+          "url": "https://illuminarean.com/apply/list"
+        }
+      ]
+    },
+    {
+      "id": "인포크",
+      "companyName": "인포크",
+      "flexibleWork": "8시~11시 유연 출근",
+      "remoteWork": "매주 수요일 재택근무 가능",
+      "remoteCategory": "partial",
+      "isRemotePossible": true,
+      "links": [
+        {
+          "label": "인포크 채용 페이지",
+          "url": "https://team.inpock.co.kr"
+        }
+      ]
+    },
+    {
+      "id": "직방",
+      "companyName": "직방",
+      "flexibleWork": "X",
+      "remoteWork": "100% 원격 근무제",
+      "remoteCategory": "full",
+      "isRemotePossible": true,
+      "links": [
+        {
+          "label": "홈페이지",
+          "url": "https://zigbang.com/"
+        },
+        {
+          "label": "채용 페이지",
+          "url": "https://career.zigbang.com/"
+        }
+      ]
+    },
+    {
+      "id": "sk-planet",
+      "companyName": "SK Planet",
+      "flexibleWork": "8:00 이후 시작 ~ 20:00 이전 종료 근무시간 설정 (시간 외 직책자 승인 필요)",
+      "remoteWork": "COVID-19 유행 단계에 따라 재택근무 중",
+      "remoteCategory": "partial",
+      "isRemotePossible": true,
+      "links": [
+        {
+          "label": "홈페이지",
+          "url": "https://www.skplanet.com/"
+        }
+      ]
+    },
+    {
+      "id": "코클",
+      "companyName": "코클",
+      "flexibleWork": "자율 출퇴근, 무제한 휴가",
+      "remoteWork": "자율 재택근무",
+      "remoteCategory": "partial",
+      "isRemotePossible": true,
+      "links": [
+        {
+          "label": "홈페이지",
+          "url": "https://www.cochl.ai/"
+        },
+        {
+          "label": "채용 공고",
+          "url": "https://cochl.oopy.io/"
+        }
+      ]
+    },
+    {
+      "id": "자란다",
+      "companyName": "자란다",
+      "flexibleWork": "09:00 ~ 10:30 사이 자율 출퇴근",
+      "remoteWork": "주2회 재택근무 가능",
+      "remoteCategory": "partial",
+      "isRemotePossible": true,
+      "links": [
+        {
+          "label": "홈페이지",
+          "url": "https://team.jaranda.kr/"
+        },
+        {
+          "label": "채용 공고",
+          "url": "https://team.jaranda.kr/backend"
+        }
+      ]
+    },
+    {
+      "id": "셀러노트",
+      "companyName": "셀러노트",
+      "flexibleWork": "08:00 ~ 10:00 사이 자율 출퇴근",
+      "remoteWork": "필요시 재택근무 (개발팀 대부분 재택근무 중)",
+      "remoteCategory": "partial",
+      "isRemotePossible": true,
+      "links": [
+        {
+          "label": "홈페이지",
+          "url": "https://www.ship-da.com/"
+        },
+        {
+          "label": "채용 공고",
+          "url": "http://wntd.co/06353222"
+        }
+      ]
+    },
+    {
+      "id": "쿼타랩",
+      "companyName": "쿼타랩",
+      "flexibleWork": "완전 자율 출퇴근",
+      "remoteWork": "무제한 재택근무 가능",
+      "remoteCategory": "full",
+      "isRemotePossible": true,
+      "links": [
+        {
+          "label": "홈페이지",
+          "url": "https://www.quotabook.com/ko"
+        },
+        {
+          "label": "채용 공고",
+          "url": "https://careers.quotabook.com/"
+        },
+        {
+          "label": "블로그",
+          "url": "https://www.quotabook.com/ko/blog/home"
+        }
+      ]
+    },
+    {
+      "id": "온다",
+      "companyName": "온다(ONDA)",
+      "flexibleWork": "8~12시 자율 출퇴근",
+      "remoteWork": "필요하면 재택",
+      "remoteCategory": "partial",
+      "isRemotePossible": true,
+      "links": [
+        {
+          "label": "홈페이지",
+          "url": "https://www.onda.me/"
+        },
+        {
+          "label": "채용 공고",
+          "url": "https://together.onda.me/"
+        },
+        {
+          "label": "블로그",
+          "url": "https://www.onda.me/blog"
+        }
+      ]
+    },
+    {
+      "id": "naver-naver-financial-naver-cloud-works-mobile-naver-labs-naver-webtoon-naver-i-s",
+      "companyName": "NAVER, NAVER FINANCIAL, NAVER Cloud, WORKS MOBILE, NAVER LABS, NAVER WEBTOON, NAVER I&S",
+      "flexibleWork": "O",
+      "remoteWork": "주3회출근 OR 전면재택근무 중 근무타입 선택 가능",
+      "remoteCategory": "full",
+      "isRemotePossible": true,
+      "links": [
+        {
+          "label": "채용 공고",
+          "url": "https://recruit.navercorp.com/main.do"
+        }
+      ]
+    },
+    {
+      "id": "snow-naver-z",
+      "companyName": "SNOW, NAVER Z",
+      "flexibleWork": "O",
+      "remoteWork": "주2회출근 OR 전면재택근무 중 근무타입 선택 가능",
+      "remoteCategory": "full",
+      "isRemotePossible": true,
+      "links": [
+        {
+          "label": "스노우 채용 공고",
+          "url": "https://recruit.snowcorp.com"
+        },
+        {
+          "label": "네이버 Z 채용 공고",
+          "url": "https://recruit.naverz-corp.com"
+        }
+      ]
+    },
+    {
+      "id": "presto-labs",
+      "companyName": "Presto Labs",
+      "flexibleWork": "O (완전 자율 출퇴근)",
+      "remoteWork": "O (전세계 어디서나 완전 원격 근무)",
+      "remoteCategory": "full",
+      "isRemotePossible": true,
+      "links": [
+        {
+          "label": "채용 공고 (iOS)",
+          "url": "https://presto-career.notion.site/iOS-Software-Engineer-25011b7a929e444da9fbd6aca88dfb05"
+        }
+      ]
+    },
+    {
+      "id": "pet-friends",
+      "companyName": "Pet Friends(펫프렌즈)",
+      "flexibleWork": "O",
+      "remoteWork": "격주",
+      "remoteCategory": "partial",
+      "isRemotePossible": true,
+      "links": [
+        {
+          "label": "펫프렌즈 채용 페이지",
+          "url": "https://www.wanted.co.kr/wd/79790"
+        }
+      ]
+    },
+    {
+      "id": "롯데쇼핑e커머스",
+      "companyName": "롯데쇼핑e커머스",
+      "flexibleWork": "8~11시 30분 단위 시차출퇴근",
+      "remoteWork": "O",
+      "remoteCategory": "partial",
+      "isRemotePossible": true,
+      "links": [
+        {
+          "label": "롯데온(LOTTEON) 서비스",
+          "url": "https://www.lotteon.com/"
+        }
+      ]
+    },
+    {
+      "id": "슈프리마에이아이",
+      "companyName": "슈프리마에이아이 (Suprema AI)",
+      "flexibleWork": "08:00 ~ 10:00 / 자율 출퇴근, 4.5 일제 (주 36시간)",
+      "remoteWork": "필요시 재택근무 신청 가능",
+      "remoteCategory": "partial",
+      "isRemotePossible": true,
+      "links": [
+        {
+          "label": "홈페이지",
+          "url": "https://www.suprema.ai/"
+        },
+        {
+          "label": "채용 공고",
+          "url": "https://suprema-ai-recruit.notion.site/061e33488f5044a8b6366778580b4bbd"
+        }
+      ]
+    },
+    {
+      "id": "아인시스에이아이랩",
+      "companyName": "아인시스에이아이랩",
+      "flexibleWork": "O",
+      "remoteWork": "O",
+      "remoteCategory": "partial",
+      "isRemotePossible": true,
+      "links": [
+        {
+          "label": "홈페이지",
+          "url": "https://einsis.com/ko"
+        },
+        {
+          "label": "채용 공고",
+          "url": "https://www.notion.so/aicers/f642c6cd0e7a4e14a20990398bd7bc52"
+        }
+      ]
+    },
+    {
+      "id": "여기어때컴퍼니",
+      "companyName": "여기어때컴퍼니",
+      "flexibleWork": "O",
+      "remoteWork": "O",
+      "remoteCategory": "partial",
+      "isRemotePossible": true,
+      "links": [
+        {
+          "label": "홈페이지",
+          "url": "https://gccompany.co.kr/"
+        },
+        {
+          "label": "채용공고",
+          "url": "https://gccompany.career.greetinghr.com"
+        },
+        {
+          "label": "기술블로그",
+          "url": "https://techblog.gccompany.co.kr"
+        }
+      ]
+    },
+    {
+      "id": "미리디",
+      "companyName": "미리디(MIRIDIH)",
+      "flexibleWork": "08:00 ~ 11:00 사이 자율 출근",
+      "remoteWork": "주 3회 출근 OR 주 1회 출근 근무타입 선택 가능",
+      "remoteCategory": "partial",
+      "isRemotePossible": true,
+      "links": [
+        {
+          "label": "회사 소개",
+          "url": "https://www.miridih.com/"
+        },
+        {
+          "label": "채용 공고",
+          "url": "https://miridih.career.greetinghr.com/"
+        }
+      ]
+    },
+    {
+      "id": "마이뮤직테이스트",
+      "companyName": "마이뮤직테이스트 (MyMusicTaste)",
+      "flexibleWork": "O",
+      "remoteWork": "O",
+      "remoteCategory": "partial",
+      "isRemotePossible": true,
+      "links": [
+        {
+          "label": "홈페이지",
+          "url": "https://www.mymusictaste.com/"
+        },
+        {
+          "label": "채용 공고",
+          "url": "https://team.mymusictaste.com/culture"
+        },
+        {
+          "label": "기술블로그",
+          "url": "https://mymusictaste.github.io/"
+        }
+      ]
+    },
+    {
+      "id": "0x",
+      "companyName": "0x&(제로엑스엔드)",
+      "flexibleWork": "O (완전 자율 출퇴근 / 무제한 휴가)",
+      "remoteWork": "O (전세계 어디서나 완전 원격 근무)",
+      "remoteCategory": "full",
+      "isRemotePossible": true,
+      "links": [
+        {
+          "label": "홈페이지",
+          "url": "https://0xand.com"
+        },
+        {
+          "label": "채용공고",
+          "url": "https://www.wanted.co.kr/company/35709"
+        }
+      ]
+    },
+    {
+      "id": "테이블링",
+      "companyName": "테이블링",
+      "flexibleWork": "11:00 - 16:00 코어타임 외 자율",
+      "remoteWork": "매주 수요일, 목요일 재택근무",
+      "remoteCategory": "partial",
+      "isRemotePossible": true,
+      "links": [
+        {
+          "label": "홈페이지",
+          "url": "https://www.tabling.co.kr/"
+        },
+        {
+          "label": "기술블로그",
+          "url": "https://techblog.tabling.co.kr/"
+        },
+        {
+          "label": "채용공고",
+          "url": "https://www.wanted.co.kr/company/1281"
+        }
+      ]
+    },
+    {
+      "id": "코드잇",
+      "companyName": "코드잇",
+      "flexibleWork": "자율 출근 (코어타임 1-5시)",
+      "remoteWork": "월금 비코어타임 및 화수목 재택 근무 가능",
+      "remoteCategory": "partial",
+      "isRemotePossible": true,
+      "links": [
+        {
+          "label": "회사 소개",
+          "url": "https://careers.codeit.com/"
+        },
+        {
+          "label": "채용 공고",
+          "url": "https://careers.codeit.com/recruiting"
+        }
+      ]
+    }
+  ]
+}

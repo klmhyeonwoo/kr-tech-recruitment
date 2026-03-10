@@ -15,6 +15,7 @@ type GreetingCardProps = {
     | "not-yet"
     | "release-notes"
     | "question"
+    | "remote-work-companies"
     | string;
   colorSet?: string[];
   image?: StaticImageData;
@@ -32,8 +33,10 @@ function GreetingCard({
   const [firstColor, secondColor] = colorSet;
 
   const handleNavigate = () => {
-    if (["web", "question"].includes(navigate!)) {
-      router.replace(navigate!);
+    if (["web", "question", "remote-work-companies"].includes(navigate!)) {
+      router.replace(`/${navigate}`);
+    } else if (navigate?.startsWith("/")) {
+      router.replace(navigate);
     } else if (navigate === "channel-talk") {
       window.open("https://6oo1v.channel.io/home", "_blank");
     } else if (navigate === "not-yet") {
@@ -51,15 +54,22 @@ function GreetingCard({
   };
 
   useEffect(() => {
-    if (navigate && ["web", "question", "community"].includes(navigate)) {
-      router.prefetch(`/${navigate}`);
+    if (
+      navigate &&
+      (["web", "question", "community", "remote-work-companies"].includes(
+        navigate,
+      ) ||
+        navigate.startsWith("/"))
+    ) {
+      router.prefetch(navigate.startsWith("/") ? navigate : `/${navigate}`);
     }
   }, [navigate, router]);
 
   return (
-    <div
+    <button
+      type="button"
       className={styles.container}
-      onClick={handleNavigate}
+      onClick={navigate ? handleNavigate : undefined}
       style={{
         background: `linear-gradient(135deg, ${firstColor}, ${secondColor})`,
         cursor: `${navigate ? "pointer" : "default"}`,
@@ -80,7 +90,7 @@ function GreetingCard({
       <div className={styles.description__wrapper}>
         <span className={styles.greeting__description}>{description}</span>
       </div>
-    </div>
+    </button>
   );
 }
 

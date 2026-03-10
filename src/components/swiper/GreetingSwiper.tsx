@@ -1,61 +1,94 @@
-"use client";
+import Link from "next/link";
+import Image, { StaticImageData } from "next/image";
 import greeting_image_eyes from "@public/images/eyes.gif";
 import greeting_image_waving from "@public/images/waving.gif";
 import greeting_image_rocket from "@public/images/rocket.gif";
 import greeting_image_popper from "@public/images/popper.gif";
 import greeting_image_earth from "@public/images/earth.png";
-import GreetingCard from "../common/greeting-card";
-import Marquee from "react-fast-marquee";
-import { getDevice } from "kr-corekit";
+import greeting_image_swimming from "@public/icon/swimming.gif";
+import styles from "./greeting-swiper.module.scss";
+
+type QuickMenuItem = {
+  title: string;
+  description: string;
+  href: string;
+  icon: StaticImageData;
+  external?: boolean;
+};
+
+const QUICK_MENUS: QuickMenuItem[] = [
+  {
+    title: "빅테크 공고",
+    description: "기업별 채용 공고 확인",
+    href: "/web",
+    icon: greeting_image_eyes,
+  },
+  {
+    title: "재택·원격 회사",
+    description: "원격 근무 가능 회사 모음",
+    href: "/remote-work-companies",
+    icon: greeting_image_swimming,
+  },
+  {
+    title: "취준 질문",
+    description: "이번 주 질문 참여하기",
+    href: "/question",
+    icon: greeting_image_popper,
+  },
+  {
+    title: "커뮤니티",
+    description: "취업·이직 정보 나누기",
+    href: "/community",
+    icon: greeting_image_earth,
+  },
+  {
+    title: "서비스 문의",
+    description: "불편 사항 전달하기",
+    href: "https://6oo1v.channel.io/home",
+    icon: greeting_image_waving,
+    external: true,
+  },
+  {
+    title: "릴리즈 노트",
+    description: "최근 업데이트 확인",
+    href: "https://github.com/klmhyeonwoo/awesome-dori/releases/",
+    icon: greeting_image_rocket,
+    external: true,
+  },
+];
 
 function GreetingSwiper() {
-  const isMobile = typeof window !== "undefined" ? getDevice().isMobile : false;
-
   return (
-    <Marquee speed={80} gradient={false} pauseOnHover={isMobile ? false : true}>
-      <div className="d-flex column-gap-3 ml-3">
-        <GreetingCard
-          title="빅테크 공고 모아보기"
-          subTitle="빅테크 채용관"
-          description="네카라쿠배당토 · 몰두센 · 게임사 등 국내 빅테크 기업들의 채용 공고를 한 눈에 확인해보세요"
-          navigate="web"
-          colorSet={["#43cbff", "#9708cc"]}
-          image={greeting_image_eyes}
-        />
-        <GreetingCard
-          title="이용에 불편함이 있으신가요?"
-          subTitle="서비스 문의하기"
-          description="서비스 이용 중 불편함이나 필요한 기능이 있다면 언제든지 문의해 주세요."
-          navigate="channel-talk"
-          colorSet={["#141E30", "#243B55"]}
-          image={greeting_image_waving}
-        />
-        <GreetingCard
-          title="취업 및 이직 커뮤니티"
-          subTitle="커뮤니티 참여하기"
-          description="커뮤니티를 통해 여러분들의 생각과 다른 사람들과 이야기하며 다양한 의견을 나누어보세요."
-          navigate="community"
-          colorSet={["#1E40AF", "#3B82F6"]}
-          image={greeting_image_earth}
-        />
-        <GreetingCard
-          title="더 많은 기능들이 다가오고 있어요"
-          subTitle="로켓처럼 빠르게 발전하고 있어요"
-          navigate="release-notes"
-          description="더 다양한 정보를 위해 지속적으로 발전하고 있으며, 더 많은 기능들이 곧 추가될 예정이에요."
-          colorSet={["#FF512F", "#DD2476"]}
-          image={greeting_image_rocket}
-        />
-        <GreetingCard
-          title="취준 · 이직 5초만에 고민 해결하기"
-          subTitle="이번 주 질문이 도착했어요"
-          navigate="/question"
-          description="이번 주 질문을 통해 여러분의 생각을 익명으로 나눠보세요. 다른 사람들의 의견도 확인할 수 있어요."
-          colorSet={["#667eea", "#764ba2"]}
-          image={greeting_image_popper}
-        />
+    <section className={styles.quickMenu} aria-labelledby="quick-menu-title">
+      <div className={styles.quickMenuHeader}>
+        <h2 id="quick-menu-title">퀵메뉴</h2>
+        <p>자주 찾는 기능을 바로 이동해보세요.</p>
       </div>
-    </Marquee>
+
+      <ul className={styles.quickMenuList}>
+        {QUICK_MENUS.map((menu) => (
+          <li key={menu.href}>
+            {menu.external ? (
+              <a href={menu.href} target="_blank" rel="noreferrer noopener">
+                <div className={styles.menuText}>
+                  <span className={styles.menuTitle}>{menu.title}</span>
+                  <span className={styles.menuDescription}>{menu.description}</span>
+                </div>
+                <Image src={menu.icon} alt="" aria-hidden width={28} height={28} />
+              </a>
+            ) : (
+              <Link href={menu.href}>
+                <div className={styles.menuText}>
+                  <span className={styles.menuTitle}>{menu.title}</span>
+                  <span className={styles.menuDescription}>{menu.description}</span>
+                </div>
+                <Image src={menu.icon} alt="" aria-hidden width={28} height={28} />
+              </Link>
+            )}
+          </li>
+        ))}
+      </ul>
+    </section>
   );
 }
 
