@@ -18,8 +18,7 @@
   }
 }
 
-.announce__card__wrapper,
-.greeting__card__wrapper {
+.announce__card__wrapper {
   display: flex;
   flex-direction: row;
   column-gap: 2rem;
@@ -34,43 +33,5 @@
 }
 
 .greeting__card__wrapper {
-  position: relative;
-
-  @media (max-width: 480px) {
-    width: 100dvw;
-    margin-left: -1.3rem;
-    padding-left: 1.3rem;
-    box-sizing: border-box;
-  }
-
-  &::before,
-  &::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 2rem;
-    z-index: 2;
-    pointer-events: none;
-  }
-
-  &::before {
-    left: 0;
-    backdrop-filter: blur(0.07rem);
-    background: linear-gradient(
-      to right,
-      rgba(255, 255, 255, 0.1),
-      rgba(255, 255, 255, 0)
-    );
-  }
-
-  &::after {
-    right: 0;
-    backdrop-filter: blur(0.07rem);
-    background: linear-gradient(
-      to left,
-      rgba(255, 255, 255, 0.1),
-      rgba(255, 255, 255, 0)
-    );
-  }
+  width: 100%;
 }

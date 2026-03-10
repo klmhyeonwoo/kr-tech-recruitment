@@ -306,9 +306,9 @@ export default async function RemoteWorkCompaniesPage({
 
                 {!!company.links.length && (
                   <div className={styles.linkList}>
-                    {company.links.map((link, index) => (
+                    {company.links.map((link) => (
                       <a
-                        key={`${company.id}-link-${index}`}
+                        key={`${company.id}-${link.url}-${link.label}`}
                         href={link.url}
                         target="_blank"
                         rel="noreferrer noopener"
