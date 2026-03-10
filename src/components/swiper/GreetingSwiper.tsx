@@ -19,38 +19,38 @@ type QuickMenuItem = {
 const QUICK_MENUS: QuickMenuItem[] = [
   {
     title: "빅테크 공고",
-    description: "기업별 채용 공고 확인",
+    description: "네카라쿠배 등의 빅테크 공고를 빠르게 확인할 수 있어요",
     href: "/web",
     icon: greeting_image_eyes,
   },
   {
-    title: "재택·원격 회사",
-    description: "원격 근무 가능 회사 모음",
+    title: "재택 · 원격 회사",
+    description: "재택 근무 가능 회사를 빠르게 모아볼 수 있어요",
     href: "/remote-work-companies",
     icon: greeting_image_swimming,
   },
   {
-    title: "취준 질문",
-    description: "이번 주 질문 참여하기",
+    title: "이번 주 질문에 답변하기",
+    description: "다른 사람들은 어떤 생각들을 가지고 있을까요?",
     href: "/question",
     icon: greeting_image_popper,
   },
   {
     title: "커뮤니티",
-    description: "취업·이직 정보 나누기",
+    description: "나만의 정보들을 자유롭게 커뮤니티에서 나눠보세요",
     href: "/community",
     icon: greeting_image_earth,
   },
   {
     title: "서비스 문의",
-    description: "불편 사항 전달하기",
+    description: "서비스 피드백 · 문의는 언제나 환영해요",
     href: "https://6oo1v.channel.io/home",
     icon: greeting_image_waving,
     external: true,
   },
   {
     title: "릴리즈 노트",
-    description: "최근 업데이트 확인",
+    description: "최근 업데이트된 내용을 확인할 수 있어요",
     href: "https://github.com/klmhyeonwoo/awesome-dori/releases/",
     icon: greeting_image_rocket,
     external: true,
@@ -61,8 +61,8 @@ function GreetingSwiper() {
   return (
     <section className={styles.quickMenu} aria-labelledby="quick-menu-title">
       <div className={styles.quickMenuHeader}>
-        <h2 id="quick-menu-title">퀵메뉴</h2>
-        <p>자주 찾는 기능을 바로 이동해보세요.</p>
+        <h2 id="quick-menu-title">자주 찾는 기능</h2>
+        <p>자주 찾는 기능으로 빠르게 서비스를 이용해보세요</p>
       </div>
 
       <ul className={styles.quickMenuList}>
@@ -72,17 +72,33 @@ function GreetingSwiper() {
               <a href={menu.href} target="_blank" rel="noreferrer noopener">
                 <div className={styles.menuText}>
                   <span className={styles.menuTitle}>{menu.title}</span>
-                  <span className={styles.menuDescription}>{menu.description}</span>
+                  <span className={styles.menuDescription}>
+                    {menu.description}
+                  </span>
                 </div>
-                <Image src={menu.icon} alt="" aria-hidden width={28} height={28} />
+                <Image
+                  src={menu.icon}
+                  alt=""
+                  aria-hidden
+                  width={28}
+                  height={28}
+                />
               </a>
             ) : (
               <Link href={menu.href}>
                 <div className={styles.menuText}>
                   <span className={styles.menuTitle}>{menu.title}</span>
-                  <span className={styles.menuDescription}>{menu.description}</span>
+                  <span className={styles.menuDescription}>
+                    {menu.description}
+                  </span>
                 </div>
-                <Image src={menu.icon} alt="" aria-hidden width={28} height={28} />
+                <Image
+                  src={menu.icon}
+                  alt=""
+                  aria-hidden
+                  width={28}
+                  height={28}
+                />
               </Link>
             )}
           </li>

@@ -33,10 +33,7 @@ export default function UserAds() {
         aria-label="Layer 스폰서 페이지 열기"
       >
         <picture className={styles.image__picture}>
-          <source
-            media="(max-width: 768px)"
-            srcSet={mobileImageProps.srcSet}
-          />
+          <source media="(max-width: 768px)" srcSet={mobileImageProps.srcSet} />
           <img
             {...desktopImageProps}
             alt={alt}

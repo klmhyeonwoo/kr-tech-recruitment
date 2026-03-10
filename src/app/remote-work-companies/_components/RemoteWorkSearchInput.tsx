@@ -37,7 +37,9 @@ export default function RemoteWorkSearchInput({
       const nextQuery = params.toString();
       const nextUrl = nextQuery ? `${pathname}?${nextQuery}` : pathname;
       const currentQuery = searchParams.toString();
-      const currentUrl = currentQuery ? `${pathname}?${currentQuery}` : pathname;
+      const currentUrl = currentQuery
+        ? `${pathname}?${currentQuery}`
+        : pathname;
 
       if (nextUrl === currentUrl) {
         return;
@@ -59,7 +61,7 @@ export default function RemoteWorkSearchInput({
         <input
           type="search"
           name="q"
-          placeholder="회사명/근무조건 검색"
+          placeholder="ex. 토스, 무제한 재택근무"
           value={keyword}
           onChange={(event) => setKeyword(event.target.value)}
           aria-label="회사명 또는 근무 조건 검색"
