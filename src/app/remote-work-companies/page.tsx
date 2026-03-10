@@ -4,28 +4,15 @@ import DefaultLayout from "@/components/layout/DefaultLayout";
 import StructuredData from "@/lib/seo/structured-data";
 import remoteCompaniesData from "@/data/remote-work-companies.kr.json";
 import UserAds from "@/components/ads/user-ads";
+import RemoteWorkSearchInput from "./_components/RemoteWorkSearchInput";
+import type {
+  FilterType,
+  RemoteCategory,
+  RemoteCompany,
+} from "./_components/types";
 import styles from "./page.module.scss";
 import tabStyles from "@/styles/components/tab.module.scss";
-import inputStyles from "@/styles/components/input.module.scss";
 import "@/styles/domain/web.scss";
-
-type RemoteCategory = "full" | "partial" | "none" | "unknown";
-type FilterType = "all" | "full" | "partial";
-
-type CompanyLink = {
-  label: string;
-  url: string;
-};
-
-type RemoteCompany = {
-  id: string;
-  companyName: string;
-  flexibleWork: string;
-  remoteWork: string;
-  remoteCategory: RemoteCategory;
-  isRemotePossible: boolean;
-  links: CompanyLink[];
-};
 
 type PageSearchParams = {
   type?: string;
@@ -258,25 +245,9 @@ export default async function RemoteWorkCompaniesPage({
             ))}
           </div>
 
-          <form method="get" className={styles.searchForm}>
-            {filterType !== "all" && (
-              <input type="hidden" name="type" value={filterType} />
-            )}
-            <div className={inputStyles.input__section}>
-              <div className={inputStyles.input__box}>
-                <input
-                  type="search"
-                  name="q"
-                  placeholder="회사명/근무조건 검색"
-                  defaultValue={query}
-                  aria-label="회사명 또는 근무 조건 검색"
-                />
-              </div>
-            </div>
-            <button type="submit" className={styles.searchButton}>
-              검색
-            </button>
-          </form>
+          <div className={styles.searchForm}>
+            <RemoteWorkSearchInput initialQuery={query} />
+          </div>
         </section>
 
         {filteredCompanies.length ? (
