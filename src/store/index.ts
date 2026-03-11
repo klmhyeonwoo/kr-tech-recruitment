@@ -1,5 +1,4 @@
 import { atom } from "jotai";
-import Cookies from "js-cookie";
 
 const CATEGORY_STORE = atom<string | null>(null);
 const SEARCH_KEYWORD_STORE = atom<string>("");
@@ -11,7 +10,7 @@ const SELECTED_COMPANY_STORE = atom<{
   name: "",
 });
 const PORTAL_STORE = atom<boolean>(false);
-const USER_STORE = atom<boolean>(Cookies.get("nklcb__un") !== undefined);
+const USER_STORE = atom<boolean>(false);
 
 export {
   CATEGORY_STORE,

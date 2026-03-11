@@ -144,7 +144,6 @@ export default async function Home() {
                     title={item.title}
                     content={item.content}
                     writer={item.nickname}
-                    writerId={item.userId}
                     date={item.createdAt}
                     commentCount={item.comments.length}
                     likeCount={item.likes.length}

@@ -1,12 +1,13 @@
 "use client";
 import Image from "next/image";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import heart_default_icon from "@public/icon/commnuity/comment/heart.default.svg";
 import heart_active_icon from "@public/icon/commnuity/comment/heart.fill.svg";
 import "@/styles/domain/community-detail.scss";
 import Input from "@/components/search/Input";
 import Button from "@/components/common/button";
 import community from "@/api/domain/community";
+import user from "@/api/domain/user";
 import { useParams } from "next/navigation";
 import NotDataSwimming from "@/components/common/feedback/not-data";
 import CommentItem from "./comment-item";
@@ -26,6 +27,7 @@ export interface CommentsProps {
   commentsCount: number;
   likesCount: number;
   isLiked: boolean;
+  likeUserIds: number[];
 }
 
 export default function Comments({
@@ -33,6 +35,7 @@ export default function Comments({
   commentsCount: serverCommentsCount,
   likesCount: serverLikesCount,
   isLiked: serverIsLiked,
+  likeUserIds: serverLikeUserIds,
 }: CommentsProps) {
   const params = useParams();
   const [isLiked, setIsLiked] = useState(serverIsLiked);
@@ -41,8 +44,37 @@ export default function Comments({
     useState<CommentsProps["comments"]>(serverComments);
   const [commentsCount, setCommentsCount] = useState(serverCommentsCount);
   const [likesCount, setLikesCount] = useState(serverLikesCount);
+  const [likeUserIds, setLikeUserIds] = useState(serverLikeUserIds);
+  const [currentUserId, setCurrentUserId] = useState<number | null>(null);
   const [loader, setLoader] = useState(false);
   const { isLogin } = useUser();
+
+  useEffect(() => {
+    if (!isLogin) {
+      setCurrentUserId(null);
+      setIsLiked(false);
+      return;
+    }
+
+    (async () => {
+      try {
+        const { status, data } = await user.userInfo();
+        if (status === 200) {
+          setCurrentUserId(data.id);
+        }
+      } catch (error) {
+        console.error("Failed to fetch user info:", error);
+      }
+    })();
+  }, [isLogin]);
+
+  useEffect(() => {
+    if (!isLogin || !currentUserId) {
+      return;
+    }
+
+    setIsLiked(likeUserIds.includes(currentUserId));
+  }, [currentUserId, isLogin, likeUserIds]);
 
   const handleSubmitComment = async () => {
     const { detailId } = params;
@@ -70,6 +102,7 @@ export default function Comments({
       setComments(data.comments);
       setCommentsCount(data.comments.length);
       setLikesCount(data.likes.length);
+      setLikeUserIds(data.likes.map((like: { userId: number }) => like.userId));
     } else {
       console.error("Failed to refresh data");
     }
