@@ -13,6 +13,7 @@ import CommentItem from "./comment-item";
 import BoardInfo from "./board-info";
 import useUser from "@/hooks/common/useUser";
 import { debounce } from "es-toolkit";
+import UserStatusBlock from "./user-status-block";
 
 export interface CommentsProps {
   comments: {
@@ -94,38 +95,58 @@ export default function Comments({
   return (
     <div className="comment__container">
       <BoardInfo commentCount={commentsCount} likeCount={likesCount} />
-      {isLogin && (
+      {isLogin ? (
         <div className="comment__input">
-          <div onClick={handleToggleList} className="comment__like">
+          <button
+            type="button"
+            onClick={handleToggleList}
+            className="comment__like"
+            aria-label={isLiked ? "좋아요 취소" : "좋아요"}
+          >
             {isLiked ? (
               <Image
                 src={heart_active_icon}
                 alt="좋아요 아이콘"
-                width={25}
-                height={25}
+                width={23}
+                height={23}
               />
             ) : (
               <Image
                 src={heart_default_icon}
                 alt="좋아요 아이콘"
-                width={25}
-                height={25}
+                width={23}
+                height={23}
               />
             )}
+          </button>
+          <div className="comment__field">
+            <Input
+              isIcon={false}
+              placeholder="게시글에 댓글을 자유롭게 입력해보세요"
+              value={userComment}
+              onChange={(e) => setUserComment(e.target.value)}
+            />
           </div>
-          <Input
-            isIcon={false}
-            placeholder="게시글에 댓글을 자유롭게 입력해보세요"
-            value={userComment}
-            onChange={(e) => setUserComment(e.target.value)}
-          />
           <Button
+            className="comment__submit"
             disabled={!userComment}
             onClick={handleSubmitComment}
             loader={loader}
           >
             댓글 작성하기
           </Button>
+        </div>
+      ) : (
+        <div className="comment__auth">
+          <div className="comment__auth__content">
+            <strong>댓글 작성은 로그인 후 이용할 수 있어요</strong>
+            <p>카카오 로그인으로 5초만에 댓글을 작성해보세요</p>
+          </div>
+          <UserStatusBlock
+            showWhenLoggedIn={false}
+            compact
+            loginMessage="카카오 로그인 후 댓글 작성하기"
+          />
         </div>
       )}
       <div className="comment__list">
