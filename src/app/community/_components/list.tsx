@@ -12,6 +12,7 @@ import { debounce } from "es-toolkit";
 import NotDataSwimming from "@/components/common/feedback/not-data";
 import { useRouter, useSearchParams } from "next/navigation";
 import useUser from "@/hooks/common/useUser";
+import UserStatusBlock from "./user-status-block";
 
 export interface ListProps {
   list: {
@@ -169,15 +170,28 @@ export default function List() {
         />
       )}
       <div className={styles.list__container}>
+        {!isLogin && (
+          <div className={styles.top__action}>
+            <UserStatusBlock
+              showWhenLoggedIn={false}
+              compact
+              loginMessage="카카오 로그인 후 게시글 작성하기"
+            />
+          </div>
+        )}
         <HotListItem />
         <div className={styles.list__util}>
-          <Input
-            placeholder="검색어를 입력하세요"
-            value={keyword}
-            onChange={(e) => handleChangeKeyword(e.target.value)}
-          />
+          <div className={styles.search__wrapper}>
+            <Input
+              placeholder="검색어를 입력하세요"
+              value={keyword}
+              onChange={(e) => handleChangeKeyword(e.target.value)}
+            />
+          </div>
           {isLogin && (
-            <Button onClick={() => setShowModal(true)}>게시글 작성하기</Button>
+            <div className={styles.action__wrapper}>
+              <Button onClick={() => setShowModal(true)}>게시글 작성하기</Button>
+            </div>
           )}
         </div>
         <div className={styles.list__item__container}>{renderBoardList()}</div>

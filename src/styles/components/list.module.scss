@@ -24,18 +24,62 @@
   row-gap: 1rem;
   font-size: 1.6rem;
 
-  .list__util {
+  .top__action {
+    width: 100%;
     display: flex;
-    align-items: center;
-    column-gap: 2rem;
+    justify-content: flex-end;
+    margin-top: 0.2rem;
 
-    button {
+    & > button:not([data-login="false"]) {
       color: #fff;
       background-color: #222;
       font-size: 1.6rem;
-      margin-left: auto;
       white-space: nowrap;
       font-weight: 400;
+    }
+  }
+
+  .list__util {
+    display: flex;
+    align-items: center;
+    column-gap: 1.2rem;
+    row-gap: 0.9rem;
+
+    .search__wrapper {
+      flex: 1;
+      min-width: 0;
+      width: 100%;
+    }
+
+    .action__wrapper {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      flex-shrink: 0;
+    }
+
+    .action__wrapper > button:not([data-login="false"]) {
+      color: #fff;
+      background-color: #222;
+      font-size: 1.6rem;
+      white-space: nowrap;
+      font-weight: 400;
+    }
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      align-items: stretch;
+
+      .action__wrapper {
+        width: 100%;
+        margin-left: 0;
+        justify-content: flex-start;
+      }
+
+      .action__wrapper > button:not([data-login="false"]) {
+        width: 100%;
+      }
     }
   }
 
