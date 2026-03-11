@@ -2,7 +2,6 @@ import community from "@/api/domain/community";
 import React from "react";
 import "@/styles/domain/community-detail.scss";
 import Comments from "@/app/community/_components/comments";
-import { cookies } from "next/headers";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
@@ -141,8 +140,6 @@ export default async function Page({ params }: { params: ParamsType }) {
     notFound();
   }
 
-  const cookie = await cookies();
-  const userId = cookie.get("nklcb__un");
   const canonical = `${BASE_URL}/community/detail/${detailId}`;
   const discussionStructuredData = {
     "@context": "https://schema.org",
@@ -205,11 +202,8 @@ export default async function Page({ params }: { params: ParamsType }) {
           comments={data.comments}
           commentsCount={data.comments.length}
           likesCount={data.likes.length}
-          isLiked={
-            userId
-              ? data.likes.some((like) => like.userId === Number(userId.value))
-              : false
-          }
+          isLiked={false}
+          likeUserIds={data.likes.map((like) => like.userId)}
         />
       </div>
     </>

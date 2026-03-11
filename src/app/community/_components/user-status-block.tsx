@@ -7,7 +7,6 @@ import {
   checkInitializedKakaoSDK,
   handleKakaoSocialLogin,
 } from "@/utils/socialUtil";
-import Cookies from "js-cookie";
 import user from "@/api/domain/user";
 import UserAvatar from "./user-avatar";
 import useUser from "@/hooks/common/useUser";
@@ -25,7 +24,7 @@ const UserStatusBlock = ({
   showWhenLoggedIn = true,
   compact = false,
 }: UserStatusBlockProps) => {
-  const [userName, setUserName] = useState(Cookies.get("nklcb__nn") || "");
+  const [userName, setUserName] = useState("");
   const { isLogin, logout } = useUser();
 
   useEffect(() => {
@@ -45,8 +44,6 @@ const UserStatusBlock = ({
         const { status, data } = await user.userInfo();
         if (status === 200) {
           setUserName(data.nickname);
-          Cookies.set("nklcb__un", data.id);
-          Cookies.set("nklcb__nn", data.nickname);
         }
       } catch (error) {
         console.error("Failed to fetch user info:", error);
