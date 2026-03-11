@@ -36,7 +36,6 @@ export default function HotListItem() {
           title={hotList.title}
           content={hotList.content}
           writer={hotList.nickname}
-          writerId={hotList.userId}
           date={hotList.createdAt}
           commentCount={hotList.comments?.length}
           likeCount={hotList.likes?.length}
