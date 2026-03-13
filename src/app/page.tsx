@@ -9,12 +9,12 @@ import { Fragment } from "react";
 import Header from "@/components/common/navigation/header";
 import hotIssue from "@/api/domain/hotIssue";
 import community from "@/api/domain/community";
-import ListItem from "./community/_components/list-item";
 import { ListProps } from "./community/_components/list";
 import Ads from "@/components/ads/ads";
 import UserAds from "@/components/ads/user-ads";
 import Anchor from "@/components/common/navigation/anchor";
 import { RecruitData } from "@/components/card/Section";
+import MainCommunityListItem from "./_components/main-community-list-item";
 
 export const revalidate = 3600; // Revalidate every hour
 
@@ -138,11 +138,10 @@ export default async function Home() {
             <section id="community">
               <div className="d-flex flex-column row-gap-2">
                 {communityList.map((item: ListProps["list"][number]) => (
-                  <ListItem
+                  <MainCommunityListItem
                     key={item.boardId}
                     id={item.boardId}
                     title={item.title}
-                    content={item.content}
                     writer={item.nickname}
                     date={item.createdAt}
                     commentCount={item.comments.length}

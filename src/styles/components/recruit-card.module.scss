@@ -95,7 +95,8 @@
     }
 
     .card__move__button,
-    .card__scrap__button {
+    .card__scrap__button,
+    .card__share__button {
       border-color: rgba(255, 255, 255, 0.38);
       background: rgba(255, 255, 255, 0.12);
       color: #fff;
@@ -151,7 +152,8 @@
 }
 
 .card__move__button,
-.card__scrap__button {
+.card__scrap__button,
+.card__share__button {
   position: static;
   width: auto;
   height: 3.2rem;
@@ -184,13 +186,15 @@
 }
 
 .card__move__button:hover,
-.card__scrap__button:hover {
+.card__scrap__button:hover,
+.card__share__button:hover {
   transform: translateY(-1px);
   background: #f3f4f6;
 }
 
 .card__move__button:focus-visible,
-.card__scrap__button:focus-visible {
+.card__scrap__button:focus-visible,
+.card__share__button:focus-visible {
   outline: 2px solid #222;
   outline-offset: 2px;
 }

@@ -43,10 +43,22 @@ function CardContent({
   toDate,
   link,
 }: cardType) {
+  const createRecruitmentLink = ({
+    id,
+    path,
+  }: {
+    id: number;
+    path: string;
+  }) => {
+    return `/recruitment-notices?${new URLSearchParams({
+      id: String(id),
+      path,
+    }).toString()}`;
+  };
+
   const handleCardClick = ({ id, path }: { id: number; path: string }) => {
-    if (id) {
-      window.open(`/recruitment-notices?id=${id}&path=${path}`, "_blank");
-    }
+    if (!id) return;
+    window.open(createRecruitmentLink({ id, path }), "_blank");
   };
   const scaledDetailCorpotateName = corporates.map((corporate) => {
     return corporate.corporateName;
@@ -82,6 +94,56 @@ function CardContent({
       title,
       path: link,
     });
+  };
+
+  const handleShareClick = async (
+    event: React.MouseEvent<HTMLButtonElement>,
+  ) => {
+    event.stopPropagation();
+    const sharePath = createRecruitmentLink({
+      id,
+      path: link,
+    });
+    const shareUrl = `${window.location.origin}${sharePath}`;
+    const shareData = {
+      title: `${scrapTargetCompanyName} 채용 공고`,
+      text: title,
+      url: shareUrl,
+    };
+
+    try {
+      if (typeof navigator.share === "function") {
+        await navigator.share(shareData);
+        return;
+      }
+
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(shareUrl);
+        window.alert("공유 링크가 복사되었어요.");
+        return;
+      }
+
+      throw new Error("clipboard-not-available");
+    } catch (error) {
+      const hasCanceledShare =
+        error instanceof DOMException && error.name === "AbortError";
+      if (hasCanceledShare) return;
+
+      try {
+        const textArea = document.createElement("textarea");
+        textArea.value = shareUrl;
+        textArea.style.position = "fixed";
+        textArea.style.left = "-9999px";
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        document.execCommand("copy");
+        document.body.removeChild(textArea);
+        window.alert("공유 링크가 복사되었어요.");
+      } catch {
+        window.alert("공유 링크 복사에 실패했어요. 다시 시도해주세요.");
+      }
+    }
   };
 
   return (
@@ -164,6 +226,15 @@ function CardContent({
           title={isNoticeScrapped ? "스크랩 취소하기" : "내 스크랩에 담기"}
         >
           {isNoticeScrapped ? "스크랩 취소하기" : "스크랩하기"}
+        </button>
+        <button
+          type="button"
+          className={styles.card__share__button}
+          onClick={handleShareClick}
+          aria-label={`${scrapTargetCompanyName} 공고 링크 공유하기`}
+          title="공고 링크 공유하기"
+        >
+          공유하기
         </button>
       </div>
     </div>
