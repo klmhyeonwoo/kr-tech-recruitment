@@ -1,0 +1,28 @@
+{
+  "name": "네카라쿠배 채용",
+  "short_name": "nklcb",
+  "description": "네이버, 카카오, 라인, 쿠팡, 배달의민족, 토스, 당근 등 대한민국 대표 IT 기업의 최신 채용 공고를 한눈에 확인하세요",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#17171c",
+  "theme_color": "#222222",
+  "orientation": "portrait-primary",
+  "lang": "ko",
+  "id": "/",
+  "icons": [
+    {
+      "src": "/images/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "categories": ["business", "productivity"],
+  "screenshots": []
+}

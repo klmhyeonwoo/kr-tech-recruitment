@@ -17,12 +17,17 @@ import QueryProvider from "@/lib/tanstack/react-query/query-provider";
 import ClarityProvider from "@/lib/clarity/clarity-provider";
 import ScrollFloationButton from "@/components/common/floating/scroll-floating-button";
 import CareerTrackerFloating from "@/components/common/floating/career-tracker-floating";
+import PwaRegister from "@/components/common/pwa-register";
 
-export const metadata: Metadata = baseMetaData;
+export const metadata: Metadata = {
+  ...baseMetaData,
+  manifest: "/manifest.json",
+};
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 1,
+  themeColor: "#222222",
 };
 
 const organizationStructuredData = {
@@ -132,6 +137,7 @@ export default async function RootLayout({
       <body>
         <ClarityProvider>
           <QueryProvider>
+            <PwaRegister />
             <div id="portal" />
             <SubscriptionPopup />
             <CareerTrackerFloating />
