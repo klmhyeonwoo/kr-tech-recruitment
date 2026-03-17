@@ -1,5 +1,6 @@
 import AnnounceCard from "@/components/card/AnnounceCard";
 import "@/styles/domain/main.scss";
+import PwaInstallBanner from "./_components/pwa-install-banner";
 import { api } from "@/api";
 import GreetingSwiper from "@/components/swiper/GreetingSwiper";
 import QuestionBanner, {
@@ -134,6 +135,7 @@ export default async function Home() {
             <div className="greeting__card__wrapper" id="service-menu">
               <GreetingSwiper />
             </div>
+            <PwaInstallBanner />
             <QuestionBanner questionData={hotIssueList?.[0]} />
             <section id="community">
               <div className="d-flex flex-column row-gap-2">
