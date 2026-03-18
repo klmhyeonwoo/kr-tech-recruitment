@@ -6,6 +6,7 @@ import greeting_image_rocket from "@public/images/rocket.gif";
 import greeting_image_popper from "@public/images/popper.gif";
 import greeting_image_earth from "@public/images/earth.png";
 import greeting_image_swimming from "@public/icon/swimming.gif";
+import greeting_image_clapping from "@public/icon/clapping.gif";
 import styles from "./greeting-swiper.module.scss";
 
 type QuickMenuItem = {
@@ -40,6 +41,12 @@ const QUICK_MENUS: QuickMenuItem[] = [
     description: "나만의 정보들을 자유롭게 커뮤니티에서 나눠보세요",
     href: "/community",
     icon: greeting_image_earth,
+  },
+  {
+    title: "개발자 대외활동",
+    description: "개발자를 위한 대외활동을 빠르게 확인해보세요",
+    href: "/dev-activities",
+    icon: greeting_image_clapping,
   },
   {
     title: "서비스 문의",
