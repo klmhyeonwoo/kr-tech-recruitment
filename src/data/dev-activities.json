@@ -1,0 +1,1165 @@
+{
+  "activities": [
+    {
+      "id": "ddd",
+      "name": "DDD",
+      "description": "개발자와 디자이너가 함께하는 사이드 프로젝트",
+      "category": "club",
+      "links": [
+        { "label": "페이스북", "url": "https://www.facebook.com/dddstudy/" },
+        { "label": "노션", "url": "https://www.notion.so/dddset/DDD-7b73ca41b67c4658b292a4662581ee01" }
+      ]
+    },
+    {
+      "id": "hanium",
+      "name": "한이음",
+      "description": "대학생 멘티와 지도교수, 기업전문가 ICT멘토가 팀을 이루어 실무 프로젝트 수행",
+      "category": "club",
+      "links": [
+        { "label": "홈페이지", "url": "https://www.hanium.or.kr/portal/hanium/businessOverview.do" }
+      ]
+    },
+    {
+      "id": "nexters",
+      "name": "넥스터즈",
+      "description": "개발자와 디자이너 연합 동아리",
+      "category": "club",
+      "links": [
+        { "label": "홈페이지", "url": "http://teamnexters.com/" }
+      ]
+    },
+    {
+      "id": "yapp",
+      "name": "YAPP",
+      "description": "대학생 연합 기업형 IT 동아리",
+      "category": "club",
+      "links": [
+        { "label": "홈페이지", "url": "http://yapp.co.kr/" },
+        { "label": "인스타그램", "url": "https://www.instagram.com/about.yapp/" }
+      ]
+    },
+    {
+      "id": "mash-up",
+      "name": "Mash-Up",
+      "description": "성장의 즐거움을 아는 친구들",
+      "category": "club",
+      "links": [
+        { "label": "홈페이지", "url": "https://www.mash-up.kr/" },
+        { "label": "페이스북", "url": "https://www.facebook.com/mashupgroup/" }
+      ]
+    },
+    {
+      "id": "ausg",
+      "name": "AUSG",
+      "description": "AWS 대학생 그룹",
+      "category": "club",
+      "links": [
+        { "label": "홈페이지", "url": "https://ausg.me/" }
+      ]
+    },
+    {
+      "id": "dnd",
+      "name": "DND",
+      "description": "서울거주 현직자들의 기술공유와 프로젝트를 진행하는 비영리단체",
+      "category": "club",
+      "links": [
+        { "label": "홈페이지", "url": "https://dnd.ac/" }
+      ]
+    },
+    {
+      "id": "sopt",
+      "name": "SOPT",
+      "description": "대학생 연합 IT벤처 창업 동아리",
+      "category": "club",
+      "links": [
+        { "label": "홈페이지", "url": "https://www.sopt.org/" }
+      ]
+    },
+    {
+      "id": "likelion",
+      "name": "멋쟁이사자처럼",
+      "description": "대학생 연합 동아리",
+      "category": "club",
+      "links": [
+        { "label": "홈페이지", "url": "https://likelion.net/" },
+        { "label": "페이스북", "url": "https://www.facebook.com/likelion.net/" }
+      ]
+    },
+    {
+      "id": "gdsc",
+      "name": "Google Developer Student Clubs Korea",
+      "description": "Google Developers에서 후원하는 대학생 개발자 동아리",
+      "category": "club",
+      "links": [
+        { "label": "DSC", "url": "https://developers.google.com/community/dsc" },
+        { "label": "DSC Korea", "url": "https://sites.google.com/view/dsckr/home" },
+        { "label": "페이스북", "url": "https://www.facebook.com/dsckorea" }
+      ]
+    },
+    {
+      "id": "depromeet",
+      "name": "디프만",
+      "description": "디자이너와 프로그래머가 만났을 때",
+      "category": "club",
+      "links": [
+        { "label": "홈페이지", "url": "https://www.depromeet.com/" }
+      ]
+    },
+    {
+      "id": "prography",
+      "name": "프로그라피",
+      "description": "세상에 필요한 IT서비스를 만드는 모임",
+      "category": "club",
+      "links": [
+        { "label": "홈페이지", "url": "http://prography.org/" },
+        { "label": "페이스북", "url": "https://www.facebook.com/thePrography/" }
+      ]
+    },
+    {
+      "id": "ceos",
+      "name": "CEOS",
+      "description": "신촌 연합 IT 창업 동아리",
+      "category": "club",
+      "links": [
+        { "label": "홈페이지", "url": "https://www.ceos.or.kr/" }
+      ]
+    },
+    {
+      "id": "cmc",
+      "name": "Central MakeUs Challenge (CMC)",
+      "description": "수익형 앱 런칭 동아리",
+      "category": "club",
+      "links": [
+        { "label": "홈페이지", "url": "https://cmc.makeus.in/" },
+        { "label": "인스타그램", "url": "https://www.instagram.com/makeus_challenge/" }
+      ]
+    },
+    {
+      "id": "umc",
+      "name": "University MakeUs Challenge (UMC)",
+      "description": "대학교 연합 앱런칭 동아리",
+      "category": "club",
+      "links": [
+        { "label": "홈페이지", "url": "https://umc.makeus.in/" },
+        { "label": "인스타그램", "url": "https://www.instagram.com/uni_makeus_challenge/" }
+      ]
+    },
+    {
+      "id": "xreal",
+      "name": "XREAL",
+      "description": "세계 최고의 메타버스 학회",
+      "category": "club",
+      "links": [
+        { "label": "홈페이지", "url": "https://www.xreal.info/" },
+        { "label": "인스타그램", "url": "https://www.instagram.com/xreal_snu/" }
+      ]
+    },
+    {
+      "id": "cloud-club",
+      "name": "Cloud Club",
+      "description": "폭 넓은 클라우드 인프라를 경험할 수 있는 IT 동아리",
+      "category": "club",
+      "links": [
+        { "label": "홈페이지", "url": "https://www.cloudclub.kr/" },
+        { "label": "유튜브", "url": "https://www.youtube.com/@cloudclub-kr" },
+        { "label": "인스타그램", "url": "https://www.instagram.com/cloudclub.kr/" }
+      ]
+    },
+    {
+      "id": "pirogramming",
+      "name": "피로그래밍",
+      "description": "비전공자를 위한 웹프로그래밍 동아리",
+      "category": "club",
+      "links": [
+        { "label": "홈페이지", "url": "https://pirogramming.com/" },
+        { "label": "인스타그램", "url": "https://www.instagram.com/pirogramming_official/" }
+      ]
+    },
+    {
+      "id": "sipe",
+      "name": "SIPE",
+      "description": "개발자들이 함께 교류하며 성장하는 IT 커뮤니티",
+      "category": "club",
+      "links": [
+        { "label": "홈페이지", "url": "https://sipe.team/" },
+        { "label": "인스타그램", "url": "https://www.instagram.com/sipe_team/" }
+      ]
+    },
+    {
+      "id": "9oormthon-univ",
+      "name": "9oormthonUNIV",
+      "description": "카카오와 구름이 함께하는 대학생 IT 연합 동아리",
+      "category": "club",
+      "links": [
+        { "label": "홈페이지", "url": "http://bit.ly/goormthon-univ" },
+        { "label": "인스타그램", "url": "https://www.instagram.com/9oormthonuniv.official/" }
+      ]
+    },
+    {
+      "id": "boaz",
+      "name": "BOAZ",
+      "description": "국내 최초 빅데이터 동아리",
+      "category": "club",
+      "links": [
+        { "label": "홈페이지", "url": "https://www.bigdataboaz.com/" },
+        { "label": "인스타그램", "url": "https://www.instagram.com/boaz_bigdata/" }
+      ]
+    },
+    {
+      "id": "susc",
+      "name": "SUSC",
+      "description": "대학연합개발자동아리",
+      "category": "club",
+      "links": [
+        { "label": "홈페이지", "url": "https://www.susc.kr/" },
+        { "label": "인스타그램", "url": "https://www.instagram.com/susc_kr/" },
+        { "label": "유튜브", "url": "https://www.youtube.com/@SUSCkr" }
+      ]
+    },
+    {
+      "id": "ada",
+      "name": "ADA",
+      "description": "소프트웨어마이스터고 IT연합동아리",
+      "category": "club",
+      "links": [
+        { "label": "인스타그램", "url": "https://www.instagram.com/gbsw_ada/" }
+      ]
+    },
+    {
+      "id": "rndix",
+      "name": "R&Dix",
+      "description": "AI와 SYSTEM을 위한 개발 학술 동아리",
+      "category": "club",
+      "links": [
+        { "label": "홈페이지", "url": "https://rndix.co.kr/" }
+      ]
+    },
+    {
+      "id": "cursor-korea",
+      "name": "Cursor Korea",
+      "description": "커서 공식 한국 사용자 모임",
+      "category": "club",
+      "links": [
+        { "label": "홈페이지", "url": "https://www.cursorkorea.org/" }
+      ]
+    },
+    {
+      "id": "instruct-kr",
+      "name": "Instruct.KR",
+      "description": "AI 연구자, 엔지니어, 프로덕트 팀을 위한 AI 리서쳐 및 실무자 중심 커뮤니티",
+      "category": "club",
+      "links": [
+        { "label": "디스코드", "url": "https://instruct.kr/" }
+      ]
+    },
+    {
+      "id": "kusitms",
+      "name": "KUSITMS",
+      "description": "비전을 가지고 성장하는 한국대학생 IT경영학회",
+      "category": "club",
+      "links": [
+        { "label": "홈페이지", "url": "https://www.kusitms.com/" },
+        { "label": "인스타그램", "url": "https://www.instagram.com/kusitms_official/" }
+      ]
+    },
+    {
+      "id": "yangjaedong-codelab",
+      "name": "양재동 코드랩",
+      "description": null,
+      "category": "education",
+      "links": [
+        { "label": "유튜브", "url": "https://www.youtube.com/channel/UC7SGsu80wfuTyQWo-PKatvg" }
+      ]
+    },
+    {
+      "id": "modulabs",
+      "name": "모두의 연구소",
+      "description": null,
+      "category": "education",
+      "links": [
+        { "label": "홈페이지", "url": "https://modulabs.co.kr/" }
+      ]
+    },
+    {
+      "id": "cccr",
+      "name": "CCCR 아카데미",
+      "description": null,
+      "category": "education",
+      "links": [
+        { "label": "홈페이지", "url": "https://www.cccr-edu.or.kr/main/index.jsp" }
+      ]
+    },
+    {
+      "id": "aiffel",
+      "name": "인공지능혁신학교 AIFFEL",
+      "description": null,
+      "category": "education",
+      "links": [
+        { "label": "홈페이지", "url": "https://aiffel.io/" }
+      ]
+    },
+    {
+      "id": "elice",
+      "name": "엘리스",
+      "description": null,
+      "category": "education",
+      "links": [
+        { "label": "홈페이지", "url": "https://elice.io/" }
+      ]
+    },
+    {
+      "id": "sw-jungle",
+      "name": "SW사관학교 정글 (카이스트)",
+      "description": null,
+      "category": "education",
+      "links": [
+        { "label": "홈페이지", "url": "https://swjungle.net/" }
+      ]
+    },
+    {
+      "id": "apple-dev-academy",
+      "name": "Apple Developer Academy @ POSTECH",
+      "description": null,
+      "category": "education",
+      "links": [
+        { "label": "홈페이지", "url": "https://developeracademy.postech.ac.kr/" }
+      ]
+    },
+    {
+      "id": "ssafy",
+      "name": "삼성 청년 SW 아카데미 (SSAFY)",
+      "description": null,
+      "category": "education",
+      "links": [
+        { "label": "홈페이지", "url": "https://www.ssafy.com/" }
+      ]
+    },
+    {
+      "id": "krafton-jungle",
+      "name": "크래프톤 정글",
+      "description": null,
+      "category": "education",
+      "links": [
+        { "label": "홈페이지", "url": "https://jungle.krafton.com/" }
+      ]
+    },
+    {
+      "id": "naver-boostcamp",
+      "name": "네이버 부스트캠프",
+      "description": null,
+      "category": "education",
+      "links": [
+        { "label": "홈페이지", "url": "https://boostcamp.connect.or.kr/" }
+      ]
+    },
+    {
+      "id": "42-seoul",
+      "name": "42 SEOUL",
+      "description": null,
+      "category": "education",
+      "links": [
+        { "label": "홈페이지", "url": "https://42seoul.kr/" }
+      ]
+    },
+    {
+      "id": "42-gyeongsan",
+      "name": "42 GYEONGSAN",
+      "description": null,
+      "category": "education",
+      "links": [
+        { "label": "홈페이지", "url": "https://42gyeongsan.kr/" }
+      ]
+    },
+    {
+      "id": "kakao-tech-campus",
+      "name": "카카오 테크 캠퍼스",
+      "description": null,
+      "category": "education",
+      "links": [
+        { "label": "홈페이지", "url": "https://www.kakaotechcampus.com/user/index.do/" }
+      ]
+    },
+    {
+      "id": "metaverse-academy",
+      "name": "메타버스 아카데미",
+      "description": null,
+      "category": "education",
+      "links": [
+        { "label": "홈페이지", "url": "https://mtvs.kr" }
+      ]
+    },
+    {
+      "id": "flip-school",
+      "name": "모두의 연구소: 풀잎스쿨",
+      "description": null,
+      "category": "education",
+      "links": [
+        { "label": "홈페이지", "url": "https://modulabs.co.kr/apply-flip/" }
+      ]
+    },
+    {
+      "id": "woowacourse",
+      "name": "우아한테크코스",
+      "description": null,
+      "category": "education",
+      "links": [
+        { "label": "홈페이지", "url": "https://woowacourse.github.io" }
+      ]
+    },
+    {
+      "id": "woowatechcamp",
+      "name": "우아한테크캠프",
+      "description": null,
+      "category": "education",
+      "links": [
+        { "label": "홈페이지", "url": "https://techblog.woowahan.com/?s=우아한테크캠프" }
+      ]
+    },
+    {
+      "id": "kernel360",
+      "name": "Kernel360",
+      "description": null,
+      "category": "education",
+      "links": [
+        { "label": "홈페이지", "url": "https://kernel360.co.kr/" }
+      ]
+    },
+    {
+      "id": "codeit-sprint",
+      "name": "코드잇 스프린트",
+      "description": null,
+      "category": "education",
+      "links": [
+        { "label": "홈페이지", "url": "https://sprint.codeit.kr/" }
+      ]
+    },
+    {
+      "id": "smilegate-devcamp",
+      "name": "스마일게이트 개발캠프",
+      "description": null,
+      "category": "education",
+      "links": [
+        { "label": "홈페이지", "url": "https://careers.smilegate.com/student/development-camp" }
+      ]
+    },
+    {
+      "id": "codesquad",
+      "name": "코드스쿼드",
+      "description": null,
+      "category": "education",
+      "links": [
+        { "label": "홈페이지", "url": "https://codesquad.kr/" }
+      ]
+    },
+    {
+      "id": "9oormthon-training",
+      "name": "구름톤 트레이닝 (9oormthon TRAINING)",
+      "description": null,
+      "category": "education",
+      "links": [
+        { "label": "홈페이지", "url": "https://kdt.goorm.io/" }
+      ]
+    },
+    {
+      "id": "sesac",
+      "name": "청년취업사관학교 (SeSAC)",
+      "description": null,
+      "category": "education",
+      "links": [
+        { "label": "홈페이지", "url": "https://sesac.seoul.kr/" }
+      ]
+    },
+    {
+      "id": "kt-aivle",
+      "name": "KT AIVLE School",
+      "description": null,
+      "category": "education",
+      "links": [
+        { "label": "홈페이지", "url": "https://aivle.kt.co.kr/home/main/indexMain" }
+      ]
+    },
+    {
+      "id": "programmers-devcourse",
+      "name": "프로그래머스 데브코스",
+      "description": null,
+      "category": "education",
+      "links": [
+        { "label": "홈페이지", "url": "https://school.programmers.co.kr/learn/KDT" }
+      ]
+    },
+    {
+      "id": "kakaotech-bootcamp",
+      "name": "카카오테크 부트캠프",
+      "description": null,
+      "category": "education",
+      "links": [
+        { "label": "홈페이지", "url": "https://ktb.goorm.io/" }
+      ]
+    },
+    {
+      "id": "codetree",
+      "name": "코드트리 (Codetree)",
+      "description": null,
+      "category": "education",
+      "links": [
+        { "label": "홈페이지", "url": "https://www.codetree.ai/ko/trail-info" }
+      ]
+    },
+    {
+      "id": "sprint-seoul",
+      "name": "스프린트 서울",
+      "description": null,
+      "category": "meetup",
+      "links": [
+        { "label": "Gitter", "url": "https://gitter.im/sprintseoul/community" }
+      ]
+    },
+    {
+      "id": "devops-korea",
+      "name": "DevOps Korea",
+      "description": null,
+      "category": "meetup",
+      "links": [
+        { "label": "페이스북", "url": "https://www.facebook.com/groups/TeAnE/" }
+      ]
+    },
+    {
+      "id": "serverless-korea",
+      "name": "Serverless Korea",
+      "description": null,
+      "category": "meetup",
+      "links": [
+        { "label": "이벤터스", "url": "https://event-us.kr/bsBxCcQJioWM/event" }
+      ]
+    },
+    {
+      "id": "gde",
+      "name": "Google Developers Experts",
+      "description": null,
+      "category": "meetup",
+      "links": [
+        { "label": "홈페이지", "url": "https://developers.google.com/community/experts" }
+      ]
+    },
+    {
+      "id": "gdg-golang-korea",
+      "name": "GDG Golang Korea",
+      "description": null,
+      "category": "meetup",
+      "links": [
+        { "label": "페이스북", "url": "https://www.facebook.com/gdggo/" }
+      ]
+    },
+    {
+      "id": "gdg-incheon",
+      "name": "GDG Incheon & Songdo",
+      "description": null,
+      "category": "meetup",
+      "links": [
+        { "label": "홈페이지", "url": "http://gdgincheon.com/" },
+        { "label": "인스타그램", "url": "https://www.instagram.com/gdg_songdo/" },
+        { "label": "페이스북", "url": "https://www.facebook.com/groups/gdgsongdo/" }
+      ]
+    },
+    {
+      "id": "data-scientist-meetup-seoul",
+      "name": "Data Scientist Meetup in Seoul",
+      "description": null,
+      "category": "meetup",
+      "links": [
+        { "label": "Meetup", "url": "https://www.meetup.com/ko-KR/Data-Scientist-Meetup-in-Seoul/" }
+      ]
+    },
+    {
+      "id": "it-infra-engineer",
+      "name": "IT인프라 엔지니어 그룹",
+      "description": null,
+      "category": "meetup",
+      "links": [
+        { "label": "페이스북", "url": "https://www.facebook.com/groups/InfraEngineer/" }
+      ]
+    },
+    {
+      "id": "gdg-devfest-seoul",
+      "name": "GDG DevFest Seoul",
+      "description": null,
+      "category": "meetup",
+      "links": [
+        { "label": "페이스북", "url": "https://www.facebook.com/devfest.seoul.2019/" }
+      ]
+    },
+    {
+      "id": "oss-dev-forum",
+      "name": "OSS 개발자 포럼",
+      "description": null,
+      "category": "meetup",
+      "links": [
+        { "label": "페이스북", "url": "https://www.facebook.com/groups/ossdevforum" }
+      ]
+    },
+    {
+      "id": "open-infra",
+      "name": "오픈 인프라",
+      "description": null,
+      "category": "meetup",
+      "links": [
+        { "label": "홈페이지", "url": "http://oidc.co.kr/" }
+      ]
+    },
+    {
+      "id": "sk-dev-meetup",
+      "name": "SK 개발자 모임",
+      "description": null,
+      "category": "meetup",
+      "links": [
+        { "label": "홈페이지", "url": "https://thub.sk.com/" }
+      ]
+    },
+    {
+      "id": "finops-korea",
+      "name": "FinOps Korea",
+      "description": null,
+      "category": "meetup",
+      "links": [
+        { "label": "페이스북", "url": "https://www.facebook.com/groups/finops.community1" }
+      ]
+    },
+    {
+      "id": "spark-korea",
+      "name": "스사모 (한국 스파크 사용자 모임)",
+      "description": null,
+      "category": "meetup",
+      "links": [
+        { "label": "페이스북", "url": "https://www.facebook.com/groups/sparkkoreauser/" }
+      ]
+    },
+    {
+      "id": "react-korea",
+      "name": "React Korea",
+      "description": null,
+      "category": "meetup",
+      "links": [
+        { "label": "페이스북", "url": "https://www.facebook.com/groups/react.ko/" }
+      ]
+    },
+    {
+      "id": "vuejs-korea",
+      "name": "Vuejs Korea",
+      "description": null,
+      "category": "meetup",
+      "links": [
+        { "label": "홈페이지", "url": "https://vuejs-kr.github.io/" }
+      ]
+    },
+    {
+      "id": "nodejs-korea",
+      "name": "Node.js Korea",
+      "description": null,
+      "category": "meetup",
+      "links": [
+        { "label": "페이스북", "url": "https://www.facebook.com/groups/nodejskr" }
+      ]
+    },
+    {
+      "id": "nestjs-korea",
+      "name": "NestJS Korea",
+      "description": null,
+      "category": "meetup",
+      "links": [
+        { "label": "페이스북", "url": "https://www.facebook.com/groups/nestjs-kr" }
+      ]
+    },
+    {
+      "id": "osxdev",
+      "name": "OSXDev.org",
+      "description": null,
+      "category": "meetup",
+      "links": [
+        { "label": "페이스북", "url": "https://www.facebook.com/groups/osxdevorg/" }
+      ]
+    },
+    {
+      "id": "gdg-webtech",
+      "name": "GDG Korea WebTech",
+      "description": null,
+      "category": "meetup",
+      "links": [
+        { "label": "페이스북", "url": "https://www.facebook.com/groups/webTechKR/" }
+      ]
+    },
+    {
+      "id": "ksug",
+      "name": "KSUG - 한국 스프링 사용자 모임",
+      "description": null,
+      "category": "meetup",
+      "links": [
+        { "label": "홈페이지", "url": "https://www.ksug.org/" }
+      ]
+    },
+    {
+      "id": "devocean",
+      "name": "devocean",
+      "description": null,
+      "category": "meetup",
+      "links": [
+        { "label": "홈페이지", "url": "https://devocean.sk.com/" }
+      ]
+    },
+    {
+      "id": "openstack-korea",
+      "name": "OpenStack Korea 커뮤니티",
+      "description": null,
+      "category": "meetup",
+      "links": [
+        { "label": "페이스북", "url": "https://www.facebook.com/groups/openstack.kr" }
+      ]
+    },
+    {
+      "id": "ceph-korea",
+      "name": "Ceph 한국 커뮤니티",
+      "description": null,
+      "category": "meetup",
+      "links": [
+        { "label": "페이스북", "url": "https://www.facebook.com/groups/620899444961207" }
+      ]
+    },
+    {
+      "id": "ocp-korea",
+      "name": "Open Compute Project 한국 커뮤니티",
+      "description": null,
+      "category": "meetup",
+      "links": [
+        { "label": "페이스북", "url": "https://www.facebook.com/groups/ocpkorea/" }
+      ]
+    },
+    {
+      "id": "egovframe",
+      "name": "표준프레임워크 오픈커뮤니티",
+      "description": null,
+      "category": "meetup",
+      "links": [
+        { "label": "홈페이지", "url": "https://open.egovframe.org/" }
+      ]
+    },
+    {
+      "id": "game-server-dev",
+      "name": "게임 서버 개발자 모임",
+      "description": null,
+      "category": "meetup",
+      "links": [
+        { "label": "페이스북", "url": "https://www.facebook.com/groups/207844736374114/" }
+      ]
+    },
+    {
+      "id": "kubernetes-korea",
+      "name": "Kubernetes Korea",
+      "description": null,
+      "category": "meetup",
+      "links": [
+        { "label": "페이스북", "url": "https://www.facebook.com/groups/k8skr/" }
+      ]
+    },
+    {
+      "id": "postgresql-korea",
+      "name": "PostgreSQL Korea",
+      "description": null,
+      "category": "meetup",
+      "links": [
+        { "label": "페이스북", "url": "https://www.facebook.com/groups/postgres.kr" },
+        { "label": "깃허브", "url": "https://github.com/PostgreSQL-Korea" }
+      ]
+    },
+    {
+      "id": "linux-korea",
+      "name": "한국 리눅스 사용자 그룹",
+      "description": null,
+      "category": "meetup",
+      "links": [
+        { "label": "홈페이지", "url": "http://www.lug.or.kr/home/" },
+        { "label": "페이스북", "url": "https://www.facebook.com/groups/korelnxuser/" }
+      ]
+    },
+    {
+      "id": "elasticsearch-korea",
+      "name": "Korea Elasticsearch User Group",
+      "description": null,
+      "category": "meetup",
+      "links": [
+        { "label": "페이스북", "url": "https://www.facebook.com/groups/elasticsearch.kr/" },
+        { "label": "깃허브", "url": "https://github.com/eskrug" }
+      ]
+    },
+    {
+      "id": "kotlin-korea",
+      "name": "Kotlin Korea",
+      "description": null,
+      "category": "meetup",
+      "links": [
+        { "label": "홈페이지", "url": "http://kotlin.kr/" },
+        { "label": "페이스북", "url": "https://www.facebook.com/groups/kotlinkr/" }
+      ]
+    },
+    {
+      "id": "flutter-korea",
+      "name": "구글 Flutter 한국 사용자 그룹",
+      "description": null,
+      "category": "meetup",
+      "links": [
+        { "label": "페이스북", "url": "https://www.facebook.com/groups/flutterkorea/" }
+      ]
+    },
+    {
+      "id": "kaggle-korea",
+      "name": "Kaggle Korea",
+      "description": null,
+      "category": "meetup",
+      "links": [
+        { "label": "페이스북", "url": "https://www.facebook.com/groups/KaggleKoreaOpenGroup/" }
+      ]
+    },
+    {
+      "id": "pytorch-korea",
+      "name": "파이토치 한국 사용자 모임",
+      "description": null,
+      "category": "meetup",
+      "links": [
+        { "label": "홈페이지", "url": "https://pytorch.kr/" },
+        { "label": "페이스북", "url": "https://www.facebook.com/groups/PyTorchKR/" }
+      ]
+    },
+    {
+      "id": "iinwe",
+      "name": "아이인위",
+      "description": null,
+      "category": "meetup",
+      "links": [
+        { "label": "인스타그램", "url": "https://www.instagram.com/iinwetech" },
+        { "label": "링크드인", "url": "https://www.linkedin.com/company/i-in-we-tech-beyond-boundaries/" }
+      ]
+    },
+    {
+      "id": "okky",
+      "name": "OKKY (Java, Spring)",
+      "description": null,
+      "category": "meetup",
+      "links": [
+        { "label": "홈페이지", "url": "https://okky.kr/" }
+      ]
+    },
+    {
+      "id": "java-chobo-study",
+      "name": "남궁성의 코드초보 스터디 (Java, C)",
+      "description": null,
+      "category": "meetup",
+      "links": [
+        { "label": "홈페이지", "url": "https://cafe.naver.com/javachobostudy" }
+      ]
+    },
+    {
+      "id": "ubuntu-korea",
+      "name": "우분투 한국 커뮤니티",
+      "description": null,
+      "category": "meetup",
+      "links": [
+        { "label": "홈페이지", "url": "https://ubuntu-kr.org" },
+        { "label": "페이스북", "url": "https://www.facebook.com/groups/ubuntu.ko" }
+      ]
+    },
+    {
+      "id": "android-dev",
+      "name": "안드로이드개발",
+      "description": null,
+      "category": "meetup",
+      "links": [
+        { "label": "페이스북", "url": "https://www.facebook.com/groups/androidcode/" }
+      ]
+    },
+    {
+      "id": "dotnetdev",
+      "name": "닷넷데브",
+      "description": null,
+      "category": "meetup",
+      "links": [
+        { "label": "홈페이지", "url": "https://www.dotnetconf.kr/history" }
+      ]
+    },
+    {
+      "id": "graphql-korea",
+      "name": "GraphQL Korea",
+      "description": null,
+      "category": "meetup",
+      "links": [
+        { "label": "페이스북", "url": "https://www.facebook.com/groups/graphql.kr" }
+      ]
+    },
+    {
+      "id": "agi-kr",
+      "name": "AGI KR",
+      "description": null,
+      "category": "meetup",
+      "links": [
+        { "label": "페이스북", "url": "https://www.facebook.com/groups/agikr" }
+      ]
+    },
+    {
+      "id": "google-study-jams",
+      "name": "Google Study Jams in Korea",
+      "description": null,
+      "category": "meetup",
+      "links": [
+        { "label": "페이스북", "url": "https://www.facebook.com/groups/studyjamkorea/" }
+      ]
+    },
+    {
+      "id": "pseudo-lab",
+      "name": "가짜연구소",
+      "description": null,
+      "category": "meetup",
+      "links": [
+        { "label": "홈페이지", "url": "https://pseudo-lab.com/" },
+        { "label": "페이스북", "url": "https://www.facebook.com/groups/pseudolab" }
+      ]
+    },
+    {
+      "id": "jetbrains-korea",
+      "name": "JetBrains 코리아",
+      "description": null,
+      "category": "meetup",
+      "links": [
+        { "label": "페이스북", "url": "https://www.facebook.com/jetbrainsKR/" }
+      ]
+    },
+    {
+      "id": "swift-coding-club",
+      "name": "스위프트 코딩클럽",
+      "description": null,
+      "category": "meetup",
+      "links": [
+        { "label": "디스코드", "url": "https://discord.com/invite/w4T2zgvbPv" }
+      ]
+    },
+    {
+      "id": "kubernetes-korea-group",
+      "name": "Kubernetes Korea Group",
+      "description": null,
+      "category": "meetup",
+      "links": [
+        { "label": "페이스북", "url": "https://www.facebook.com/groups/k8skr/?locale=ko_KR" }
+      ]
+    },
+    {
+      "id": "nlp-korea",
+      "name": "NLP Korea",
+      "description": null,
+      "category": "meetup",
+      "links": [
+        { "label": "페이스북", "url": "https://www.facebook.com/groups/ainlp/?locale=ko_KR" }
+      ]
+    },
+    {
+      "id": "soda",
+      "name": "음성 오픈데이터셋 아카이브 SODA",
+      "description": null,
+      "category": "meetup",
+      "links": [
+        { "label": "노션", "url": "https://soda.oopy.io/" }
+      ]
+    },
+    {
+      "id": "iamroot",
+      "name": "리눅스 커널 스터디 그룹 iamroot",
+      "description": null,
+      "category": "meetup",
+      "links": [
+        { "label": "홈페이지", "url": "http://www.iamroot.org/xe/" }
+      ]
+    },
+    {
+      "id": "flutter-seoul",
+      "name": "Flutter Seoul",
+      "description": null,
+      "category": "meetup",
+      "links": [
+        { "label": "홈페이지", "url": "https://www.flutter-seoul.com" }
+      ]
+    },
+    {
+      "id": "ai-link",
+      "name": "AI Link",
+      "description": null,
+      "category": "meetup",
+      "links": [
+        { "label": "홈페이지", "url": "https://ailink.oopy.io/" },
+        { "label": "카카오 오픈채팅", "url": "https://open.kakao.com/o/g60UZDQf" }
+      ]
+    },
+    {
+      "id": "girlsintech-bucklup",
+      "name": "걸스인텍 버클업",
+      "description": null,
+      "category": "meetup",
+      "links": [
+        { "label": "카카오 오픈채팅", "url": "https://open.kakao.com/o/gIbidm9d" }
+      ]
+    },
+    {
+      "id": "asyncswift",
+      "name": "AsyncSwift",
+      "description": null,
+      "category": "meetup",
+      "links": [
+        { "label": "홈페이지", "url": "https://asyncswift.org/" },
+        { "label": "디스코드", "url": "https://discord.gg/VeERbm3VKC" }
+      ]
+    },
+    {
+      "id": "cpp-korea",
+      "name": "C++ Korea",
+      "description": null,
+      "category": "meetup",
+      "links": [
+        { "label": "디스코드", "url": "https://discord.gg/87SNegGZue" },
+        { "label": "페이스북", "url": "https://fb.com/groups/cppkorea/" },
+        { "label": "깃허브", "url": "https://github.com/CppKorea" }
+      ]
+    },
+    {
+      "id": "datadog-krug",
+      "name": "Datadog 한국 사용자 모임",
+      "description": null,
+      "category": "meetup",
+      "links": [
+        { "label": "홈페이지", "url": "https://datadogkrug.vercel.app" }
+      ]
+    },
+    {
+      "id": "gdg-campus-korea",
+      "name": "GDG Campus Korea",
+      "description": null,
+      "category": "meetup",
+      "links": [
+        { "label": "홈페이지", "url": "https://gdg.community.dev/gdg-campus-korea/" },
+        { "label": "인스타그램", "url": "https://www.instagram.com/gdg.campuskorea" }
+      ]
+    },
+    {
+      "id": "codetree-algo-community",
+      "name": "코드트리 글로벌 알고리즘 커뮤니티",
+      "description": null,
+      "category": "meetup",
+      "links": [
+        { "label": "디스코드", "url": "https://discord.gg/XNB4JMJpuk" }
+      ]
+    },
+    {
+      "id": "seoul-ios-meetup",
+      "name": "Seoul iOS Meetup",
+      "description": null,
+      "category": "meetup",
+      "links": [
+        { "label": "홈페이지", "url": "https://meetup.com/seoul-ios-meetup" },
+        { "label": "카카오 오픈채팅", "url": "https://open.kakao.com/o/gMbf0M9g" }
+      ]
+    },
+    {
+      "id": "dev-korea",
+      "name": "Dev Korea",
+      "description": null,
+      "category": "meetup",
+      "links": [
+        { "label": "홈페이지", "url": "https://dev-korea.com/events" },
+        { "label": "디스코드", "url": "https://discord.gg/hqzMbuXy73" }
+      ]
+    },
+    {
+      "id": "foss-for-all",
+      "name": "FOSS for All",
+      "description": null,
+      "category": "meetup",
+      "links": [
+        { "label": "홈페이지", "url": "https://fossforall.org/" }
+      ]
+    },
+    {
+      "id": "teamh4c",
+      "name": "TeamH4C",
+      "description": "해킹 관련 컨퍼런스",
+      "category": "conference",
+      "links": [
+        { "label": "페이스북", "url": "https://www.facebook.com/teamh4c/" }
+      ]
+    },
+    {
+      "id": "codeengn",
+      "name": "Codeengn",
+      "description": "리버스 엔지니어링 컨퍼런스",
+      "category": "conference",
+      "links": [
+        { "label": "홈페이지", "url": "https://codeengn.com/conference/" }
+      ]
+    },
+    {
+      "id": "ctftime",
+      "name": "CTF Time",
+      "description": "CTF(Capture The Flag) 보안 대회 모음",
+      "category": "conference",
+      "links": [
+        { "label": "홈페이지", "url": "http://ctftime.org/" }
+      ]
+    },
+    {
+      "id": "spring-camp",
+      "name": "스프링 캠프",
+      "description": "한국 스프링 사용자 그룹(KSUG) 개발 컨퍼런스",
+      "category": "conference",
+      "links": [
+        { "label": "홈페이지", "url": "https://springcamp.ksug.org/2023" }
+      ]
+    },
+    {
+      "id": "dacon",
+      "name": "DACON",
+      "description": "데이터 사이언스 경진대회 플랫폼",
+      "category": "conference",
+      "links": [
+        { "label": "홈페이지", "url": "https://dacon.io" }
+      ]
+    },
+    {
+      "id": "feconf",
+      "name": "FEConf",
+      "description": "프론트엔드 개발자 컨퍼런스",
+      "category": "conference",
+      "links": [
+        { "label": "홈페이지", "url": "https://feconf.kr/" }
+      ]
+    },
+    {
+      "id": "junctionx-seoul",
+      "name": "JunctionX Seoul",
+      "description": "글로벌 해커톤",
+      "category": "conference",
+      "links": [
+        { "label": "페이스북", "url": "https://www.facebook.com/junctionxseoul/" }
+      ]
+    },
+    {
+      "id": "pycon-korea",
+      "name": "PyCon Korea",
+      "description": "파이썬 커뮤니티 컨퍼런스",
+      "category": "conference",
+      "links": [
+        { "label": "홈페이지", "url": "https://pycon.kr/" }
+      ]
+    },
+    {
+      "id": "asyncswift-conf",
+      "name": "AsyncSwift (컨퍼런스)",
+      "description": "Swift 개발자 컨퍼런스",
+      "category": "conference",
+      "links": [
+        { "label": "홈페이지", "url": "https://asyncswift.org/" }
+      ]
+    }
+  ]
+}
