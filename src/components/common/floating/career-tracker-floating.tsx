@@ -17,7 +17,6 @@ import {
   isCareerTrackerStatus,
   type CareerTrackerStatus as CompanyStatus,
   type CareerTrackerChecklistItem as ChecklistItem,
-  type CareerTrackerScrapItem as ScrapItem,
   type CareerTrackerCompanyItem as CompanyBoardItem,
 } from "@/utils/careerTracker";
 
@@ -61,8 +60,6 @@ const DEFAULT_TODOS: ChecklistItem[] = [
 
 const getStatusLabel = (status: CompanyStatus) =>
   STATUS_META.find((meta) => meta.key === status)?.label ?? "";
-
-
 
 export default function CareerTrackerFloating() {
   const [isOpen, setIsOpen] = useState(false);
@@ -503,7 +500,10 @@ export default function CareerTrackerFloating() {
         const movedY = Math.abs(touch.clientY - touchStartPointRef.current.y);
 
         // Cancel long press when user is scrolling or swiping.
-        if (movedX > TOUCH_MOVE_CANCEL_THRESHOLD_PX || movedY > TOUCH_MOVE_CANCEL_THRESHOLD_PX) {
+        if (
+          movedX > TOUCH_MOVE_CANCEL_THRESHOLD_PX ||
+          movedY > TOUCH_MOVE_CANCEL_THRESHOLD_PX
+        ) {
           clearLongPressTimer();
           touchStartPointRef.current = null;
         }
