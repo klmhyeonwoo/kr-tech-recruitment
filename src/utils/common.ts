@@ -62,9 +62,8 @@ const formatDate = (dateString: string) => {
 const scaledIndex = (index: number) => {
   if (index < 10) {
     return `0${index}`;
-  } else {
-    return `${index}`;
   }
+  return `${index}`;
 };
 
 export { scaledPositionName, formatDate, scaledIndex };
