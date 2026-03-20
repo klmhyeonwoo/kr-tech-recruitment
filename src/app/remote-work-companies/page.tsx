@@ -107,18 +107,55 @@ export const metadata: Metadata = {
   title: "재택 근무 가능 회사 모음",
   description:
     "한국의 재택/원격 근무 가능 회사를 한 곳에서 확인하세요. 완전 원격, 부분 원격 회사 정보를 빠르게 필터링할 수 있습니다.",
+  keywords: [
+    "재택 근무 가능 회사",
+    "원격 근무 회사",
+    "재택 근무 IT 기업",
+    "완전 원격 회사",
+    "부분 원격 회사",
+    "원격 근무 가능 기업",
+    "재택근무 스타트업",
+    "원격 근무 개발자",
+    "재택 근무 채용",
+    "원격 근무 채용",
+    "재택 근무 허용 회사",
+    "리모트 워크 회사",
+    "재택 근무 복지",
+    "개발자 재택 근무",
+  ],
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
   openGraph: {
     title: "재택 근무 가능 회사 모음",
     description:
       "완전 원격 및 부분 원격이 가능한 국내 회사 목록을 확인해보세요.",
     type: "website",
     url: "https://nklcb.kr/remote-work-companies",
+    siteName: "네카라쿠배 채용",
+    locale: "ko_KR",
+    images: [
+      {
+        url: "https://raw.githubusercontent.com/klmhyeonwoo/Asset-Archieve./main/nklcb.png",
+        width: 1200,
+        height: 630,
+        alt: "재택 근무 가능 회사 모음 - 네카라쿠배 채용",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "재택 근무 가능 회사 모음",
     description:
       "완전 원격 및 부분 원격이 가능한 국내 회사 목록을 확인해보세요.",
+    images: ["https://raw.githubusercontent.com/klmhyeonwoo/Asset-Archieve./main/nklcb.png"],
   },
   alternates: {
     canonical: "https://nklcb.kr/remote-work-companies",

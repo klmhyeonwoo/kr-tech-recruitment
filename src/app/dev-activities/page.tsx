@@ -54,18 +54,56 @@ export const metadata: Metadata = {
   title: "개발자 대외활동 모음",
   description:
     "개발자 동아리, 교육/부트캠프, 모임/밋업, 행사/컨퍼런스를 한 곳에서 확인하세요.",
+  keywords: [
+    "개발자 대외활동",
+    "개발자 동아리",
+    "개발자 부트캠프",
+    "개발자 교육",
+    "IT 부트캠프",
+    "개발자 모임",
+    "개발자 밋업",
+    "IT 컨퍼런스",
+    "개발자 행사",
+    "개발자 커뮤니티",
+    "IT 동아리",
+    "코딩 부트캠프",
+    "개발자 네트워킹",
+    "프로그래밍 교육",
+    "IT 세미나",
+  ],
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
   openGraph: {
     title: "개발자 대외활동 모음",
     description:
       "개발자 동아리, 교육/부트캠프, 모임/밋업, 행사/컨퍼런스를 한 곳에서 확인하세요.",
     type: "website",
     url: "https://nklcb.kr/dev-activities",
+    siteName: "네카라쿠배 채용",
+    locale: "ko_KR",
+    images: [
+      {
+        url: "https://raw.githubusercontent.com/klmhyeonwoo/Asset-Archieve./main/nklcb.png",
+        width: 1200,
+        height: 630,
+        alt: "개발자 대외활동 모음 - 네카라쿠배 채용",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "개발자 대외활동 모음",
     description:
       "개발자 동아리, 교육/부트캠프, 모임/밋업, 행사/컨퍼런스를 한 곳에서 확인하세요.",
+    images: ["https://raw.githubusercontent.com/klmhyeonwoo/Asset-Archieve./main/nklcb.png"],
   },
   alternates: {
     canonical: "https://nklcb.kr/dev-activities",
