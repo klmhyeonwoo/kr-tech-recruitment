@@ -101,7 +101,7 @@ export default function BoardPostModal({
         content: trimmedContent,
       });
 
-      if (status >= 200 && status < 300) {
+      if (200 <= status && status < 300) {
         refreshData();
         handleCleanUp();
         closeModal();

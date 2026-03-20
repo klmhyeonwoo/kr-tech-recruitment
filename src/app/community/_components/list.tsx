@@ -90,7 +90,7 @@ export default function List() {
     setLoader(true);
     const { status, data } = await community.standardList({
       page,
-      pageSize: 10,
+      pageSize: BOARD_PAGE_MAX_COUNT,
       searchWord: keyword,
     });
     if (status === 200) {
@@ -142,7 +142,7 @@ export default function List() {
       return <Loading message="" />;
     }
 
-    if (!loader && !pageBoardData?.list?.length) {
+    if (!pageBoardData?.list?.length) {
       return <NotDataSwimming description="아직 게시글이 존재하지 않아요" />;
     }
 

@@ -121,7 +121,7 @@ export default function Comments({
     }, 300),
   ).current;
 
-  const handleToggleList = async () => {
+  const handleToggleLike = async () => {
     debounceToggleLike();
   };
 
@@ -132,7 +132,7 @@ export default function Comments({
         <div className="comment__input">
           <button
             type="button"
-            onClick={handleToggleList}
+            onClick={handleToggleLike}
             className="comment__like"
             aria-label={isLiked ? "좋아요 취소" : "좋아요"}
           >

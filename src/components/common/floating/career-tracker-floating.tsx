@@ -12,32 +12,18 @@ import {
   CAREER_TRACKER_SCRAP_ADDED_EVENT,
   CAREER_TRACKER_STORAGE_KEY,
   CAREER_TRACKER_UPDATED_EVENT,
+  createId,
+  getCareerTrackerStorage,
+  isCareerTrackerStatus,
+  type CareerTrackerStatus as CompanyStatus,
+  type CareerTrackerChecklistItem as ChecklistItem,
+  type CareerTrackerScrapItem as ScrapItem,
+  type CareerTrackerCompanyItem as CompanyBoardItem,
 } from "@/utils/careerTracker";
 
-type CompanyStatus = "planned" | "applying" | "accepted" | "rejected";
-
-type ChecklistItem = {
-  id: string;
-  text: string;
-  done: boolean;
-};
-
-type ScrapItem = {
-  id: string;
-  recruitmentNoticeId: number;
-  title: string;
-  path: string;
-  addedAt: string;
-  status: CompanyStatus;
-};
-
-type CompanyBoardItem = {
-  id: string;
-  name: string;
-  status: CompanyStatus;
-  tasks: ChecklistItem[];
-  scraps: ScrapItem[];
-};
+const SCROLL_IDLE_TIMEOUT_MS = 180;
+const LONG_PRESS_TIMEOUT_MS = 320;
+const TOUCH_MOVE_CANCEL_THRESHOLD_PX = 10;
 
 type TrackerTab = "todo" | "kanban";
 
@@ -76,115 +62,7 @@ const DEFAULT_TODOS: ChecklistItem[] = [
 const getStatusLabel = (status: CompanyStatus) =>
   STATUS_META.find((meta) => meta.key === status)?.label ?? "";
 
-const createId = () =>
-  typeof crypto !== "undefined" && "randomUUID" in crypto
-    ? crypto.randomUUID()
-    : `${Date.now()}-${Math.random().toString(16).slice(2)}`;
 
-const isCompanyStatus = (value: unknown): value is CompanyStatus =>
-  typeof value === "string" &&
-  ["planned", "applying", "accepted", "rejected"].includes(value);
-
-const toChecklistItemArray = (value: unknown): ChecklistItem[] => {
-  if (!Array.isArray(value)) {
-    return [];
-  }
-
-  return value.flatMap((item) => {
-    if (
-      typeof item === "object" &&
-      item !== null &&
-      "id" in item &&
-      "text" in item &&
-      "done" in item &&
-      typeof item.id === "string" &&
-      typeof item.text === "string" &&
-      typeof item.done === "boolean"
-    ) {
-      return [{ id: item.id, text: item.text, done: item.done }];
-    }
-
-    return [];
-  });
-};
-
-const toScrapItemArray = (
-  value: unknown,
-  fallbackStatus: CompanyStatus,
-): ScrapItem[] => {
-  if (!Array.isArray(value)) {
-    return [];
-  }
-
-  return value.flatMap((item) => {
-    if (
-      typeof item === "object" &&
-      item !== null &&
-      "id" in item &&
-      "recruitmentNoticeId" in item &&
-      "title" in item &&
-      "path" in item &&
-      "addedAt" in item &&
-      typeof item.id === "string" &&
-      typeof item.recruitmentNoticeId === "number" &&
-      typeof item.title === "string" &&
-      typeof item.path === "string" &&
-      typeof item.addedAt === "string"
-    ) {
-      const status =
-        "status" in item && isCompanyStatus(item.status)
-          ? item.status
-          : fallbackStatus;
-
-      return [
-        {
-          id: item.id,
-          recruitmentNoticeId: item.recruitmentNoticeId,
-          title: item.title,
-          path: item.path,
-          addedAt: item.addedAt,
-          status,
-        },
-      ];
-    }
-
-    return [];
-  });
-};
-
-const toCompanyArray = (value: unknown): CompanyBoardItem[] => {
-  if (!Array.isArray(value)) {
-    return [];
-  }
-
-  return value.flatMap((item) => {
-    if (
-      typeof item === "object" &&
-      item !== null &&
-      "id" in item &&
-      "name" in item &&
-      "status" in item &&
-      typeof item.id === "string" &&
-      typeof item.name === "string" &&
-      isCompanyStatus(item.status)
-    ) {
-      const tasks =
-        "tasks" in item
-          ? toChecklistItemArray(item.tasks)
-          : ([] as ChecklistItem[]);
-      const scraps =
-        "scraps" in item
-          ? toScrapItemArray(item.scraps, item.status)
-          : ([] as ScrapItem[]);
-
-      return [
-        { id: item.id, name: item.name, status: item.status, tasks, scraps },
-      ];
-    }
-
-    return [];
-  });
-};
 
 export default function CareerTrackerFloating() {
   const [isOpen, setIsOpen] = useState(false);
@@ -216,24 +94,9 @@ export default function CareerTrackerFloating() {
 
   const restoreFromStorage = useCallback(() => {
     try {
-      const saved = localStorage.getItem(CAREER_TRACKER_STORAGE_KEY);
-      if (!saved) {
-        setCompanies([]);
-        return;
-      }
-
-      const parsed = JSON.parse(saved) as {
-        todos?: unknown;
-        companies?: unknown;
-      };
-
-      const restoredTodos = toChecklistItemArray(parsed.todos);
-      const restoredCompanies = toCompanyArray(parsed.companies);
-
-      if ("todos" in parsed) {
-        setTodos(restoredTodos);
-      }
-      setCompanies(restoredCompanies);
+      const { todos, companies } = getCareerTrackerStorage();
+      setTodos(todos);
+      setCompanies(companies);
     } catch (error) {
       console.error("Failed to parse career tracker storage", error);
     }
@@ -275,7 +138,7 @@ export default function CareerTrackerFloating() {
 
       scrollIdleTimerRef.current = window.setTimeout(() => {
         setIsWindowScrolling(false);
-      }, 180);
+      }, SCROLL_IDLE_TIMEOUT_MS);
     };
 
     window.addEventListener("scroll", handleWindowScroll, { passive: true });
@@ -552,7 +415,7 @@ export default function CareerTrackerFloating() {
     const columnElement = hoveredElement.closest("[data-kanban-status]");
     const statusValue = columnElement?.getAttribute("data-kanban-status");
 
-    return isCompanyStatus(statusValue) ? statusValue : null;
+    return isCareerTrackerStatus(statusValue) ? statusValue : null;
   }, []);
 
   const startTouchDragging = useCallback(
@@ -625,7 +488,7 @@ export default function CareerTrackerFloating() {
 
     longPressTimerRef.current = window.setTimeout(() => {
       startTouchDragging(cardId, touch.clientX, touch.clientY);
-    }, 320);
+    }, LONG_PRESS_TIMEOUT_MS);
   };
 
   const handleCardTouchMove = (event: React.TouchEvent<HTMLDivElement>) => {
@@ -640,7 +503,7 @@ export default function CareerTrackerFloating() {
         const movedY = Math.abs(touch.clientY - touchStartPointRef.current.y);
 
         // Cancel long press when user is scrolling or swiping.
-        if (movedX > 10 || movedY > 10) {
+        if (movedX > TOUCH_MOVE_CANCEL_THRESHOLD_PX || movedY > TOUCH_MOVE_CANCEL_THRESHOLD_PX) {
           clearLongPressTimer();
           touchStartPointRef.current = null;
         }

@@ -33,12 +33,12 @@ export const CAREER_TRACKER_STORAGE_KEY = "nklcb-career-tracker-v1";
 export const CAREER_TRACKER_SCRAP_ADDED_EVENT = "career-tracker:scrap-added";
 export const CAREER_TRACKER_UPDATED_EVENT = "career-tracker:updated";
 
-const createId = () =>
+export const createId = () =>
   typeof crypto !== "undefined" && "randomUUID" in crypto
     ? crypto.randomUUID()
     : `${Date.now()}-${Math.random().toString(16).slice(2)}`;
 
-const isCareerTrackerStatus = (value: unknown): value is CareerTrackerStatus =>
+export const isCareerTrackerStatus = (value: unknown): value is CareerTrackerStatus =>
   typeof value === "string" &&
   ["planned", "applying", "accepted", "rejected"].includes(value);
 
@@ -139,7 +139,7 @@ const toCompanyArray = (value: unknown): CareerTrackerCompanyItem[] => {
   });
 };
 
-const getCareerTrackerStorage = (): CareerTrackerStorageShape => {
+export const getCareerTrackerStorage = (): CareerTrackerStorageShape => {
   if (typeof window === "undefined") {
     return { todos: [], companies: [], selectedCompanyId: null };
   }

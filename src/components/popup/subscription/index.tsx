@@ -55,36 +55,23 @@ function SubscriptionPopup() {
     enabled: shouldFetchCategoriesFlag,
   });
 
-  const handleNext = async () => {
-    // 현재 페이즈가 마지막 페이즈라면 아무 작업도 하지 않음
-    if (phase === phaseTextSet.length) return;
+  const closePopup = () => {
+    setIsShowPopup(false);
+  };
 
-    // 페이즈 시작 단계
-    if (phase === 0) {
-      setShouldFetchCategoriesFlag(true); // tanstack-query enabled flag
-      // * 캐싱 처리를 위해 tanstack-query 사용함으로써 초기 데이터 패칭 성공 여부는 useEffect에서 처리
-      if (standardJobCategories) {
-        // * 데이터가 존재하면 다음 페이즈로 이동시킴
-        setPhase((prev) => prev + 1);
-      }
-    }
+  const dismissForToday = () => {
+    Cookies.set("subscriptionPopup", "closed", { expires: 1 });
+    closePopup();
+  };
 
-    // 페이즈 진행 단계 (이메일 구독)
-    if (phase === 1) {
-      const { status } = await handleSubscription({
-        email,
-        standardCategories: selectedSubscriptionCategories,
-      });
-      if (status === 204) {
-        setPhase((prev) => prev + 1);
-      }
-    }
+  const handleCleanUpData = () => {
+    setSelectedSubscriptionCategories([]);
+    handleCleanUpEmail();
+  };
 
-    // 페이즈 완료 단계 (구독 완료)
-    if (phase === 2) {
-      handleCleanUpData();
-      handleClose();
-    }
+  const initPhase = () => {
+    setPhase(0);
+    handleCleanUpData();
   };
 
   const handleAddStandardCategories = ({
@@ -101,21 +88,33 @@ function SubscriptionPopup() {
     });
   };
 
-  const handleClose = () => {
-    setIsShowPopup(false);
-    Cookies.set("subscriptionPopup", "closed", {
-      expires: 1, // 쿠키를 하루 동안 유지해요
+  const handlePhase0 = () => {
+    setShouldFetchCategoriesFlag(true);
+    if (standardJobCategories) {
+      setPhase((prev) => prev + 1);
+    }
+  };
+
+  const handlePhase1 = async () => {
+    const { status } = await handleSubscription({
+      email,
+      standardCategories: selectedSubscriptionCategories,
     });
+    if (status === 204) {
+      setPhase((prev) => prev + 1);
+    }
   };
 
-  const handleCleanUpData = () => {
-    setSelectedSubscriptionCategories([]);
-    handleCleanUpEmail();
-  };
-
-  const initPhase = () => {
-    setPhase(0);
+  const handlePhase2 = () => {
     handleCleanUpData();
+    closePopup();
+  };
+
+  const handleNext = async () => {
+    if (phase === phaseTextSet.length) return;
+    if (phase === 0) return handlePhase0();
+    if (phase === 1) return handlePhase1();
+    if (phase === 2) return handlePhase2();
   };
 
   const handleSubscription = async ({
@@ -153,7 +152,7 @@ function SubscriptionPopup() {
       positiveText: "5초만에 구독해볼래요",
       negativeText: "오늘 하루 보지 않기",
       positiveCallback: handleNext,
-      negativeCallback: handleClose,
+      negativeCallback: dismissForToday,
     },
     {
       title: `이메일을 입력해주시면 \n 곧 다양한 채용 공고로 찾아갈게요`,
@@ -161,8 +160,7 @@ function SubscriptionPopup() {
       negativeText: "처음부터 다시 확인하고 싶어요",
       positiveCallback: handleNext,
       negativeCallback: initPhase,
-      isDisabledButton:
-        !isValidEmail || selectedSubscriptionCategories.length === 0,
+      isDisabledButton: !(isValidEmail && selectedSubscriptionCategories.length > 0),
     },
     {
       positiveText: "확인했어요",
@@ -179,11 +177,11 @@ function SubscriptionPopup() {
    * @description 직무 별 카테고리 성공 여부 감지를 위한 UseEffect 함수
    */
   useEffect(() => {
-    if (isSuccessStandardJobCategories) {
+    if (isSuccessStandardJobCategories && standardJobCategories) {
       setStandardCategories(standardJobCategories);
       setPhase((prev) => prev + 1);
     }
-  }, [isSuccessStandardJobCategories]);
+  }, [isSuccessStandardJobCategories, standardJobCategories]);
 
   return (
     <Portal id="portal">
@@ -191,7 +189,7 @@ function SubscriptionPopup() {
         <SubsecriptionContext.Provider
           value={{
             handleNext,
-            handleClose,
+            handleClose: closePopup,
             phase,
             selectedSubscriptionCategories,
             subscriptionCategories: standardCategories,
