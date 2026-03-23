@@ -15,6 +15,7 @@ import KakaoScript from "@/lib/auth/kakao-script";
 import StructuredData from "@/lib/seo/structured-data";
 import QueryProvider from "@/lib/tanstack/react-query/query-provider";
 import ClarityProvider from "@/lib/clarity/clarity-provider";
+import LenisProvider from "@/lib/lenis/lenis-provider";
 import ScrollFloationButton from "@/components/common/floating/scroll-floating-button";
 import CareerTrackerFloating from "@/components/common/floating/career-tracker-floating";
 import PwaRegister from "@/components/common/pwa-register";
@@ -137,12 +138,14 @@ export default async function RootLayout({
       <body>
         <ClarityProvider>
           <QueryProvider>
-            <PwaRegister />
-            <div id="portal" />
-            <SubscriptionPopup />
-            <CareerTrackerFloating />
-            <ScrollFloationButton />
-            {children}
+            <LenisProvider>
+              <PwaRegister />
+              <div id="portal" />
+              <SubscriptionPopup />
+              <CareerTrackerFloating />
+              <ScrollFloationButton />
+              {children}
+            </LenisProvider>
           </QueryProvider>
         </ClarityProvider>
       </body>
