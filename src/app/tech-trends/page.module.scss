@@ -176,6 +176,10 @@
 .chartWrapper {
   width: 100%;
   height: 30rem;
+
+  :global(*) {
+    outline: none !important;
+  }
 }
 
 /* ── 랭킹 리스트 ── */
