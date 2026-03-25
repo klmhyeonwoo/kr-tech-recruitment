@@ -27,6 +27,7 @@
     "react-countup": "^6.5.3",
     "react-dom": "^19.0.0",
     "react-fast-marquee": "^1.6.5",
+    "recharts": "^3.8.0",
     "sass": "^1.85.0"
   },
   "devDependencies": {

@@ -10,6 +10,7 @@ import greeting_image_earth from "@public/images/earth.png";
 import greeting_image_swimming from "@public/icon/swimming.gif";
 import greeting_image_clapping from "@public/icon/clapping.gif";
 import greeting_image_star from "@public/icon/star.gif";
+import greeting_image_volt from "@public/images/volt.gif";
 import styles from "./greeting-swiper.module.scss";
 
 type QuickMenuItem = {
@@ -34,6 +35,18 @@ const QUICK_MENUS: QuickMenuItem[] = [
     icon: greeting_image_swimming,
   },
   {
+    title: "개발자 대외활동",
+    description: "개발자를 위한 대외활동을 빠르게 확인해보세요",
+    href: "/dev-activities",
+    icon: greeting_image_clapping,
+  },
+  {
+    title: "오늘의 개발 트렌드",
+    description: "카테고리별 기술 스택 트렌드를 확인해보세요",
+    href: "/tech-trends",
+    icon: greeting_image_volt,
+  },
+  {
     title: "이번 주 질문에 답변하기",
     description: "다른 사람들은 어떤 생각들을 가지고 있을까요?",
     href: "/question",
@@ -44,12 +57,6 @@ const QUICK_MENUS: QuickMenuItem[] = [
     description: "나만의 정보들을 자유롭게 커뮤니티에서 나눠보세요",
     href: "/community",
     icon: greeting_image_earth,
-  },
-  {
-    title: "개발자 대외활동",
-    description: "개발자를 위한 대외활동을 빠르게 확인해보세요",
-    href: "/dev-activities",
-    icon: greeting_image_clapping,
   },
   {
     title: "서비스 문의",
