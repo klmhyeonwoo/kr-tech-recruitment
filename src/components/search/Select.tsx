@@ -92,7 +92,9 @@ function Select({ data, placeholder, isIcon = true, ...props }: SelectType) {
       const nextQuery = params.toString();
       const nextUrl = nextQuery ? `${pathname}?${nextQuery}` : pathname;
       const currentQuery = searchParams.toString();
-      const currentUrl = currentQuery ? `${pathname}?${currentQuery}` : pathname;
+      const currentUrl = currentQuery
+        ? `${pathname}?${currentQuery}`
+        : pathname;
       if (nextUrl === currentUrl) return;
 
       startTransition(() => {
@@ -178,7 +180,11 @@ function Select({ data, placeholder, isIcon = true, ...props }: SelectType) {
         )}
       </div>
       {isOpenFilter && (
-        <div className={styles.search__container} ref={selectRef}>
+        <div
+          className={styles.search__container}
+          ref={selectRef}
+          data-lenis-prevent
+        >
           {data.map((item) => (
             <div
               key={item.code}

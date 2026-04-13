@@ -9,7 +9,9 @@ export default function LenisProvider({
   children: React.ReactNode;
 }) {
   useEffect(() => {
-    const lenis = new Lenis();
+    const lenis = new Lenis({
+      prevent: (node) => node.hasAttribute("data-lenis-prevent"),
+    });
     let rafId: number;
 
     function raf(time: number) {
