@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useCallback, useRef } from "react";
+import { useState, useCallback } from "react";
 import styles from "../page.module.scss";
+import useTechInterviewAnswer from "@/hooks/api/useGetTechInterviewAnswer";
 
 type Question = {
   id: string;
@@ -44,16 +45,8 @@ function saveChecked(state: Record<string, boolean>) {
   }
 }
 
-function getContentUrl(id: string): string {
-  const type = id.startsWith("fe-") ? "frontend" : "backend";
-  return `https://raw.githubusercontent.com/maeil-mail/maeil-mail-contents/main/${type}/contents/${id}.md`;
-}
-
 function escapeHtml(str: string): string {
-  return str
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;");
+  return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
 
 function processInline(text: string): string {
@@ -169,30 +162,11 @@ function markdownToHtml(md: string): string {
 }
 
 function AnswerPanel({ questionId }: { questionId: string }) {
-  const [html, setHtml] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
-  const fetched = useRef(false);
+  const { data, isLoading, isError } = useTechInterviewAnswer({
+    id: questionId,
+  });
 
-  if (!fetched.current && html === null && !loading && !error) {
-    fetched.current = true;
-    setLoading(true);
-    fetch(getContentUrl(questionId))
-      .then((r) => {
-        if (!r.ok) throw new Error("fetch failed");
-        return r.text();
-      })
-      .then((md) => {
-        setHtml(markdownToHtml(md));
-        setLoading(false);
-      })
-      .catch(() => {
-        setError(true);
-        setLoading(false);
-      });
-  }
-
-  if (loading) {
+  if (isLoading) {
     return (
       <div className={styles.answerLoading}>
         <span className={styles.loadingDot} />
@@ -202,7 +176,7 @@ function AnswerPanel({ questionId }: { questionId: string }) {
     );
   }
 
-  if (error) {
+  if (isError || !data) {
     return (
       <div className={styles.answerError}>
         답변을 불러오지 못했어요. 잠시 후 다시 시도해주세요.
@@ -210,12 +184,10 @@ function AnswerPanel({ questionId }: { questionId: string }) {
     );
   }
 
-  if (html === null) return null;
-
   return (
     <div
       className={styles.answerContent}
-      dangerouslySetInnerHTML={{ __html: html }}
+      dangerouslySetInnerHTML={{ __html: markdownToHtml(data) }}
     />
   );
 }
@@ -232,7 +204,9 @@ function QuestionItem({
   const [expanded, setExpanded] = useState(false);
 
   return (
-    <div className={`${styles.questionItem} ${checked ? styles.questionItemChecked : ""}`}>
+    <div
+      className={`${styles.questionItem} ${checked ? styles.questionItemChecked : ""}`}
+    >
       <div className={styles.questionRow}>
         <button
           className={`${styles.checkbox} ${checked ? styles.checkboxChecked : ""}`}
@@ -298,7 +272,9 @@ function CategorySection({
   onToggleCheck: (id: string) => void;
 }) {
   const [open, setOpen] = useState(false);
-  const checkedCount = category.questions.filter((q) => checkedState[q.id]).length;
+  const checkedCount = category.questions.filter(
+    (q) => checkedState[q.id],
+  ).length;
   const total = category.questions.length;
 
   return (
@@ -319,7 +295,9 @@ function CategorySection({
           <div className={styles.categoryMiniBar}>
             <div
               className={styles.categoryMiniFill}
-              style={{ width: `${total > 0 ? (checkedCount / total) * 100 : 0}%` }}
+              style={{
+                width: `${total > 0 ? (checkedCount / total) * 100 : 0}%`,
+              }}
             />
           </div>
           <svg
@@ -361,7 +339,9 @@ export default function InterviewQuestionsClient({
 }: {
   data: InterviewData;
 }) {
-  const [activeTab, setActiveTab] = useState<"frontend" | "backend">("frontend");
+  const [activeTab, setActiveTab] = useState<"frontend" | "backend">(
+    "frontend",
+  );
   const [checkedState, setCheckedState] = useState<Record<string, boolean>>(
     () => loadChecked(),
   );
@@ -384,7 +364,8 @@ export default function InterviewQuestionsClient({
     (sum, c) => sum + c.questions.filter((q) => checkedState[q.id]).length,
     0,
   );
-  const progressPercent = totalQuestions > 0 ? Math.round((checkedCount / totalQuestions) * 100) : 0;
+  const progressPercent =
+    totalQuestions > 0 ? Math.round((checkedCount / totalQuestions) * 100) : 0;
 
   return (
     <div className={styles.clientRoot}>
