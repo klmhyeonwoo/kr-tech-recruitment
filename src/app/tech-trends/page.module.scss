@@ -7,34 +7,36 @@
 
 /* ── 소스 안내 ── */
 .sourceNotice {
-  width: 100%;
-  box-sizing: border-box;
-  border: 1px solid #e2e8f0;
-  background: #f8fafc;
-  border-radius: 1.2rem;
-  padding: 1.2rem 1.6rem;
   display: flex;
-  flex-direction: column;
-  row-gap: 0.4rem;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.6rem 1.2rem;
+  padding-top: 0.4rem;
 
   a {
     display: inline-flex;
     align-items: center;
-    column-gap: 0.6rem;
-    width: fit-content;
-    color: #1d4ed8;
+    column-gap: 0.4rem;
+    color: var(--greyOpacity500);
     text-decoration: none;
-    font-size: 1.35rem;
-    font-weight: 600;
+    font-size: 1.2rem;
+    font-weight: 500;
+    transition: color 0.15s ease;
 
-    &:hover { text-decoration: underline; }
+    &:hover {
+      color: var(--greyOpacity700);
+    }
   }
 
-  p {
-    margin: 0;
-    color: var(--greyOpacity600);
-    font-size: 1.3rem;
-    line-height: 1.45;
+  svg {
+    width: 1.3rem;
+    height: 1.3rem;
+    flex-shrink: 0;
+  }
+
+  span {
+    font-size: 1.2rem;
+    color: var(--greyOpacity400);
   }
 }
 

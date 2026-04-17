@@ -11,6 +11,7 @@ import greeting_image_swimming from "@public/icon/swimming.gif";
 import greeting_image_clapping from "@public/icon/clapping.gif";
 import greeting_image_star from "@public/icon/star.gif";
 import greeting_image_volt from "@public/images/volt.gif";
+import greeting_image_study from "@public/images/study.gif";
 import styles from "./greeting-swiper.module.scss";
 
 type QuickMenuItem = {
@@ -45,6 +46,12 @@ const QUICK_MENUS: QuickMenuItem[] = [
     description: "카테고리별 기술 스택 트렌드를 확인해보세요",
     href: "/tech-trends",
     icon: greeting_image_volt,
+  },
+  {
+    title: "개발 기술 질문",
+    description: "모든 개발 질문과 답변을 확인해보세요",
+    href: "/interview-questions",
+    icon: greeting_image_study,
   },
   {
     title: "이번 주 질문에 답변하기",
