@@ -10,7 +10,7 @@ const PAGE_URL = "https://nklcb.kr/interview-questions";
 const OG_IMAGE =
   "https://raw.githubusercontent.com/klmhyeonwoo/Asset-Archieve./main/nklcb.png";
 
-const TITLE = "개발자 기술 질문 모음 (매일메일)";
+const TITLE = "매일메일 기술 질문 모음 | 개발자 기술면접 300+";
 const DESCRIPTION =
   "매일메일(maeil-mail) 서비스 종료 후 공개된 프론트엔드·백엔드 기술 면접 질문과 답변 300개 이상을 카테고리별로 확인해보세요. JavaScript, React, Next.js, Spring, JPA, 네트워크, 운영체제 등 핵심 질문을 모았습니다.";
 
@@ -19,9 +19,12 @@ export const metadata: Metadata = {
   description: DESCRIPTION,
   keywords: [
     "매일메일",
+    "메일매일",
     "maeil-mail",
     "매일메일 질문",
+    "매일메일 기술 질문",
     "매일메일 콘텐츠",
+    "기술질문 모음",
     "개발자 기술 면접",
     "기술 면접 질문",
     "프론트엔드 면접 질문",
@@ -124,14 +127,28 @@ export default function InterviewQuestionsPage() {
     },
   };
 
+  const faqStructuredData = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: allQuestions.slice(0, 10).map((q) => ({
+      "@type": "Question",
+      name: q.title,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: q.title,
+      },
+    })),
+  };
+
   return (
     <DefaultLayout>
       <StructuredData id="structured-data-interview-questions" data={structuredData} />
+      <StructuredData id="structured-data-interview-faq" data={faqStructuredData} />
       <main className={styles.page}>
         <section className={styles.intro}>
-          <h1 className="title">개발자 기술 질문 모음</h1>
+          <h1 className="title">매일메일 기술 질문 모음</h1>
           <p className="description">
-            기술 면접 준비를 위한 프론트엔드·백엔드 질문과 답변을 카테고리별로
+            매일메일 서비스 종료 후 공개된 프론트엔드·백엔드 기술 면접 질문과 답변을 카테고리별로
             확인해보세요
           </p>
         </section>

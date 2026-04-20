@@ -139,14 +139,16 @@ export default function Comments({
             {isLiked ? (
               <Image
                 src={heart_active_icon}
-                alt="좋아요 아이콘"
+                alt=""
+                aria-hidden="true"
                 width={23}
                 height={23}
               />
             ) : (
               <Image
                 src={heart_default_icon}
-                alt="좋아요 아이콘"
+                alt=""
+                aria-hidden="true"
                 width={23}
                 height={23}
               />
@@ -155,18 +157,24 @@ export default function Comments({
           <div className="comment__field">
             <Input
               isIcon={false}
-              placeholder="게시글에 댓글을 자유롭게 입력해보세요"
+              placeholder="댓글을 입력하세요"
               value={userComment}
               onChange={(e) => setUserComment(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" && !e.shiftKey && !e.nativeEvent.isComposing) {
+                  e.preventDefault();
+                  handleSubmitComment();
+                }
+              }}
             />
           </div>
           <Button
             className="comment__submit"
-            disabled={!userComment}
+            disabled={!userComment.trim()}
             onClick={handleSubmitComment}
             loader={loader}
           >
-            댓글 작성하기
+            작성
           </Button>
         </div>
       ) : (
