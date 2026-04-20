@@ -70,20 +70,7 @@ export default function BoardPostModal({
     closeModal();
   }, [closeModal, handleCleanUp, isDirty, isSubmitting]);
 
-  useEffect(() => {
-    const handleEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        handleRequestClose();
-      }
-    };
-
-    document.addEventListener("keydown", handleEscape);
-    return () => {
-      document.removeEventListener("keydown", handleEscape);
-    };
-  }, [handleRequestClose]);
-
-  const handleSubmit = async () => {
+  const handleSubmit = useCallback(async () => {
     if (isSubmitting) {
       return;
     }
@@ -115,7 +102,24 @@ export default function BoardPostModal({
     } finally {
       setIsSubmitting(false);
     }
-  };
+  }, [closeModal, handleCleanUp, isFormValid, isSubmitting, refreshData, trimmedContent, trimmedTitle]);
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        handleRequestClose();
+        return;
+      }
+      if (event.key === "Enter" && (event.metaKey || event.ctrlKey)) {
+        handleSubmit();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [handleRequestClose, handleSubmit]);
 
   const handleOverlayMouseDown: React.MouseEventHandler<HTMLDivElement> = (
     event,
@@ -191,14 +195,14 @@ export default function BoardPostModal({
           </div>
           <div className={styles.button__container}>
             <Button onClick={handleRequestClose} disabled={isSubmitting}>
-              뒤로 돌아가기
+              취소
             </Button>
             <Button
               onClick={handleSubmit}
               loader={isSubmitting}
               disabled={!isFormValid}
             >
-              게시글 작성하기
+              작성하기
             </Button>
           </div>
         </div>

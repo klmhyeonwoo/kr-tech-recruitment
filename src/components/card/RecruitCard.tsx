@@ -167,14 +167,16 @@ function CardContent({
           width={23}
           height={23}
           data-theme="light"
-          alt="해당 공고의 제목 아이콘"
+          alt=""
+          aria-hidden="true"
         />
         <Image
           src={icon_cube_light}
           width={23}
           height={23}
           data-theme="dark"
-          alt="해당 공고의 날짜 아이콘"
+          alt=""
+          aria-hidden="true"
         />
         <span className={styles.card__title}> {title}</span>
       </div>
@@ -184,14 +186,16 @@ function CardContent({
           width={23}
           height={23}
           data-theme="light"
-          alt="해당 공고의 날짜 아이콘"
+          alt=""
+          aria-hidden="true"
         />
         <Image
           src={icon_calendar_light}
           width={23}
           height={23}
           data-theme="dark"
-          alt="해당 공고의 날짜 아이콘"
+          alt=""
+          aria-hidden="true"
         />
         <span className={styles.card__timestamp}>
           {fromDate && toDate

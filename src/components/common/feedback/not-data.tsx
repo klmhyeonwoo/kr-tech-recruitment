@@ -14,7 +14,8 @@ function NotDataSwimming({
         src={icon_swimming}
         width={120}
         height={120}
-        alt="해딩 기업의 공고가 존재하지 않아요"
+        alt=""
+        aria-hidden="true"
       />
       <span> {description} </span>
     </div>
