@@ -10,9 +10,9 @@ const PAGE_URL = "https://nklcb.kr/interview-questions";
 const OG_IMAGE =
   "https://raw.githubusercontent.com/klmhyeonwoo/Asset-Archieve./main/nklcb.png";
 
-const TITLE = "매일메일 기술 질문 모음 | 개발자 기술면접 300+";
+const TITLE = "매일메일 기술 인터뷰 질문 모음 | 개발자 기술면접 300+";
 const DESCRIPTION =
-  "매일메일(maeil-mail) 서비스 종료 후 공개된 프론트엔드·백엔드 기술 면접 질문과 답변 300개 이상을 카테고리별로 확인해보세요. JavaScript, React, Next.js, Spring, JPA, 네트워크, 운영체제 등 핵심 질문을 모았습니다.";
+  "매일메일(maeil-mail) 서비스 종료 후 공개된 프론트엔드·백엔드 기술 인터뷰 질문과 답변 300개 이상을 카테고리별로 확인해보세요. JavaScript, React, Next.js, Spring, JPA, 네트워크, 운영체제 등 기술 인터뷰 핵심 질문을 모았습니다.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -23,14 +23,24 @@ export const metadata: Metadata = {
     "maeil-mail",
     "매일메일 질문",
     "매일메일 기술 질문",
+    "매일메일 기술 인터뷰",
     "매일메일 콘텐츠",
+    "기술 인터뷰",
+    "기술 인터뷰 질문",
+    "기술 인터뷰 준비",
+    "기술 인터뷰 모음",
     "기술질문 모음",
     "개발자 기술 면접",
     "기술 면접 질문",
+    "기술면접 준비",
+    "프론트엔드 기술 인터뷰",
+    "백엔드 기술 인터뷰",
     "프론트엔드 면접 질문",
     "백엔드 면접 질문",
     "개발자 면접 준비",
     "코딩 면접",
+    "JavaScript 기술 인터뷰",
+    "React 기술 인터뷰",
     "JavaScript 면접 질문",
     "React 면접 질문",
     "Next.js 면접 질문",
@@ -52,6 +62,7 @@ export const metadata: Metadata = {
     "SOLID 원칙 면접",
     "네카라쿠배 면접",
     "빅테크 면접 질문",
+    "개발자 취업 준비",
   ],
   authors: [{ name: "네카라쿠배 채용" }],
   creator: "네카라쿠배 채용",
@@ -127,30 +138,86 @@ export default function InterviewQuestionsPage() {
     },
   };
 
+  const allCategories = [
+    ...data.frontend.categories,
+    ...data.backend.categories,
+  ];
+
   const faqStructuredData = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: allQuestions.slice(0, 10).map((q) => ({
+    mainEntity: allCategories.map((category) => ({
       "@type": "Question",
-      name: q.title,
+      name: `${category.label} 기술 인터뷰에서는 어떤 질문들이 나오나요?`,
       acceptedAnswer: {
         "@type": "Answer",
-        text: q.title,
+        text: `${category.description} 매일메일 기술 인터뷰 질문 모음에서 ${category.label} 관련 총 ${category.questions.length}개의 기술 면접 질문과 답변을 확인할 수 있습니다.`,
       },
     })),
   };
 
+  const breadcrumbStructuredData = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "홈",
+        item: "https://nklcb.kr",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "매일메일 기술 인터뷰 질문 모음",
+        item: PAGE_URL,
+      },
+    ],
+  };
+
   return (
     <DefaultLayout>
-      <StructuredData id="structured-data-interview-questions" data={structuredData} />
-      <StructuredData id="structured-data-interview-faq" data={faqStructuredData} />
+      <StructuredData
+        id="structured-data-interview-questions"
+        data={structuredData}
+      />
+      <StructuredData
+        id="structured-data-interview-faq"
+        data={faqStructuredData}
+      />
+      <StructuredData
+        id="structured-data-interview-breadcrumb"
+        data={breadcrumbStructuredData}
+      />
       <main className={styles.page}>
         <section className={styles.intro}>
-          <h1 className="title">매일메일 기술 질문 모음</h1>
+          <h1 className="title">매일메일 기술 인터뷰 질문 모음</h1>
           <p className="description">
-            매일메일 서비스 종료 후 공개된 프론트엔드·백엔드 기술 면접 질문과 답변을 카테고리별로
-            확인해보세요
+            매일메일 서비스 종료 후 공개된 프론트엔드·백엔드 기술 인터뷰 질문과
+            답변을 카테고리별로 확인해보세요
           </p>
+        </section>
+
+        <section
+          className={styles.categoryOverview}
+          aria-label="기술 인터뷰 카테고리 개요"
+        >
+          <h2 className={styles.categoryOverviewHeading}>
+            카테고리별 기술 인터뷰 질문들을 제공해요
+          </h2>
+          <div className={styles.categoryOverviewGrid}>
+            {allCategories.map((category) => (
+              <div key={category.id} className={styles.categoryOverviewCard}>
+                <p className={styles.categoryOverviewLabel}>{category.label}</p>
+                <p className={styles.categoryOverviewDesc}>
+                  {category.description}
+                </p>
+                <p className={styles.categoryOverviewCount}>
+                  기술 인터뷰 질문 {category.questions.length}개
+                </p>
+              </div>
+            ))}
+          </div>
         </section>
 
         <InterviewQuestionsClient data={data} />
@@ -172,7 +239,9 @@ export default function InterviewQuestionsPage() {
             </svg>
             maeil-mail/maeil-mail-contents
           </a>
-          <span>매일메일 서비스 종료 후 공개된 콘텐츠를 기반으로 서비스됩니다.</span>
+          <span>
+            매일메일 서비스 종료 후 공개된 콘텐츠를 기반으로 서비스됩니다.
+          </span>
         </footer>
       </main>
     </DefaultLayout>
