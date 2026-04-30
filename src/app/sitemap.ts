@@ -165,8 +165,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     {
       url: `${baseUrl}/interview-questions`,
       lastModified: now,
-      changeFrequency: "weekly" as const,
-      priority: 0.9,
+      changeFrequency: "daily" as const,
+      priority: 0.95,
     },
   ];
 

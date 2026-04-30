@@ -5,6 +5,64 @@
   row-gap: 1.4rem;
 }
 
+/* ── 카테고리 개요 (SEO 서버 렌더링) ── */
+.categoryOverview {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  row-gap: 1.5rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.categoryOverviewHeading {
+  font-size: 1.7rem;
+  font-weight: 600;
+  color: var(--grey800);
+  margin: 0 0 0.4rem;
+}
+
+.categoryOverviewGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(28rem, 1fr));
+  gap: 1.2rem;
+
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.categoryOverviewCard {
+  background: rgb(249, 250, 251);
+  border-radius: 1.4rem;
+  padding: 1.6rem 1.8rem;
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.5rem;
+}
+
+.categoryOverviewLabel {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--grey800);
+  margin: 0;
+}
+
+.categoryOverviewDesc {
+  font-size: 1.25rem;
+  color: var(--grey500);
+  margin: 0;
+  line-height: 1.6;
+  word-break: keep-all;
+}
+
+.categoryOverviewCount {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--grey600);
+  margin: 0;
+}
+
 /* ── 출처 안내 (하단) ── */
 .sourceNotice {
   display: flex;
