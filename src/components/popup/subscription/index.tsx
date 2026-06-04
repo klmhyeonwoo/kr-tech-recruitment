@@ -11,6 +11,7 @@ import Complete from "./phase/Complete";
 import Cookies from "js-cookie";
 import CountUp from "react-countup";
 import { useGetStandardJobCategories } from "@/hooks/api/useGetStandardJobCategories";
+import useGetSubscribeTotal from "@/hooks/api/useGetSubscribeTotal";
 
 type SubscriptionContextType = {
   handleNext: () => void;
@@ -29,6 +30,7 @@ export const SubsecriptionContext = createContext<SubscriptionContextType>({
 });
 
 function SubscriptionPopup() {
+  const { data: subscriberTotal } = useGetSubscribeTotal();
   const [isShowPopup, setIsShowPopup] = useAtom(PORTAL_STORE);
   const { email, isValidEmail, handleEmailChange, handleCleanUpEmail } =
     useCheckEmail();
@@ -144,9 +146,11 @@ function SubscriptionPopup() {
     {
       title: (
         <>
-          서비스의 다양한 소식과 <br />
-          여러 빅테크 기업의 채용 소식을 <br />
-          벌써 <CountUp end={200} />명 이상 구독하고 있어요
+          서비스의 업데이트 소식과 <br />
+          빅테크 채용 소식을 <CountUp end={subscriberTotal?.count ?? 200} />
+          명이
+          <br />
+          메일로 구독하고 있어요
         </>
       ),
       positiveText: "5초만에 구독해볼래요",
@@ -160,7 +164,9 @@ function SubscriptionPopup() {
       negativeText: "처음부터 다시 확인하고 싶어요",
       positiveCallback: handleNext,
       negativeCallback: initPhase,
-      isDisabledButton: !(isValidEmail && selectedSubscriptionCategories.length > 0),
+      isDisabledButton: !(
+        isValidEmail && selectedSubscriptionCategories.length > 0
+      ),
     },
     {
       positiveText: "확인했어요",

@@ -17,4 +17,5 @@ export default {
     api.delete("/subscribe-emails", {
       data: { email },
     }),
+  subscribers: () => api.get("/subscribe-emails/count"),
 };
