@@ -49,11 +49,6 @@ const onRequest = (
 const onErrorRequest = (error: AxiosError<AxiosRequestConfig>) => {
   const { status } = error?.response as AxiosResponse;
 
-  if (status === 401) {
-    // 401 에러가 발생한 경우, 저장되어있는 쿠키 토큰을 제거
-    Cookies.remove("nklcb__tk");
-  }
-
   if (error?.config) {
     onError(status, "에러: 요청 실패");
   } else if (error?.request) {
@@ -91,6 +86,7 @@ const onErrorResponse = (error: AxiosError | Error) => {
         onError(status, "잘못된 요청을 했어요", data);
         break;
       case 401: {
+        Cookies.remove("nklcb__tk");
         onError(status, "인증을 실패했어요", data);
         break;
       }
