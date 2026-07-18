@@ -22,7 +22,6 @@ function Header() {
               href="/web"
               prefetch={true}
               className={styles.navigate__announcement_button}
-              role="button"
             >
               빅테크 공고 확인하기
             </Link>
