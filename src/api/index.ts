@@ -36,7 +36,7 @@ const onError = (status: number, message: string, data?: ErrorResponse) => {
 
 /** request 요청 시, config 객체를 받아와 처리하는 함수 */
 const onRequest = (
-  config: AxiosRequestConfig
+  config: AxiosRequestConfig,
 ): Promise<InternalAxiosRequestConfig> => {
   const token = Cookies.get("nklcb__tk");
   const { method, url, headers = {} } = config;
@@ -78,7 +78,7 @@ const onErrorResponse = (error: AxiosError | Error) => {
       error?.response as AxiosResponse<ErrorResponse>;
 
     logOnDev(
-      `[API ERROR_RESPONSE ${status} | ${statusText} | ${message}] ${method?.toUpperCase()} ${url}`
+      `[API ERROR_RESPONSE ${status} | ${statusText} | ${message}] ${method?.toUpperCase()} ${url}`,
     );
 
     switch (status) {
@@ -86,6 +86,7 @@ const onErrorResponse = (error: AxiosError | Error) => {
         onError(status, "잘못된 요청을 했어요", data);
         break;
       case 401: {
+        Cookies.remove("nklcb__tk");
         onError(status, "인증을 실패했어요", data);
         break;
       }
