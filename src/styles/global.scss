@@ -4,6 +4,18 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: "Pixel";
+  src: url("../../public/font/x10y12pxDenkiChipHangul.ttf") format("truetype");
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Freesentation";
+  src: url("../../public/font//FreesentationVF.ttf") format("truetype");
+  font-style: normal;
+}
+
 body,
 html {
   font-synthesis: none;
@@ -17,7 +29,7 @@ html {
   word-break: keep-all;
 
   @media (max-width: 480px) {
-    font-size: 55%;
+    font-size: 65%;
   }
 }
 

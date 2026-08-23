@@ -25,7 +25,14 @@
 }
 
 .header__logo {
-  max-width: 20rem;
+  font-family: "Pixel";
+  font-size: 2.2rem;
+  margin-right: 2.5rem;
+  white-space: nowrap;
+
+  @media (max-width: 480px) {
+    font-size: 1.9rem;
+  }
 }
 
 .header__overlay {
@@ -33,24 +40,20 @@
 }
 
 .header__nav {
-  margin-left: auto;
   display: flex;
   align-items: center;
-  column-gap: 2.5rem;
-  color: var(--greyOpacity600);
-  font-weight: 500;
-  font-size: 1.4rem;
+  column-gap: 1.3rem;
+  font-weight: 700;
+  font-size: 1.5rem;
+  letter-spacing: -0.03rem;
+  color: var(--inverseGrey500);
 
-  .navigate__announcement_button {
-    display: flex;
-    background-color: #222;
-    color: #fff;
-    padding: 1rem 1.5rem;
-    border-radius: 0.7rem;
-    transition: 0.4s all;
-    cursor: pointer;
+  span {
+    transition: color 0.3s;
 
-    align-items: center;
-    justify-content: center;
+    &.active,
+    &:hover {
+      color: var(--inverseGrey50);
+    }
   }
 }
