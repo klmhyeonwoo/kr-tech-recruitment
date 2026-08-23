@@ -1,7 +1,6 @@
 "use client";
 import React, { Fragment } from "react";
 import styles from "@/styles/components/headers.module.scss";
-import logo from "@public/images/logo.svg";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -27,9 +26,6 @@ const menu = [
 
 function Header() {
   const pathname = usePathname();
-  console.log(pathname);
-
-  console.log(menu[0].target === pathname);
 
   return (
     <Fragment>
@@ -39,9 +35,10 @@ function Header() {
             seoul dev club
           </Link>
           <nav className={styles.header__nav}>
-            {menu.map((item) => {
+            {menu.map((item, idx) => {
               return (
                 <Link
+                  key={idx}
                   href={item.target}
                   prefetch={true}
                   className={styles.navigate__announcement_button}
