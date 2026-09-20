@@ -1,0 +1,50 @@
+.feed {
+  display: grid;
+  width: 100%;
+  min-width: 0;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 2rem;
+}
+
+.leading,
+.remaining,
+.rail,
+.railContent {
+  min-width: 0;
+}
+
+.inlineAd {
+  grid-column: 1 / -1;
+  padding: 1.5rem 0;
+}
+
+@media (min-width: 1200px) {
+  .feed {
+    grid-template-columns: minmax(0, 1fr) 324px;
+    gap: 3.2rem;
+    align-items: start;
+  }
+
+  .leading {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .remaining {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  .rail {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    align-self: stretch;
+  }
+}
+
+@media (min-width: 1200px) and (min-height: 650px) and (hover: hover) and (pointer: fine) {
+  .railContent {
+    position: sticky;
+    top: 94px;
+  }
+}

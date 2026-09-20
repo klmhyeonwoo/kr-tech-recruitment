@@ -91,16 +91,16 @@ export default async function RootLayout({
 
   return (
     <Fragment>
-      <Header />
+      <Header wide />
       <section>
-        <article className="content-wrapper">
+        <article className="content-wrapper" data-layout="recruit">
           <div>
             <Suspense>
-              <UserAds />
               <TabSection data={companies} />
               <SearchSection data={list || []} />
             </Suspense>
             {children}
+            <UserAds />
           </div>
         </article>
       </section>

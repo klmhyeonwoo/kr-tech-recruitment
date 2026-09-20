@@ -7,6 +7,8 @@ type AdsByGoogleQueue = {
   push: (config: Record<string, unknown>) => number | void;
 };
 
+const requestedSlots = new WeakSet<HTMLElement>();
+
 export type AdSenseWindow = Window & {
   adsbygoogle?: AdsByGoogleQueue | unknown[];
   __adsenseScriptLoaded?: boolean;
@@ -33,8 +35,30 @@ export function isAdSenseScriptLoaded() {
   );
 }
 
-export function requestAdSenseRender() {
+export function requestAdSenseRender(adElement: HTMLElement): boolean {
+  if (typeof window === "undefined") return false;
+  if (
+    requestedSlots.has(adElement) ||
+    adElement.hasAttribute("data-adsbygoogle-status")
+  ) {
+    return true;
+  }
+  if (
+    !isAdSenseScriptLoaded() ||
+    !adElement.isConnected ||
+    adElement.getBoundingClientRect().width <= 0
+  ) {
+    return false;
+  }
+
+  // Keep the attempt tied to the DOM node across Strict Mode effect replays.
+  requestedSlots.add(adElement);
   const adWindow = window as AdSenseWindow;
   adWindow.adsbygoogle = adWindow.adsbygoogle || [];
-  (adWindow.adsbygoogle as AdsByGoogleQueue).push({});
+  try {
+    (adWindow.adsbygoogle as AdsByGoogleQueue).push({});
+  } catch (error) {
+    console.error("Failed to render ad:", error);
+  }
+  return true;
 }
