@@ -16,6 +16,7 @@ import UserAds from "@/components/ads/user-ads";
 import Anchor from "@/components/common/navigation/anchor";
 import { RecruitData } from "@/components/card/Section";
 import MainCommunityListItem from "./_components/main-community-list-item";
+import SubscriptionInvitation from "@/components/popup/subscription/invitation";
 
 export const revalidate = 3600; // Revalidate every hour
 
@@ -127,50 +128,50 @@ export default async function Home() {
 
   return (
     <Fragment>
-      <Header />
-      <main>
-        <section className="container">
-          <article className="banner__wrapper">{/* 배너 영역 */}</article>
-          <article className="wrapper">
-            <div className="greeting__card__wrapper" id="service-menu">
-              <GreetingSwiper />
+      <Header wide />
+      <main className="home-layout">
+        <div className="greeting__card__wrapper" id="service-menu">
+          <GreetingSwiper />
+        </div>
+        <div className="home-ad-rail">
+          <div className="home-ad-sticky">
+            <Ads placement="home-primary" />
+          </div>
+        </div>
+        <div className="home-content">
+          <PwaInstallBanner />
+          <QuestionBanner questionData={hotIssueList?.[0]} />
+          <section id="community">
+            <div className="d-flex flex-column row-gap-2">
+              {communityList.map((item: ListProps["list"][number]) => (
+                <MainCommunityListItem
+                  key={item.boardId}
+                  id={item.boardId}
+                  title={item.title}
+                  writer={item.nickname}
+                  date={item.createdAt}
+                  commentCount={item.comments.length}
+                  likeCount={item.likes.length}
+                />
+              ))}
             </div>
-            <PwaInstallBanner />
-            <QuestionBanner questionData={hotIssueList?.[0]} />
-            <section id="community">
-              <div className="d-flex flex-column row-gap-2">
-                {communityList.map((item: ListProps["list"][number]) => (
-                  <MainCommunityListItem
-                    key={item.boardId}
-                    id={item.boardId}
-                    title={item.title}
-                    writer={item.nickname}
-                    date={item.createdAt}
-                    commentCount={item.comments.length}
-                    likeCount={item.likes.length}
-                  />
-                ))}
-              </div>
-              <Anchor href="/community" text="게시글 더 보러가기" />
-            </section>
-            <Ads />
-            <div className="announce__card__wrapper" id="ranking-announce">
-              {/* TODO: 새로 등록된 공고, 어제 올라온 공고 카드 섹션으로 제공하기 */}
-              <AnnounceCard
-                title="새롭게 등록된 공고"
-                description="새롭게 등록된 오늘의 공고를 확인해보세요"
-                items={recentRecruitList}
-              />
-              <AnnounceCard
-                title="어제 인기있었던 공고"
-                description="어제 조회수가 높았던 공고를 확인해보세요"
-                items={popularRecruitList.slice(0, 10)}
-              />
-            </div>
-            <UserAds />
-          </article>
-          <article className="banner__wrapper">{/* 배너 영역 */}</article>
-        </section>
+            <Anchor href="/community" text="게시글 더 보러가기" />
+          </section>
+          <SubscriptionInvitation />
+          <div className="announce__card__wrapper" id="ranking-announce">
+            <AnnounceCard
+              title="새롭게 등록된 공고"
+              description="새롭게 등록된 오늘의 공고를 확인해보세요"
+              items={recentRecruitList}
+            />
+            <AnnounceCard
+              title="어제 인기있었던 공고"
+              description="어제 조회수가 높았던 공고를 확인해보세요"
+              items={popularRecruitList.slice(0, 10)}
+            />
+          </div>
+          <UserAds />
+        </div>
       </main>
     </Fragment>
   );

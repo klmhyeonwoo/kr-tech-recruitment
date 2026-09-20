@@ -1,12 +1,18 @@
 "use client";
 
+import { Fragment } from "react";
+import Ads from "@/components/ads/ads";
 import Card from "@/components/card/RecruitCard";
 import RecruitCardAd from "@/components/ads/recruit-card-ad";
 import styles from "@/styles/components/recruit-card.module.scss";
+import feedStyles from "./recruit-feed.module.scss";
 import { useAtom } from "jotai";
 import { SEARCH_KEYWORD_STORE } from "../../store";
 import { scaledPositionName } from "@/utils/common";
 import NotDataSwimming from "../common/feedback/not-data";
+
+const LEADING_RECRUIT_COUNT = 2;
+const SECONDARY_AD_AFTER = 14;
 
 export type RecruitData = {
   recruitmentNoticeId: number;
@@ -26,8 +32,6 @@ export type RecruitData = {
 };
 
 export default function CardSection({ data }: { data: RecruitData[] }) {
-  const AD_INSERT_INTERVAL = 6;
-  const MAX_INLINE_ADS = 4;
   const [keyword] = useAtom(SEARCH_KEYWORD_STORE);
   const filteredData =
     data?.filter((item) => {
@@ -60,61 +64,77 @@ export default function CardSection({ data }: { data: RecruitData[] }) {
     return item.companyName;
   };
 
-  let insertedAds = 0;
-  const sectionFeedItems = filteredData.reduce<
-    Array<
-      | { type: "recruit"; key: string; item: RecruitData }
-      | { type: "ad"; key: string }
-    >
-  >((acc, item, index) => {
-    acc.push({
-      type: "recruit",
-      key: `recruit-${item.recruitmentNoticeId}-${index}`,
-      item,
-    });
+  const renderRecruitCard = (item: RecruitData) => (
+    <Card key={item.recruitmentNoticeId}>
+      <Card.CardContent
+        id={item.recruitmentNoticeId}
+        title={item.jobOfferTitle}
+        company={generateCompanyName(item)}
+        corporates={item.corporates}
+        position={item.standardCategory}
+        fromDate={item.startAt}
+        toDate={item.endAt}
+        link={item.url}
+      />
+    </Card>
+  );
 
-    const isLastCard = index === filteredData.length - 1;
-    const canInsertAd = insertedAds < MAX_INLINE_ADS;
-    const shouldInsertAd =
-      (index + 1) % AD_INSERT_INTERVAL === 0 && !isLastCard && canInsertAd;
+  if (filteredData.length < 4) {
+    return (
+      <section
+        className={styles.card__section}
+        data-exists={!!filteredData.length}
+        aria-label="채용 공고"
+      >
+        {filteredData.length ? (
+          filteredData.map(renderRecruitCard)
+        ) : (
+          <NotDataSwimming />
+        )}
+      </section>
+    );
+  }
 
-    if (shouldInsertAd) {
-      insertedAds += 1;
-      acc.push({ type: "ad", key: `inline-ad-${insertedAds}` });
-    }
-
-    return acc;
-  }, []);
+  const leadingCards = filteredData.slice(0, LEADING_RECRUIT_COUNT);
+  const remainingCards = filteredData.slice(LEADING_RECRUIT_COUNT);
 
   return (
-    <section
-      className={styles.card__section}
-      data-exists={!!filteredData.length}
-    >
-      {filteredData.length ? (
-        sectionFeedItems.map((entry) => {
-          if (entry.type === "ad") {
-            return <RecruitCardAd key={entry.key} />;
-          }
+    <div className={feedStyles.feed}>
+      <section
+        className={`${styles.card__section} ${feedStyles.leading}`}
+        data-exists="true"
+        aria-label="첫 채용 공고"
+      >
+        {leadingCards.map(renderRecruitCard)}
+      </section>
+      <div className={feedStyles.rail}>
+        <div className={feedStyles.railContent}>
+          <Ads placement="recruit-primary" />
+        </div>
+      </div>
+      <section
+        className={`${styles.card__section} ${feedStyles.remaining}`}
+        data-exists="true"
+        aria-label="더 많은 채용 공고"
+      >
+        {remainingCards.map((item, index) => {
+          const recruitIndex = index + LEADING_RECRUIT_COUNT;
+          const showSecondaryAd =
+            recruitIndex + 1 === SECONDARY_AD_AFTER &&
+            filteredData.length > SECONDARY_AD_AFTER;
 
           return (
-            <Card key={entry.key}>
-              <Card.CardContent
-                id={entry.item.recruitmentNoticeId}
-                title={entry.item.jobOfferTitle}
-                company={generateCompanyName(entry.item)}
-                corporates={entry.item.corporates}
-                position={entry.item.standardCategory}
-                fromDate={entry.item.startAt}
-                toDate={entry.item.endAt}
-                link={entry.item.url}
-              />
-            </Card>
+            <Fragment key={item.recruitmentNoticeId}>
+              {renderRecruitCard(item)}
+              {showSecondaryAd && (
+                <div className={feedStyles.inlineAd}>
+                  <RecruitCardAd />
+                </div>
+              )}
+            </Fragment>
           );
-        })
-      ) : (
-        <NotDataSwimming />
-      )}
-    </section>
+        })}
+      </section>
+    </div>
   );
 }

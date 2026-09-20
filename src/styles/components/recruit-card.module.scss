@@ -112,16 +112,6 @@
   }
 }
 
-.card__wrapper[data-ad-card="true"] {
-  overflow: hidden;
-
-  &:hover {
-    background-color: rgb(249, 250, 251);
-    color: inherit;
-    transform: none;
-  }
-}
-
 .card__title {
   font-size: 1.65rem;
   font-weight: 600;
@@ -218,40 +208,6 @@
   display: flex;
   align-items: center;
   column-gap: 0.5rem;
-}
-
-.card__ad__badge {
-  align-self: flex-start;
-  font-size: 1.1rem;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  color: var(--greyOpacity500);
-}
-
-.card__ad__slot {
-  width: 100%;
-  max-width: 100%;
-  min-width: 0;
-  min-height: 12rem;
-  padding: 0.6rem;
-  border-radius: 1rem;
-  box-sizing: border-box;
-  overflow: hidden;
-  background: rgba(255, 255, 255, 0.8);
-}
-
-.card__ad__slot :global(.adsbygoogle) {
-  width: 100%;
-  max-width: 100% !important;
-  min-width: 0 !important;
-  min-height: 10.8rem;
-  box-sizing: border-box;
-  overflow: hidden;
-}
-
-.card__ad__slot :global(.adsbygoogle iframe) {
-  width: 100% !important;
-  max-width: 100% !important;
 }
 
 .not__data {

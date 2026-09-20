@@ -31,3 +31,18 @@
   gap: 1rem;
   padding: 0.5rem 0;
 }
+
+@media (max-width: 768px) {
+  .company__tabs {
+    width: 100%;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    scrollbar-width: thin;
+    overscroll-behavior-x: contain;
+
+    .tab {
+      flex: 0 0 auto;
+      white-space: nowrap;
+    }
+  }
+}

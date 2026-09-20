@@ -1,4 +1,5 @@
 .quickMenu {
+  container-type: inline-size;
   width: 100%;
   border: 1px solid #e5e7eb;
   border-radius: 1.6rem;
@@ -90,6 +91,18 @@
   font-size: 1.2rem;
   color: var(--greyOpacity500);
   line-height: 1.3;
+}
+
+@container (max-width: 760px) {
+  .quickMenuHeader {
+    align-items: flex-start;
+    flex-direction: column;
+    row-gap: 0.6rem;
+  }
+
+  .quickMenuList {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 900px) {

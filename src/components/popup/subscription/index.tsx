@@ -8,7 +8,6 @@ import Progress from "./phase/Progress";
 import subscribe from "@/api/domain/subscribe";
 import useCheckEmail from "@/hooks/common/useCheckEmail";
 import Complete from "./phase/Complete";
-import Cookies from "js-cookie";
 import CountUp from "react-countup";
 import { useGetStandardJobCategories } from "@/hooks/api/useGetStandardJobCategories";
 import useGetSubscribeTotal from "@/hooks/api/useGetSubscribeTotal";
@@ -59,11 +58,6 @@ function SubscriptionPopup() {
 
   const closePopup = () => {
     setIsShowPopup(false);
-  };
-
-  const dismissForToday = () => {
-    Cookies.set("subscriptionPopup", "closed", { expires: 1 });
-    closePopup();
   };
 
   const handleCleanUpData = () => {
@@ -154,9 +148,9 @@ function SubscriptionPopup() {
         </>
       ),
       positiveText: "5초만에 구독해볼래요",
-      negativeText: "오늘 하루 보지 않기",
+      negativeText: "닫기",
       positiveCallback: handleNext,
-      negativeCallback: dismissForToday,
+      negativeCallback: closePopup,
     },
     {
       title: `이메일을 입력해주시면 \n 곧 다양한 채용 공고로 찾아갈게요`,

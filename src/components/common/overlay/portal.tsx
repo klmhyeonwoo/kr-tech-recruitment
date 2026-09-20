@@ -1,30 +1,8 @@
 "use client";
-import { PORTAL_STORE } from "@/store";
-import { useSetAtom } from "jotai";
 import { ReactNode, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
-import Cookies from "js-cookie";
 
-const SUBSCRIPTION_POPUP_COOKIE_KEY = "subscriptionPopup";
-const SUBSCRIPTION_POPUP_SHOW_DELAY_MS = 800;
-
-function useSubscriptionPopupVisibility() {
-  const setIsShowPopup = useSetAtom(PORTAL_STORE);
-
-  useEffect(() => {
-    const isDismissed = Cookies.get(SUBSCRIPTION_POPUP_COOKIE_KEY) === "closed";
-    if (isDismissed) {
-      setIsShowPopup(false);
-      return;
-    }
-
-    const timer = setTimeout(() => {
-      setIsShowPopup(true);
-    }, SUBSCRIPTION_POPUP_SHOW_DELAY_MS);
-
-    return () => clearTimeout(timer);
-  }, [setIsShowPopup]);
-}
+const PORTAL_ROOT_IDS = ["portal"];
 
 type Props = {
   children: ReactNode;
@@ -34,9 +12,6 @@ type Props = {
 
 export const Portal = ({ id, antiScroll = false, children }: Props) => {
   const [mounted, setMounted] = useState(false);
-  const rootIdList = ["portal"];
-
-  useSubscriptionPopupVisibility();
 
   useEffect(() => {
     setMounted(true);
@@ -44,7 +19,7 @@ export const Portal = ({ id, antiScroll = false, children }: Props) => {
   }, []);
 
   useEffect(() => {
-    if (!rootIdList.includes(id) || !mounted) return;
+    if (!PORTAL_ROOT_IDS.includes(id) || !mounted) return;
     if (!children || !antiScroll) return;
 
     document.body.style.overflow = "hidden";

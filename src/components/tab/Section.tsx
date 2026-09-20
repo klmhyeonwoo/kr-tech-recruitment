@@ -67,7 +67,7 @@ function TabSection({ data, currentIndex }: TabData) {
   }, [company]);
 
   return (
-    <div className={styles.tab__container}>
+    <div className={`${styles.tab__container} ${styles.company__tabs}`}>
       {tabs.map(({ name, code, id }) => (
         <Tab
           key={code}

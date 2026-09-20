@@ -1,37 +1,73 @@
-.container {
-  width: 100%;
-  display: flex;
-}
-
-.wrapper {
-  display: flex;
-  flex-direction: column;
-  row-gap: 2rem;
+.home-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 2.4rem;
   width: 100%;
   max-width: 110rem;
   margin: 0 auto;
   box-sizing: border-box;
-  padding: 3rem 1.3rem 3rem 1.3rem;
+  padding: 3.2rem 2rem 4.8rem;
+}
 
-  > img {
-    margin: 0 auto;
+.home-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+  min-width: 0;
+}
+
+.home-ad-rail {
+  min-width: 0;
+}
+
+.announce__card__wrapper {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2rem;
+}
+
+@media (min-width: 1200px) {
+  .home-layout {
+    width: calc(100% - 16rem);
+    max-width: 124rem;
+    grid-template-columns: minmax(0, 1fr) 324px;
+    column-gap: 3.2rem;
+  }
+
+  .greeting__card__wrapper,
+  .home-content {
+    grid-column: 1;
+  }
+
+  .home-ad-rail {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+  }
+
+  .announce__card__wrapper {
+    grid-template-columns: 1fr;
   }
 }
 
-.announce__card__wrapper {
-  display: flex;
-  flex-direction: row;
-  column-gap: 2rem;
+@media (min-width: 1200px) and (min-height: 650px) and (hover: hover) and (pointer: fine) {
+  .home-ad-sticky {
+    position: sticky;
+    top: calc(7rem + 2.4rem);
+  }
 }
 
-.announce__card__wrapper {
-  @media (max-width: 768px) {
-    display: grid;
+@media (max-width: 768px) {
+  .home-layout {
+    padding: 2rem 1.3rem 3.2rem;
+  }
+
+  .announce__card__wrapper {
     grid-template-columns: 1fr;
-    row-gap: 1rem;
+    gap: 1.6rem;
   }
 }
 
 .greeting__card__wrapper {
   width: 100%;
+  min-width: 0;
 }

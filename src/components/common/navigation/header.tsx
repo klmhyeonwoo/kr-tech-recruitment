@@ -24,21 +24,21 @@ const menu = [
   },
 ] as const satisfies Menu[];
 
-function Header() {
+function Header({ wide = false }: { wide?: boolean }) {
   const pathname = usePathname();
 
   return (
     <Fragment>
       <header className={styles.header__container}>
-        <div className={styles.header__wrapper}>
+        <div className={styles.header__wrapper} data-wide={wide}>
           <Link href="/" prefetch={true} className={styles.header__logo}>
             seoul dev club
           </Link>
           <nav className={styles.header__nav}>
-            {menu.map((item, idx) => {
+            {menu.map((item) => {
               return (
                 <Link
-                  key={idx}
+                  key={item.target}
                   href={item.target}
                   prefetch={true}
                   className={styles.navigate__announcement_button}
