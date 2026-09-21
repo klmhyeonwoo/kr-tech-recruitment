@@ -1,48 +1,50 @@
-import React, { useEffect, useState } from "react";
+"use client";
+
+import { useEffect, useState } from "react";
 import ListItem from "./list-item";
 import styles from "@/styles/components/list.module.scss";
-import volt_gif from "@public/images/volt.gif";
-import Image from "next/image";
 import community from "@/api/domain/community";
-import { ListProps } from "./list";
-import NotDataSwimming from "@/components/common/feedback/not-data";
+import type { ListProps } from "./list";
 
 export default function HotListItem() {
-  const [hotList, setHotList] = useState<ListProps["list"][number] | null>(
-    null,
-  );
+  const [hotList, setHotList] = useState<ListProps["list"][number] | null>(null);
 
   useEffect(() => {
-    (async () => {
-      const { status, data } = await community.bestList();
-      if (status === 200) {
-        setHotList(data);
-      } else {
-        setHotList(null);
+    let isActive = true;
+
+    const loadPopularArticle = async () => {
+      try {
+        const { status, data } = await community.bestList();
+        if (isActive && status === 200 && typeof data?.boardId === "number") {
+          setHotList(data);
+        }
+      } catch {
+        // 인기글을 불러오지 못해도 전체 목록은 계속 이용할 수 있어요.
       }
-    })();
+    };
+
+    void loadPopularArticle();
+    return () => {
+      isActive = false;
+    };
   }, []);
 
+  if (!hotList) return null;
+
   return (
-    <div className={styles.hot__list__container}>
-      <div className={styles.container__title}>
-        <Image src={volt_gif} alt="전기" width={25} height={25} />
-        <span>현재 가장 인기있는 게시글이에요</span>
-      </div>
-      {hotList ? (
-        <ListItem
-          id={hotList.boardId}
-          key={hotList.boardId}
-          title={hotList.title}
-          content={hotList.content}
-          writer={hotList.nickname}
-          date={hotList.createdAt}
-          commentCount={hotList.comments?.length}
-          likeCount={hotList.likes?.length}
-        />
-      ) : (
-        <NotDataSwimming description="아직 인기 게시글이 존재하지 않아요" />
-      )}
-    </div>
+    <section className={styles.featured} aria-labelledby="popular-article-title">
+      <h2 id="popular-article-title" className={styles.featuredHeading}>
+        지금 인기 있는 글
+      </h2>
+      <ListItem
+        id={hotList.boardId}
+        title={hotList.title}
+        content={hotList.content}
+        writer={hotList.nickname}
+        date={hotList.createdAt}
+        commentCount={hotList.comments?.length ?? 0}
+        likeCount={hotList.likes?.length ?? 0}
+      />
+    </section>
   );
 }

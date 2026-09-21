@@ -1,10 +1,14 @@
-"use client";
-import React from "react";
 import styles from "@/styles/components/list.module.scss";
-import BoardInfo from "./board-info";
 import Link from "next/link";
-import dateUtil from "@/utils/dateUtil";
-interface listItemProps {
+
+const dateOptions: Intl.DateTimeFormatOptions = {
+  timeZone: "Asia/Seoul",
+  year: "numeric",
+  month: "2-digit",
+  day: "2-digit",
+};
+
+interface ListItemProps {
   id: number;
   title: string;
   content: string;
@@ -22,18 +26,32 @@ export default function ListItem({
   date,
   commentCount,
   likeCount,
-}: listItemProps) {
+}: ListItemProps) {
+  const createdAt = new Date(date);
+
   return (
-    <Link className={styles.item__container} href={`/community/detail/${id}`}>
-      <div className={styles.title__wrapper}>
-        <span className={styles.title}>{title}</span>
-      </div>
-      <span className={styles.content}>{content}</span>
-      <div className={styles.util__container}>
-        <span>
-          {writer} · {dateUtil.formattedDate(date)}
+    <Link className={styles.item} href={`/community/detail/${id}`}>
+      <h3 className={styles.itemTitle}>{title}</h3>
+      {content && <p className={styles.itemExcerpt}>{content}</p>}
+      <div className={styles.itemMeta}>
+        <span className={styles.itemAuthor}>
+          {writer} <span aria-hidden="true">·</span>{" "}
+          <time
+            dateTime={date}
+            title={createdAt.toLocaleString("ko-KR", {
+              ...dateOptions,
+              hour: "2-digit",
+              minute: "2-digit",
+              second: "2-digit",
+            })}
+          >
+            {createdAt.toLocaleDateString("ko-KR", dateOptions)}
+          </time>
         </span>
-        <BoardInfo commentCount={commentCount} likeCount={likeCount} />
+        <span className={styles.itemReactions}>
+          <span>댓글 {commentCount}</span>
+          <span>좋아요 {likeCount}</span>
+        </span>
       </div>
     </Link>
   );

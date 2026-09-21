@@ -1,17 +1,14 @@
 "use client";
-import React, { Fragment, useEffect, useRef, useState } from "react";
-import ListItem from "./list-item";
-import styles from "@/styles/components/list.module.scss";
-import Button from "@/components/common/button";
-import Input from "@/components/search/Input";
-import HotListItem from "./hot-list-item";
-import BoardPostModal from "@/app/community/_components/board-post-modal";
-import community from "@/api/domain/community";
-import Loading from "@/app/loading";
-import { debounce } from "es-toolkit";
-import NotDataSwimming from "@/components/common/feedback/not-data";
+
+import { useEffect, useState, type FormEvent } from "react";
+import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
+import community from "@/api/domain/community";
 import useUser from "@/hooks/common/useUser";
+import styles from "@/styles/components/list.module.scss";
+import BoardPostModal from "./board-post-modal";
+import HotListItem from "./hot-list-item";
+import ListItem from "./list-item";
 import UserStatusBlock from "./user-status-block";
 
 export interface ListProps {
@@ -44,168 +41,263 @@ export interface ListProps {
   };
 }
 
-const BOARD_PAGE_MAX_COUNT = 10;
-const INITIAL_PAGE_BOARD_DATA = {
-  list: [],
-  metadata: {
-    totalElements: 0,
-  },
+type FeedState = {
+  key: string;
+  status: "loading" | "success" | "error";
+  data: ListProps | null;
 };
+
+const PAGE_SIZE = 10;
+const VISIBLE_PAGE_COUNT = 5;
+
+function parsePage(value: string | null): number {
+  if (!value || !/^\d+$/.test(value)) return 1;
+  const page = Number(value);
+  return Number.isSafeInteger(page) && page > 0 ? page : 1;
+}
+
+function buildFeedHref(keyword: string, page = 1): string {
+  const params = new URLSearchParams();
+  if (keyword) params.set("q", keyword);
+  if (page > 1) params.set("page", String(page));
+  const query = params.toString();
+  return `/community${query ? `?${query}` : ""}`;
+}
+
+function useCommunityFeed(keyword: string, page: number) {
+  const requestKey = JSON.stringify([keyword, page]);
+  const [reloadVersion, setReloadVersion] = useState(0);
+  const [state, setState] = useState<FeedState>({
+    key: requestKey,
+    status: "loading",
+    data: null,
+  });
+
+  useEffect(() => {
+    let isActive = true;
+    setState({ key: requestKey, status: "loading", data: null });
+
+    const loadArticles = async () => {
+      try {
+        const { status, data } = await community.standardList({
+          page: page - 1,
+          pageSize: PAGE_SIZE,
+          searchWord: keyword,
+        });
+        if (
+          status !== 200 ||
+          !Array.isArray(data?.list) ||
+          !Number.isSafeInteger(data?.metadata?.totalElements) ||
+          data.metadata.totalElements < 0
+        ) {
+          throw new Error("Invalid community list response");
+        }
+        if (isActive) {
+          setState({ key: requestKey, status: "success", data });
+        }
+      } catch {
+        if (isActive) {
+          setState({ key: requestKey, status: "error", data: null });
+        }
+      }
+    };
+
+    void loadArticles();
+    return () => {
+      isActive = false;
+    };
+  }, [keyword, page, reloadVersion, requestKey]);
+
+  const currentState: FeedState =
+    state.key === requestKey
+      ? state
+      : { key: requestKey, status: "loading", data: null };
+
+  return {
+    ...currentState,
+    reload: () => setReloadVersion((version) => version + 1),
+  };
+}
 
 export default function List() {
   const router = useRouter();
   const params = useSearchParams();
-  const paramsPage = params.get("page") as number | null;
+  const keyword = params.get("q")?.trim() ?? "";
+  const currentPage = parsePage(params.get("page"));
   const [isShowModal, setShowModal] = useState(false);
-  const [keyword, setKeyword] = useState("");
-  const [currentPage, setCurrentPage] = useState(
-    paramsPage ? paramsPage - 1 : 0,
-  );
   const { isLogin } = useUser();
-  const [loader, setLoader] = useState(true);
-  const [pageBoardData, setPageBoardData] = useState<ListProps>(
-    INITIAL_PAGE_BOARD_DATA,
+  const { status, data, reload } = useCommunityFeed(keyword, currentPage);
+  const totalElements = data?.metadata.totalElements ?? 0;
+  const totalPageCount = Math.ceil(totalElements / PAGE_SIZE);
+  const lastPage = Math.max(1, totalPageCount);
+  const firstVisiblePage = Math.max(
+    1,
+    Math.min(currentPage - 2, totalPageCount - VISIBLE_PAGE_COUNT + 1),
   );
-  const totalPageCount = Math.ceil(
-    pageBoardData?.metadata?.totalElements / BOARD_PAGE_MAX_COUNT,
+  const visiblePages = Array.from(
+    { length: Math.min(VISIBLE_PAGE_COUNT, totalPageCount) },
+    (_, index) => firstVisiblePage + index,
   );
 
   useEffect(() => {
-    (async () => {
-      await getPageBoardData({ page: currentPage, keyword });
-    })();
-  }, []);
-
-  useEffect(() => {
-    router.replace(`/community?page=${currentPage + 1}`);
-  }, [currentPage]);
-
-  const getPageBoardData = async ({
-    page,
-    keyword,
-  }: {
-    page: number;
-    keyword: string;
-  }) => {
-    setLoader(true);
-    const { status, data } = await community.standardList({
-      page,
-      pageSize: BOARD_PAGE_MAX_COUNT,
-      searchWord: keyword,
-    });
-    if (status === 200) {
-      setPageBoardData(data);
-    } else {
-      setPageBoardData(INITIAL_PAGE_BOARD_DATA);
+    if (status === "success" && currentPage > lastPage) {
+      router.replace(buildFeedHref(keyword, lastPage), { scroll: false });
     }
-    setLoader(false);
-  };
+  }, [currentPage, keyword, lastPage, router, status]);
 
-  const handleWriteBoard = () => {
-    getPageBoardData({ page: currentPage, keyword });
-  };
-
-  const handleCloseModal = () => {
-    setShowModal(false);
-  };
-
-  /**
-   * @description 현재 페이지의 번호를 변경하는 함수입니다.
-   * @param { number } page 변경할 페이지 번호
-   */
-  const handleChangePage = (page: number) => {
-    setCurrentPage(page);
-    getPageBoardData({ page, keyword });
-  };
-
-  /**
-   * @description 키워드로 게시글 목록을 조회할 때 디바운드 함수입니다.
-   */
-  const debounceGetBoardDataForKeyword = useRef(
-    debounce((keyword: string) => {
-      getPageBoardData({ page: 0, keyword });
-    }, 500),
-  ).current;
-
-  /**
-   * @description 키워드로 게시글을 조회하는 함수입니다.
-   * @param { string } keyword 검색할 키워드
-   */
-  const handleChangeKeyword = (keyword: string) => {
-    setKeyword(keyword);
-    setCurrentPage(0);
-    debounceGetBoardDataForKeyword(keyword);
-  };
-
-  const renderBoardList = () => {
-    if (loader) {
-      return <Loading message="" />;
-    }
-
-    if (!pageBoardData?.list?.length) {
-      return <NotDataSwimming description="아직 게시글이 존재하지 않아요" />;
-    }
-
-    return pageBoardData?.list?.map((item) => (
-      <ListItem
-        key={item.boardId}
-        id={item.boardId}
-        title={item.title}
-        content={item.content}
-        writer={item.nickname}
-        date={item.createdAt}
-        commentCount={item.comments.length}
-        likeCount={item.likes.length}
-      />
-    ));
+  const handleSearch = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    const nextKeyword = String(formData.get("q") ?? "").trim();
+    router.push(buildFeedHref(nextKeyword), { scroll: false });
   };
 
   return (
-    <Fragment>
+    <>
       {isShowModal && (
         <BoardPostModal
-          refreshData={handleWriteBoard}
-          closeModal={handleCloseModal}
+          refreshData={reload}
+          closeModal={() => setShowModal(false)}
         />
       )}
-      <div className={styles.list__container}>
-        {!isLogin && (
-          <div className={styles.top__action}>
-            <UserStatusBlock
-              showWhenLoggedIn={false}
-              compact
-              loginMessage="카카오 로그인 후 게시글 작성하기"
+      <div className={styles.feed}>
+        <div className={styles.toolbar}>
+          <form
+            key={keyword}
+            className={styles.search}
+            role="search"
+            aria-label="커뮤니티 게시글 검색"
+            onSubmit={handleSearch}
+          >
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <circle cx="10.5" cy="10.5" r="6.5" />
+              <path d="m16 16 4.5 4.5" />
+            </svg>
+            <input
+              id="community-query"
+              name="q"
+              type="search"
+              aria-label="게시글 검색어"
+              placeholder="개발과 커리어 이야기 검색"
+              defaultValue={keyword}
+              maxLength={120}
             />
+            <button type="submit">검색</button>
+          </form>
+          <div className={styles.writeAction}>
+            {isLogin ? (
+              <button
+                type="button"
+                className={styles.writeButton}
+                onClick={() => setShowModal(true)}
+              >
+                글쓰기
+              </button>
+            ) : (
+              <UserStatusBlock
+                className={styles.loginAction}
+                showWhenLoggedIn={false}
+                compact
+                loginMessage="로그인하고 글쓰기"
+              />
+            )}
           </div>
-        )}
-        <HotListItem />
-        <div className={styles.list__util}>
-          <div className={styles.search__wrapper}>
-            <Input
-              placeholder="검색어를 입력하세요"
-              value={keyword}
-              onChange={(e) => handleChangeKeyword(e.target.value)}
-            />
-          </div>
-          {isLogin && (
-            <div className={styles.action__wrapper}>
-              <Button onClick={() => setShowModal(true)}>게시글 작성하기</Button>
+        </div>
+
+        {!keyword && <HotListItem />}
+
+        <section className={styles.results} aria-labelledby="community-results-title">
+          <div className={styles.resultsHeader}>
+            <div className={styles.resultsTitle}>
+              <h2 id="community-results-title">{keyword ? "검색 결과" : "전체 글"}</h2>
+              {status === "success" && (
+                <span aria-label={`${totalElements.toLocaleString("ko-KR")}개의 글`}>
+                  {totalElements.toLocaleString("ko-KR")}
+                </span>
+              )}
             </div>
-          )}
-        </div>
-        <div className={styles.list__item__container}>{renderBoardList()}</div>
-        <div className={styles.list__more}>
-          {Array.from({ length: totalPageCount }, (_, index) => (
-            <Button
-              key={index}
-              data-active={currentPage === index}
-              onClick={() => handleChangePage(index)}
-            >
-              {index + 1}
-            </Button>
-          ))}
-        </div>
+            {keyword && (
+              <Link className={styles.clearSearch} href="/community" scroll={false}>
+                검색 초기화
+              </Link>
+            )}
+          </div>
+          {keyword && <p className={styles.querySummary}>‘{keyword}’ 검색 결과</p>}
+
+          <div className={styles.resultBody} aria-busy={status === "loading"}>
+            {status === "loading" && (
+              <div className={styles.loading} role="status">
+                글을 불러오는 중이에요.
+              </div>
+            )}
+            {status === "error" && (
+              <div className={styles.empty} role="alert">
+                <strong>글을 불러오지 못했어요</strong>
+                <p>잠시 후 다시 시도해 주세요.</p>
+                <button type="button" onClick={reload}>다시 불러오기</button>
+              </div>
+            )}
+            {status === "success" && !data?.list.length && (
+              <div className={styles.empty} role="status">
+                <strong>{keyword ? "검색 결과가 없어요" : "아직 글이 없어요"}</strong>
+                <p>
+                  {keyword
+                    ? "다른 검색어로 찾아보거나 전체 글을 살펴보세요."
+                    : "개발하며 겪은 일이나 커리어 고민을 남겨 보세요."}
+                </p>
+                {keyword && <Link href="/community" scroll={false}>전체 글 보기</Link>}
+              </div>
+            )}
+            {status === "success" && !!data?.list.length && (
+              <ul className={styles.articleList}>
+                {data.list.map((item) => (
+                  <li key={item.boardId}>
+                    <ListItem
+                      id={item.boardId}
+                      title={item.title}
+                      content={item.content}
+                      writer={item.nickname}
+                      date={item.createdAt}
+                      commentCount={item.comments?.length ?? 0}
+                      likeCount={item.likes?.length ?? 0}
+                    />
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        </section>
+
+        {status === "success" && totalPageCount > 1 && (
+          <nav className={styles.pagination} aria-label="게시글 페이지">
+            {currentPage > 1 ? (
+              <Link href={buildFeedHref(keyword, currentPage - 1)} scroll={false} aria-label="이전 페이지">
+                <span aria-hidden="true">‹</span>
+              </Link>
+            ) : (
+              <span className={styles.disabledPage} aria-hidden="true">‹</span>
+            )}
+            {visiblePages.map((page) => (
+              <Link
+                key={page}
+                href={buildFeedHref(keyword, page)}
+                scroll={false}
+                aria-label={`${page}페이지`}
+                aria-current={currentPage === page ? "page" : undefined}
+              >
+                {page}
+              </Link>
+            ))}
+            {currentPage < totalPageCount ? (
+              <Link href={buildFeedHref(keyword, currentPage + 1)} scroll={false} aria-label="다음 페이지">
+                <span aria-hidden="true">›</span>
+              </Link>
+            ) : (
+              <span className={styles.disabledPage} aria-hidden="true">›</span>
+            )}
+          </nav>
+        )}
       </div>
-    </Fragment>
+    </>
   );
 }

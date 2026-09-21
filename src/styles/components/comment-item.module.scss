@@ -1,25 +1,44 @@
 .comment__item__container {
   display: flex;
   flex-direction: column;
-  background-color: var(--grey50);
+  gap: 1.2rem;
   width: 100%;
-  height: fit-content;
-  border-radius: 1rem;
-  padding: 2rem;
-  row-gap: 1rem;
+  padding: 2.4rem 0;
   box-sizing: border-box;
 
-  .comment__content {
-    word-break: break-all;
-    line-height: 1.6;
-    font-size: 1.6rem;
-    font-weight: 400;
+  & + & {
+    border-top: 1px solid var(--grey100);
   }
+}
 
-  .comment__info__wrapper {
-    display: flex;
-    align-items: center;
-    column-gap: 0.5rem;
-    color: var(--greyOpacity500);
+.comment__content {
+  margin: 0;
+  color: var(--grey800);
+  font-size: max(16px, 1.7rem);
+  line-height: 1.8;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+
+.comment__info__wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--grey500);
+  font-size: max(13px, 1.3rem);
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+
+  > span:first-child {
+    display: inline-flex;
+    flex-shrink: 0;
+    margin-right: 0.2rem;
   }
+}
+
+.comment__writer {
+  color: var(--grey700);
+  font-weight: 600;
 }

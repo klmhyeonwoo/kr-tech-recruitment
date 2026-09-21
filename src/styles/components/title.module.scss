@@ -1,20 +1,25 @@
 .title__container {
-  width: 100%;
   display: flex;
   flex-direction: column;
-  row-gap: 2rem;
+  gap: 10px;
+  width: 100%;
+  padding: 8px 0;
 }
 
 .title {
-  font-size: 3rem;
+  margin: 0;
+  color: #191f28;
+  font-size: clamp(26px, 3.2vw, 34px);
   font-weight: 700;
-  letter-spacing: -0.03rem;
+  letter-spacing: -0.04em;
+  line-height: 1.35;
 }
 
 .description {
-  font-size: 1.7rem;
+  margin: 0;
+  color: #6b7684;
+  font-size: clamp(14px, 1.6vw, 16px);
   font-weight: 400;
-  letter-spacing: -0.03rem;
-  line-height: 1.5;
-  color: var(--inverseGrey600);
+  line-height: 1.65;
+  letter-spacing: -0.02em;
 }

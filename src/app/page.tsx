@@ -1,11 +1,8 @@
-import AnnounceCard from "@/components/card/AnnounceCard";
+import HomeRecruitments from "./_components/home-recruitments";
 import "@/styles/domain/main.scss";
 import PwaInstallBanner from "./_components/pwa-install-banner";
 import { api } from "@/api";
-import GreetingSwiper from "@/components/swiper/GreetingSwiper";
-import QuestionBanner, {
-  QuestionTypes,
-} from "./question/_components/question-banner";
+import type { QuestionTypes } from "./question/_components/question-banner";
 import { Fragment } from "react";
 import Header from "@/components/common/navigation/header";
 import hotIssue from "@/api/domain/hotIssue";
@@ -13,7 +10,7 @@ import community from "@/api/domain/community";
 import { ListProps } from "./community/_components/list";
 import Ads from "@/components/ads/ads";
 import UserAds from "@/components/ads/user-ads";
-import Anchor from "@/components/common/navigation/anchor";
+import Link from "next/link";
 import { RecruitData } from "@/components/card/Section";
 import MainCommunityListItem from "./_components/main-community-list-item";
 import SubscriptionInvitation from "@/components/popup/subscription/invitation";
@@ -21,6 +18,15 @@ import SubscriptionInvitation from "@/components/popup/subscription/invitation";
 export const revalidate = 3600; // Revalidate every hour
 
 type DataResponse<T> = { list: T[]; error?: unknown };
+
+const HOME_NAV_ITEMS = [
+  { label: "채용 공고", href: "/web" },
+  { label: "재택·원격 회사", href: "/remote-work-companies" },
+  { label: "개발자 대외활동", href: "/dev-activities" },
+  { label: "기술 면접 준비", href: "/interview-questions" },
+  { label: "개발 트렌드", href: "/tech-trends" },
+  { label: "커뮤니티", href: "/community" },
+];
 
 async function getRecruitData({
   params,
@@ -130,47 +136,93 @@ export default async function Home() {
     <Fragment>
       <Header wide />
       <main className="home-layout">
-        <div className="greeting__card__wrapper" id="service-menu">
-          <GreetingSwiper />
-        </div>
-        <div className="home-ad-rail">
+        <aside className="home-navigation" aria-label="서비스 탐색">
+          <nav aria-label="홈 탐색">
+            {HOME_NAV_ITEMS.map((item) => (
+              <Link key={item.href} href={item.href}>
+                {item.label}
+              </Link>
+            ))}
+          </nav>
+        </aside>
+        <HomeRecruitments
+          className="home-recruitments"
+          recent={recentRecruitList.slice(0, 5)}
+          popular={popularRecruitList.slice(0, 5)}
+        />
+        <aside className="home-ad-rail">
           <div className="home-ad-sticky">
-            <Ads placement="home-primary" />
+            <Ads placement="home-primary" className="home-ad" />
           </div>
-        </div>
-        <div className="home-content">
-          <PwaInstallBanner />
-          <QuestionBanner questionData={hotIssueList?.[0]} />
-          <section id="community">
-            <div className="d-flex flex-column row-gap-2">
-              {communityList.map((item: ListProps["list"][number]) => (
-                <MainCommunityListItem
-                  key={item.boardId}
-                  id={item.boardId}
-                  title={item.title}
-                  writer={item.nickname}
-                  date={item.createdAt}
-                  commentCount={item.comments.length}
-                  likeCount={item.likes.length}
-                />
-              ))}
+        </aside>
+        <div className="home-extra">
+          <section
+            className="home-section"
+            id="community"
+            aria-labelledby="home-community-title"
+          >
+            <div className="home-section-heading">
+              <h2 id="home-community-title">커뮤니티</h2>
+              <Link href="/community" className="home-text-link">
+                전체 보기 <span aria-hidden="true">›</span>
+              </Link>
             </div>
-            <Anchor href="/community" text="게시글 더 보러가기" />
+            <div>
+              {communityList.length ? (
+                communityList.map((item: ListProps["list"][number]) => (
+                  <MainCommunityListItem
+                    key={item.boardId}
+                    id={item.boardId}
+                    title={item.title}
+                    writer={item.nickname}
+                    date={item.createdAt}
+                  />
+                ))
+              ) : (
+                <p className="home-empty">
+                  아직 글이 없어요. 첫 글을 남겨 보세요.
+                </p>
+              )}
+            </div>
           </section>
+          {hotIssueList[0] && (
+            <Link href="/question" className="home-question">
+              <span>이번 주 질문</span>
+              <strong>{hotIssueList[0].title}</strong>
+              <span className="home-text-link">
+                의견 나누기 <span aria-hidden="true">›</span>
+              </span>
+            </Link>
+          )}
           <SubscriptionInvitation />
-          <div className="announce__card__wrapper" id="ranking-announce">
-            <AnnounceCard
-              title="새롭게 등록된 공고"
-              description="새롭게 등록된 오늘의 공고를 확인해보세요"
-              items={recentRecruitList}
-            />
-            <AnnounceCard
-              title="어제 인기있었던 공고"
-              description="어제 조회수가 높았던 공고를 확인해보세요"
-              items={popularRecruitList.slice(0, 10)}
-            />
-          </div>
+          <PwaInstallBanner />
           <UserAds />
+          <footer className="home-footer">
+            <nav aria-label="서비스 안내">
+              <Link href="/question">이번 주 질문</Link>
+              <a
+                href="https://6oo1v.channel.io/home"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                서비스 문의
+              </a>
+              <a
+                href="https://github.com/klmhyeonwoo/kr-tech-recruitment/releases"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                업데이트
+              </a>
+              <a
+                href="https://github.com/klmhyeonwoo/kr-tech-recruitment"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                GitHub
+              </a>
+            </nav>
+          </footer>
         </div>
       </main>
     </Fragment>

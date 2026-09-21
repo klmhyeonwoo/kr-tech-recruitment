@@ -1,0 +1,47 @@
+.section { min-width: 0; }
+
+.heading h1 {
+  margin: 0 0 24px;
+  color: var(--home-ink);
+  font-size: 32px;
+  font-weight: 650;
+  line-height: 1.25;
+  letter-spacing: -1px;
+}
+
+.switcher {
+  display: flex;
+  gap: 24px;
+  border-bottom: 1px solid var(--home-line);
+
+  button {
+    min-height: 44px;
+    padding: 0;
+    border: 0;
+    border-bottom: 2px solid transparent;
+    border-radius: 0;
+    background: transparent;
+    color: var(--home-muted);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: none;
+
+    &[aria-pressed="true"] {
+      color: var(--home-ink);
+      border-bottom-color: var(--home-ink);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--home-ink);
+      outline-offset: 3px;
+    }
+  }
+}
+
+@media (max-width: 640px) {
+  .heading h1 {
+    margin-bottom: 16px;
+    font-size: 28px;
+  }
+}

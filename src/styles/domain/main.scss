@@ -1,73 +1,197 @@
 .home-layout {
+  // Neutral palette sampled from recruit.kreamcorp.com.
+  --home-ink: #000;
+  --home-muted: #666;
+  --home-line: #d0d0d0;
+  --home-surface: #f2f2f2;
+  --home-hover: #fafafa;
+
+  background: #fff;
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  gap: 2.4rem;
+  gap: 40px;
   width: 100%;
-  max-width: 110rem;
+  max-width: 1100px;
   margin: 0 auto;
+  padding: 40px 24px 56px;
   box-sizing: border-box;
-  padding: 3.2rem 2rem 4.8rem;
+  color: var(--home-ink);
 }
 
-.home-content {
+.home-extra {
   display: flex;
   flex-direction: column;
-  gap: 2.4rem;
+  gap: 48px;
   min-width: 0;
 }
 
-.home-ad-rail {
+.home-navigation {
   min-width: 0;
+
+  nav {
+    display: flex;
+    gap: 24px;
+    overflow-x: auto;
+    padding: 3px;
+  }
+
+  a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    flex: 0 0 auto;
+    color: var(--home-muted);
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  a:hover { color: var(--home-ink); }
 }
 
-.announce__card__wrapper {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 2rem;
+.home-ad-rail,
+.home-section { min-width: 0; }
+
+.home-ad-rail .home-ad {
+  border: 0;
+  border-radius: 8px;
+  background: var(--home-surface);
+}
+
+.home-section-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 8px;
+
+  h2 {
+    margin: 0;
+    color: var(--home-ink);
+    font-size: 24px;
+    font-weight: 650;
+    line-height: 1.35;
+    letter-spacing: -0.7px;
+  }
+}
+
+.home-text-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  flex-shrink: 0;
+  color: var(--home-ink);
+  font-size: 14px;
+  font-weight: 400;
+
+  &:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+}
+
+.home-text-link:focus-visible,
+.home-navigation a:focus-visible,
+.home-question:focus-visible,
+.home-footer a:focus-visible {
+  outline: 2px solid var(--home-ink);
+  outline-offset: 3px;
+}
+
+.home-empty {
+  color: var(--home-muted);
+  font-size: 15px;
+  line-height: 1.7;
+  padding: 20px 0;
+}
+
+.home-question {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 10px;
+  padding: 24px 0;
+  border-block: 1px solid var(--home-line);
+
+  > span:first-child {
+    color: var(--home-muted);
+    font-size: 13px;
+  }
+
+  strong {
+    color: var(--home-ink);
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.5;
+  }
+}
+
+.home-footer {
+  padding-top: 16px;
+  border-top: 1px solid var(--home-line);
+  color: var(--home-muted);
+  font-size: 12px;
+  line-height: 1.6;
+
+  nav {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 24px;
+    row-gap: 4px;
+  }
+
+  a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+
+  a:hover { color: var(--home-ink); }
 }
 
 @media (min-width: 1200px) {
   .home-layout {
-    width: calc(100% - 16rem);
-    max-width: 124rem;
-    grid-template-columns: minmax(0, 1fr) 324px;
-    column-gap: 3.2rem;
+    max-width: 1240px;
+    grid-template-columns: 148px minmax(0, 1fr) 300px;
+    column-gap: 40px;
+    row-gap: 48px;
+    padding-top: 56px;
   }
 
-  .greeting__card__wrapper,
-  .home-content {
+  .home-navigation {
     grid-column: 1;
+    grid-row: 1 / span 2;
+
+    nav {
+      flex-direction: column;
+      gap: 4px;
+      overflow: visible;
+    }
   }
+
+  .home-recruitments,
+  .home-extra { grid-column: 2; }
 
   .home-ad-rail {
-    grid-column: 2;
+    grid-column: 3;
     grid-row: 1 / span 2;
-  }
-
-  .announce__card__wrapper {
-    grid-template-columns: 1fr;
   }
 }
 
 @media (min-width: 1200px) and (min-height: 650px) and (hover: hover) and (pointer: fine) {
   .home-ad-sticky {
     position: sticky;
-    top: calc(7rem + 2.4rem);
+    top: calc(7rem + 24px);
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 640px) {
   .home-layout {
-    padding: 2rem 1.3rem 3.2rem;
+    gap: 28px;
+    padding: 16px 20px 32px;
   }
 
-  .announce__card__wrapper {
-    grid-template-columns: 1fr;
-    gap: 1.6rem;
-  }
-}
+  .home-extra { gap: 36px; }
 
-.greeting__card__wrapper {
-  width: 100%;
-  min-width: 0;
+  .home-section-heading h2 { font-size: 22px; }
 }

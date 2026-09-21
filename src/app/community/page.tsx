@@ -1,15 +1,18 @@
-import React, { Fragment } from "react";
+import React, { Suspense } from "react";
 import Title from "./_components/title";
 import List from "./_components/list";
+import styles from "@/styles/components/list.module.scss";
 
 export default async function Page() {
   return (
-    <Fragment>
+    <main className={styles.page}>
       <Title
-        title="커뮤니티"
-        description="여러분들의 고민과 노하우들을 자유롭게 이야기해보세요"
+        title="아티클 · 커뮤니티"
+        description="개발하며 겪은 일과 커리어 고민을 나눠 보세요."
       />
-      <List />
-    </Fragment>
+      <Suspense fallback={<p className={styles.loading}>글을 불러오고 있어요.</p>}>
+        <List />
+      </Suspense>
+    </main>
   );
 }

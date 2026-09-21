@@ -1,73 +1,49 @@
-"use client";
-import React from "react";
-import styles from "@/styles/components/announce-card.module.scss";
-import { scaledIndex } from "@/utils/common";
-import { RecruitData } from "./Section";
-import NotDataSwimming from "../common/feedback/not-data";
-import Image from "next/image";
-import icon_arrow from "@public/icon/arrow_black.svg";
 import Link from "next/link";
+import type { RecruitData } from "./Section";
+import styles from "@/styles/components/announce-card.module.scss";
 
-type AnnounceCardType = {
-  title: string;
-  description: string;
+type AnnounceCardProps = {
   items: RecruitData[];
 };
 
 export default function AnnounceCard({
-  title,
-  description,
   items,
-}: AnnounceCardType) {
-  const handleCardClick = ({ id, path }: { id: number; path: string }) => {
-    if (id) {
-      window.open(`/recruitment-notices?id=${id}&path=${path}`, "_blank");
-    }
-  };
-
-  const generateCompanyName = (item: RecruitData) => {
-    if (item.corporates.length > 0) {
-      return item.corporates[0].corporateName;
-    }
-    return item.companyName;
-  };
+}: AnnounceCardProps) {
 
   return (
-    <div className={styles.card__wrapper}>
-      <h2> {title} </h2>
-      <span> {description} </span>
-      <div className={styles.card__data__list}>
-        {items.length ? (
-          items.map((item, index) => (
-            <div
-              key={index}
-              className={styles.card__data__item}
-              onClick={() =>
-                handleCardClick({
-                  id: item.recruitmentNoticeId,
+    <div className={styles.wrapper}>
+      {items.length ? (
+        <ul className={styles.list}>
+          {items.map((item) => (
+            <li key={item.recruitmentNoticeId}>
+              <Link
+                href={`/recruitment-notices?${new URLSearchParams({
+                  id: String(item.recruitmentNoticeId),
                   path: item.url,
-                })
-              }
-            >
-              <span> {scaledIndex(index + 1)} </span>
-              <span> {generateCompanyName(item)} </span>
-              <span> · </span>
-              <span> {item.jobOfferTitle} </span>
-            </div>
-          ))
-        ) : (
-          <NotDataSwimming description="데이터가 존재하지 않아요" />
-        )}
-        <Link href="/web" className={styles.card__more__data}>
-          <span> 더 많은 공고 보러가기 </span>
-          <Image
-            src={icon_arrow}
-            width={14}
-            height={14}
-            alt="더 많은 공고 보러가기"
-          />
-        </Link>
-      </div>
+                })}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.item}
+              >
+                <span className={styles.copy}>
+                  <span className={styles.company}>
+                    {item.corporates[0]?.corporateName ?? item.companyName}
+                  </span>
+                  <span className={styles.title}>{item.jobOfferTitle}</span>
+                </span>
+                <span className={styles.srOnly}>새 탭에서 공고 보기</span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p className={styles.empty}>
+          지금은 보여드릴 공고가 없어요. 전체 공고에서 찾아보세요.
+        </p>
+      )}
+      <Link href="/web" className={styles.more}>
+        전체 공고 보기 <span aria-hidden="true">›</span>
+      </Link>
     </div>
   );
 }

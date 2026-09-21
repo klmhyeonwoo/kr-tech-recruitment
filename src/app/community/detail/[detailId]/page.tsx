@@ -184,20 +184,32 @@ export default async function Page({ params }: { params: ParamsType }) {
       />
       <div className="board__container">
         <Link href="/community" className="board__back__link">
-          <Image src={arrow_icon} width={17} height={17} alt="뒤로가기 아이콘" />
-          <span> 리스트로 돌아가기</span>
+          <Image src={arrow_icon} width={17} height={17} alt="" aria-hidden="true" />
+          <span>커뮤니티 목록</span>
         </Link>
-        <div className="board__title__section">
-          <span> {data.title} </span>
-          <div className="board__info__section">
-            <span> {data.nickname} </span>
-            <span> {dateUtil.formattedDate(data.createdAt)} </span>
+        <article aria-labelledby="board-title">
+          <header className="board__title__section">
+            <h1 id="board-title">{data.title}</h1>
+            <div className="board__info__section">
+              <span className="board__author">{data.nickname}</span>
+              <span aria-hidden="true">·</span>
+              <time
+                dateTime={data.createdAt}
+                title={dateUtil.formattedDate(data.createdAt)}
+              >
+                {new Date(data.createdAt).toLocaleDateString("ko-KR", {
+                  timeZone: "Asia/Seoul",
+                  year: "numeric",
+                  month: "2-digit",
+                  day: "2-digit",
+                })}
+              </time>
+            </div>
+          </header>
+          <div className="board__content__section">
+            <div className="board__content">{data.content}</div>
           </div>
-        </div>
-        <div className="spacer__line" />
-        <div className="board__content__section">
-          <div className="board__content">{data.content}</div>
-        </div>
+        </article>
         <Comments
           comments={data.comments}
           commentsCount={data.comments.length}
