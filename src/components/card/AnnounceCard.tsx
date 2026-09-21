@@ -11,10 +11,12 @@ export default function AnnounceCard({
   items,
   showRank = false,
 }: AnnounceCardProps) {
+  const List = showRank ? "ol" : "ul";
+
   return (
     <div className={styles.wrapper}>
       {items.length ? (
-        <ol className={styles.list}>
+        <List className={styles.list}>
           {items.map((item, index) => (
             <li key={item.recruitmentNoticeId}>
               <Link
@@ -44,7 +46,7 @@ export default function AnnounceCard({
               </Link>
             </li>
           ))}
-        </ol>
+        </List>
       ) : (
         <p className={styles.empty}>
           지금은 보여드릴 공고가 없어요. 전체 공고에서 찾아보세요.

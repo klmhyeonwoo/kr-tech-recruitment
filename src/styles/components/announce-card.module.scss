@@ -15,7 +15,6 @@
   gap: 18px;
   padding: 18px 8px;
   border-bottom: 1px solid #f2f4f6;
-  border-radius: 8px;
   transition: background-color 0.2s;
 
   &:hover {
@@ -64,14 +63,11 @@
 }
 
 .more {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  justify-content: center;
   gap: 12px;
-  min-height: 48px;
-  margin-top: 16px;
-  border: 1px solid #e5e8eb;
-  border-radius: 12px;
+  min-height: 40px;
+  margin-top: 12px;
   color: #4e5968;
   font-size: 14px;
   font-weight: 600;

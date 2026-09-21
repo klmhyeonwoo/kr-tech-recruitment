@@ -27,17 +27,16 @@
 
 .switcher {
   display: flex;
-  gap: 4px;
+  align-self: stretch;
+  gap: 20px;
   flex-shrink: 0;
-  padding: 4px;
-  border-radius: 12px;
-  background: #f2f4f6;
+  border-bottom: 1px solid #e5e8eb;
 
   button {
-    min-height: 38px;
-    padding: 8px 12px;
+    min-height: 42px;
+    padding: 0;
     border: 0;
-    border-radius: 9px;
+    border-bottom: 2px solid transparent;
     background: transparent;
     color: #6b7684;
     font-size: 14px;
@@ -45,9 +44,8 @@
     cursor: pointer;
 
     &[aria-pressed="true"] {
-      background: #fff;
       color: #191f28;
-      box-shadow: 0 1px 4px #191f280d;
+      border-bottom-color: #191f28;
     }
 
     &:focus-visible {

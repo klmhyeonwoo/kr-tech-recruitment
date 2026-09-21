@@ -8,17 +8,25 @@ import styles from "./home-recruitments.module.scss";
 type Props = {
   recent: RecruitData[];
   popular: RecruitData[];
+  className?: string;
 };
 
-export default function HomeRecruitments({ recent, popular }: Props) {
+export default function HomeRecruitments({
+  recent,
+  popular,
+  className,
+}: Props) {
   const [view, setView] = useState<"recent" | "popular">("recent");
 
   return (
-    <section className={styles.section} aria-labelledby="home-recruitments-title">
+    <section
+      className={[styles.section, className].filter(Boolean).join(" ")}
+      aria-labelledby="home-recruitments-title"
+    >
       <div className={styles.heading}>
         <div>
-          <h2 id="home-recruitments-title">지금 살펴볼 공고</h2>
-          <p>새로 올라온 공고와 많이 본 공고를 모아 봤어요.</p>
+          <h2 id="home-recruitments-title">공고 목록</h2>
+          <p>최근 등록 순으로 먼저 보여드려요.</p>
         </div>
         <div
           className={styles.switcher}

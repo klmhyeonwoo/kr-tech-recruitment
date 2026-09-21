@@ -2,7 +2,6 @@ import HomeRecruitments from "./_components/home-recruitments";
 import "@/styles/domain/main.scss";
 import PwaInstallBanner from "./_components/pwa-install-banner";
 import { api } from "@/api";
-import GreetingSwiper from "@/components/swiper/GreetingSwiper";
 import type { QuestionTypes } from "./question/_components/question-banner";
 import { Fragment } from "react";
 import Header from "@/components/common/navigation/header";
@@ -19,6 +18,15 @@ import SubscriptionInvitation from "@/components/popup/subscription/invitation";
 export const revalidate = 3600; // Revalidate every hour
 
 type DataResponse<T> = { list: T[]; error?: unknown };
+
+const HOME_NAV_ITEMS = [
+  { label: "채용 공고", href: "/web" },
+  { label: "재택·원격 회사", href: "/remote-work-companies" },
+  { label: "개발자 대외활동", href: "/dev-activities" },
+  { label: "기술 면접 준비", href: "/interview-questions" },
+  { label: "개발 트렌드", href: "/tech-trends" },
+  { label: "커뮤니티", href: "/community" },
+];
 
 async function getRecruitData({
   params,
@@ -128,19 +136,32 @@ export default async function Home() {
     <Fragment>
       <Header wide />
       <main className="home-layout">
-        <div className="greeting__card__wrapper" id="service-menu">
-          <GreetingSwiper />
-        </div>
-        <div className="home-ad-rail">
+        <aside className="home-navigation" aria-label="서비스 탐색">
+          <p>둘러보기</p>
+          <nav aria-label="홈 탐색">
+            {HOME_NAV_ITEMS.map((item) => (
+              <Link key={item.href} href={item.href}>
+                {item.label}
+              </Link>
+            ))}
+          </nav>
+        </aside>
+        <section className="home-intro" aria-labelledby="home-title">
+          <p>개발자를 위한 채용 정보</p>
+          <h1 id="home-title">오늘의 채용</h1>
+          <span>새로 등록된 개발 채용 공고를 모았습니다.</span>
+        </section>
+        <HomeRecruitments
+          className="home-recruitments"
+          recent={recentRecruitList.slice(0, 5)}
+          popular={popularRecruitList.slice(0, 5)}
+        />
+        <aside className="home-ad-rail">
           <div className="home-ad-sticky">
             <Ads placement="home-primary" />
           </div>
-        </div>
-        <div className="home-content">
-          <HomeRecruitments
-            recent={recentRecruitList.slice(0, 5)}
-            popular={popularRecruitList.slice(0, 5)}
-          />
+        </aside>
+        <div className="home-extra">
           <section
             className="home-section"
             id="community"
