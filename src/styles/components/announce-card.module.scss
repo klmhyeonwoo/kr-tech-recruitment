@@ -12,26 +12,18 @@
 .item {
   display: flex;
   align-items: center;
-  gap: 18px;
-  padding: 18px 8px;
-  border-bottom: 1px solid #f2f4f6;
+  padding: 22px 0;
+  border-bottom: 1px solid #e8e8ed;
   transition: background-color 0.2s;
 
   &:hover {
-    background: #f8f9fb;
+    background: #f5f5f7;
   }
 
   &:focus-visible {
     outline: 2px solid #3182f6;
     outline-offset: 2px;
   }
-}
-
-.index {
-  flex: 0 0 24px;
-  font-size: 13px;
-  color: #8b95a1;
-  font-variant-numeric: tabular-nums;
 }
 
 .copy {
@@ -44,36 +36,31 @@
 
 .company {
   font-size: 13px;
-  color: #6b7684;
+  color: #6e6e73;
   line-height: 1.4;
 }
 
 .title {
-  color: #333d4b;
+  color: #1d1d1f;
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 500;
   line-height: 1.6;
   overflow-wrap: anywhere;
-}
-
-.arrow {
-  flex-shrink: 0;
-  color: #8b95a1;
-  font-size: 18px;
 }
 
 .more {
   display: inline-flex;
   align-items: center;
-  gap: 12px;
-  min-height: 40px;
+  gap: 6px;
+  min-height: 44px;
   margin-top: 12px;
-  color: #4e5968;
+  color: #0066cc;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 400;
 
   &:hover {
-    background: #f8f9fb;
+    text-decoration: underline;
+    text-underline-offset: 3px;
   }
 
   &:focus-visible {
@@ -101,8 +88,7 @@
 
 @media (max-width: 640px) {
   .item {
-    gap: 12px;
-    padding: 16px 4px;
+    padding: 20px 0;
   }
 
   .title {

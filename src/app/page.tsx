@@ -137,7 +137,6 @@ export default async function Home() {
       <Header wide />
       <main className="home-layout">
         <aside className="home-navigation" aria-label="서비스 탐색">
-          <p>둘러보기</p>
           <nav aria-label="홈 탐색">
             {HOME_NAV_ITEMS.map((item) => (
               <Link key={item.href} href={item.href}>
@@ -146,11 +145,6 @@ export default async function Home() {
             ))}
           </nav>
         </aside>
-        <section className="home-intro" aria-labelledby="home-title">
-          <p>개발자를 위한 채용 정보</p>
-          <h1 id="home-title">오늘의 채용</h1>
-          <span>새로 등록된 개발 채용 공고를 모았습니다.</span>
-        </section>
         <HomeRecruitments
           className="home-recruitments"
           recent={recentRecruitList.slice(0, 5)}
@@ -158,7 +152,7 @@ export default async function Home() {
         />
         <aside className="home-ad-rail">
           <div className="home-ad-sticky">
-            <Ads placement="home-primary" />
+            <Ads placement="home-primary" className="home-ad" />
           </div>
         </aside>
         <div className="home-extra">
@@ -168,12 +162,9 @@ export default async function Home() {
             aria-labelledby="home-community-title"
           >
             <div className="home-section-heading">
-              <div>
-                <h2 id="home-community-title">개발과 커리어 이야기</h2>
-                <p>개발하며 겪은 일과 커리어 고민을 나눠 보세요.</p>
-              </div>
+              <h2 id="home-community-title">커뮤니티</h2>
               <Link href="/community" className="home-text-link">
-                전체 글 보기 <span aria-hidden="true">↗</span>
+                전체 보기 <span aria-hidden="true">›</span>
               </Link>
             </div>
             <div>
@@ -185,8 +176,6 @@ export default async function Home() {
                     title={item.title}
                     writer={item.nickname}
                     date={item.createdAt}
-                    commentCount={item.comments.length}
-                    likeCount={item.likes.length}
                   />
                 ))
               ) : (
@@ -198,10 +187,10 @@ export default async function Home() {
           </section>
           {hotIssueList[0] && (
             <Link href="/question" className="home-question">
-              <span>이번 주에 함께 생각할 질문</span>
+              <span>이번 주 질문</span>
               <strong>{hotIssueList[0].title}</strong>
               <span className="home-text-link">
-                내 생각 남기기 <span aria-hidden="true">↗</span>
+                의견 나누기 <span aria-hidden="true">›</span>
               </span>
             </Link>
           )}
@@ -209,7 +198,6 @@ export default async function Home() {
           <PwaInstallBanner />
           <UserAds />
           <footer className="home-footer">
-            <p>채용 정보와 커리어 이야기를 모읍니다.</p>
             <nav aria-label="서비스 안내">
               <Link href="/question">이번 주 질문</Link>
               <a

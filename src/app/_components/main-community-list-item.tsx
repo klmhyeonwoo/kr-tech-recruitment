@@ -1,5 +1,4 @@
 import Link from "next/link";
-import BoardInfo from "@/app/community/_components/board-info";
 import styles from "./main-community-list-item.module.scss";
 
 interface MainCommunityListItemProps {
@@ -7,8 +6,6 @@ interface MainCommunityListItemProps {
   title: string;
   writer: string;
   date: string;
-  commentCount: number;
-  likeCount: number;
 }
 
 export default function MainCommunityListItem({
@@ -16,8 +13,6 @@ export default function MainCommunityListItem({
   title,
   writer,
   date,
-  commentCount,
-  likeCount,
 }: MainCommunityListItemProps) {
   return (
     <Link className={styles.item} href={`/community/detail/${id}`}>
@@ -34,7 +29,6 @@ export default function MainCommunityListItem({
           </time>
         </span>
       </div>
-      <BoardInfo commentCount={commentCount} likeCount={likeCount} />
     </Link>
   );
 }

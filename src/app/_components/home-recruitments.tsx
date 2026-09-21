@@ -24,35 +24,29 @@ export default function HomeRecruitments({
       aria-labelledby="home-recruitments-title"
     >
       <div className={styles.heading}>
-        <div>
-          <h2 id="home-recruitments-title">공고 목록</h2>
-          <p>최근 등록 순으로 먼저 보여드려요.</p>
-        </div>
-        <div
-          className={styles.switcher}
-          role="group"
-          aria-label="채용 공고 보기 방식"
-        >
-          <button
-            type="button"
-            aria-pressed={view === "recent"}
-            onClick={() => setView("recent")}
-          >
-            새 공고
-          </button>
-          <button
-            type="button"
-            aria-pressed={view === "popular"}
-            onClick={() => setView("popular")}
-          >
-            많이 본 공고
-          </button>
-        </div>
+        <h1 id="home-recruitments-title">채용</h1>
       </div>
-      <AnnounceCard
-        items={view === "recent" ? recent : popular}
-        showRank={view === "popular"}
-      />
+      <div
+        className={styles.switcher}
+        role="group"
+        aria-label="채용 공고 보기 방식"
+      >
+        <button
+          type="button"
+          aria-pressed={view === "recent"}
+          onClick={() => setView("recent")}
+        >
+          최신 공고
+        </button>
+        <button
+          type="button"
+          aria-pressed={view === "popular"}
+          onClick={() => setView("popular")}
+        >
+          많이 본 공고
+        </button>
+      </div>
+      <AnnounceCard items={view === "recent" ? recent : popular} />
     </section>
   );
 }

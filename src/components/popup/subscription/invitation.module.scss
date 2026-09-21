@@ -2,87 +2,57 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1.6rem;
-  width: 100%;
-  padding: 2rem 2.4rem;
-  box-sizing: border-box;
-  border: 0.1rem solid var(--grey200);
-  border-radius: 1.6rem;
-  background: var(--layeredBackground);
+  gap: 20px;
+  padding: 24px;
+  border-radius: 12px;
+  background: #f5f5f7;
 
   @media (max-width: 480px) {
-    align-items: stretch;
+    align-items: flex-start;
     flex-direction: column;
-    padding: 2rem;
-  }
-
-  @media (prefers-color-scheme: dark) {
-    border-color: var(--inverseGrey200);
-    background: var(--darkLayeredBackground);
+    gap: 8px;
   }
 }
 
-.copy {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  min-width: 0;
-}
+.copy { min-width: 0; }
 
 .title {
   margin: 0;
-  color: var(--grey900);
-  font-size: 1.6rem;
+  color: #1d1d1f;
+  font-size: 16px;
   font-weight: 600;
   line-height: 1.5;
   word-break: keep-all;
-
-  @media (prefers-color-scheme: dark) {
-    color: var(--inverseGrey900);
-  }
 }
 
 .description {
-  margin: 0;
-  color: var(--grey600);
-  font-size: 1.4rem;
+  margin: 6px 0 0;
+  color: #6e6e73;
+  font-size: 14px;
   line-height: 1.5;
   word-break: keep-all;
-
-  @media (prefers-color-scheme: dark) {
-    color: var(--inverseGrey600);
-  }
 }
 
 .subscribe {
   flex-shrink: 0;
-  min-height: 4.4rem;
-  padding: 1.1rem 1.8rem;
+  min-height: 44px;
+  padding: 0 4px;
   border: 0;
-  border-radius: 1rem;
-  background: var(--grey100);
-  color: var(--grey800);
-  font-size: 1.4rem;
-  font-weight: 600;
-  line-height: 1.5;
+  border-radius: 0;
+  background: transparent;
+  color: #0066cc;
+  font-size: 14px;
+  font-weight: 400;
   cursor: pointer;
   white-space: nowrap;
 
   &:hover {
-    background: var(--grey200);
+    text-decoration: underline;
+    text-underline-offset: 3px;
   }
 
   &:focus-visible {
-    outline: 0.2rem solid var(--blue500);
-    outline-offset: 0.3rem;
-  }
-
-  @media (prefers-color-scheme: dark) {
-    background: var(--inverseGrey100);
-    color: var(--inverseGrey800);
-
-    &:hover {
-      background: var(--inverseGrey200);
-    }
+    outline: 2px solid #0066cc;
+    outline-offset: 3px;
   }
 }

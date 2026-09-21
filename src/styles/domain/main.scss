@@ -1,205 +1,97 @@
 .home-layout {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  gap: 32px;
+  gap: 40px;
   width: 100%;
-  max-width: 110rem;
+  max-width: 1100px;
   margin: 0 auto;
+  padding: 40px 24px 56px;
   box-sizing: border-box;
-  padding: 4.8rem 2rem 5.6rem;
+  color: #1d1d1f;
 }
 
 .home-extra {
   display: flex;
   flex-direction: column;
-  gap: 52px;
-  min-width: 0;
-}
-
-.home-ad-rail {
+  gap: 48px;
   min-width: 0;
 }
 
 .home-navigation {
   min-width: 0;
 
-  > p {
-    margin: 0 0 10px;
-    color: #8b95a1;
-    font-size: 12px;
-    font-weight: 600;
-  }
-
   nav {
     display: flex;
-    gap: 8px;
+    gap: 24px;
     overflow-x: auto;
-    padding-bottom: 4px;
-    scrollbar-width: none;
-  }
-
-  nav::-webkit-scrollbar {
-    display: none;
+    padding: 3px;
   }
 
   a {
     display: inline-flex;
     align-items: center;
-    min-height: 36px;
+    min-height: 44px;
     flex: 0 0 auto;
-    padding: 0 12px;
-    border: 1px solid #e5e8eb;
-    border-radius: 99px;
-    color: #4e5968;
-    font-size: 13px;
-    font-weight: 600;
-  }
-
-  a:hover {
-    border-color: #b0b8c1;
-    color: #191f28;
-  }
-}
-
-.home-intro {
-  min-width: 0;
-
-  > p {
-    margin: 0;
-    color: #6b7684;
-    font-size: 13px;
-    font-weight: 500;
+    color: #6e6e73;
+    font-size: 14px;
     line-height: 1.5;
   }
 
-  h1 {
-    margin: 6px 0 0;
-    color: #191f28;
-    font-size: 34px;
-    font-weight: 700;
-    letter-spacing: -1.2px;
-    line-height: 1.25;
-  }
-
-  > span {
-    display: block;
-    margin-top: 8px;
-    color: #6b7684;
-    font-size: 15px;
-    line-height: 1.6;
-  }
+  a:hover { color: #1d1d1f; }
 }
 
-@media (min-width: 1200px) {
-  .home-layout {
-    width: calc(100% - 4rem);
-    max-width: 1240px;
-    grid-template-columns: 148px minmax(0, 1fr) 300px;
-    column-gap: 32px;
-    row-gap: 40px;
-  }
+.home-ad-rail,
+.home-section { min-width: 0; }
 
-  .home-navigation {
-    grid-column: 1;
-    grid-row: 1 / span 4;
-
-    nav {
-      display: block;
-      overflow: visible;
-      padding: 0;
-    }
-
-    a {
-      display: flex;
-      justify-content: space-between;
-      min-height: 42px;
-      padding: 0;
-      border: 0;
-      border-bottom: 1px solid #f2f4f6;
-      border-radius: 0;
-    }
-
-    a::after {
-      color: #b0b8c1;
-      content: "›";
-      font-size: 18px;
-      font-weight: 400;
-    }
-  }
-
-  .home-intro,
-  .home-recruitments,
-  .home-extra {
-    grid-column: 2;
-  }
-
-  .home-ad-rail {
-    grid-column: 3;
-    grid-row: 1 / span 4;
-  }
-}
-
-@media (min-width: 1200px) and (min-height: 650px) and (hover: hover) and (pointer: fine) {
-  .home-ad-sticky {
-    position: sticky;
-    top: calc(7rem + 2.4rem);
-  }
-}
-
-@media (max-width: 768px) {
-  .home-layout {
-    padding: 2rem 1.3rem 3.2rem;
-  }
-}
-
-.home-section {
-  min-width: 0;
+.home-ad-rail .home-ad {
+  border: 0;
+  border-radius: 8px;
+  background: #f5f5f7;
 }
 
 .home-section-heading {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
   gap: 16px;
-  padding-bottom: 12px;
+  padding-bottom: 8px;
 
   h2 {
     margin: 0;
-    color: #191f28;
-    font-size: 23px;
-    line-height: 1.4;
-    letter-spacing: -0.6px;
-  }
-
-  p {
-    margin: 6px 0 0;
-    color: #6b7684;
-    font-size: 14px;
-    line-height: 1.6;
+    color: #1d1d1f;
+    font-size: 24px;
+    font-weight: 650;
+    line-height: 1.35;
+    letter-spacing: -0.7px;
   }
 }
 
 .home-text-link {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  min-height: 40px;
+  gap: 6px;
+  min-height: 44px;
   flex-shrink: 0;
-  color: #4e5968;
+  color: #0066cc;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 400;
+
+  &:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
 }
 
 .home-text-link:focus-visible,
 .home-navigation a:focus-visible,
 .home-question:focus-visible,
 .home-footer a:focus-visible {
-  outline: 2px solid #3182f6;
+  outline: 2px solid #0066cc;
   outline-offset: 3px;
 }
 
 .home-empty {
-  color: #6b7684;
+  color: #6e6e73;
   font-size: 15px;
   line-height: 1.7;
   padding: 20px 0;
@@ -210,32 +102,28 @@
   align-items: flex-start;
   flex-direction: column;
   gap: 10px;
-  padding: 28px 0;
-  border-top: 1px solid #e5e8eb;
-  border-bottom: 1px solid #e5e8eb;
+  padding: 24px 0;
+  border-block: 1px solid #e8e8ed;
 
   > span:first-child {
-    color: #6b7684;
+    color: #6e6e73;
     font-size: 13px;
   }
 
   strong {
-    color: #333d4b;
-    font-size: 19px;
+    color: #1d1d1f;
+    font-size: 18px;
+    font-weight: 600;
     line-height: 1.5;
   }
 }
 
 .home-footer {
-  padding-top: 24px;
-  border-top: 1px solid #f2f4f6;
-  color: #6b7684;
-  font-size: 13px;
+  padding-top: 16px;
+  border-top: 1px solid #e8e8ed;
+  color: #6e6e73;
+  font-size: 12px;
   line-height: 1.6;
-
-  p {
-    margin: 0 0 12px;
-  }
 
   nav {
     display: flex;
@@ -250,27 +138,52 @@
     min-height: 44px;
   }
 
-  a:hover {
-    color: #191f28;
+  a:hover { color: #1d1d1f; }
+}
+
+@media (min-width: 1200px) {
+  .home-layout {
+    max-width: 1240px;
+    grid-template-columns: 148px minmax(0, 1fr) 300px;
+    column-gap: 40px;
+    row-gap: 48px;
+    padding-top: 56px;
+  }
+
+  .home-navigation {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+
+    nav {
+      flex-direction: column;
+      gap: 4px;
+      overflow: visible;
+    }
+  }
+
+  .home-recruitments,
+  .home-extra { grid-column: 2; }
+
+  .home-ad-rail {
+    grid-column: 3;
+    grid-row: 1 / span 2;
+  }
+}
+
+@media (min-width: 1200px) and (min-height: 650px) and (hover: hover) and (pointer: fine) {
+  .home-ad-sticky {
+    position: sticky;
+    top: calc(7rem + 24px);
   }
 }
 
 @media (max-width: 640px) {
   .home-layout {
-    gap: 32px;
+    gap: 28px;
+    padding: 16px 20px 32px;
   }
 
-  .home-extra {
-    gap: 44px;
-  }
+  .home-extra { gap: 36px; }
 
-  .home-section-heading {
-    flex-direction: column;
-    gap: 4px;
-  }
-
-  .home-intro h1 {
-    font-size: 30px;
-    letter-spacing: -1px;
-  }
+  .home-section-heading h2 { font-size: 22px; }
 }
