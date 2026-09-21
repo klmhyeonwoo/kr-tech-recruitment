@@ -148,8 +148,8 @@ export default async function Home() {
           >
             <div className="home-section-heading">
               <div>
-                <h2 id="home-community-title">함께 나누는 이야기</h2>
-                <p>개발 소식과 경험, 동료들의 생각을 만나보세요.</p>
+                <h2 id="home-community-title">개발과 커리어 이야기</h2>
+                <p>개발하며 겪은 일과 커리어 고민을 나눠 보세요.</p>
               </div>
               <Link href="/community" className="home-text-link">
                 전체 글 보기 <span aria-hidden="true">↗</span>
@@ -170,17 +170,17 @@ export default async function Home() {
                 ))
               ) : (
                 <p className="home-empty">
-                  아직 올라온 글이 없어요. 첫 이야기를 들려주세요.
+                  아직 글이 없어요. 첫 글을 남겨 보세요.
                 </p>
               )}
             </div>
           </section>
           {hotIssueList[0] && (
             <Link href="/question" className="home-question">
-              <span>함께 생각해 볼 질문</span>
+              <span>이번 주에 함께 생각할 질문</span>
               <strong>{hotIssueList[0].title}</strong>
               <span className="home-text-link">
-                생각 나누기 <span aria-hidden="true">↗</span>
+                내 생각 남기기 <span aria-hidden="true">↗</span>
               </span>
             </Link>
           )}
@@ -188,7 +188,7 @@ export default async function Home() {
           <PwaInstallBanner />
           <UserAds />
           <footer className="home-footer">
-            <p>개발자의 다음 기회를 함께 찾습니다.</p>
+            <p>채용 정보와 커리어 이야기를 모읍니다.</p>
             <nav aria-label="서비스 안내">
               <Link href="/question">이번 주 질문</Link>
               <a

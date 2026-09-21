@@ -17,8 +17,8 @@ export default function HomeRecruitments({ recent, popular }: Props) {
     <section className={styles.section} aria-labelledby="home-recruitments-title">
       <div className={styles.heading}>
         <div>
-          <h2 id="home-recruitments-title">지금 살펴볼 채용</h2>
-          <p>새로운 공고와 관심이 모인 기회를 확인하세요.</p>
+          <h2 id="home-recruitments-title">지금 살펴볼 공고</h2>
+          <p>새로 올라온 공고와 많이 본 공고를 모아 봤어요.</p>
         </div>
         <div
           className={styles.switcher}

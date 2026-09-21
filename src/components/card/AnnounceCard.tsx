@@ -37,7 +37,7 @@ export default function AnnounceCard({ items }: { items: RecruitData[] }) {
         </ol>
       ) : (
         <p className={styles.empty}>
-          아직 표시할 공고가 없어요. 전체 공고에서 다른 기회를 찾아보세요.
+          지금은 보여드릴 공고가 없어요. 전체 공고에서 찾아보세요.
         </p>
       )}
       <Link href="/web" className={styles.more}>

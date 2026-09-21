@@ -8,7 +8,7 @@ export default async function Page() {
     <main className={styles.page}>
       <Title
         title="아티클 · 커뮤니티"
-        description="개발과 커리어에 관한 경험을 읽고, 나의 이야기도 나눠보세요."
+        description="개발하며 겪은 일과 커리어 고민을 나눠 보세요."
       />
       <Suspense fallback={<p className={styles.loading}>글을 불러오고 있어요.</p>}>
         <List />

@@ -178,7 +178,7 @@ export default function List() {
               name="q"
               type="search"
               aria-label="게시글 검색어"
-              placeholder="개발·커리어 이야기 검색"
+              placeholder="개발과 커리어 이야기 검색"
               defaultValue={keyword}
               maxLength={120}
             />
@@ -222,28 +222,28 @@ export default function List() {
               </Link>
             )}
           </div>
-          {keyword && <p className={styles.querySummary}>‘{keyword}’에 관한 이야기</p>}
+          {keyword && <p className={styles.querySummary}>‘{keyword}’ 검색 결과</p>}
 
           <div className={styles.resultBody} aria-busy={status === "loading"}>
             {status === "loading" && (
               <div className={styles.loading} role="status">
-                글을 불러오고 있어요.
+                글을 불러오는 중이에요.
               </div>
             )}
             {status === "error" && (
               <div className={styles.empty} role="alert">
                 <strong>글을 불러오지 못했어요</strong>
-                <p>잠시 후 다시 시도해주세요.</p>
+                <p>잠시 후 다시 시도해 주세요.</p>
                 <button type="button" onClick={reload}>다시 불러오기</button>
               </div>
             )}
             {status === "success" && !data?.list.length && (
               <div className={styles.empty} role="status">
-                <strong>{keyword ? "검색 결과가 없어요" : "첫 이야기를 기다리고 있어요"}</strong>
+                <strong>{keyword ? "검색 결과가 없어요" : "아직 글이 없어요"}</strong>
                 <p>
                   {keyword
-                    ? "다른 검색어로 찾아보거나 전체 글을 확인해보세요."
-                    : "개발하며 배운 점이나 커리어 고민을 나눠보세요."}
+                    ? "다른 검색어로 찾아보거나 전체 글을 살펴보세요."
+                    : "개발하며 겪은 일이나 커리어 고민을 남겨 보세요."}
                 </p>
                 {keyword && <Link href="/community" scroll={false}>전체 글 보기</Link>}
               </div>

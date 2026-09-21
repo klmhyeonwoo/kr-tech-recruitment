@@ -108,7 +108,7 @@ export default function PwaInstallBanner() {
             </div>
             <div className={styles.banner__text}>
               <strong>앱으로 더 빠르게</strong>
-              <span>홈 화면에 추가하면 채용 공고를 더 편하게 확인할 수 있어요</span>
+              <span>홈 화면에 추가해 두면 채용 공고를 더 빨리 볼 수 있어요</span>
             </div>
           </div>
           <div className={styles.banner__actions}>
@@ -148,7 +148,7 @@ export default function PwaInstallBanner() {
             </div>
             <div className={styles.banner__text}>
               <strong>앱으로 더 빠르게</strong>
-              <span>홈 화면에 추가하면 채용 공고를 더 편하게 확인할 수 있어요</span>
+              <span>홈 화면에 추가해 두면 채용 공고를 더 빨리 볼 수 있어요</span>
             </div>
           </div>
           <div className={styles.banner__actions}>
