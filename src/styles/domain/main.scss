@@ -1,4 +1,12 @@
 .home-layout {
+  // Neutral palette sampled from recruit.kreamcorp.com.
+  --home-ink: #000;
+  --home-muted: #666;
+  --home-line: #d0d0d0;
+  --home-surface: #f2f2f2;
+  --home-hover: #fafafa;
+
+  background: #fff;
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   gap: 40px;
@@ -7,7 +15,7 @@
   margin: 0 auto;
   padding: 40px 24px 56px;
   box-sizing: border-box;
-  color: #1d1d1f;
+  color: var(--home-ink);
 }
 
 .home-extra {
@@ -32,12 +40,12 @@
     align-items: center;
     min-height: 44px;
     flex: 0 0 auto;
-    color: #6e6e73;
+    color: var(--home-muted);
     font-size: 14px;
     line-height: 1.5;
   }
 
-  a:hover { color: #1d1d1f; }
+  a:hover { color: var(--home-ink); }
 }
 
 .home-ad-rail,
@@ -46,7 +54,7 @@
 .home-ad-rail .home-ad {
   border: 0;
   border-radius: 8px;
-  background: #f5f5f7;
+  background: var(--home-surface);
 }
 
 .home-section-heading {
@@ -58,7 +66,7 @@
 
   h2 {
     margin: 0;
-    color: #1d1d1f;
+    color: var(--home-ink);
     font-size: 24px;
     font-weight: 650;
     line-height: 1.35;
@@ -72,7 +80,7 @@
   gap: 6px;
   min-height: 44px;
   flex-shrink: 0;
-  color: #0066cc;
+  color: var(--home-ink);
   font-size: 14px;
   font-weight: 400;
 
@@ -86,12 +94,12 @@
 .home-navigation a:focus-visible,
 .home-question:focus-visible,
 .home-footer a:focus-visible {
-  outline: 2px solid #0066cc;
+  outline: 2px solid var(--home-ink);
   outline-offset: 3px;
 }
 
 .home-empty {
-  color: #6e6e73;
+  color: var(--home-muted);
   font-size: 15px;
   line-height: 1.7;
   padding: 20px 0;
@@ -103,15 +111,15 @@
   flex-direction: column;
   gap: 10px;
   padding: 24px 0;
-  border-block: 1px solid #e8e8ed;
+  border-block: 1px solid var(--home-line);
 
   > span:first-child {
-    color: #6e6e73;
+    color: var(--home-muted);
     font-size: 13px;
   }
 
   strong {
-    color: #1d1d1f;
+    color: var(--home-ink);
     font-size: 18px;
     font-weight: 600;
     line-height: 1.5;
@@ -120,8 +128,8 @@
 
 .home-footer {
   padding-top: 16px;
-  border-top: 1px solid #e8e8ed;
-  color: #6e6e73;
+  border-top: 1px solid var(--home-line);
+  color: var(--home-muted);
   font-size: 12px;
   line-height: 1.6;
 
@@ -138,7 +146,7 @@
     min-height: 44px;
   }
 
-  a:hover { color: #1d1d1f; }
+  a:hover { color: var(--home-ink); }
 }
 
 @media (min-width: 1200px) {

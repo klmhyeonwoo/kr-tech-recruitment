@@ -5,16 +5,16 @@
   column-gap: 1.2rem;
   width: 100%;
   padding: 22px 0;
-  border-bottom: 1px solid #e8e8ed;
+  border-bottom: 1px solid var(--home-line);
   transition: background-color 0.2s ease;
   box-sizing: border-box;
 
   &:hover {
-    background: #f5f5f7;
+    background: var(--home-hover);
   }
 
   &:focus-visible {
-    outline: 2px solid #3182f6;
+    outline: 2px solid var(--home-ink);
     outline-offset: 2px;
   }
 }
@@ -29,7 +29,7 @@
 .title {
   font-size: 16px;
   font-weight: 500;
-  color: #1d1d1f;
+  color: var(--home-ink);
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
@@ -40,7 +40,7 @@
 }
 
 .meta {
-  color: #6e6e73;
+  color: var(--home-muted);
   font-weight: 400;
   font-size: 13px;
   line-height: 1.4;

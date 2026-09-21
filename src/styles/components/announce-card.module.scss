@@ -13,15 +13,15 @@
   display: flex;
   align-items: center;
   padding: 22px 0;
-  border-bottom: 1px solid #e8e8ed;
+  border-bottom: 1px solid var(--home-line);
   transition: background-color 0.2s;
 
   &:hover {
-    background: #f5f5f7;
+    background: var(--home-hover);
   }
 
   &:focus-visible {
-    outline: 2px solid #3182f6;
+    outline: 2px solid var(--home-ink);
     outline-offset: 2px;
   }
 }
@@ -36,12 +36,12 @@
 
 .company {
   font-size: 13px;
-  color: #6e6e73;
+  color: var(--home-muted);
   line-height: 1.4;
 }
 
 .title {
-  color: #1d1d1f;
+  color: var(--home-ink);
   font-size: 16px;
   font-weight: 500;
   line-height: 1.6;
@@ -54,7 +54,7 @@
   gap: 6px;
   min-height: 44px;
   margin-top: 12px;
-  color: #0066cc;
+  color: var(--home-ink);
   font-size: 14px;
   font-weight: 400;
 
@@ -64,14 +64,14 @@
   }
 
   &:focus-visible {
-    outline: 2px solid #3182f6;
+    outline: 2px solid var(--home-ink);
     outline-offset: 2px;
   }
 }
 
 .empty {
   padding: 24px 0;
-  color: #6b7684;
+  color: var(--home-muted);
   font-size: 15px;
   line-height: 1.7;
 }

@@ -5,7 +5,7 @@
   gap: 20px;
   padding: 24px;
   border-radius: 12px;
-  background: #f5f5f7;
+  background: var(--home-surface);
 
   @media (max-width: 480px) {
     align-items: flex-start;
@@ -18,7 +18,7 @@
 
 .title {
   margin: 0;
-  color: #1d1d1f;
+  color: var(--home-ink);
   font-size: 16px;
   font-weight: 600;
   line-height: 1.5;
@@ -27,7 +27,7 @@
 
 .description {
   margin: 6px 0 0;
-  color: #6e6e73;
+  color: var(--home-muted);
   font-size: 14px;
   line-height: 1.5;
   word-break: keep-all;
@@ -40,7 +40,7 @@
   border: 0;
   border-radius: 0;
   background: transparent;
-  color: #0066cc;
+  color: var(--home-ink);
   font-size: 14px;
   font-weight: 400;
   cursor: pointer;
@@ -52,7 +52,7 @@
   }
 
   &:focus-visible {
-    outline: 2px solid #0066cc;
+    outline: 2px solid var(--home-ink);
     outline-offset: 3px;
   }
 }

@@ -2,7 +2,7 @@
 
 .heading h1 {
   margin: 0 0 24px;
-  color: #1d1d1f;
+  color: var(--home-ink);
   font-size: 32px;
   font-weight: 650;
   line-height: 1.25;
@@ -12,7 +12,7 @@
 .switcher {
   display: flex;
   gap: 24px;
-  border-bottom: 1px solid #e8e8ed;
+  border-bottom: 1px solid var(--home-line);
 
   button {
     min-height: 44px;
@@ -21,19 +21,19 @@
     border-bottom: 2px solid transparent;
     border-radius: 0;
     background: transparent;
-    color: #6e6e73;
+    color: var(--home-muted);
     font-size: 14px;
     font-weight: 500;
     cursor: pointer;
     transition: none;
 
     &[aria-pressed="true"] {
-      color: #1d1d1f;
-      border-bottom-color: #1d1d1f;
+      color: var(--home-ink);
+      border-bottom-color: var(--home-ink);
     }
 
     &:focus-visible {
-      outline: 2px solid #0066cc;
+      outline: 2px solid var(--home-ink);
       outline-offset: 3px;
     }
   }
