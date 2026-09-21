@@ -2,7 +2,15 @@ import Link from "next/link";
 import type { RecruitData } from "./Section";
 import styles from "@/styles/components/announce-card.module.scss";
 
-export default function AnnounceCard({ items }: { items: RecruitData[] }) {
+type AnnounceCardProps = {
+  items: RecruitData[];
+  showRank?: boolean;
+};
+
+export default function AnnounceCard({
+  items,
+  showRank = false,
+}: AnnounceCardProps) {
   return (
     <div className={styles.wrapper}>
       {items.length ? (
@@ -18,9 +26,11 @@ export default function AnnounceCard({ items }: { items: RecruitData[] }) {
                 rel="noopener noreferrer"
                 className={styles.item}
               >
-                <span className={styles.index} aria-hidden="true">
-                  {String(index + 1).padStart(2, "0")}
-                </span>
+                {showRank && (
+                  <span className={styles.index} aria-hidden="true">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                )}
                 <span className={styles.copy}>
                   <span className={styles.company}>
                     {item.corporates[0]?.corporateName ?? item.companyName}

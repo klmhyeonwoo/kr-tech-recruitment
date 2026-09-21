@@ -6,13 +6,13 @@
   max-width: 110rem;
   margin: 0 auto;
   box-sizing: border-box;
-  padding: 3.2rem 2rem 4.8rem;
+  padding: 4.8rem 2rem 5.6rem;
 }
 
 .home-content {
   display: flex;
   flex-direction: column;
-  gap: 48px;
+  gap: 56px;
   min-width: 0;
 }
 
@@ -113,10 +113,10 @@
   display: flex;
   align-items: flex-start;
   flex-direction: column;
-  gap: 12px;
-  padding: 24px;
-  border-radius: 16px;
-  background: #f8f9fb;
+  gap: 10px;
+  padding: 28px 0;
+  border-top: 1px solid #e5e8eb;
+  border-bottom: 1px solid #e5e8eb;
 
   > span:first-child {
     color: #6b7684;
@@ -125,8 +125,8 @@
 
   strong {
     color: #333d4b;
-    font-size: 20px;
-    line-height: 1.6;
+    font-size: 19px;
+    line-height: 1.5;
   }
 }
 
@@ -165,7 +165,7 @@
   }
 
   .home-content {
-    gap: 40px;
+    gap: 44px;
   }
 
   .home-section-heading {

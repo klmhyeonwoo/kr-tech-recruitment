@@ -41,7 +41,10 @@ export default function HomeRecruitments({ recent, popular }: Props) {
           </button>
         </div>
       </div>
-      <AnnounceCard items={view === "recent" ? recent : popular} />
+      <AnnounceCard
+        items={view === "recent" ? recent : popular}
+        showRank={view === "popular"}
+      />
     </section>
   );
 }

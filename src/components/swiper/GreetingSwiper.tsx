@@ -4,22 +4,18 @@ import styles from "./greeting-swiper.module.scss";
 const CAREER_DESTINATIONS = [
   {
     title: "재택·원격 회사",
-    description: "내게 맞는 근무 방식",
     href: "/remote-work-companies",
   },
   {
     title: "개발자 대외활동",
-    description: "새로운 경험을 찾아보세요",
     href: "/dev-activities",
   },
   {
     title: "기술 면접 준비",
-    description: "면접 전 짚어 볼 질문",
     href: "/interview-questions",
   },
   {
     title: "개발 트렌드",
-    description: "요즘 주목받는 기술",
     href: "/tech-trends",
   },
 ];
@@ -65,15 +61,8 @@ export default function GreetingSwiper() {
           {CAREER_DESTINATIONS.map((destination) => (
             <li key={destination.href}>
               <Link href={destination.href} className={styles.destinationLink}>
-                <span className={styles.destinationHeading}>
-                  <span className={styles.destinationTitle}>
-                    {destination.title}
-                  </span>
-                  <ArrowIcon />
-                </span>
-                <span className={styles.destinationDescription}>
-                  {destination.description}
-                </span>
+                <span className={styles.destinationTitle}>{destination.title}</span>
+                <ArrowIcon />
               </Link>
             </li>
           ))}

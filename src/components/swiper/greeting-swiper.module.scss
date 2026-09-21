@@ -6,12 +6,12 @@
 
 .introduction {
   h1 {
-    margin: 10px 0 0;
+    margin: 8px 0 0;
     color: #191f28;
-    font-size: 32px;
+    font-size: 40px;
     font-weight: 700;
-    line-height: 1.3;
-    letter-spacing: -1px;
+    line-height: 1.25;
+    letter-spacing: -1.4px;
   }
 }
 
@@ -24,9 +24,10 @@
 }
 
 .description {
-  margin: 10px 0 0;
+  max-width: 480px;
+  margin: 12px 0 0;
   color: #6b7684;
-  font-size: 15px;
+  font-size: 16px;
   line-height: 1.6;
   word-break: keep-all;
 }
@@ -60,10 +61,11 @@
 
 .destinations {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
-  margin: 28px 0 0;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin: 40px 0 0;
   padding: 0;
+  border-top: 1px solid #e5e8eb;
+  border-bottom: 1px solid #e5e8eb;
   list-style: none;
 
   li {
@@ -73,52 +75,37 @@
 
 .destinationLink {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 6px;
-  height: 100%;
-  min-height: 90px;
-  padding: 16px;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 68px;
+  padding: 0 16px;
   box-sizing: border-box;
-  border: 1px solid #edf0f3;
-  border-radius: 16px;
-  background: #f8f9fb;
+  border-right: 1px solid #e5e8eb;
   text-decoration: none;
   transition:
-    border-color 0.2s ease,
-    background-color 0.2s ease;
+    background-color 0.2s ease,
+    color 0.2s ease;
 
   &:hover {
-    border-color: #d1d6db;
     background: #f2f4f6;
   }
 }
 
-.destinationHeading {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-
-  svg {
-    flex-shrink: 0;
-    color: #8b95a1;
-  }
+.destinations li:last-child .destinationLink {
+  border-right: 0;
 }
 
 .destinationTitle {
   color: #333d4b;
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 600;
   line-height: 1.4;
   word-break: keep-all;
 }
 
-.destinationDescription {
-  color: #6b7684;
-  font-size: 14px;
-  line-height: 1.5;
-  word-break: keep-all;
+.destinationLink svg {
+  flex-shrink: 0;
+  color: #8b95a1;
 }
 
 .primaryLink:focus-visible,
@@ -129,18 +116,30 @@
 
 @media (max-width: 640px) {
   .introduction h1 {
-    font-size: 28px;
-    letter-spacing: -0.8px;
+    font-size: 32px;
+    letter-spacing: -1px;
   }
 
   .destinations {
-    gap: 10px;
-    margin-top: 24px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin-top: 32px;
   }
 
   .destinationLink {
-    min-height: 84px;
-    padding: 14px 12px;
+    min-height: 60px;
+    padding: 0 12px;
+  }
+
+  .destinations li:nth-child(odd) .destinationLink {
+    border-right: 1px solid #e5e8eb;
+  }
+
+  .destinations li:nth-child(-n + 2) .destinationLink {
+    border-bottom: 1px solid #e5e8eb;
+  }
+
+  .destinations li:last-child .destinationLink {
+    border-right: 0;
   }
 }
 
