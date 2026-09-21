@@ -1,11 +1,9 @@
-import AnnounceCard from "@/components/card/AnnounceCard";
+import HomeRecruitments from "./_components/home-recruitments";
 import "@/styles/domain/main.scss";
 import PwaInstallBanner from "./_components/pwa-install-banner";
 import { api } from "@/api";
 import GreetingSwiper from "@/components/swiper/GreetingSwiper";
-import QuestionBanner, {
-  QuestionTypes,
-} from "./question/_components/question-banner";
+import type { QuestionTypes } from "./question/_components/question-banner";
 import { Fragment } from "react";
 import Header from "@/components/common/navigation/header";
 import hotIssue from "@/api/domain/hotIssue";
@@ -13,7 +11,7 @@ import community from "@/api/domain/community";
 import { ListProps } from "./community/_components/list";
 import Ads from "@/components/ads/ads";
 import UserAds from "@/components/ads/user-ads";
-import Anchor from "@/components/common/navigation/anchor";
+import Link from "next/link";
 import { RecruitData } from "@/components/card/Section";
 import MainCommunityListItem from "./_components/main-community-list-item";
 import SubscriptionInvitation from "@/components/popup/subscription/invitation";
@@ -139,38 +137,83 @@ export default async function Home() {
           </div>
         </div>
         <div className="home-content">
-          <PwaInstallBanner />
-          <QuestionBanner questionData={hotIssueList?.[0]} />
-          <section id="community">
-            <div className="d-flex flex-column row-gap-2">
-              {communityList.map((item: ListProps["list"][number]) => (
-                <MainCommunityListItem
-                  key={item.boardId}
-                  id={item.boardId}
-                  title={item.title}
-                  writer={item.nickname}
-                  date={item.createdAt}
-                  commentCount={item.comments.length}
-                  likeCount={item.likes.length}
-                />
-              ))}
+          <HomeRecruitments
+            recent={recentRecruitList.slice(0, 5)}
+            popular={popularRecruitList.slice(0, 5)}
+          />
+          <section
+            className="home-section"
+            id="community"
+            aria-labelledby="home-community-title"
+          >
+            <div className="home-section-heading">
+              <div>
+                <h2 id="home-community-title">함께 나누는 이야기</h2>
+                <p>개발 소식과 경험, 동료들의 생각을 만나보세요.</p>
+              </div>
+              <Link href="/community" className="home-text-link">
+                전체 글 보기 <span aria-hidden="true">↗</span>
+              </Link>
             </div>
-            <Anchor href="/community" text="게시글 더 보러가기" />
+            <div>
+              {communityList.length ? (
+                communityList.map((item: ListProps["list"][number]) => (
+                  <MainCommunityListItem
+                    key={item.boardId}
+                    id={item.boardId}
+                    title={item.title}
+                    writer={item.nickname}
+                    date={item.createdAt}
+                    commentCount={item.comments.length}
+                    likeCount={item.likes.length}
+                  />
+                ))
+              ) : (
+                <p className="home-empty">
+                  아직 올라온 글이 없어요. 첫 이야기를 들려주세요.
+                </p>
+              )}
+            </div>
           </section>
+          {hotIssueList[0] && (
+            <Link href="/question" className="home-question">
+              <span>함께 생각해 볼 질문</span>
+              <strong>{hotIssueList[0].title}</strong>
+              <span className="home-text-link">
+                생각 나누기 <span aria-hidden="true">↗</span>
+              </span>
+            </Link>
+          )}
           <SubscriptionInvitation />
-          <div className="announce__card__wrapper" id="ranking-announce">
-            <AnnounceCard
-              title="새롭게 등록된 공고"
-              description="새롭게 등록된 오늘의 공고를 확인해보세요"
-              items={recentRecruitList}
-            />
-            <AnnounceCard
-              title="어제 인기있었던 공고"
-              description="어제 조회수가 높았던 공고를 확인해보세요"
-              items={popularRecruitList.slice(0, 10)}
-            />
-          </div>
+          <PwaInstallBanner />
           <UserAds />
+          <footer className="home-footer">
+            <p>개발자의 다음 기회를 함께 찾습니다.</p>
+            <nav aria-label="서비스 안내">
+              <Link href="/question">이번 주 질문</Link>
+              <a
+                href="https://6oo1v.channel.io/home"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                서비스 문의
+              </a>
+              <a
+                href="https://github.com/klmhyeonwoo/kr-tech-recruitment/releases"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                업데이트
+              </a>
+              <a
+                href="https://github.com/klmhyeonwoo/kr-tech-recruitment"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                GitHub
+              </a>
+            </nav>
+          </footer>
         </div>
       </main>
     </Fragment>

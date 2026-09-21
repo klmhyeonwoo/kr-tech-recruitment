@@ -9,8 +9,8 @@ interface titleProps {
 export default function Title({ title, description }: titleProps) {
   return (
     <div className={styles.title__container}>
-      <span className={styles.title}>{title}</span>
-      <span className={styles.description}>{description}</span>
+      <h1 className={styles.title}>{title}</h1>
+      <p className={styles.description}>{description}</p>
     </div>
   );
 }

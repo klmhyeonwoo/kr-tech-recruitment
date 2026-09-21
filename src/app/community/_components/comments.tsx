@@ -11,7 +11,6 @@ import user from "@/api/domain/user";
 import { useParams } from "next/navigation";
 import NotDataSwimming from "@/components/common/feedback/not-data";
 import CommentItem from "./comment-item";
-import BoardInfo from "./board-info";
 import useUser from "@/hooks/common/useUser";
 import { debounce } from "es-toolkit";
 import UserStatusBlock from "./user-status-block";
@@ -126,8 +125,13 @@ export default function Comments({
   };
 
   return (
-    <div className="comment__container">
-      <BoardInfo commentCount={commentsCount} likeCount={likesCount} />
+    <section className="comment__container" aria-labelledby="comments-title">
+      <div className="comment__heading">
+        <h2 id="comments-title">
+          댓글 <span>{commentsCount}</span>
+        </h2>
+        <span className="comment__like__count">좋아요 {likesCount}</span>
+      </div>
       {isLogin ? (
         <div className="comment__input">
           <button
@@ -135,6 +139,7 @@ export default function Comments({
             onClick={handleToggleLike}
             className="comment__like"
             aria-label={isLiked ? "좋아요 취소" : "좋아요"}
+            aria-pressed={isLiked}
           >
             {isLiked ? (
               <Image
@@ -157,6 +162,7 @@ export default function Comments({
           <div className="comment__field">
             <Input
               isIcon={false}
+              aria-label="댓글 내용"
               placeholder="댓글을 입력하세요"
               value={userComment}
               onChange={(e) => setUserComment(e.target.value)}
@@ -206,6 +212,6 @@ export default function Comments({
           <NotDataSwimming description="아직 댓글이 존재하지 않아요" />
         )}
       </div>
-    </div>
+    </section>
   );
 }
