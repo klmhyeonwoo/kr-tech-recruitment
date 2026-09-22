@@ -17,7 +17,11 @@ import SubscriptionInvitation from "@/components/popup/subscription/invitation";
 
 export const revalidate = 3600; // Revalidate every hour
 
-type DataResponse<T> = { list: T[]; error?: unknown };
+type DataResponse<T> = {
+  list: T[];
+  metadata?: { totalElements: number };
+  error?: unknown;
+};
 
 async function getRecruitData({
   params,
@@ -103,7 +107,7 @@ export default async function Home() {
   yesterday.setDate(yesterday.getDate() - 1);
 
   const [
-    { list: recentRecruitList },
+    { list: recentRecruitList, metadata: recentMetadata, error: recentError },
     { list: popularRecruitList },
     { list: hotIssueList },
     { list: communityList },
@@ -111,7 +115,7 @@ export default async function Home() {
     getRecruitData({
       params: {
         page: 0,
-        pageSize: 10,
+        pageSize: 5,
       },
     }),
     getPopularRecruitData({
@@ -196,8 +200,10 @@ export default async function Home() {
           </footer>
       </>}>
         <HomeRecruitments
-          recent={recentRecruitList.slice(0, 5)}
-          popular={popularRecruitList.slice(0, 5)}
+          recent={recentRecruitList}
+          recentTotal={recentMetadata?.totalElements}
+          recentFailed={!!recentError}
+          popular={popularRecruitList}
         />
       </HomeWorkspace>
     </Fragment>

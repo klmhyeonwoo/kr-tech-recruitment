@@ -29,6 +29,7 @@
   min-width: 0;
   position: relative;
   align-self: start;
+  padding-inline: 8px;
 
   &::before, &::after {
     content: "";
@@ -42,8 +43,8 @@
     transition: opacity 0.15s;
   }
 
-  &::before { left: 0; background: linear-gradient(to right, #fff, transparent); }
-  &::after { right: 0; background: linear-gradient(to left, #fff, transparent); }
+  &::before { left: 8px; background: linear-gradient(to right, #fff, transparent); }
+  &::after { right: 8px; background: linear-gradient(to left, #fff, transparent); }
   &[data-fade-start="true"]::before, &[data-fade-end="true"]::after { opacity: 1; }
 
   button {
@@ -228,6 +229,7 @@
     grid-row: 1 / span 2;
     position: sticky;
     top: calc(7rem + 24px);
+    padding-inline: 0;
     &::before, &::after { display: none; }
   }
 
@@ -260,7 +262,7 @@
 @media (max-width: 640px) {
   .home-layout {
     gap: 28px;
-    padding: 16px 20px 32px;
+    padding: 16px 24px 32px;
   }
 
   .home-extra { gap: 36px; }

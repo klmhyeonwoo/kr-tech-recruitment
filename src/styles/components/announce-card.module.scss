@@ -12,7 +12,7 @@
 .item {
   display: flex;
   align-items: center;
-  padding: 22px 0;
+  padding: 22px 16px;
   border-bottom: 1px solid var(--home-line);
   transition: background-color 0.2s;
 
@@ -88,7 +88,7 @@
 
 @media (max-width: 640px) {
   .item {
-    padding: 20px 0;
+    padding: 20px 12px;
   }
 
   .title {
