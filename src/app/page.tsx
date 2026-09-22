@@ -8,7 +8,7 @@ import Header from "@/components/common/navigation/header";
 import hotIssue from "@/api/domain/hotIssue";
 import community from "@/api/domain/community";
 import { ListProps } from "./community/_components/list";
-import Ads from "@/components/ads/ads";
+import HomeWorkspace from "./_components/home-workspace";
 import UserAds from "@/components/ads/user-ads";
 import Link from "next/link";
 import { RecruitData } from "@/components/card/Section";
@@ -18,15 +18,6 @@ import SubscriptionInvitation from "@/components/popup/subscription/invitation";
 export const revalidate = 3600; // Revalidate every hour
 
 type DataResponse<T> = { list: T[]; error?: unknown };
-
-const HOME_NAV_ITEMS = [
-  { label: "채용 공고", href: "/web" },
-  { label: "재택·원격 회사", href: "/remote-work-companies" },
-  { label: "개발자 대외활동", href: "/dev-activities" },
-  { label: "기술 면접 준비", href: "/interview-questions" },
-  { label: "개발 트렌드", href: "/tech-trends" },
-  { label: "커뮤니티", href: "/community" },
-];
 
 async function getRecruitData({
   params,
@@ -135,29 +126,9 @@ export default async function Home() {
   return (
     <Fragment>
       <Header wide />
-      <main className="home-layout">
-        <aside className="home-navigation" aria-label="서비스 탐색">
-          <nav aria-label="홈 탐색">
-            {HOME_NAV_ITEMS.map((item) => (
-              <Link key={item.href} href={item.href}>
-                {item.label}
-              </Link>
-            ))}
-          </nav>
-        </aside>
-        <HomeRecruitments
-          className="home-recruitments"
-          recent={recentRecruitList.slice(0, 5)}
-          popular={popularRecruitList.slice(0, 5)}
-        />
-        <aside className="home-ad-rail">
-          <div className="home-ad-sticky">
-            <Ads placement="home-primary" className="home-ad" />
-          </div>
-        </aside>
-        <div className="home-extra">
+      <HomeWorkspace extra={<>
           <section
-            className="home-section"
+            className="home-section home-overview"
             id="community"
             aria-labelledby="home-community-title"
           >
@@ -186,7 +157,7 @@ export default async function Home() {
             </div>
           </section>
           {hotIssueList[0] && (
-            <Link href="/question" className="home-question">
+            <Link href="/question" className="home-question home-overview">
               <span>이번 주 질문</span>
               <strong>{hotIssueList[0].title}</strong>
               <span className="home-text-link">
@@ -223,8 +194,12 @@ export default async function Home() {
               </a>
             </nav>
           </footer>
-        </div>
-      </main>
+      </>}>
+        <HomeRecruitments
+          recent={recentRecruitList.slice(0, 5)}
+          popular={popularRecruitList.slice(0, 5)}
+        />
+      </HomeWorkspace>
     </Fragment>
   );
 }

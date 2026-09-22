@@ -27,25 +27,58 @@
 
 .home-navigation {
   min-width: 0;
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 3px;
+  align-self: start;
 
-  nav {
-    display: flex;
-    gap: 24px;
-    overflow-x: auto;
-    padding: 3px;
-  }
-
-  a {
+  button {
     display: inline-flex;
     align-items: center;
     min-height: 44px;
     flex: 0 0 auto;
+    justify-content: flex-start;
+    padding: 0 12px;
+    border-radius: 8px;
+    background: transparent;
     color: var(--home-muted);
     font-size: 14px;
     line-height: 1.5;
+    transition: background-color 0.15s, color 0.15s;
+
+    &[aria-selected="true"] {
+      background: var(--home-surface);
+      color: var(--home-ink);
+      font-weight: 600;
+    }
   }
 
-  a:hover { color: var(--home-ink); }
+  button:not([aria-selected="true"]):hover {
+    color: var(--home-ink);
+    background: var(--home-hover);
+  }
+}
+
+.home-panel {
+  min-width: 0;
+  min-height: 440px;
+  outline-offset: 6px;
+}
+
+.home-panel[hidden] { display: none; }
+
+.home-layout:not([data-view="jobs"]) .home-overview { display: none; }
+
+.home-panel-loading {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 440px;
+  color: var(--home-muted);
+  font-size: 15px;
+  line-height: 1.6;
 }
 
 .home-ad-rail,
@@ -91,7 +124,8 @@
 }
 
 .home-text-link:focus-visible,
-.home-navigation a:focus-visible,
+.home-navigation button:focus-visible,
+.home-panel:focus-visible,
 .home-question:focus-visible,
 .home-footer a:focus-visible {
   outline: 2px solid var(--home-ink);
@@ -161,21 +195,24 @@
   .home-navigation {
     grid-column: 1;
     grid-row: 1 / span 2;
-
-    nav {
-      flex-direction: column;
-      gap: 4px;
-      overflow: visible;
-    }
+    position: sticky;
+    top: calc(7rem + 24px);
+    flex-direction: column;
+    gap: 4px;
+    overflow: visible;
   }
 
-  .home-recruitments,
+  .home-panel,
   .home-extra { grid-column: 2; }
 
   .home-ad-rail {
     grid-column: 3;
     grid-row: 1 / span 2;
   }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-navigation button { transition: none; }
 }
 
 @media (min-width: 1200px) and (min-height: 650px) and (hover: hover) and (pointer: fine) {
