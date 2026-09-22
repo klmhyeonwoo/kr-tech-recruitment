@@ -18,6 +18,14 @@ type Props = {
 const PAGE_SIZE = 5;
 type RecruitPage = { list: RecruitData[]; metadata?: { totalElements: number } };
 
+function ChevronDownIcon() {
+  return (
+    <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false">
+      <path d="m5 7.5 5 5 5-5" />
+    </svg>
+  );
+}
+
 async function fetchRecentPage(page: number, signal: AbortSignal): Promise<RecruitPage> {
   const { data } = await api.get<RecruitPage>("/recruitment-notices/redirections", {
     params: { page, pageSize: PAGE_SIZE },
@@ -112,7 +120,7 @@ export default function HomeRecruitments({
           disabled={loadingMore || (view === "recent" && latest.isFetching)}
           onClick={loadMore}>
           {loadingMore ? "불러오는 중…" : error ? "다시 불러오기" : "공고 더보기"}
-          {!loadingMore && !error && <span aria-hidden="true">⌄</span>}
+          {!loadingMore && !error && <ChevronDownIcon />}
         </button>}
         {!pending && !error && !hasMore && items.length > 0 &&
           <p className={styles.feedback}>공고를 모두 확인했어요.</p>}
