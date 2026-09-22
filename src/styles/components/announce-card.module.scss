@@ -12,7 +12,7 @@
 .item {
   display: flex;
   align-items: center;
-  padding: 22px 16px;
+  padding: 22px var(--home-row-inset, 16px);
   border-bottom: 1px solid var(--home-line);
   transition: background-color 0.2s;
 
@@ -70,7 +70,7 @@
 }
 
 .empty {
-  padding: 24px 0;
+  padding: 24px var(--home-row-inset, 16px);
   color: var(--home-muted);
   font-size: 15px;
   line-height: 1.7;
@@ -88,7 +88,7 @@
 
 @media (max-width: 640px) {
   .item {
-    padding: 20px 12px;
+    padding: 20px var(--home-row-inset, 12px);
   }
 
   .title {

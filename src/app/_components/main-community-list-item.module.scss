@@ -4,7 +4,7 @@
   justify-content: space-between;
   column-gap: 1.2rem;
   width: 100%;
-  padding: 22px 0;
+  padding: 22px var(--home-row-inset, 16px);
   border-bottom: 1px solid var(--home-line);
   transition: background-color 0.2s ease;
   box-sizing: border-box;

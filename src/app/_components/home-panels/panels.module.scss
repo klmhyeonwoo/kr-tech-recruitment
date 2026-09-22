@@ -53,7 +53,7 @@
   margin: 0;
   padding: 0;
   list-style: none;
-  li { padding: 22px 0; border-bottom: 1px solid var(--home-line); }
+  li { padding: 22px var(--home-row-inset, 16px); border-bottom: 1px solid var(--home-line); }
   li:first-child { padding-top: 0; }
   p { margin: 8px 0 0; color: var(--home-muted); font-size: 14px; line-height: 1.6; overflow-wrap: anywhere; }
 }
@@ -69,7 +69,7 @@
 .links a, .source a { display: inline-flex; gap: 6px; align-items: center; min-height: 44px; font-size: 13px; text-decoration: underline; text-underline-offset: 3px; }
 .source { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; color: var(--home-muted); font-size: 12px; line-height: 1.6; }
 .empty {
-  padding: 36px 0;
+  padding: 36px var(--home-row-inset, 16px);
   color: var(--home-muted);
   font-size: 15px;
   line-height: 1.6;

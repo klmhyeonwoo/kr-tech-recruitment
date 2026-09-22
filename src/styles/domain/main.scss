@@ -5,6 +5,7 @@
   --home-line: #d0d0d0;
   --home-surface: #f2f2f2;
   --home-hover: #fafafa;
+  --home-row-inset: 16px;
 
   background: #fff;
   display: grid;
@@ -168,7 +169,7 @@
   color: var(--home-muted);
   font-size: 15px;
   line-height: 1.7;
-  padding: 20px 0;
+  padding: 20px var(--home-row-inset);
 }
 
 .home-question {
@@ -176,7 +177,7 @@
   align-items: flex-start;
   flex-direction: column;
   gap: 10px;
-  padding: 24px 0;
+  padding: 24px var(--home-row-inset);
   border-block: 1px solid var(--home-line);
 
   > span:first-child {
@@ -261,6 +262,7 @@
 
 @media (max-width: 640px) {
   .home-layout {
+    --home-row-inset: 12px;
     gap: 28px;
     padding: 16px 24px 32px;
   }
