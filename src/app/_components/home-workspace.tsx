@@ -1,8 +1,9 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { Component, useSyncExternalStore, type KeyboardEvent, type ReactNode } from "react";
+import { Component, useSyncExternalStore, type ReactNode } from "react";
 import Ads from "@/components/ads/ads";
+import HomeNavigation from "./home-navigation";
 
 const ITEMS = [
   { id: "jobs", label: "채용 공고" },
@@ -72,31 +73,8 @@ export default function HomeWorkspace({ children, extra }: { children: ReactNode
     window.dispatchEvent(new Event("home-view-change"));
   }
 
-  function moveFocus(event: KeyboardEvent<HTMLButtonElement>, index: number) {
-    const nextKeys = vertical ? ["ArrowDown"] : ["ArrowRight"];
-    const previousKeys = vertical ? ["ArrowUp"] : ["ArrowLeft"];
-    let next = index;
-    if (nextKeys.includes(event.key)) next = (index + 1) % ITEMS.length;
-    else if (previousKeys.includes(event.key)) next = (index + ITEMS.length - 1) % ITEMS.length;
-    else if (event.key === "Home") next = 0;
-    else if (event.key === "End") next = ITEMS.length - 1;
-    else return;
-    event.preventDefault();
-    const tab = document.getElementById(`home-tab-${ITEMS[next].id}`);
-    tab?.focus({ preventScroll: true });
-    tab?.scrollIntoView({ block: "nearest", inline: "nearest" });
-  }
-
   return <main className="home-layout" data-view={active}>
-    <div className="home-navigation" role="tablist" aria-label="홈 탐색"
-      aria-orientation={vertical ? "vertical" : "horizontal"}>
-      {ITEMS.map((item, index) => <button key={item.id} id={`home-tab-${item.id}`}
-        type="button" role="tab" aria-selected={active === item.id}
-        aria-controls={`home-panel-${item.id}`} tabIndex={active === item.id ? 0 : -1}
-        onKeyDown={(event) => moveFocus(event, index)} onClick={() => select(item.id)}>
-        {item.label}
-      </button>)}
-    </div>
+    <HomeNavigation items={ITEMS} active={active} vertical={vertical} onSelect={select} />
     {ITEMS.map((item) => <div key={item.id} id={`home-panel-${item.id}`}
       role="tabpanel" aria-labelledby={`home-tab-${item.id}`} tabIndex={0}
       hidden={active !== item.id} className="home-panel">

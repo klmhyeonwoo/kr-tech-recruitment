@@ -27,17 +27,34 @@
 
 .home-navigation {
   min-width: 0;
-  display: flex;
-  gap: 8px;
-  overflow-x: auto;
-  padding: 3px;
+  position: relative;
   align-self: start;
+
+  &::before, &::after {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    bottom: 0;
+    width: 20px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.15s;
+  }
+
+  &::before { left: 0; background: linear-gradient(to right, #fff, transparent); }
+  &::after { right: 0; background: linear-gradient(to left, #fff, transparent); }
+  &[data-fade-start="true"]::before, &[data-fade-end="true"]::after { opacity: 1; }
 
   button {
     display: inline-flex;
     align-items: center;
     min-height: 44px;
     flex: 0 0 auto;
+    min-width: 0;
+    white-space: nowrap;
+    user-select: none;
+    -webkit-user-select: none;
     justify-content: flex-start;
     padding: 0 12px;
     border-radius: 8px;
@@ -58,6 +75,20 @@
     color: var(--home-ink);
     background: var(--home-hover);
   }
+}
+
+.home-navigation-viewport {
+  overflow: hidden;
+  padding: 4px;
+  cursor: grab;
+  &:active { cursor: grabbing; }
+}
+
+.home-navigation-track {
+  display: flex;
+  gap: 8px;
+  touch-action: pan-y pinch-zoom;
+  button { cursor: inherit; }
 }
 
 .home-panel {
@@ -197,10 +228,12 @@
     grid-row: 1 / span 2;
     position: sticky;
     top: calc(7rem + 24px);
-    flex-direction: column;
-    gap: 4px;
-    overflow: visible;
+    &::before, &::after { display: none; }
   }
+
+  .home-navigation-viewport { overflow: visible; cursor: auto; }
+  .home-navigation-track { flex-direction: column; gap: 4px; touch-action: auto; }
+  .home-navigation-track button { cursor: pointer; }
 
   .home-panel,
   .home-extra { grid-column: 2; }
@@ -212,7 +245,9 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .home-navigation button { transition: none; }
+  .home-navigation button,
+  .home-navigation::before,
+  .home-navigation::after { transition: none; }
 }
 
 @media (min-width: 1200px) and (min-height: 650px) and (hover: hover) and (pointer: fine) {
