@@ -17,7 +17,7 @@ import QueryProvider from "@/lib/tanstack/react-query/query-provider";
 import ClarityProvider from "@/lib/clarity/clarity-provider";
 import LenisProvider from "@/lib/lenis/lenis-provider";
 import ScrollFloationButton from "@/components/common/floating/scroll-floating-button";
-import CareerTrackerFloating from "@/components/common/floating/career-tracker-floating";
+import ChannelTalk from "@/components/common/floating/channel-talk";
 import PwaRegister from "@/components/common/pwa-register";
 
 export const metadata: Metadata = {
@@ -142,7 +142,7 @@ export default async function RootLayout({
               <PwaRegister />
               <div id="portal" />
               <SubscriptionPopup />
-              <CareerTrackerFloating />
+              <ChannelTalk />
               <ScrollFloationButton />
               {children}
             </LenisProvider>

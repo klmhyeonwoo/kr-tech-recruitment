@@ -5,6 +5,7 @@
   --home-line: #d0d0d0;
   --home-surface: #f2f2f2;
   --home-hover: #fafafa;
+  --home-row-inset: 16px;
 
   background: #fff;
   display: grid;
@@ -27,25 +28,90 @@
 
 .home-navigation {
   min-width: 0;
+  position: relative;
+  align-self: start;
+  padding-inline: 8px;
 
-  nav {
-    display: flex;
-    gap: 24px;
-    overflow-x: auto;
-    padding: 3px;
+  &::before, &::after {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    bottom: 0;
+    width: 20px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.15s;
   }
 
-  a {
+  &::before { left: 8px; background: linear-gradient(to right, #fff, transparent); }
+  &::after { right: 8px; background: linear-gradient(to left, #fff, transparent); }
+  &[data-fade-start="true"]::before, &[data-fade-end="true"]::after { opacity: 1; }
+
+  button {
     display: inline-flex;
     align-items: center;
     min-height: 44px;
     flex: 0 0 auto;
+    min-width: 0;
+    white-space: nowrap;
+    user-select: none;
+    -webkit-user-select: none;
+    justify-content: flex-start;
+    padding: 0 12px;
+    border-radius: 8px;
+    background: transparent;
     color: var(--home-muted);
     font-size: 14px;
     line-height: 1.5;
+    transition: background-color 0.15s, color 0.15s;
+
+    &[aria-selected="true"] {
+      background: var(--home-surface);
+      color: var(--home-ink);
+      font-weight: 600;
+    }
   }
 
-  a:hover { color: var(--home-ink); }
+  button:not([aria-selected="true"]):hover {
+    color: var(--home-ink);
+    background: var(--home-hover);
+  }
+}
+
+.home-navigation-viewport {
+  overflow: hidden;
+  padding: 4px;
+  cursor: grab;
+  &:active { cursor: grabbing; }
+}
+
+.home-navigation-track {
+  display: flex;
+  gap: 8px;
+  touch-action: pan-y pinch-zoom;
+  button { cursor: inherit; }
+}
+
+.home-panel {
+  min-width: 0;
+  min-height: 440px;
+  outline-offset: 6px;
+}
+
+.home-panel[hidden] { display: none; }
+
+.home-layout:not([data-view="jobs"]) .home-overview { display: none; }
+
+.home-panel-loading {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 440px;
+  color: var(--home-muted);
+  font-size: 15px;
+  line-height: 1.6;
 }
 
 .home-ad-rail,
@@ -91,7 +157,8 @@
 }
 
 .home-text-link:focus-visible,
-.home-navigation a:focus-visible,
+.home-navigation button:focus-visible,
+.home-panel:focus-visible,
 .home-question:focus-visible,
 .home-footer a:focus-visible {
   outline: 2px solid var(--home-ink);
@@ -102,7 +169,7 @@
   color: var(--home-muted);
   font-size: 15px;
   line-height: 1.7;
-  padding: 20px 0;
+  padding: 20px var(--home-row-inset);
 }
 
 .home-question {
@@ -110,7 +177,7 @@
   align-items: flex-start;
   flex-direction: column;
   gap: 10px;
-  padding: 24px 0;
+  padding: 24px var(--home-row-inset);
   border-block: 1px solid var(--home-line);
 
   > span:first-child {
@@ -161,21 +228,29 @@
   .home-navigation {
     grid-column: 1;
     grid-row: 1 / span 2;
-
-    nav {
-      flex-direction: column;
-      gap: 4px;
-      overflow: visible;
-    }
+    position: sticky;
+    top: calc(7rem + 24px);
+    padding-inline: 0;
+    &::before, &::after { display: none; }
   }
 
-  .home-recruitments,
+  .home-navigation-viewport { overflow: visible; cursor: auto; }
+  .home-navigation-track { flex-direction: column; gap: 4px; touch-action: auto; }
+  .home-navigation-track button { cursor: pointer; }
+
+  .home-panel,
   .home-extra { grid-column: 2; }
 
   .home-ad-rail {
     grid-column: 3;
     grid-row: 1 / span 2;
   }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-navigation button,
+  .home-navigation::before,
+  .home-navigation::after { transition: none; }
 }
 
 @media (min-width: 1200px) and (min-height: 650px) and (hover: hover) and (pointer: fine) {
@@ -187,8 +262,9 @@
 
 @media (max-width: 640px) {
   .home-layout {
+    --home-row-inset: 12px;
     gap: 28px;
-    padding: 16px 20px 32px;
+    padding: 16px 24px 32px;
   }
 
   .home-extra { gap: 36px; }

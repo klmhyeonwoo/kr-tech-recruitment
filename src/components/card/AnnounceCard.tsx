@@ -4,10 +4,12 @@ import styles from "@/styles/components/announce-card.module.scss";
 
 type AnnounceCardProps = {
   items: RecruitData[];
+  showAllLink?: boolean;
 };
 
 export default function AnnounceCard({
   items,
+  showAllLink = true,
 }: AnnounceCardProps) {
 
   return (
@@ -38,12 +40,12 @@ export default function AnnounceCard({
         </ul>
       ) : (
         <p className={styles.empty}>
-          지금은 보여드릴 공고가 없어요. 전체 공고에서 찾아보세요.
+          지금은 보여드릴 공고가 없어요.
         </p>
       )}
-      <Link href="/web" className={styles.more}>
+      {showAllLink && <Link href="/web" className={styles.more}>
         전체 공고 보기 <span aria-hidden="true">›</span>
-      </Link>
+      </Link>}
     </div>
   );
 }

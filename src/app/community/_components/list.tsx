@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent, type MouseEvent } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import community from "@/api/domain/community";
@@ -56,12 +56,13 @@ function parsePage(value: string | null): number {
   return Number.isSafeInteger(page) && page > 0 ? page : 1;
 }
 
-function buildFeedHref(keyword: string, page = 1): string {
+function buildFeedHref(keyword: string, page = 1, embedded = false): string {
   const params = new URLSearchParams();
+  if (embedded) params.set("view", "community");
   if (keyword) params.set("q", keyword);
   if (page > 1) params.set("page", String(page));
   const query = params.toString();
-  return `/community${query ? `?${query}` : ""}`;
+  return `${embedded ? "/" : "/community"}${query ? `?${query}` : ""}`;
 }
 
 function useCommunityFeed(keyword: string, page: number) {
@@ -119,7 +120,7 @@ function useCommunityFeed(keyword: string, page: number) {
   };
 }
 
-export default function List() {
+export default function List({ embedded = false }: { embedded?: boolean }) {
   const router = useRouter();
   const params = useSearchParams();
   const keyword = params.get("q")?.trim() ?? "";
@@ -141,15 +142,25 @@ export default function List() {
 
   useEffect(() => {
     if (status === "success" && currentPage > lastPage) {
-      router.replace(buildFeedHref(keyword, lastPage), { scroll: false });
+      const href = buildFeedHref(keyword, lastPage, embedded);
+      if (embedded) window.history.replaceState(null, "", href);
+      else router.replace(href, { scroll: false });
     }
-  }, [currentPage, keyword, lastPage, router, status]);
+  }, [currentPage, keyword, lastPage, router, status, embedded]);
 
   const handleSearch = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     const nextKeyword = String(formData.get("q") ?? "").trim();
-    router.push(buildFeedHref(nextKeyword), { scroll: false });
+    const href = buildFeedHref(nextKeyword, 1, embedded);
+    if (embedded) window.history.pushState(null, "", href);
+    else router.push(href, { scroll: false });
+  };
+
+  const handleFeedNavigation = (event: MouseEvent<HTMLAnchorElement>) => {
+    if (!embedded || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    event.preventDefault();
+    window.history.pushState(null, "", event.currentTarget.href);
   };
 
   return (
@@ -217,7 +228,7 @@ export default function List() {
               )}
             </div>
             {keyword && (
-              <Link className={styles.clearSearch} href="/community" scroll={false}>
+              <Link className={styles.clearSearch} href={buildFeedHref("", 1, embedded)} scroll={false} onClick={handleFeedNavigation}>
                 검색 초기화
               </Link>
             )}
@@ -245,7 +256,7 @@ export default function List() {
                     ? "다른 검색어로 찾아보거나 전체 글을 살펴보세요."
                     : "개발하며 겪은 일이나 커리어 고민을 남겨 보세요."}
                 </p>
-                {keyword && <Link href="/community" scroll={false}>전체 글 보기</Link>}
+                {keyword && <Link href={buildFeedHref("", 1, embedded)} scroll={false} onClick={handleFeedNavigation}>전체 글 보기</Link>}
               </div>
             )}
             {status === "success" && !!data?.list.length && (
@@ -271,7 +282,7 @@ export default function List() {
         {status === "success" && totalPageCount > 1 && (
           <nav className={styles.pagination} aria-label="게시글 페이지">
             {currentPage > 1 ? (
-              <Link href={buildFeedHref(keyword, currentPage - 1)} scroll={false} aria-label="이전 페이지">
+              <Link href={buildFeedHref(keyword, currentPage - 1, embedded)} scroll={false} aria-label="이전 페이지" onClick={handleFeedNavigation}>
                 <span aria-hidden="true">‹</span>
               </Link>
             ) : (
@@ -280,8 +291,9 @@ export default function List() {
             {visiblePages.map((page) => (
               <Link
                 key={page}
-                href={buildFeedHref(keyword, page)}
+                href={buildFeedHref(keyword, page, embedded)}
                 scroll={false}
+                onClick={handleFeedNavigation}
                 aria-label={`${page}페이지`}
                 aria-current={currentPage === page ? "page" : undefined}
               >
@@ -289,7 +301,7 @@ export default function List() {
               </Link>
             ))}
             {currentPage < totalPageCount ? (
-              <Link href={buildFeedHref(keyword, currentPage + 1)} scroll={false} aria-label="다음 페이지">
+              <Link href={buildFeedHref(keyword, currentPage + 1, embedded)} scroll={false} aria-label="다음 페이지" onClick={handleFeedNavigation}>
                 <span aria-hidden="true">›</span>
               </Link>
             ) : (

@@ -213,7 +213,7 @@
   flex-direction: column;
   gap: 8px;
   min-width: 0;
-  padding: 24px 4px;
+  padding: 24px var(--home-row-inset, 16px);
   color: inherit;
   transition: background-color 0.15s;
   overflow-wrap: anywhere;
@@ -385,6 +385,6 @@
   }
 
   .item {
-    padding: 21px 0;
+    padding: 21px var(--home-row-inset, 12px);
   }
 }

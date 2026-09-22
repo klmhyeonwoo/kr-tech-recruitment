@@ -7,13 +7,7 @@ import icon_cube_light from "@public/icon/cube_light.svg";
 
 import Image from "next/image";
 import { formatDate, scaledPositionName } from "@/utils/common";
-import { useEffect, useRef, useState } from "react";
-import {
-  CAREER_TRACKER_UPDATED_EVENT,
-  isRecruitmentNoticeScrappedInCareerTracker,
-  removeRecruitmentNoticeFromCareerTracker,
-  saveCompanyToCareerTracker,
-} from "@/utils/careerTracker";
+import { useRef } from "react";
 
 type cardType = {
   id: number;
@@ -65,37 +59,6 @@ function CardContent({
   });
   const isMoreCorporeates = useRef(corporates.length > 1);
   const scrapTargetCompanyName = scaledDetailCorpotateName[0] ?? company;
-  const [isNoticeScrapped, setIsNoticeScrapped] = useState(false);
-
-  useEffect(() => {
-    const syncScrapState = () => {
-      setIsNoticeScrapped(isRecruitmentNoticeScrappedInCareerTracker(id));
-    };
-
-    syncScrapState();
-    window.addEventListener(CAREER_TRACKER_UPDATED_EVENT, syncScrapState);
-
-    return () => {
-      window.removeEventListener(CAREER_TRACKER_UPDATED_EVENT, syncScrapState);
-    };
-  }, [id]);
-
-  const handleScrapClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.stopPropagation();
-
-    if (isNoticeScrapped) {
-      removeRecruitmentNoticeFromCareerTracker(id);
-      return;
-    }
-
-    saveCompanyToCareerTracker({
-      companyName: scrapTargetCompanyName,
-      recruitmentNoticeId: id,
-      title,
-      path: link,
-    });
-  };
-
   const handleShareClick = async (
     event: React.MouseEvent<HTMLButtonElement>,
   ) => {
@@ -217,19 +180,6 @@ function CardContent({
           title="모집 공고 보기"
         >
           모집 공고 보기
-        </button>
-        <button
-          type="button"
-          className={styles.card__scrap__button}
-          onClick={handleScrapClick}
-          aria-label={
-            isNoticeScrapped
-              ? `${scrapTargetCompanyName} 스크랩 취소하기`
-              : `${scrapTargetCompanyName} 공고를 내 스크랩에 담기`
-          }
-          title={isNoticeScrapped ? "스크랩 취소하기" : "내 스크랩에 담기"}
-        >
-          {isNoticeScrapped ? "스크랩 취소하기" : "스크랩하기"}
         </button>
         <button
           type="button"

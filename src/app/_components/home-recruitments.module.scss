@@ -1,5 +1,36 @@
 .section { min-width: 0; }
 
+.moreArea { margin-top: 20px; }
+.moreButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 48px;
+  padding: 12px 20px;
+  border: 1px solid var(--home-line);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--home-ink);
+  font-size: 14px;
+  font-weight: 500;
+  &:hover:not(:disabled) { background: var(--home-hover); }
+  &:disabled { color: var(--home-muted); cursor: wait; }
+  &:focus-visible { outline: 2px solid var(--home-ink); outline-offset: 3px; }
+  svg {
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+}
+.feedback { padding: 12px; color: var(--home-muted); font-size: 14px; line-height: 1.6; }
+.srOnly { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
 .heading h1 {
   margin: 0 0 24px;
   color: var(--home-ink);
