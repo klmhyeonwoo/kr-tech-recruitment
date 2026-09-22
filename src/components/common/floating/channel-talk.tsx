@@ -2,11 +2,15 @@
 
 import { useEffect } from "react";
 
-type ChannelCommand = (command: "boot" | "shutdown", options?: Record<string, unknown>) => void;
+type ChannelCommand = {
+  (command: "boot" | "shutdown", options?: Record<string, unknown>): void;
+  q?: IArguments[];
+  c?: (args: IArguments) => void;
+};
 
 declare global {
   interface Window {
-    ChannelIO?: ChannelCommand & { q?: unknown[][]; c?: (args: unknown[]) => void };
+    ChannelIO?: ChannelCommand;
     ChannelIOInitialized?: boolean;
   }
 }
@@ -16,12 +20,12 @@ const pluginKey = process.env.NEXT_PUBLIC_CHANNEL_TALK_PLUGIN_KEY ?? "ba39e2cd-5
 function loadChannelScript() {
   if (window.ChannelIO) return;
 
-  const channel = ((...args: unknown[]) => channel.c?.(args)) as ChannelCommand & {
-    q: unknown[][];
-    c: (args: unknown[]) => void;
-  };
+  const channel = function () {
+    // eslint-disable-next-line prefer-rest-params -- The SDK queue preserves the original argument list.
+    channel.c?.(arguments);
+  } as ChannelCommand;
   channel.q = [];
-  channel.c = (args) => channel.q.push(args);
+  channel.c = (args) => channel.q?.push(args);
   window.ChannelIO = channel;
 
   if (window.ChannelIOInitialized) return;
@@ -42,7 +46,7 @@ export default function ChannelTalk() {
       pluginKey,
       language: "ko",
       channelButtonOption: {
-        position: "right",
+        position: "left",
         xMargin: compact ? 14 : 28,
         yMargin: compact ? 124 : 150,
       },
