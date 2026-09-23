@@ -6,10 +6,12 @@ import styles from "./scroll-floating-button.module.scss";
 
 export default function ScrollFloationButton() {
   const [isScrolling, setIsScrolling] = useState(false);
+  const [pastFirstScreen, setPastFirstScreen] = useState(false);
   const scrollIdleTimerRef = useRef<number | null>(null);
 
   useEffect(() => {
     const handleWindowScroll = () => {
+      setPastFirstScreen(window.scrollY > window.innerHeight * 0.75);
       setIsScrolling(true);
 
       if (scrollIdleTimerRef.current !== null) {
@@ -22,6 +24,7 @@ export default function ScrollFloationButton() {
     };
 
     window.addEventListener("scroll", handleWindowScroll, { passive: true });
+    handleWindowScroll();
 
     return () => {
       window.removeEventListener("scroll", handleWindowScroll);
@@ -52,6 +55,7 @@ export default function ScrollFloationButton() {
   return (
     <div
       className={`${styles["floating-wrapper"]} ${isScrolling ? styles["floating-wrapper-scrolling"] : ""}`}
+      data-visible={pastFirstScreen}
     >
       <button
         type="button"
@@ -70,7 +74,7 @@ export default function ScrollFloationButton() {
       </button>
       <button
         type="button"
-        className={styles["scroll-button"]}
+        className={`${styles["scroll-button"]} ${styles["scroll-bottom"]}`}
         onClick={handleScrollBottom}
         aria-label="페이지 하단으로 이동"
       >

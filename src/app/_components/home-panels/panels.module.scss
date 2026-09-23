@@ -76,6 +76,19 @@
   button { min-height: 44px; margin-top: 12px; background: var(--home-surface); color: var(--home-ink); font-size: 14px; }
 }
 @media (max-width: 640px) {
-  .panel > h1 { font-size: 28px; }
+  .panel > h1 { font-size: 24px; }
+  .filters {
+    flex-wrap: wrap;
+    gap: 4px 16px;
+    overflow: visible;
+  }
+  .links { gap: 8px; }
+  .links a {
+    padding: 0 12px;
+    border-radius: 6px;
+    background: var(--home-surface);
+    text-decoration: none;
+    font-size: 14px;
+  }
   .rowHeading { flex-wrap: wrap; gap: 4px 12px; }
 }

@@ -73,6 +73,9 @@
 @media (max-width: 640px) {
   .heading h1 {
     margin-bottom: 16px;
-    font-size: 28px;
+    font-size: 24px;
   }
+  .switcher { gap: 0; }
+  .switcher button { flex: 1; min-height: 48px; font-size: 15px; }
+  .moreButton { min-height: 52px; font-size: 15px; }
 }

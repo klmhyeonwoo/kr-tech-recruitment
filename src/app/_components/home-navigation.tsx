@@ -6,6 +6,13 @@ import { WheelGesturesPlugin } from "embla-carousel-wheel-gestures";
 
 const wheelPlugins = [WheelGesturesPlugin()];
 const motionQuery = "(prefers-reduced-motion: reduce)";
+const compactQuery = "(max-width: 640px)";
+
+function subscribeCompact(callback: () => void) {
+  const media = window.matchMedia(compactQuery);
+  media.addEventListener("change", callback);
+  return () => media.removeEventListener("change", callback);
+}
 
 function subscribeMotion(callback: () => void) {
   const media = window.matchMedia(motionQuery);
@@ -14,7 +21,7 @@ function subscribeMotion(callback: () => void) {
 }
 
 type Props<Id extends string> = {
-  items: readonly { id: Id; label: string }[];
+  items: readonly { id: Id; label: string; shortLabel?: string }[];
   active: Id;
   vertical: boolean;
   onSelect: (id: Id) => void;
@@ -23,13 +30,15 @@ type Props<Id extends string> = {
 export default function HomeNavigation<Id extends string>({
   items, active, vertical, onSelect,
 }: Props<Id>) {
+  const compact = useSyncExternalStore(subscribeCompact,
+    () => window.matchMedia(compactQuery).matches, () => false);
   const reducedMotion = useSyncExternalStore(
     subscribeMotion,
     () => window.matchMedia(motionQuery).matches,
     () => false,
   );
   const [viewportRef, embla] = useEmblaCarousel({
-    active: !vertical,
+    active: !vertical && !compact,
     align: "start",
     containScroll: "keepSnaps",
     dragFree: !reducedMotion,
@@ -40,7 +49,7 @@ export default function HomeNavigation<Id extends string>({
   const activeIndex = items.findIndex((item) => item.id === active);
 
   useEffect(() => {
-    if (!embla || vertical) return;
+    if (!embla || vertical || compact) return;
 
     function updateEdges() {
       if (!embla) return;
@@ -68,10 +77,10 @@ export default function HomeNavigation<Id extends string>({
       embla.off("scroll", updateEdges);
       embla.off("reInit", restoreSelection);
     };
-  }, [embla, vertical, activeIndex, reducedMotion]);
+  }, [embla, vertical, compact, activeIndex, reducedMotion]);
 
   function reveal(index: number) {
-    if (!embla || vertical) return;
+    if (!embla || vertical || compact) return;
     const viewport = embla.rootNode().getBoundingClientRect();
     const tab = embla.slideNodes()[index]?.getBoundingClientRect();
     if (tab && (tab.left < viewport.left + 3 || tab.right > viewport.right - 3)) {
@@ -81,7 +90,9 @@ export default function HomeNavigation<Id extends string>({
 
   function moveFocus(event: KeyboardEvent<HTMLButtonElement>, index: number) {
     let next = index;
-    if (event.key === (vertical ? "ArrowDown" : "ArrowRight")) next = (index + 1) % items.length;
+    if (compact && event.key === "ArrowDown") next = (index + 3) % items.length;
+    else if (compact && event.key === "ArrowUp") next = (index + items.length - 3) % items.length;
+    else if (event.key === (vertical ? "ArrowDown" : "ArrowRight")) next = (index + 1) % items.length;
     else if (event.key === (vertical ? "ArrowUp" : "ArrowLeft")) next = (index + items.length - 1) % items.length;
     else if (event.key === "Home") next = 0;
     else if (event.key === "End") next = items.length - 1;
@@ -107,7 +118,8 @@ export default function HomeNavigation<Id extends string>({
               }}
               onKeyDown={(event) => moveFocus(event, index)}
               onClick={() => onSelect(item.id)}>
-              {item.label}
+              <span className="home-navigation-label">{item.label}</span>
+              <span className="home-navigation-short-label">{item.shortLabel ?? item.label}</span>
             </button>
           ))}
         </div>

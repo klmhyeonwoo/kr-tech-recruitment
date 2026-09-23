@@ -7,10 +7,10 @@ import HomeNavigation from "./home-navigation";
 
 const ITEMS = [
   { id: "jobs", label: "채용 공고" },
-  { id: "remote", label: "재택·원격 회사" },
-  { id: "activities", label: "개발자 대외활동" },
-  { id: "interview", label: "기술 면접 준비" },
-  { id: "trends", label: "개발 트렌드" },
+  { id: "remote", label: "재택·원격 회사", shortLabel: "재택·원격" },
+  { id: "activities", label: "개발자 대외활동", shortLabel: "대외활동" },
+  { id: "interview", label: "기술 면접 준비", shortLabel: "면접 준비" },
+  { id: "trends", label: "개발 트렌드", shortLabel: "개발 트렌드" },
   { id: "community", label: "커뮤니티" },
 ] as const;
 type View = (typeof ITEMS)[number]["id"];
