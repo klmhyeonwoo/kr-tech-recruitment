@@ -52,21 +52,28 @@
 
 @media (max-width: 768px), (hover: none) and (pointer: coarse) {
   .floating-wrapper {
-    right: max(1.4rem, calc(env(safe-area-inset-right) + 0.4rem));
-    bottom: max(1.4rem, calc(env(safe-area-inset-bottom) + 0.4rem));
+    right: max(20px, env(safe-area-inset-right));
+    bottom: calc(20px + env(safe-area-inset-bottom));
     will-change: opacity, transform;
     transition:
       opacity 0.3s cubic-bezier(0.22, 1, 0.36, 1),
       transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    &[data-visible="false"] { visibility: hidden; }
   }
 
   .floating-wrapper-scrolling {
-    opacity: 0.08;
+    opacity: 0;
+    pointer-events: none;
     transform: translateY(0.3rem) scale(0.97);
   }
 
   .scroll-button {
-    width: 4.6rem;
-    height: 4.6rem;
+    width: 48px;
+    height: 48px;
   }
+  .scroll-bottom { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .floating-wrapper, .scroll-button { transition: none; }
 }

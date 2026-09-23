@@ -377,7 +377,13 @@
 
   .writeButton,
   .writeAction .loginAction {
-    min-height: 42px;
+    min-height: 44px;
+  }
+
+  .search button { min-height: 44px; }
+  .pagination {
+    gap: 4px;
+    a, .disabledPage { min-width: 40px; height: 44px; }
   }
 
   .featured {

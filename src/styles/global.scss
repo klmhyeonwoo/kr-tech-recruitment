@@ -239,3 +239,14 @@ template {
 [hidden] {
   display: none;
 }
+
+// The web SDK keeps a 430px desktop messenger even in narrow desktop windows.
+@media (max-width: 768px) {
+  #ch-plugin #ch-plugin-script.ch-desk-messenger {
+    left: 12px !important;
+    right: 12px !important;
+    width: calc(100% - 24px) !important;
+    min-width: 0 !important;
+    max-width: calc(100% - 24px) !important;
+  }
+}
