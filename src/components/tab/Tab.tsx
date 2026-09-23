@@ -5,11 +5,12 @@ type TabType = {
   value: string;
   index: number;
   active: number;
-} & React.HTMLAttributes<HTMLDivElement>;
+} & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
 function Tab({ label, value, index, active, ...props }: TabType) {
   return (
-    <div
+    <button
+      type="button"
       className={styles.tab}
       data-value={value}
       role="tab"
@@ -17,7 +18,7 @@ function Tab({ label, value, index, active, ...props }: TabType) {
       {...props}
     >
       <span>{label}</span>
-    </div>
+    </button>
   );
 }
 
