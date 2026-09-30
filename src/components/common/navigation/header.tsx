@@ -7,22 +7,32 @@ import { usePathname } from "next/navigation";
 interface Menu {
   title: string;
   target: string;
+  newTab?: boolean;
 }
 
-const menu = [
+const menu: Menu[] = [
   {
     title: "네카라쿠배",
     target: "/web",
   },
   {
-    title: "아티클",
+    title: "커뮤니티",
     target: "/community",
+  },
+  {
+    title: "테크 아티클",
+    target: "/tech-articles",
+    newTab: true,
   },
   {
     title: "대외활동",
     target: "/dev-activities",
   },
-] as const satisfies Menu[];
+  {
+    title: "구독하기",
+    target: "/subscribe",
+  },
+];
 
 function Header({ wide = false }: { wide?: boolean }) {
   const pathname = usePathname();
@@ -34,13 +44,15 @@ function Header({ wide = false }: { wide?: boolean }) {
           <Link href="/" prefetch={true} className={styles.header__logo}>
             seoul dev club
           </Link>
-          <nav className={styles.header__nav}>
+          <nav className={styles.header__nav} aria-label="주요 메뉴">
             {menu.map((item) => {
               return (
                 <Link
                   key={item.target}
                   href={item.target}
                   prefetch={true}
+                  target={item.newTab ? "_blank" : undefined}
+                  rel={item.newTab ? "noopener noreferrer" : undefined}
                   className={styles.navigate__announcement_button}
                 >
                   <span

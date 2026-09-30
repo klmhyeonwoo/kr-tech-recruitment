@@ -13,7 +13,6 @@ import UserAds from "@/components/ads/user-ads";
 import Link from "next/link";
 import { RecruitData } from "@/components/card/Section";
 import MainCommunityListItem from "./_components/main-community-list-item";
-import SubscriptionInvitation from "@/components/popup/subscription/invitation";
 
 export const revalidate = 3600; // Revalidate every hour
 
@@ -169,7 +168,6 @@ export default async function Home() {
               </span>
             </Link>
           )}
-          <SubscriptionInvitation />
           <PwaInstallBanner />
           <UserAds />
           <footer className="home-footer">
