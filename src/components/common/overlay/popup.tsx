@@ -1,4 +1,4 @@
-import React, { Children } from "react";
+import React from "react";
 import styles from "@/styles/components/popup.module.scss";
 import Button from "../button";
 
@@ -38,17 +38,7 @@ function Popup({
   return (
     <div className={styles.popup__container}>
       {options.isTitle && <div className={styles.popup__title}> {title} </div>}
-      <div className={styles.popup__content}>
-        {Children.toArray(children).length > 0 ? (
-          children
-        ) : (
-          <div className={styles.popup__content__text}>
-            <video preload="auto" playsInline autoPlay loop muted>
-              <source src="/video/basket.mp4" type="video/mp4" />
-            </video>
-          </div>
-        )}
-      </div>
+      <div className={styles.popup__content}>{children}</div>
       {visibleButton ? (
         <div className={styles.popup__button__container}>
           {options.isPositiveButton && (
@@ -57,12 +47,12 @@ function Popup({
               loader={loader}
               disabled={isDisabledButton}
             >
-              {positiveButtonText ?? "5초만에 구독하기"}
+              {positiveButtonText ?? "구독하기"}
             </Button>
           )}
           {options.isNegativeButton && (
             <Button onClick={negativeCallback}>
-              {negativeButtonText ?? "오늘 하루 보지 않기"}
+              {negativeButtonText ?? "닫기"}
             </Button>
           )}
         </div>
