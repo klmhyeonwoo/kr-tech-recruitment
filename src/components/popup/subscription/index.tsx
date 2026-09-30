@@ -11,6 +11,7 @@ import Complete from "./phase/Complete";
 import Cookies from "js-cookie";
 import CountUp from "react-countup";
 import { useGetStandardJobCategories } from "@/hooks/api/useGetStandardJobCategories";
+import useGetSubscribeTotal from "@/hooks/api/useGetSubscribeTotal";
 
 type SubscriptionContextType = {
   handleNext: () => void;
@@ -30,6 +31,7 @@ export const SubsecriptionContext = createContext<SubscriptionContextType>({
 
 function SubscriptionPopup() {
   const [isShowPopup, setIsShowPopup] = useAtom(PORTAL_STORE);
+  const { data: subscriberTotal } = useGetSubscribeTotal(isShowPopup);
   const { email, isValidEmail, handleEmailChange, handleCleanUpEmail } =
     useCheckEmail();
   const [standardCategories, setStandardCategories] = useState<{
@@ -151,7 +153,15 @@ function SubscriptionPopup() {
         <>
           서비스의 다양한 소식과 <br />
           여러 빅테크 기업의 채용 소식을 <br />
-          벌써 <CountUp end={200} />명 이상 구독하고 있어요
+          {typeof subscriberTotal?.count === "number" &&
+          Number.isFinite(subscriberTotal.count) ? (
+            <>
+              현재 <CountUp end={subscriberTotal.count} separator="," />명이
+              구독하고 있어요
+            </>
+          ) : (
+            <>메일로 받아보세요</>
+          )}
         </>
       ),
       positiveText: "5초만에 구독해볼래요",

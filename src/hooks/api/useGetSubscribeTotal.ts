@@ -5,7 +5,7 @@ interface SubscriberTotalResponse {
   count: number;
 }
 
-export default function useGetSubscribeTotal() {
+export default function useGetSubscribeTotal(enabled = true) {
   const fetch = async (): Promise<SubscriberTotalResponse> => {
     const response = await subscribe.subscribers();
     return response?.data;
@@ -14,5 +14,6 @@ export default function useGetSubscribeTotal() {
   return useQuery<SubscriberTotalResponse>({
     queryKey: ["subscriber-total"],
     queryFn: fetch,
+    enabled,
   });
 }
