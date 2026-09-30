@@ -1,52 +1,56 @@
-import type { ChangeEvent } from "react";
+import Chip from "@/components/common/chip";
 import Input from "@/components/search/Input";
 import styles from "@/styles/components/popup.module.scss";
+import { useContext } from "react";
+import { SubsecriptionContext } from "..";
 
-type Category = { code: string; name: string };
-
-export default function Progress({
+function Progress({
   email,
   handleEmailChange,
-  onToggleCategory,
-  standardCategory,
-  selectedCategories,
+  handleAddStandardCategories,
+  standardCategory = [],
 }: {
   email: string;
-  standardCategory: Category[];
-  selectedCategories: string[];
-  handleEmailChange: (event: ChangeEvent<HTMLInputElement>) => void;
-  onToggleCategory: (code: string) => void;
+  standardCategory: {
+    code: string;
+    name: string;
+  }[];
+  handleEmailChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleAddStandardCategories: ({
+    item,
+  }: {
+    item: { code: string; name: string };
+  }) => void;
 }) {
+  const { selectedSubscriptionCategories } = useContext(SubsecriptionContext);
+
   return (
     <div className={styles.progress__container}>
       <div className={styles.progress__wrapper}>
-        <label className={styles.progress__label} htmlFor="subscription-email">이메일</label>
+        <span className={styles.progress__label}> 사용자 이메일 </span>
         <Input
-          id="subscription-email"
-          type="email"
-          autoComplete="email"
-          placeholder="name@example.com"
+          placeholder="이메일을 입력해주세요"
           value={email}
           onChange={handleEmailChange}
           isIcon={false}
         />
       </div>
       <div className={styles.progress__wrapper}>
-        <span className={styles.progress__label}>관심 직무</span>
-        <div className={styles.progress__chip__container} role="group" aria-label="관심 직무">
-          {standardCategory.map((item) => (
-            <button
+        <span className={styles.progress__label}>구독 직무 카테고리</span>
+        <div className={styles.progress__chip__container}>
+          {standardCategory?.map((item: { code: string; name: string }) => (
+            <Chip
               key={item.code}
-              type="button"
-              className={styles.categoryChip}
-              aria-pressed={selectedCategories.includes(item.code)}
-              onClick={() => onToggleCategory(item.code)}
-            >
-              {item.name}
-            </button>
+              value={item.code}
+              label={item.name}
+              isChecked={selectedSubscriptionCategories?.includes(item.code)}
+              onClick={() => handleAddStandardCategories({ item })}
+            />
           ))}
         </div>
       </div>
     </div>
   );
 }
+
+export default Progress;

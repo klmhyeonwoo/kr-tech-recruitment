@@ -1,87 +1,241 @@
 "use client";
-
-import { useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
+import { Portal } from "../../common/overlay/portal";
+import Popup from "../../common/overlay/popup";
 import { useAtom } from "jotai";
 import { PORTAL_STORE } from "@/store";
-import { Portal } from "@/components/common/overlay/portal";
-import Popup from "@/components/common/overlay/popup";
+import Progress from "./phase/Progress";
 import subscribe from "@/api/domain/subscribe";
 import useCheckEmail from "@/hooks/common/useCheckEmail";
-import { useGetStandardJobCategories } from "@/hooks/api/useGetStandardJobCategories";
-import Progress from "./phase/Progress";
 import Complete from "./phase/Complete";
+import Cookies from "js-cookie";
+import CountUp from "react-countup";
+import { useGetStandardJobCategories } from "@/hooks/api/useGetStandardJobCategories";
 
-export default function SubscriptionPopup() {
-  const [isOpen, setIsOpen] = useAtom(PORTAL_STORE);
-  const { email, isValidEmail, handleEmailChange, handleCleanUpEmail } = useCheckEmail();
-  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isComplete, setIsComplete] = useState(false);
-  const [error, setError] = useState("");
-  const { data: categories, isLoading, isError } = useGetStandardJobCategories({ enabled: isOpen });
+type SubscriptionContextType = {
+  handleNext: () => void;
+  handleClose: () => void;
+  phase: number;
+  subscriptionCategories?: { list?: { code: string; name: string }[] };
+  selectedSubscriptionCategories?: string[];
+};
 
-  function close() {
-    setIsOpen(false);
-    setIsComplete(false);
-    setSelectedCategories([]);
-    setError("");
-    handleCleanUpEmail();
-  }
+export const SubsecriptionContext = createContext<SubscriptionContextType>({
+  handleNext: () => {},
+  handleClose: () => {},
+  phase: 0,
+  subscriptionCategories: {},
+  selectedSubscriptionCategories: [],
+});
 
-  function toggleCategory(code: string) {
-    setSelectedCategories((current) => current.includes(code)
-      ? current.filter((selected) => selected !== code)
-      : [...current, code]);
-  }
+function SubscriptionPopup() {
+  const [isShowPopup, setIsShowPopup] = useAtom(PORTAL_STORE);
+  const { email, isValidEmail, handleEmailChange, handleCleanUpEmail } =
+    useCheckEmail();
+  const [standardCategories, setStandardCategories] = useState<{
+    list?: {
+      code: string;
+      name: string;
+    }[];
+  }>({});
+  const [selectedSubscriptionCategories, setSelectedSubscriptionCategories] =
+    useState<string[]>([]);
 
-  async function submit() {
-    if (!isValidEmail || selectedCategories.length === 0 || isSubmitting) return;
-    setIsSubmitting(true);
-    setError("");
-    try {
-      const response = await subscribe.subscribe({
-        email,
-        standardCategories: selectedCategories,
-      });
-      if (response.status === 204) setIsComplete(true);
-      else setError("구독을 완료하지 못했어요. 다시 시도해 주세요.");
-    } catch {
-      setError("구독을 완료하지 못했어요. 다시 시도해 주세요.");
-    } finally {
-      setIsSubmitting(false);
+  // TODO: 추후 tanstack query의 isLoading을 사용하여 로딩 상태 관리 필요
+  const [loader, setLoader] = useState(false);
+  const [phase, setPhase] = useState(0);
+  const [shouldFetchCategoriesFlag, setShouldFetchCategoriesFlag] =
+    useState(false);
+
+  const {
+    data: standardJobCategories,
+    isSuccess: isSuccessStandardJobCategories,
+    isLoading: isLoadingStandardJobCategories,
+  } = useGetStandardJobCategories({
+    enabled: shouldFetchCategoriesFlag,
+  });
+
+  const handleNext = async () => {
+    // 현재 페이즈가 마지막 페이즈라면 아무 작업도 하지 않음
+    if (phase === phaseTextSet.length) return;
+
+    // 페이즈 시작 단계
+    if (phase === 0) {
+      setShouldFetchCategoriesFlag(true); // tanstack-query enabled flag
+      // * 캐싱 처리를 위해 tanstack-query 사용함으로써 초기 데이터 패칭 성공 여부는 useEffect에서 처리
+      if (standardJobCategories) {
+        // * 데이터가 존재하면 다음 페이즈로 이동시킴
+        setPhase((prev) => prev + 1);
+      }
     }
-  }
+
+    // 페이즈 진행 단계 (이메일 구독)
+    if (phase === 1) {
+      const { status } = await handleSubscription({
+        email,
+        standardCategories: selectedSubscriptionCategories,
+      });
+      if (status === 204) {
+        setPhase((prev) => prev + 1);
+      }
+    }
+
+    // 페이즈 완료 단계 (구독 완료)
+    if (phase === 2) {
+      handleCleanUpData();
+      handleClose();
+    }
+  };
+
+  const handleAddStandardCategories = ({
+    item,
+  }: {
+    item: { code: string; name: string };
+  }) => {
+    setSelectedSubscriptionCategories((prev) => {
+      if (prev.includes(item.code)) {
+        return prev.filter((code) => code !== item.code);
+      } else {
+        return [...prev, item.code];
+      }
+    });
+  };
+
+  const handleClose = () => {
+    setIsShowPopup(false);
+    setPhase(0);
+    setShouldFetchCategoriesFlag(false);
+    handleCleanUpData();
+    Cookies.set("subscriptionPopup", "closed", {
+      expires: 1, // 쿠키를 하루 동안 유지해요
+    });
+  };
+
+  const handleCleanUpData = () => {
+    setSelectedSubscriptionCategories([]);
+    handleCleanUpEmail();
+  };
+
+  const initPhase = () => {
+    setPhase(0);
+    setShouldFetchCategoriesFlag(false);
+    handleCleanUpData();
+  };
+
+  const handleSubscription = async ({
+    email,
+    standardCategories,
+  }: {
+    email: string;
+    standardCategories: string[];
+  }) => {
+    setLoader(true);
+    try {
+      const { status } = await subscribe.subscribe({
+        email,
+        standardCategories,
+      });
+      setLoader(false);
+      return { status };
+    } catch (error) {
+      setLoader(false);
+      console.error("Error during subscription:", error);
+      return { status: 500 };
+    }
+  };
+
+  // 순차적으로 퍼널이 진행하기 위한 텍스트 및 함수 세팅 작업이 진행되어요
+  const phaseTextSet = [
+    {
+      title: (
+        <>
+          서비스의 다양한 소식과 <br />
+          여러 빅테크 기업의 채용 소식을 <br />
+          벌써 <CountUp end={200} />명 이상 구독하고 있어요
+        </>
+      ),
+      positiveText: "5초만에 구독해볼래요",
+      negativeText: "오늘 하루 보지 않기",
+      positiveCallback: handleNext,
+      negativeCallback: handleClose,
+    },
+    {
+      title: `이메일을 입력해주시면 \n 곧 다양한 채용 공고로 찾아갈게요`,
+      positiveText: "구독을 진행할게요",
+      negativeText: "처음부터 다시 확인하고 싶어요",
+      positiveCallback: handleNext,
+      negativeCallback: initPhase,
+      isDisabledButton:
+        !isValidEmail || selectedSubscriptionCategories.length === 0,
+    },
+    {
+      positiveText: "확인했어요",
+      positiveCallback: handleNext,
+      options: {
+        isPositiveButton: true,
+        isNegativeButton: false,
+        isTitle: false,
+      },
+    },
+  ];
+
+  /**
+   * @description 직무 별 카테고리 성공 여부 감지를 위한 UseEffect 함수
+   */
+  useEffect(() => {
+    if (
+      isShowPopup &&
+      shouldFetchCategoriesFlag &&
+      phase === 0 &&
+      isSuccessStandardJobCategories
+    ) {
+      setStandardCategories(standardJobCategories);
+      setPhase((prev) => prev + 1);
+    }
+  }, [
+    isShowPopup,
+    shouldFetchCategoriesFlag,
+    phase,
+    isSuccessStandardJobCategories,
+    standardJobCategories,
+  ]);
 
   return (
     <Portal id="portal">
-      {isOpen && (
-        <Popup
-          title="이메일과 관심 직무"
-          positiveCallback={isComplete ? close : submit}
-          negativeCallback={close}
-          positiveButtonText={isComplete ? "닫기" : "구독하기"}
-          negativeButtonText="취소"
-          isDisabledButton={!isComplete && (!isValidEmail || selectedCategories.length === 0 || isError)}
-          loader={isSubmitting || isLoading}
-          options={{ isPositiveButton: true, isNegativeButton: !isComplete, isTitle: !isComplete }}
+      {isShowPopup ? (
+        <SubsecriptionContext.Provider
+          value={{
+            handleNext,
+            handleClose,
+            phase,
+            selectedSubscriptionCategories,
+            subscriptionCategories: standardCategories,
+          }}
         >
-          {isComplete ? (
-            <Complete />
-          ) : (
-            <>
+          <Popup
+            title={phaseTextSet[phase]?.title}
+            positiveCallback={phaseTextSet[phase]?.positiveCallback}
+            negativeCallback={phaseTextSet[phase]?.negativeCallback}
+            positiveButtonText={phaseTextSet[phase]?.positiveText}
+            negativeButtonText={phaseTextSet[phase]?.negativeText}
+            isDisabledButton={phaseTextSet[phase]?.isDisabledButton}
+            options={phaseTextSet[phase]?.options}
+            loader={loader || isLoadingStandardJobCategories}
+          >
+            {phase === 1 && (
               <Progress
-                standardCategory={categories?.list ?? []}
-                selectedCategories={selectedCategories}
+                standardCategory={standardCategories?.list ?? []}
                 email={email}
                 handleEmailChange={handleEmailChange}
-                onToggleCategory={toggleCategory}
+                handleAddStandardCategories={handleAddStandardCategories}
               />
-              {isError && <p role="alert">직무 목록을 불러오지 못했어요.</p>}
-              {error && <p role="alert">{error}</p>}
-            </>
-          )}
-        </Popup>
-      )}
+            )}
+            {phase === 2 && <Complete />}
+          </Popup>
+        </SubsecriptionContext.Provider>
+      ) : null}
     </Portal>
   );
 }
+
+export default SubscriptionPopup;
