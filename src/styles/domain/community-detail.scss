@@ -5,7 +5,8 @@
   width: 100%;
   max-width: 760px;
   margin: 0 auto;
-  padding: 1.2rem 0 3.2rem;
+  padding: 1.8rem 0 4.2rem;
+  color: #2b251e;
 
   .board__back__link {
     display: inline-flex;
@@ -13,7 +14,7 @@
     gap: 0.6rem;
     min-height: 44px;
     margin: 0 auto 2.4rem 0;
-    color: var(--grey600);
+    color: #766b60;
     font-size: max(14px, 1.5rem);
     font-weight: 500;
 
@@ -23,11 +24,11 @@
     }
 
     &:hover {
-      color: var(--grey900);
+      color: #2b251e;
     }
 
     &:focus-visible {
-      outline: 2px solid var(--blue500);
+      outline: 2px solid #554635;
       outline-offset: 4px;
       border-radius: 0.4rem;
     }
@@ -38,15 +39,15 @@
     flex-direction: column;
     gap: 1.8rem;
     padding-bottom: 2.8rem;
-    border-bottom: 1px solid var(--grey100);
+    border-bottom: 1px solid #e4d9c9;
 
     h1 {
       margin: 0;
-      color: var(--grey900);
-      font-size: clamp(26px, 3.2vw, 36px);
+      color: #2b251e;
+      font-size: clamp(28px, 3.4vw, 39px);
       font-weight: 700;
-      letter-spacing: -0.035em;
-      line-height: 1.4;
+      letter-spacing: -0.05em;
+      line-height: 1.28;
       word-break: keep-all;
       overflow-wrap: anywhere;
     }
@@ -57,13 +58,13 @@
     flex-wrap: wrap;
     align-items: center;
     gap: 0.6rem 0.9rem;
-    color: var(--grey500);
+    color: #95897c;
     font-size: max(14px, 1.4rem);
     line-height: 1.6;
     overflow-wrap: anywhere;
 
     .board__author {
-      color: var(--grey700);
+      color: #65594e;
       font-weight: 500;
     }
   }
@@ -73,9 +74,9 @@
 
     .board__content {
       width: 100%;
-      color: var(--grey800);
+      color: #41382f;
       font-size: max(16px, 1.8rem);
-      line-height: 1.85;
+      line-height: 1.9;
       word-break: keep-all;
       overflow-wrap: anywhere;
       white-space: pre-wrap;
@@ -105,7 +106,7 @@
   flex-direction: column;
   margin-top: 4.8rem;
   padding-top: 2.8rem;
-  border-top: 1px solid var(--grey200);
+  border-top: 1px solid #e4d9c9;
 
   .comment__heading {
     display: flex;
@@ -119,20 +120,20 @@
       align-items: baseline;
       gap: 0.6rem;
       margin: 0;
-      color: var(--grey900);
+      color: #2b251e;
       font-size: max(20px, 2.2rem);
       font-weight: 650;
       line-height: 1.5;
 
       span {
-        color: var(--grey500);
+        color: #95897c;
         font-weight: 500;
       }
     }
   }
 
   .comment__like__count {
-    color: var(--grey600);
+    color: #766b60;
     font-size: max(14px, 1.4rem);
     line-height: 1.5;
   }
@@ -145,17 +146,17 @@
     width: 44px;
     height: 44px;
     padding: 0;
-    border: 1px solid var(--grey200);
-    border-radius: 1rem;
-    background: transparent;
+    border: 1px solid #dfd3c2;
+    border-radius: 1.2rem;
+    background: rgb(255 250 242 / 72%);
     cursor: pointer;
 
     &:hover {
-      background: var(--grey50);
+      background: #f2e9dc;
     }
 
     &:focus-visible {
-      outline: 2px solid var(--blue500);
+      outline: 2px solid #554635;
       outline-offset: 3px;
     }
   }
@@ -177,12 +178,12 @@
 
     .comment__submit {
       min-height: 44px;
-      background-color: var(--grey900);
-      color: #fff;
+      background-color: #2b251e;
+      color: #fffaf2;
       white-space: nowrap;
 
       &:focus-visible {
-        outline: 2px solid var(--blue500);
+        outline: 2px solid #554635;
         outline-offset: 3px;
       }
     }
@@ -214,9 +215,9 @@
     gap: 1.6rem;
     margin-top: 2rem;
     padding: 1.8rem 2rem;
-    border: 1px solid var(--grey100);
-    border-radius: 1.2rem;
-    background-color: var(--grey50);
+    border: 1px solid #e4d9c9;
+    border-radius: 1.6rem;
+    background-color: #f6eee3;
 
     .comment__auth__content {
       display: flex;
@@ -225,7 +226,7 @@
     }
 
     strong {
-      color: var(--grey800);
+      color: #41382f;
       font-size: max(14px, 1.5rem);
       font-weight: 600;
       line-height: 1.5;
@@ -233,7 +234,7 @@
 
     p {
       margin: 0;
-      color: var(--grey600);
+      color: #766b60;
       font-size: max(14px, 1.4rem);
       line-height: 1.6;
       word-break: keep-all;

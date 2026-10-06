@@ -1,25 +1,31 @@
 .title__container {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
   width: 100%;
-  padding: 8px 0;
+  padding: 18px 0 4px;
 }
 
 .title {
   margin: 0;
-  color: #191f28;
-  font-size: clamp(26px, 3.2vw, 34px);
+  color: #29231d;
+  font-size: clamp(29px, 4vw, 42px);
   font-weight: 700;
-  letter-spacing: -0.04em;
-  line-height: 1.35;
+  letter-spacing: -0.052em;
+  line-height: 1.2;
 }
 
 .description {
   margin: 0;
-  color: #6b7684;
+  max-width: 560px;
+  color: #766b60;
   font-size: clamp(14px, 1.6vw, 16px);
   font-weight: 400;
-  line-height: 1.65;
+  line-height: 1.7;
   letter-spacing: -0.02em;
+}
+
+@media (max-width: 640px) {
+  .title__container { padding-top: 6px; }
+  .title { font-size: clamp(28px, 8vw, 34px); line-height: 1.25; }
 }

@@ -7,13 +7,13 @@
   box-sizing: border-box;
 
   & + & {
-    border-top: 1px solid var(--grey100);
+    border-top: 1px solid #e4d9c9;
   }
 }
 
 .comment__content {
   margin: 0;
-  color: var(--grey800);
+  color: #41382f;
   font-size: max(16px, 1.7rem);
   line-height: 1.8;
   word-break: keep-all;
@@ -26,7 +26,7 @@
   flex-wrap: wrap;
   align-items: center;
   gap: 0.6rem;
-  color: var(--grey500);
+  color: #95897c;
   font-size: max(13px, 1.3rem);
   line-height: 1.6;
   overflow-wrap: anywhere;
@@ -39,6 +39,6 @@
 }
 
 .comment__writer {
-  color: var(--grey700);
+  color: #65594e;
   font-weight: 600;
 }
