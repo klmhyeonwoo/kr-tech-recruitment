@@ -20,7 +20,8 @@ export async function generateMetadata({
     SERVICE_CATEGORY[company?.toLowerCase() as keyof typeof SERVICE_CATEGORY]
       ?.name;
   return generateServiceOpenGraph({
-    companyName: companyName,
+    companyName: companyName ?? "",
+    companyCode: company,
   });
 }
 
@@ -76,7 +77,7 @@ async function RecruitDataSection({
   if (company) queryParams.set("company", company);
   if (category) queryParams.set("category", category);
   const query = queryParams.toString();
-  const pageUrl = `https://nklcb.kr/web${query ? `?${query}` : ""}`;
+  const pageUrl = `https://www.nklcb.kr/web${query ? `?${query}` : ""}`;
   const collectionStructuredData = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
@@ -91,7 +92,7 @@ async function RecruitDataSection({
         "@type": "ListItem",
         position: index + 1,
         name: item.jobOfferTitle,
-        url: `https://nklcb.kr/recruitment-notices?${new URLSearchParams({
+        url: `https://www.nklcb.kr/recruitment-notices?${new URLSearchParams({
           id: String(item.recruitmentNoticeId),
           path: item.url,
         }).toString()}`,

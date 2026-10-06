@@ -7,7 +7,7 @@ import type { Metadata } from "next";
 import StructuredData from "@/lib/seo/structured-data";
 
 export const dynamic = "force-dynamic";
-const BASE_URL = "https://nklcb.kr/question";
+const BASE_URL = "https://www.nklcb.kr/question";
 
 type HotIssueQuestion = QuestionTypes["questionData"];
 type HotIssueComment = HotIssueQuestion["comments"][number];

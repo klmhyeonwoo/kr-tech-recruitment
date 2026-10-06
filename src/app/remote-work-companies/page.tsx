@@ -138,7 +138,7 @@ export const metadata: Metadata = {
     description:
       "완전 원격 및 부분 원격이 가능한 국내 회사 목록을 확인해보세요.",
     type: "website",
-    url: "https://nklcb.kr/remote-work-companies",
+    url: "https://www.nklcb.kr/remote-work-companies",
     siteName: "네카라쿠배 채용",
     locale: "ko_KR",
     images: [
@@ -158,7 +158,7 @@ export const metadata: Metadata = {
     images: ["https://raw.githubusercontent.com/klmhyeonwoo/Asset-Archieve./main/nklcb.png"],
   },
   alternates: {
-    canonical: "https://nklcb.kr/remote-work-companies",
+    canonical: "https://www.nklcb.kr/remote-work-companies",
   },
 };
 
@@ -192,7 +192,7 @@ export default async function RemoteWorkCompaniesPage({
   const pageQuery = new URLSearchParams();
   if (filterType !== "all") pageQuery.set("type", filterType);
   if (query) pageQuery.set("q", query);
-  const pageUrl = `https://nklcb.kr/remote-work-companies${
+  const pageUrl = `https://www.nklcb.kr/remote-work-companies${
     pageQuery.toString() ? `?${pageQuery.toString()}` : ""
   }`;
 

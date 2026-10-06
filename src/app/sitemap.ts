@@ -87,9 +87,9 @@ async function getCommunitySitemapEntries(
     }));
 
     const communityPageUrls = Array.from(
-      { length: totalPageCount },
+      { length: Math.max(0, totalPageCount - 1) },
       (_, index) => ({
-        url: `${baseUrl}/community?page=${index + 1}`,
+        url: `${baseUrl}/community?page=${index + 2}`,
         lastModified: new Date(),
         changeFrequency: "daily" as const,
         priority: 0.7,
@@ -117,15 +117,15 @@ async function getQuestionLastModified() {
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = "https://nklcb.kr";
+  const baseUrl = "https://www.nklcb.kr";
   const [communityEntries, questionLastModified] = await Promise.all([
     getCommunitySitemapEntries(baseUrl),
     getQuestionLastModified(),
   ]);
   const now = new Date();
 
-  const companyUrls = Object.keys(SERVICE_CATEGORY).map((company) => ({
-    url: `${baseUrl}/?company=${company}`,
+  const companyUrls = Object.values(SERVICE_CATEGORY).map((company) => ({
+    url: `${baseUrl}/web?company=${company.code}`,
     lastModified: now,
     changeFrequency: "daily" as const,
     priority: 0.9,
@@ -139,8 +139,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.8,
     },
     {
+      url: `${baseUrl}/developer-career`,
+      changeFrequency: "weekly" as const,
+      priority: 0.85,
+    },
+    {
       url: `${baseUrl}/subscribe`,
-      lastModified: now,
       changeFrequency: "monthly" as const,
       priority: 0.7,
     },
@@ -152,13 +156,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
     {
       url: `${baseUrl}/remote-work-companies`,
-      lastModified: now,
       changeFrequency: "weekly" as const,
       priority: 0.8,
     },
     {
       url: `${baseUrl}/dev-activities`,
-      lastModified: now,
       changeFrequency: "weekly" as const,
       priority: 0.8,
     },
@@ -176,7 +178,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
     {
       url: `${baseUrl}/interview-questions`,
-      lastModified: now,
       changeFrequency: "daily" as const,
       priority: 0.95,
     },

@@ -2,14 +2,14 @@ import { MetadataRoute } from "next";
 
 export default function robots(): MetadataRoute.Robots {
   return {
-    host: "https://nklcb.kr",
+    host: "https://www.nklcb.kr",
     rules: [
       {
         userAgent: "*",
-        allow: ["/", "/web", "/community", "/question", "/remote-work-companies", "/dev-activities", "/interview-questions"],
+        allow: "/",
         disallow: ["/private/", "/admin/", "/api/"],
       },
     ],
-    sitemap: "https://nklcb.kr/sitemap.xml",
+    sitemap: "https://www.nklcb.kr/sitemap.xml",
   };
 }

@@ -86,7 +86,7 @@ export const metadata: Metadata = {
     description:
       "개발자 동아리, 교육/부트캠프, 모임/밋업, 행사/컨퍼런스를 한 곳에서 확인하세요.",
     type: "website",
-    url: "https://nklcb.kr/dev-activities",
+    url: "https://www.nklcb.kr/dev-activities",
     siteName: "네카라쿠배 채용",
     locale: "ko_KR",
     images: [
@@ -106,7 +106,7 @@ export const metadata: Metadata = {
     images: ["https://raw.githubusercontent.com/klmhyeonwoo/Asset-Archieve./main/nklcb.png"],
   },
   alternates: {
-    canonical: "https://nklcb.kr/dev-activities",
+    canonical: "https://www.nklcb.kr/dev-activities",
   },
 };
 
@@ -155,7 +155,7 @@ export default async function DevActivitiesPage({ searchParams }: PageProps) {
     name: "개발자 대외활동 모음",
     description:
       "개발자 동아리, 교육/부트캠프, 모임/밋업, 행사/컨퍼런스 정보를 모아둔 컬렉션 페이지",
-    url: "https://nklcb.kr/dev-activities",
+    url: "https://www.nklcb.kr/dev-activities",
     mainEntity: {
       "@type": "ItemList",
       itemListOrder: "https://schema.org/ItemListUnordered",
@@ -166,7 +166,7 @@ export default async function DevActivitiesPage({ searchParams }: PageProps) {
           "@type": "ListItem",
           position: index + 1,
           name: activity.name,
-          url: activity.links[0]?.url ?? "https://nklcb.kr/dev-activities",
+          url: activity.links[0]?.url ?? "https://www.nklcb.kr/dev-activities",
         })),
     },
   };

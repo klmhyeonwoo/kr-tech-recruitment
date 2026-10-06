@@ -6,7 +6,7 @@ import styles from "./page.module.scss";
 import data from "@/data/interview-questions.json";
 import "@/styles/domain/web.scss";
 
-const PAGE_URL = "https://nklcb.kr/interview-questions";
+const PAGE_URL = "https://www.nklcb.kr/interview-questions";
 const OG_IMAGE =
   "https://raw.githubusercontent.com/klmhyeonwoo/Asset-Archieve./main/nklcb.png";
 
@@ -122,7 +122,7 @@ export default function InterviewQuestionsPage() {
     isPartOf: {
       "@type": "WebSite",
       name: "네카라쿠배 채용",
-      url: "https://nklcb.kr",
+      url: "https://www.nklcb.kr",
     },
     mainEntity: {
       "@type": "ItemList",
@@ -164,7 +164,7 @@ export default function InterviewQuestionsPage() {
         "@type": "ListItem",
         position: 1,
         name: "홈",
-        item: "https://nklcb.kr",
+        item: "https://www.nklcb.kr",
       },
       {
         "@type": "ListItem",

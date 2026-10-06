@@ -1,0 +1,25 @@
+.page { width: 100%; padding: clamp(4rem, 8vw, 9rem) 0 7rem; }
+.hero { max-width: 70rem; }
+.hero > p { margin: 0 0 1.4rem; color: #777; font-size: 1.3rem; font-weight: 600; letter-spacing: -.02em; }
+.hero h1 { margin: 0; color: #191919; font-size: clamp(3.5rem, 6vw, 6.2rem); line-height: 1.12; letter-spacing: -.065em; word-break: keep-all; }
+.hero > span { display: block; margin-top: 2rem; color: #666; font-size: 1.6rem; line-height: 1.65; word-break: keep-all; }
+.steps { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: clamp(5rem, 9vw, 9rem); border-top: 1px solid #e7e7e7; }
+.step { min-height: 25rem; padding: 2.6rem 2.2rem; border-bottom: 1px solid #e7e7e7; }
+.step:nth-child(odd) { border-right: 1px solid #e7e7e7; }
+.step > p { margin: 0; color: #999; font-size: 1.25rem; font-weight: 600; }
+.step h2 { margin: 4.8rem 0 .9rem; color: #191919; font-size: 2rem; letter-spacing: -.045em; }
+.step > span { display: block; max-width: 36rem; color: #666; font-size: 1.38rem; line-height: 1.6; word-break: keep-all; }
+.step a { display: inline-flex; gap: .7rem; margin-top: 2rem; color: #191919; font-size: 1.35rem; font-weight: 600; text-decoration: none; }
+.step a:hover { text-decoration: underline; text-underline-offset: .4rem; }
+.step a:focus-visible, .faq summary:focus-visible { outline: 2px solid #222; outline-offset: 3px; }
+.step b { color: #777; font-weight: 400; }
+.faq { margin-top: clamp(5rem, 9vw, 9rem); }
+.faq h2 { margin: 0 0 2rem; color: #191919; font-size: 2.4rem; letter-spacing: -.045em; }
+.faq details { border-top: 1px solid #e7e7e7; }
+.faq details:last-child { border-bottom: 1px solid #e7e7e7; }
+.faq summary { padding: 2rem 3rem 2rem 0; color: #191919; font-size: 1.55rem; font-weight: 600; line-height: 1.55; cursor: pointer; list-style: none; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { float: right; color: #777; content: "+"; font-size: 2rem; font-weight: 400; }
+.faq details[open] summary::after { content: "−"; }
+.faq p { max-width: 74rem; margin: -.3rem 0 2rem; color: #666; font-size: 1.45rem; line-height: 1.75; word-break: keep-all; }
+@media (max-width: 640px) { .page { padding-top: 4.8rem; } .steps { grid-template-columns: 1fr; } .step { min-height: 0; padding: 2.3rem 0; } .step:nth-child(odd) { border-right: 0; } .step h2 { margin-top: 3.5rem; } }

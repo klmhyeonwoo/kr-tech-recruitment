@@ -7,7 +7,7 @@ import "@/styles/domain/web.scss";
 export const metadata: Metadata = {
   title: "서울데브클럽 구독하기",
   description: "네카라쿠배 채용 소식과 서울데브클럽의 새 소식을 이메일로 받아보세요.",
-  alternates: { canonical: "https://nklcb.kr/subscribe" },
+  alternates: { canonical: "https://www.nklcb.kr/subscribe" },
 };
 
 export default function SubscribePage() {

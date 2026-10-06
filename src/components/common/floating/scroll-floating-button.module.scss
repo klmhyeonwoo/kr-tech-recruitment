@@ -53,7 +53,8 @@
 @media (max-width: 768px), (hover: none) and (pointer: coarse) {
   .floating-wrapper {
     right: max(20px, env(safe-area-inset-right));
-    bottom: calc(20px + env(safe-area-inset-bottom));
+    // Keep the navigation controls above Channel Talk's mobile launcher.
+    bottom: calc(84px + env(safe-area-inset-bottom));
     will-change: opacity, transform;
     transition:
       opacity 0.3s cubic-bezier(0.22, 1, 0.36, 1),
