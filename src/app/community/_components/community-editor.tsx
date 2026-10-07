@@ -105,18 +105,24 @@ export default function CommunityEditor({ onChange, onSubmit }: CommunityEditorP
     if (!editor) return;
 
     const { $from } = editor.state.selection;
-    const removeSlash = {
+    editor.chain().focus().deleteRange({
       from: $from.start(),
       to: $from.end(),
-    };
-    const chain = editor.chain().focus().deleteRange(removeSlash);
+    }).run();
 
-    if (action === "heading") chain.setHeading({ level: 2 });
-    if (action === "bullet") chain.toggleBulletList();
-    if (action === "quote") chain.toggleBlockquote();
-    if (action === "paragraph") chain.setParagraph();
+    if (action === "heading") {
+      editor.chain().focus().setHeading({ level: 2 }).run();
+    }
+    if (action === "bullet") {
+      editor.chain().focus().toggleBulletList().run();
+    }
+    if (action === "quote") {
+      editor.chain().focus().toggleBlockquote().run();
+    }
+    if (action === "paragraph") {
+      editor.chain().focus().setParagraph().run();
+    }
 
-    chain.run();
     setSlashMenuPosition(null);
   };
 
@@ -136,6 +142,7 @@ export default function CommunityEditor({ onChange, onSubmit }: CommunityEditorP
           aria-label="블록 선택"
           style={slashMenuPosition}
         >
+          <p className={styles.command__title}>/ 블록 명령</p>
           {BLOCK_ACTIONS.map((action) => (
             <button
               key={action.type}

@@ -217,6 +217,14 @@
   background: var(--white);
   box-shadow: 0 1.2rem 3.2rem rgb(2 32 71 / 14%);
 
+  .command__title {
+    margin: 0;
+    padding: 1.1rem 1.4rem 0.5rem;
+    color: var(--grey500);
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+
   button {
     display: flex;
     flex-direction: column;
