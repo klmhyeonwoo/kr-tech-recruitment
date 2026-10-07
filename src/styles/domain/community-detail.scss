@@ -78,7 +78,56 @@
       line-height: 1.85;
       word-break: keep-all;
       overflow-wrap: anywhere;
-      white-space: pre-wrap;
+
+      p {
+        margin: 0;
+        white-space: pre-line;
+      }
+
+      p + p,
+      p + h2,
+      p + blockquote,
+      p + .board__content__list,
+      h2 + p,
+      h2 + blockquote,
+      h2 + .board__content__list,
+      blockquote + p,
+      blockquote + h2,
+      blockquote + .board__content__list,
+      .board__content__list + p,
+      .board__content__list + h2,
+      .board__content__list + blockquote {
+        margin-top: 2.4rem;
+      }
+
+      h2 {
+        margin-bottom: 0;
+        color: var(--grey900);
+        font-size: clamp(20px, 2.4vw, 25px);
+        font-weight: 700;
+        letter-spacing: -0.03em;
+        line-height: 1.45;
+      }
+
+      blockquote {
+        margin: 0;
+        padding-left: 1.8rem;
+        border-left: 3px solid var(--grey300);
+        color: var(--grey600);
+        white-space: pre-line;
+      }
+
+      .board__content__list {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        margin-bottom: 0;
+        padding-left: 2.4rem;
+
+        li::marker {
+          color: var(--grey500);
+        }
+      }
     }
   }
 

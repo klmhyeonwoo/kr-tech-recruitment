@@ -2,6 +2,7 @@ import community from "@/api/domain/community";
 import React from "react";
 import "@/styles/domain/community-detail.scss";
 import Comments from "@/app/community/_components/comments";
+import CommunityContent from "@/app/community/_components/community-content";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
@@ -207,7 +208,7 @@ export default async function Page({ params }: { params: ParamsType }) {
             </div>
           </header>
           <div className="board__content__section">
-            <div className="board__content">{data.content}</div>
+            <CommunityContent content={data.content} />
           </div>
         </article>
         <Comments
