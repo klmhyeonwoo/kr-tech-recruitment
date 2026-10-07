@@ -124,65 +124,83 @@
   line-height: 1.5;
 }
 
-.blocks {
-  display: flex;
-  flex-direction: column;
-  gap: 0.6rem;
+.editor__content {
+  position: relative;
   margin-top: 2.2rem;
 }
 
-.block {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.8rem;
-  min-height: 3.2rem;
+.tiptap {
+  min-height: 26rem;
+  outline: 0;
+  color: #39342e;
+  font-size: 1.8rem;
+  letter-spacing: -0.018em;
+  line-height: 1.7;
 
-  > span {
-    flex: 0 0 1.6rem;
-    padding-top: 0.35rem;
-    color: #776f65;
-    font-size: 1.8rem;
-    line-height: 1.7;
-    text-align: center;
+  > :first-child {
+    margin-top: 0;
   }
 
-  textarea {
-    width: 100%;
-    min-width: 0;
+  p,
+  h2,
+  h3,
+  blockquote,
+  ul,
+  ol {
+    margin: 0 0 1.4rem;
+  }
+
+  p {
     min-height: 3.2rem;
-    padding: 0.2rem 0;
-    resize: none;
-    overflow: hidden;
-    border: 0;
-    outline: 0;
-    background: transparent;
-    color: #39342e;
-    font: inherit;
-    font-size: 1.8rem;
-    letter-spacing: -0.018em;
-    line-height: 1.7;
-
-    &::placeholder {
-      color: #bdb5aa;
-      opacity: 1;
-    }
   }
 
-  &[data-type="heading"] textarea {
+  h2,
+  h3 {
     color: #29251f;
-    font-size: 2.6rem;
     font-weight: 700;
     letter-spacing: -0.042em;
     line-height: 1.45;
   }
 
-  &[data-type="quote"] {
+  h2 {
+    margin-top: 3.6rem;
+    font-size: 2.6rem;
+  }
+
+  h3 {
+    margin-top: 2.8rem;
+    font-size: 2.1rem;
+  }
+
+  ul,
+  ol {
+    padding-left: 2.4rem;
+  }
+
+  li + li {
+    margin-top: 0.5rem;
+  }
+
+  blockquote {
     padding-left: 1.4rem;
     border-left: 3px solid #d5cec4;
+    color: #716a61;
+  }
 
-    textarea {
-      color: #716a61;
-    }
+  code {
+    padding: 0.15em 0.35em;
+    border-radius: 0.4rem;
+    background: #f1ece5;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.88em;
+  }
+
+  .is-editor-empty:first-child::before {
+    float: left;
+    height: 0;
+    color: #bdb5aa;
+    content: attr(data-placeholder);
+    pointer-events: none;
   }
 }
 
@@ -261,7 +279,7 @@
     gap: 0.8rem;
   }
 
-  .block textarea {
+  .tiptap {
     font-size: 1.7rem;
   }
 }

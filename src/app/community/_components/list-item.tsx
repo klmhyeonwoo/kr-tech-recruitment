@@ -1,5 +1,6 @@
 import styles from "@/styles/components/list.module.scss";
 import Link from "next/link";
+import { getCommunityPlainText } from "@/lib/community/document";
 
 const dateOptions: Intl.DateTimeFormatOptions = {
   timeZone: "Asia/Seoul",
@@ -28,11 +29,12 @@ export default function ListItem({
   likeCount,
 }: ListItemProps) {
   const createdAt = new Date(date);
+  const excerpt = getCommunityPlainText(content);
 
   return (
     <Link className={styles.item} href={`/community/detail/${id}`}>
       <h3 className={styles.itemTitle}>{title}</h3>
-      {content && <p className={styles.itemExcerpt}>{content}</p>}
+      {excerpt && <p className={styles.itemExcerpt}>{excerpt}</p>}
       <div className={styles.itemMeta}>
         <span className={styles.itemAuthor}>
           {writer} <span aria-hidden="true">·</span>{" "}
