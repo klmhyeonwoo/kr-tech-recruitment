@@ -143,7 +143,7 @@ export default function BoardPostModal({ refreshData, closeModal }: BoardProps) 
 
           <div className={styles.document__meta}>
             <span>{characterCount}/{CONTENT_MAX_LENGTH}</span>
-            <span>⌘ + Enter로 게시</span>
+            <span>/ 블록 명령 · ⌘ + Enter로 게시</span>
           </div>
 
           <CommunityEditor
