@@ -26,8 +26,12 @@ const BLOCK_ACTIONS: Array<{ type: BlockAction; label: string; hint: string }> =
 ];
 
 export default function CommunityEditor({ onChange, onSubmit }: CommunityEditorProps) {
-  const [isSlashMenuOpen, setIsSlashMenuOpen] = useState(false);
+  const [slashMenuPosition, setSlashMenuPosition] = useState<{
+    top: number;
+    left: number;
+  } | null>(null);
   const submitRef = useRef(onSubmit);
+  const editorContainerRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     submitRef.current = onSubmit;
@@ -37,7 +41,20 @@ export default function CommunityEditor({ onChange, onSubmit }: CommunityEditorP
     const { $from } = editor.state.selection;
     const isSlashOnly = $from.parent.isTextblock && $from.parent.textContent === "/";
 
-    setIsSlashMenuOpen(isSlashOnly);
+    if (!isSlashOnly || !editorContainerRef.current) {
+      setSlashMenuPosition(null);
+      return;
+    }
+
+    const cursor = editor.view.coordsAtPos(editor.state.selection.from);
+    const container = editorContainerRef.current.getBoundingClientRect();
+    setSlashMenuPosition({
+      top: cursor.bottom - container.top + 8,
+      left: Math.max(
+        0,
+        Math.min(cursor.left - container.left, container.width - 280),
+      ),
+    });
   }, []);
 
   const editor = useEditor({
@@ -100,16 +117,25 @@ export default function CommunityEditor({ onChange, onSubmit }: CommunityEditorP
     if (action === "paragraph") chain.setParagraph();
 
     chain.run();
-    setIsSlashMenuOpen(false);
+    setSlashMenuPosition(null);
   };
 
   if (!editor) return null;
 
   return (
-    <section className={styles.editor__content} aria-label="게시글 내용">
+    <section
+      ref={editorContainerRef}
+      className={styles.editor__content}
+      aria-label="게시글 내용"
+    >
       <EditorContent editor={editor} />
-      {isSlashMenuOpen && (
-        <div className={styles.command__menu} role="menu" aria-label="블록 선택">
+      {slashMenuPosition && (
+        <div
+          className={styles.command__menu}
+          role="menu"
+          aria-label="블록 선택"
+          style={slashMenuPosition}
+        >
           {BLOCK_ACTIONS.map((action) => (
             <button
               key={action.type}
