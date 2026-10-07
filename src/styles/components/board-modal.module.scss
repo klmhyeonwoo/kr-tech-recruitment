@@ -3,9 +3,9 @@
   inset: 0;
   z-index: 100000;
   overflow-y: auto;
-  background: #fffdf8;
-  color: #29251f;
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Pretendard Variable", sans-serif;
+  background: var(--background);
+  color: var(--grey900);
+  font-family: inherit;
 }
 
 .editor__toolbar {
@@ -17,9 +17,9 @@
   align-items: center;
   min-height: 6.4rem;
   padding: 0 2.4rem;
-  border-bottom: 1px solid rgba(41, 37, 31, 0.08);
-  background: rgba(255, 253, 248, 0.84);
-  backdrop-filter: blur(18px) saturate(140%);
+  border-bottom: 1px solid var(--greyOpacity200);
+  background: rgb(255 255 255 / 94%);
+  backdrop-filter: blur(12px);
 }
 
 .close__button,
@@ -35,11 +35,11 @@
   width: 3.6rem;
   height: 3.6rem;
   border-radius: 0.9rem;
-  background: #f2eee8;
+  background: var(--grey100);
   transition: background-color 160ms ease, transform 160ms ease;
 
   &:hover {
-    background: #e9e3db;
+    background: var(--grey200);
   }
 
   &:active {
@@ -49,7 +49,7 @@
 
 .editor__label {
   justify-self: center;
-  color: #746d63;
+  color: var(--grey600);
   font-size: 1.4rem;
   font-weight: 650;
   letter-spacing: -0.01em;
@@ -60,8 +60,8 @@
   min-height: 3.6rem;
   padding: 0 1.4rem;
   border-radius: 0.9rem;
-  background: #25221e;
-  color: #fff;
+  background: var(--grey900);
+  color: var(--white);
   font-size: 1.35rem;
   font-weight: 650;
   transition: opacity 160ms ease, transform 160ms ease;
@@ -99,7 +99,7 @@
   border: 0;
   outline: 0;
   background: transparent;
-  color: #25221e;
+  color: var(--grey900);
   font: inherit;
   font-size: clamp(3.6rem, 5vw, 5rem);
   font-weight: 730;
@@ -107,7 +107,7 @@
   line-height: 1.18;
 
   &::placeholder {
-    color: #c5beb3;
+    color: var(--grey400);
     opacity: 1;
   }
 }
@@ -118,8 +118,8 @@
   gap: 1.2rem;
   margin-top: 2rem;
   padding-bottom: 2.4rem;
-  border-bottom: 1px solid rgba(41, 37, 31, 0.1);
-  color: #928a7f;
+  border-bottom: 1px solid var(--grey100);
+  color: var(--grey500);
   font-size: 1.25rem;
   line-height: 1.5;
 }
@@ -132,7 +132,7 @@
 .tiptap {
   min-height: 26rem;
   outline: 0;
-  color: #39342e;
+  color: var(--grey800);
   font-size: 1.8rem;
   letter-spacing: -0.018em;
   line-height: 1.7;
@@ -156,7 +156,7 @@
 
   h2,
   h3 {
-    color: #29251f;
+    color: var(--grey900);
     font-weight: 700;
     letter-spacing: -0.042em;
     line-height: 1.45;
@@ -183,14 +183,14 @@
 
   blockquote {
     padding-left: 1.4rem;
-    border-left: 3px solid #d5cec4;
-    color: #716a61;
+    border-left: 3px solid var(--grey300);
+    color: var(--grey600);
   }
 
   code {
     padding: 0.15em 0.35em;
     border-radius: 0.4rem;
-    background: #f1ece5;
+    background: var(--grey100);
     font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
     font-size: 0.88em;
   }
@@ -198,22 +198,24 @@
   .is-editor-empty:first-child::before {
     float: left;
     height: 0;
-    color: #bdb5aa;
+    color: var(--grey400);
     content: attr(data-placeholder);
     pointer-events: none;
   }
 }
 
 .command__menu {
+  position: absolute;
+  z-index: 2;
   display: flex;
   flex-direction: column;
   width: min(28rem, 100%);
-  margin-top: 1.4rem;
+  margin: 0;
   overflow: hidden;
-  border: 1px solid rgba(41, 37, 31, 0.12);
-  border-radius: 1.2rem;
-  background: rgba(255, 253, 248, 0.96);
-  box-shadow: 0 1.2rem 3.2rem rgba(45, 38, 29, 0.12);
+  border: 1px solid var(--grey200);
+  border-radius: 1rem;
+  background: var(--white);
+  box-shadow: 0 1.2rem 3.2rem rgb(2 32 71 / 14%);
 
   button {
     display: flex;
@@ -223,14 +225,14 @@
     padding: 1.2rem 1.4rem;
     border: 0;
     background: transparent;
-    color: #322d27;
+    color: var(--grey800);
     cursor: pointer;
     text-align: left;
 
     &:hover,
     &:focus-visible {
       outline: 0;
-      background: #f3eee7;
+      background: var(--grey50);
     }
 
     strong {
@@ -239,7 +241,7 @@
     }
 
     span {
-      color: #897f74;
+      color: var(--grey500);
       font-size: 1.2rem;
     }
   }
