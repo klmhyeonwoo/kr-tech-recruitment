@@ -19,85 +19,39 @@ import LenisProvider from "@/lib/lenis/lenis-provider";
 import ScrollFloationButton from "@/components/common/floating/scroll-floating-button";
 import ChannelTalk from "@/components/common/floating/channel-talk";
 import PwaRegister from "@/components/common/pwa-register";
+import { SITE_NAME, SITE_URL } from "@/lib/seo/site";
 
 export const metadata: Metadata = {
   ...baseMetaData,
   manifest: "/manifest.json",
 };
+
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   themeColor: "#222222",
 };
 
-const organizationStructuredData = {
+const siteStructuredData = {
   "@context": "https://schema.org",
-  "@type": "WebSite",
-  name: "네카라쿠배 채용",
-  alternateName: [
-    "nklcb",
-    "네카라쿠배",
-    "빅테크 채용",
-    "네이버 채용",
-    "카카오 채용",
-    "라인 채용",
-    "쿠팡 채용",
-    "배달의민족 채용",
-    "토스 채용",
-    "당근 채용",
-  ],
-  url: "https://nklcb.kr",
-  description:
-    "네이버 채용, 카카오 채용, 라인 채용, 쿠팡 채용, 배달의 민족 채용, 당근 채용, 토스 채용 정보를 한눈에! 네이버, 카카오, 라인, 쿠팡, 배달의민족, 토스, 당근, 두나무 등 대한민국 대표 IT 기업의 최신 채용 공고를 실시간으로 확인하고 지원하세요.",
-  potentialAction: {
-    "@type": "SearchAction",
-    target: {
-      "@type": "EntryPoint",
-      urlTemplate: "https://nklcb.kr/web?search={search_term_string}",
-    },
-    "query-input": "required name=search_term_string",
-  },
-  publisher: {
-    "@type": "Organization",
-    name: "네카라쿠배 채용",
-    url: "https://nklcb.kr",
-  },
-  about: [
+  "@graph": [
     {
-      "@type": "Thing",
-      name: "네이버 채용",
+      "@type": "Organization",
+      "@id": `${SITE_URL}/#organization`,
+      name: SITE_NAME,
+      alternateName: "네카라쿠배 채용",
+      url: SITE_URL,
     },
     {
-      "@type": "Thing",
-      name: "카카오 채용",
-    },
-    {
-      "@type": "Thing",
-      name: "라인 채용",
-    },
-    {
-      "@type": "Thing",
-      name: "쿠팡 채용",
-    },
-    {
-      "@type": "Thing",
-      name: "배달의민족 채용",
-    },
-    {
-      "@type": "Thing",
-      name: "토스 채용",
-    },
-    {
-      "@type": "Thing",
-      name: "당근 채용",
-    },
-    {
-      "@type": "Thing",
-      name: "두나무 채용",
-    },
-    {
-      "@type": "Thing",
-      name: "야놀자 채용",
+      "@type": "WebSite",
+      "@id": `${SITE_URL}/#website`,
+      name: SITE_NAME,
+      alternateName: ["nklcb", "네카라쿠배 채용"],
+      url: SITE_URL,
+      inLanguage: "ko-KR",
+      publisher: {
+        "@id": `${SITE_URL}/#organization`,
+      },
     },
   ],
 };
@@ -117,7 +71,7 @@ export default async function RootLayout({
       </head>
       <Analytics />
       <GoogleAnalytics gaId="G-6M2JP9HLCY" />
-      <StructuredData data={organizationStructuredData} />
+      <StructuredData data={siteStructuredData} />
       <Script
         src="https://cmp.gatekeeperconsent.com/min.js"
         data-cfasync="false"
@@ -128,8 +82,6 @@ export default async function RootLayout({
         data-cfasync="false"
         strategy="afterInteractive"
       />
-
-      {/* Daum/Kakao Ads */}
       <Script
         src="//t1.daumcdn.net/kas/static/ba.min.js"
         strategy="afterInteractive"

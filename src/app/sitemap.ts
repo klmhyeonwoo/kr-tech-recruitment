@@ -2,11 +2,12 @@ import { MetadataRoute } from "next";
 import { SERVICE_CATEGORY } from "@/utils/const";
 import community from "@/api/domain/community";
 import hotIssue from "@/api/domain/hotIssue";
+import { SITE_URL } from "@/lib/seo/site";
 
 export const revalidate = 86400; // Revalidate once per day
 
 const COMMUNITY_PAGE_SIZE = 50;
-const MAX_COMMUNITY_PAGE_COUNT = 5;
+const MAX_COMMUNITY_PAGE_COUNT = 25;
 
 type CommunityBoard = {
   boardId: number;
@@ -86,17 +87,7 @@ async function getCommunitySitemapEntries(
       priority: 0.6,
     }));
 
-    const communityPageUrls = Array.from(
-      { length: totalPageCount },
-      (_, index) => ({
-        url: `${baseUrl}/community?page=${index + 1}`,
-        lastModified: new Date(),
-        changeFrequency: "daily" as const,
-        priority: 0.7,
-      }),
-    );
-
-    return [...communityPageUrls, ...communityDetailUrls];
+    return communityDetailUrls;
   } catch (error) {
     console.error(error);
     return [];
@@ -117,7 +108,7 @@ async function getQuestionLastModified() {
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = "https://nklcb.kr";
+  const baseUrl = SITE_URL;
   const [communityEntries, questionLastModified] = await Promise.all([
     getCommunitySitemapEntries(baseUrl),
     getQuestionLastModified(),
@@ -125,7 +116,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();
 
   const companyUrls = Object.keys(SERVICE_CATEGORY).map((company) => ({
-    url: `${baseUrl}/?company=${company}`,
+    url: `${baseUrl}/web?company=${company}`,
     lastModified: now,
     changeFrequency: "daily" as const,
     priority: 0.9,
@@ -134,6 +125,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticPages = [
     {
       url: `${baseUrl}/tech-articles`,
+      lastModified: now,
+      changeFrequency: "daily" as const,
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/tech-trends`,
       lastModified: now,
       changeFrequency: "daily" as const,
       priority: 0.8,
