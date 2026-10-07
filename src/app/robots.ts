@@ -1,15 +1,16 @@
 import { MetadataRoute } from "next";
+import { SITE_URL } from "@/lib/seo/site";
 
 export default function robots(): MetadataRoute.Robots {
   return {
-    host: "https://nklcb.kr",
+    host: SITE_URL,
     rules: [
       {
         userAgent: "*",
-        allow: ["/", "/web", "/community", "/question", "/remote-work-companies", "/dev-activities", "/interview-questions"],
-        disallow: ["/private/", "/admin/", "/api/"],
+        allow: "/",
+        disallow: ["/api/", "/auth", "/recruitment-notices"],
       },
     ],
-    sitemap: "https://nklcb.kr/sitemap.xml",
+    sitemap: `${SITE_URL}/sitemap.xml`,
   };
 }

@@ -1,4 +1,7 @@
+import { OG_IMAGE, SITE_NAME, SITE_URL } from "@/lib/seo/site";
+
 export const baseMetaData = {
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "서울데브클럽 - 한국 개발자를 위한 유용한 모든 정보",
     template: "%s | 서울데브클럽",
@@ -66,9 +69,10 @@ export const baseMetaData = {
     "빅테크 채용",
     "테크 기업 채용",
   ],
-  authors: [{ name: "네카라쿠배 채용" }],
-  creator: "네카라쿠배 채용",
-  publisher: "네카라쿠배 채용",
+  applicationName: SITE_NAME,
+  authors: [{ name: SITE_NAME }],
+  creator: SITE_NAME,
+  publisher: SITE_NAME,
   robots: {
     index: true,
     follow: true,
@@ -84,17 +88,17 @@ export const baseMetaData = {
     icon: "/images/favicon.svg",
   },
   alternates: {
-    canonical: "https://nklcb.kr",
+    canonical: SITE_URL,
   },
   openGraph: {
     title: "서울 디벨로퍼 클럽 - IT 기업 채용정보 플랫폼",
     description:
       "네이버 채용, 카카오 채용, 라인 채용, 쿠팡 채용, 배달의 민족 채용, 당근 채용, 토스 채용 정보를 한눈에! 네이버, 카카오, 라인, 쿠팡, 배달의민족, 토스, 당근, 두나무 등 대한민국 대표 IT 기업의 최신 채용 공고를 실시간으로 확인하고 지원하세요.",
     url: "https://nklcb.kr",
-    siteName: "네카라쿠배 채용",
+    siteName: SITE_NAME,
     images: [
       {
-        url: "https://raw.githubusercontent.com/klmhyeonwoo/Asset-Archieve./main/nklcb.png",
+        url: OG_IMAGE,
         width: 1200,
         height: 630,
         alt: "네카라쿠배 채용 플랫폼",
@@ -109,11 +113,8 @@ export const baseMetaData = {
     description:
       "네이버 채용, 카카오 채용, 라인 채용, 쿠팡 채용, 배달의 민족 채용, 당근 채용, 토스 채용 정보를 한눈에! 네이버, 카카오, 라인, 쿠팡, 배달의민족, 토스, 당근, 두나무 등 대한민국 대표 IT 기업의 최신 채용 공고를 실시간으로 확인하고 지원하세요.",
     images: [
-      "https://raw.githubusercontent.com/klmhyeonwoo/Asset-Archieve./main/nklcb.png",
+      OG_IMAGE,
     ],
-  },
-  verification: {
-    google: "google-site-verification-code", // To be replaced with actual verification code
   },
 };
 
@@ -126,7 +127,7 @@ export default function generateServiceOpenGraph({
   const description = companyName
     ? `${companyName}의 최신 채용 정보를 확인해보세요. 네카라쿠배에서 빅테크 기업의 공고를 한눈에 확인하세요.`
     : "네카라쿠배(nklcb) 빅테크 기업의 공고를 한눈에 확인해보세요";
-  const url = `https://nklcb.kr${companyName ? `/?company=${companyName}` : ""}`;
+  const url = `${SITE_URL}/web${companyName ? `?company=${companyName}` : ""}`;
 
   return {
     title,
@@ -220,9 +221,9 @@ export default function generateServiceOpenGraph({
     ]
       .filter(Boolean)
       .filter((value, index, self) => self.indexOf(value) === index), // Remove duplicates
-    authors: [{ name: "네카라쿠배 채용" }],
-    creator: "네카라쿠배 채용",
-    publisher: "네카라쿠배 채용",
+    authors: [{ name: SITE_NAME }],
+    creator: SITE_NAME,
+    publisher: SITE_NAME,
     robots: {
       index: true,
       follow: true,
@@ -241,12 +242,12 @@ export default function generateServiceOpenGraph({
       title,
       description,
       url,
-      siteName: "네카라쿠배 채용",
+      siteName: SITE_NAME,
       type: "website",
       locale: "ko_KR",
       images: [
         {
-          url: "https://raw.githubusercontent.com/klmhyeonwoo/Asset-Archieve./main/nklcb.png",
+          url: OG_IMAGE,
           width: 1200,
           height: 630,
           alt: `${companyName ? `${companyName} ` : ""}네카라쿠배 채용 이미지`,
@@ -258,7 +259,7 @@ export default function generateServiceOpenGraph({
       title,
       description,
       images: [
-        "https://raw.githubusercontent.com/klmhyeonwoo/Asset-Archieve./main/nklcb.png",
+        OG_IMAGE,
       ],
     },
   };
