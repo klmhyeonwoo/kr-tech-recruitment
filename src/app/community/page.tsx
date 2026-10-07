@@ -7,8 +7,8 @@ export default async function Page() {
   return (
     <main className={styles.page}>
       <Title
-        title="개발 이야기를 나누는 곳"
-        description="막힌 문제, 커리어의 선택, 프로젝트에서 배운 것을 편하게 남겨보세요."
+        title="커뮤니티"
+        description="개발과 커리어 이야기를 나눠보세요."
       />
       <Suspense fallback={<p className={styles.loading}>글을 불러오고 있어요.</p>}>
         <List />

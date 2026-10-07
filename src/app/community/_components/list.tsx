@@ -173,6 +173,24 @@ export default function List({ embedded = false }: { embedded?: boolean }) {
       )}
       <div className={styles.feed}>
         <div className={styles.toolbar}>
+          <div className={styles.writeAction}>
+            {isLogin ? (
+              <button
+                type="button"
+                className={styles.writeButton}
+                onClick={() => setShowModal(true)}
+              >
+                글쓰기
+              </button>
+            ) : (
+              <UserStatusBlock
+                className={styles.loginAction}
+                showWhenLoggedIn={false}
+                compact
+                loginMessage="글쓰기"
+              />
+            )}
+          </div>
           <form
             key={keyword}
             className={styles.search}
@@ -195,24 +213,6 @@ export default function List({ embedded = false }: { embedded?: boolean }) {
             />
             <button type="submit">검색</button>
           </form>
-          <div className={styles.writeAction}>
-            {isLogin ? (
-              <button
-                type="button"
-                className={styles.writeButton}
-                onClick={() => setShowModal(true)}
-              >
-                글쓰기
-              </button>
-            ) : (
-              <UserStatusBlock
-                className={styles.loginAction}
-                showWhenLoggedIn={false}
-                compact
-                loginMessage="로그인하고 글쓰기"
-              />
-            )}
-          </div>
         </div>
 
         {!keyword && <HotListItem />}

@@ -31,19 +31,19 @@ const CONTENT_MAX_LENGTH = 3000;
 const WRITING_TEMPLATES: WritingTemplate[] = [
   {
     id: "question",
-    label: "기술 질문",
+    label: "질문",
     titleHint: "어떤 부분에서 막혔나요?",
     content: "지금 막힌 부분:\n\n시도해 본 방법:\n\n도움이 필요한 지점:",
   },
   {
     id: "career",
-    label: "커리어 고민",
+    label: "커리어",
     titleHint: "어떤 선택을 고민하고 있나요?",
     content: "현재 상황:\n\n고민 중인 선택지:\n\n듣고 싶은 경험:",
   },
   {
     id: "review",
-    label: "프로젝트 회고",
+    label: "회고",
     titleHint: "프로젝트에서 무엇을 배웠나요?",
     content: "만든 것:\n\n배운 점:\n\n다음에 바꾸고 싶은 점:",
   },
@@ -195,8 +195,7 @@ export default function BoardPostModal({
         >
           <div className={styles.modal__header}>
             <div className={styles.header__info}>
-              <span id="board-post-modal-title">글쓰기</span>
-              {isDirty && <em>작성 중</em>}
+              <span id="board-post-modal-title">새 글</span>
             </div>
             <button
               type="button"
@@ -207,13 +206,8 @@ export default function BoardPostModal({
               <Image src={quitIcon} alt="" width={14} height={14} />
             </button>
           </div>
-
-          <p className={styles.modal__description}>
-            질문, 고민, 배운 것을 편하게 남겨보세요.
-          </p>
-
           <fieldset className={styles.template__section}>
-            <legend>어떤 글을 쓰시나요?</legend>
+            <legend>글의 시작</legend>
             <div className={styles.template__list}>
               {WRITING_TEMPLATES.map((template) => (
                 <button
@@ -240,7 +234,7 @@ export default function BoardPostModal({
               ref={titleRef}
               id="board-post-title"
               className={styles.text__input}
-              placeholder={activeTemplate?.titleHint ?? "제목을 입력해주세요"}
+              placeholder={activeTemplate?.titleHint ?? "제목을 입력하세요"}
               value={title}
               onChange={(event) => setTitle(event.target.value)}
               maxLength={TITLE_MAX_LENGTH}
@@ -269,7 +263,7 @@ export default function BoardPostModal({
               ref={textareaRef}
               id="board-post-content"
               className={styles.textarea}
-              placeholder="상황과 궁금한 점을 구체적으로 적어주세요"
+              placeholder="내용을 입력하세요"
               value={content}
               onChange={(event) => setContent(event.target.value)}
               maxLength={CONTENT_MAX_LENGTH}
@@ -277,18 +271,14 @@ export default function BoardPostModal({
               aria-describedby={
                 showValidation && !trimmedContent
                   ? "board-post-content-error"
-                  : "board-post-helper"
+                  : undefined
               }
             />
             {showValidation && !trimmedContent ? (
               <p id="board-post-content-error" className={styles.validation__text}>
                 내용을 입력해주세요.
               </p>
-            ) : (
-              <p id="board-post-helper" className={styles.helper__text}>
-                개인정보와 회사의 비공개 정보는 빼고 작성해주세요.
-              </p>
-            )}
+            ) : null}
           </div>
 
           <div className={styles.button__container}>

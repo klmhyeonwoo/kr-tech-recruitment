@@ -7,6 +7,7 @@
   margin: 0 auto;
   padding: 1.8rem 0 4.2rem;
   color: #2b251e;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PretendardVariable", sans-serif;
 
   .board__back__link {
     display: inline-flex;
@@ -44,10 +45,10 @@
     h1 {
       margin: 0;
       color: #2b251e;
-      font-size: clamp(28px, 3.4vw, 39px);
+      font-size: clamp(28px, 3.2vw, 38px);
       font-weight: 700;
       letter-spacing: -0.05em;
-      line-height: 1.28;
+      line-height: 1.24;
       word-break: keep-all;
       overflow-wrap: anywhere;
     }
@@ -93,6 +94,11 @@
     .board__title__section {
       gap: 1.4rem;
       padding-bottom: 2.4rem;
+    }
+
+    .board__title__section h1 {
+      font-size: 30px;
+      line-height: 1.26;
     }
 
     .board__content__section {
