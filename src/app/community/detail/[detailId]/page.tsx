@@ -2,6 +2,7 @@ import community from "@/api/domain/community";
 import React from "react";
 import "@/styles/domain/community-detail.scss";
 import Comments from "@/app/community/_components/comments";
+import CommunityContent from "@/app/community/_components/community-content";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
@@ -9,6 +10,7 @@ import arrow_icon from "@public/icon/arrow_black.svg";
 import Image from "next/image";
 import dateUtil from "@/utils/dateUtil";
 import StructuredData from "@/lib/seo/structured-data";
+import { getCommunityPlainText } from "@/lib/community/document";
 
 type ParamsType = Promise<{
   detailId: string;
@@ -48,7 +50,7 @@ const BASE_URL = "https://nklcb.kr";
 const toMetaDescription = (content?: string) => {
   if (!content) return "네카라쿠배 커뮤니티 게시글 상세 내용을 확인해보세요.";
 
-  return content.replace(/\s+/g, " ").trim().slice(0, 160);
+  return getCommunityPlainText(content).slice(0, 160);
 };
 
 const getDetailBoardData = async (
@@ -145,7 +147,7 @@ export default async function Page({ params }: { params: ParamsType }) {
     "@context": "https://schema.org",
     "@type": "DiscussionForumPosting",
     headline: data.title,
-    articleBody: data.content,
+    articleBody: getCommunityPlainText(data.content),
     datePublished: data.createdAt,
     dateModified: data.modifiedAt,
     author: {
@@ -207,7 +209,7 @@ export default async function Page({ params }: { params: ParamsType }) {
             </div>
           </header>
           <div className="board__content__section">
-            <div className="board__content">{data.content}</div>
+            <CommunityContent content={data.content} />
           </div>
         </article>
         <Comments
