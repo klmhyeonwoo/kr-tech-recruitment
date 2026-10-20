@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import DefaultLayout from "@/components/layout/DefaultLayout";
 import styles from "./page.module.scss";
 import "@/styles/domain/web.scss";
@@ -37,6 +38,7 @@ type TechArticleSource = {
 const DEFAULT_PAGE_SIZE = 20;
 const PAGE_SIZE_OPTIONS = [10, 20, 30, 50];
 const VISIBLE_PAGE_COUNT = 5;
+const MAX_PAGE = 1000;
 const PAGE_URL = "https://nklcb.kr/tech-articles";
 
 export const metadata: Metadata = {
@@ -76,9 +78,15 @@ async function getTechArticlesCollection() {
   return data;
 }
 
-function parsePositiveInteger(value: string | undefined, fallback: number) {
+function parsePositiveInteger(
+  value: string | undefined,
+  fallback: number,
+  maximum = Number.MAX_SAFE_INTEGER,
+) {
   const number = Number(value);
-  return Number.isSafeInteger(number) && number > 0 ? number : fallback;
+  return Number.isSafeInteger(number) && number > 0 && number <= maximum
+    ? number
+    : fallback;
 }
 
 function parsePageSize(value: string | undefined) {
@@ -141,24 +149,25 @@ function buildHref({
 
 export default async function TechArticlesPage({ searchParams }: Props) {
   const params = await searchParams;
-  const page = parsePositiveInteger(params.page, 1);
+  const page = parsePositiveInteger(params.page, 1, MAX_PAGE);
   const pageSize = parsePageSize(params.pageSize);
-  const source = params.source?.trim() || undefined;
-  const [techArticlesData, techArticlesCollection] = await Promise.all([
-    getTechArticles({
-      page: String(page),
-      pageSize: String(pageSize),
-      source,
-    }),
-    getTechArticlesCollection(),
-  ]);
-  const totalPageCount =
-    techArticlesData.list.length < pageSize
-      ? page
-      : Math.max(
-          1,
-          Math.ceil(techArticlesData.metadata.totalElements / pageSize),
-        );
+  const techArticlesCollection = await getTechArticlesCollection().catch(() => []);
+  const source = techArticlesCollection.some(({ code }) => code === params.source)
+    ? params.source
+    : undefined;
+  const techArticlesData = await getTechArticles({
+    page: String(page),
+    pageSize: String(pageSize),
+    source,
+  }).catch(() => null);
+  const totalPageCount = Math.max(
+    1,
+    Math.ceil((techArticlesData?.metadata.totalElements ?? 0) / pageSize),
+  );
+
+  if (techArticlesData && page > totalPageCount) {
+    redirect(buildHref({ page: totalPageCount, pageSize, source }));
+  }
   const firstVisiblePage = Math.max(
     1,
     Math.min(page - 2, totalPageCount - VISIBLE_PAGE_COUNT + 1),
@@ -167,7 +176,7 @@ export default async function TechArticlesPage({ searchParams }: Props) {
     { length: Math.min(VISIBLE_PAGE_COUNT, totalPageCount) },
     (_, index) => firstVisiblePage + index,
   );
-  const structuredData = {
+  const structuredData = techArticlesData && {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
     name: "테크 아티클",
@@ -195,12 +204,12 @@ export default async function TechArticlesPage({ searchParams }: Props) {
   return (
     <DefaultLayout>
       <main className={styles.page}>
-        <script
+        {structuredData && <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(structuredData).replace(/</g, "\\u003c"),
           }}
-        />
+        />}
         <header className={styles.intro}>
           <h1>테크 아티클</h1>
           <p>관심 있는 수집처의 개발 이야기와 기술 글을 모아볼 수 있어요.</p>
@@ -229,7 +238,11 @@ export default async function TechArticlesPage({ searchParams }: Props) {
           <PageSizeSelect pageSize={pageSize} source={source} />
         </section>
 
-        {techArticlesData.list.length ? (
+        {!techArticlesData ? (
+          <p className={styles.empty} role="status">
+            글을 불러오지 못했어요. 잠시 후 다시 시도해 주세요.
+          </p>
+        ) : techArticlesData.list.length ? (
           <ul className={styles.list}>
             {techArticlesData.list.map((article) => (
               <li key={article.techArticleId}>
