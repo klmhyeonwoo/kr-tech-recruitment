@@ -68,10 +68,10 @@ export default async function RootLayout({
           name="naver-site-verification"
           content="628fcc13f939f4cf5b58a91fc0c19cc04c9c4acb"
         />
+        <StructuredData data={siteStructuredData} />
       </head>
       <Analytics />
       <GoogleAnalytics gaId="G-6M2JP9HLCY" />
-      <StructuredData data={siteStructuredData} />
       <Script
         src="https://cmp.gatekeeperconsent.com/min.js"
         data-cfasync="false"
