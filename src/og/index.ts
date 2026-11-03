@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+import { companyUrl, DEFAULT_COMPANY_CODE } from "@/lib/seo/companies";
 import { OG_IMAGE, SITE_NAME, SITE_URL } from "@/lib/seo/site";
 
 export const baseMetaData = {
@@ -94,7 +96,7 @@ export const baseMetaData = {
     title: "서울 디벨로퍼 클럽 - IT 기업 채용정보 플랫폼",
     description:
       "네이버 채용, 카카오 채용, 라인 채용, 쿠팡 채용, 배달의 민족 채용, 당근 채용, 토스 채용 정보를 한눈에! 네이버, 카카오, 라인, 쿠팡, 배달의민족, 토스, 당근, 두나무 등 대한민국 대표 IT 기업의 최신 채용 공고를 실시간으로 확인하고 지원하세요.",
-    url: "https://nklcb.kr",
+    url: SITE_URL,
     siteName: SITE_NAME,
     images: [
       {
@@ -120,124 +122,20 @@ export const baseMetaData = {
 
 export default function generateServiceOpenGraph({
   companyName,
+  companyCode = DEFAULT_COMPANY_CODE,
 }: {
   companyName: string;
-}) {
-  const title = companyName ? `${companyName} 채용 정보` : "네카라쿠배 채용";
-  const description = companyName
-    ? `${companyName}의 최신 채용 정보를 확인해보세요. 네카라쿠배에서 빅테크 기업의 공고를 한눈에 확인하세요.`
-    : "네카라쿠배(nklcb) 빅테크 기업의 공고를 한눈에 확인해보세요";
-  const url = `${SITE_URL}/web${companyName ? `?company=${companyName}` : ""}`;
+  companyCode?: string;
+}): Metadata {
+  const title = `${companyName} 채용 공고`;
+  const description = `${companyName} 채용 공고를 직무별로 살펴보고 공고 제목과 모집 기간을 확인하세요. 관심 있는 공고에서 원문으로 이동해 지원 자격과 전형 절차를 확인할 수 있습니다.`;
+  const url = companyUrl(companyCode);
 
   return {
     title,
     description,
-    keywords: [
-      "네카라쿠배 채용",
-      "nklcb",
-      "nklcb.kr",
-      "네이버 채용",
-      "카카오 채용",
-      "라인 채용",
-      "쿠팡 채용",
-      "우아한형제들 채용",
-      "배달의민족 채용",
-      "당근 채용",
-      "토스 채용",
-      "두나무 채용",
-      "야놀자 채용",
-      "삼성전자 채용",
-      "LG전자 채용",
-      "현대오토에버 채용",
-      "SK하이닉스 채용",
-      "엔씨소프트 채용",
-      "넷마블 채용",
-      "크래프톤 채용",
-      "컴투스 채용",
-      "넥슨 채용",
-      "카카오뱅크 채용",
-      "카카오페이 채용",
-      "카카오게임즈 채용",
-      "네이버파이낸셜 채용",
-      "네이버웹툰 채용",
-      "라인플러스 채용",
-      "빗썸 채용",
-      "업비트 채용",
-      "프론트엔드 채용",
-      "백엔드 채용",
-      "풀스택 개발자 채용",
-      "모바일 개발자 채용",
-      "UI/UX 디자이너 채용",
-      "그래픽 디자이너 채용",
-      "데이터 분석가 채용",
-      "AI 엔지니어 채용",
-      "머신러닝 엔지니어 채용",
-      "서비스 기획 채용",
-      "프로덕트 매니저 채용",
-      "프로젝트 매니저 채용",
-      "신입 공개 채용",
-      "경력직 공개 채용",
-      "네카라쿠배 수시 채용",
-      "IT 기업 수시 채용",
-      "네카라쿠배 인턴 채용",
-      "IT 기업 인턴십",
-      "원격 근무 채용",
-      "재택 근무 가능 채용",
-      "2025 개발자 채용",
-      "IT 채용 트렌드",
-      "네카라쿠배 채용 공고",
-      "네카라쿠배 공고",
-      "블록체인 개발자 채용",
-      "AI 스타트업 채용",
-      "IT 대기업 채용",
-      "네카라쿠배 채용 정보",
-      "네카라쿠배 채용 공고",
-      "네카라쿠배 채용 사이트",
-      "네카라쿠배 채용 플랫폼",
-      "네카라쿠배 채용 리스트",
-      "네카라쿠배 채용 공고 리스트",
-      "네카라쿠배 채용 정보 리스트",
-      "네카라쿠배 채용 공고 정보",
-      "네카라쿠배 채용 공고 검색",
-      "네카라쿠배 채용 공고 필터링",
-      "네카라쿠배 채용 공고 정렬",
-      "네카라쿠배 채용 공고 알림",
-      "네카라쿠배 채용 공고 북마크",
-      "네카라쿠배 채용 공고 즐겨찾기",
-      "네카라쿠배 채용 공고 추천",
-      "네카라쿠배 채용 공고 공유",
-      "IT 기업 채용",
-      "개발자 채용",
-      "프론트엔드 개발자",
-      "백엔드 개발자",
-      "소프트웨어 엔지니어",
-      "IT 채용정보",
-      "빅테크 채용",
-      "테크 기업 채용",
-      companyName ? `${companyName} 채용` : "",
-      companyName ? `${companyName} 채용 공고` : "",
-      companyName ? `${companyName} 채용 정보` : "",
-      companyName ? `${companyName} 공고` : "",
-    ]
-      .filter(Boolean)
-      .filter((value, index, self) => self.indexOf(value) === index), // Remove duplicates
-    authors: [{ name: SITE_NAME }],
-    creator: SITE_NAME,
-    publisher: SITE_NAME,
-    robots: {
-      index: true,
-      follow: true,
-      googleBot: {
-        index: true,
-        follow: true,
-        "max-video-preview": -1,
-        "max-image-preview": "large" as const,
-        "max-snippet": -1,
-      },
-    },
-    alternates: {
-      canonical: url,
-    },
+    keywords: [`${companyName} 채용`, `${companyName} 채용 공고`, "개발자 채용"],
+    alternates: { canonical: url },
     openGraph: {
       title,
       description,
@@ -245,22 +143,8 @@ export default function generateServiceOpenGraph({
       siteName: SITE_NAME,
       type: "website",
       locale: "ko_KR",
-      images: [
-        {
-          url: OG_IMAGE,
-          width: 1200,
-          height: 630,
-          alt: `${companyName ? `${companyName} ` : ""}네카라쿠배 채용 이미지`,
-        },
-      ],
+      images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: title }],
     },
-    twitter: {
-      card: "summary_large_image",
-      title,
-      description,
-      images: [
-        OG_IMAGE,
-      ],
-    },
+    twitter: { card: "summary_large_image", title, description, images: [OG_IMAGE] },
   };
 }

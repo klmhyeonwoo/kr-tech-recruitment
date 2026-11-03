@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/lib/seo/site";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
@@ -39,7 +40,7 @@ const DEFAULT_PAGE_SIZE = 20;
 const PAGE_SIZE_OPTIONS = [10, 20, 30, 50];
 const VISIBLE_PAGE_COUNT = 5;
 const MAX_PAGE = 1000;
-const PAGE_URL = "https://nklcb.kr/tech-articles";
+const PAGE_URL = `${SITE_URL}/tech-articles`;
 
 export const metadata: Metadata = {
   title: "테크 아티클",

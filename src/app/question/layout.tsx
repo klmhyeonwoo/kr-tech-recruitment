@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/lib/seo/site";
 import "@/styles/domain/web.scss";
 import { Metadata } from "next";
 import React from "react";
@@ -20,7 +21,7 @@ export const metadata: Metadata = {
     description:
       "이번 주 질문을 통해 여러분의 생각을 익명으로 나눠보세요. 다른 사람들의 의견도 확인할 수 있어요.",
     type: "website",
-    url: "https://nklcb.kr/question",
+    url: `${SITE_URL}/question`,
   },
   twitter: {
     card: "summary_large_image",
@@ -29,7 +30,7 @@ export const metadata: Metadata = {
       "이번 주 질문을 통해 여러분의 생각을 익명으로 나눠보세요",
   },
   alternates: {
-    canonical: "https://nklcb.kr/question",
+    canonical: `${SITE_URL}/question`,
   },
 };
 

@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/lib/seo/site";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -17,7 +18,7 @@ export const metadata: Metadata = {
     description:
       "주요 IT 기업의 최신 채용 공고를 확인하세요. 신입부터 경력직까지 다양한 포지션 정보를 제공합니다.",
     type: "website",
-    url: "https://nklcb.kr/recruitment-notices",
+    url: `${SITE_URL}/recruitment-notices`,
   },
   twitter: {
     card: "summary_large_image",
@@ -25,7 +26,7 @@ export const metadata: Metadata = {
     description: "주요 IT 기업의 최신 채용 공고를 확인하세요",
   },
   alternates: {
-    canonical: "https://nklcb.kr/recruitment-notices",
+    canonical: `${SITE_URL}/recruitment-notices`,
   },
 };
 
