@@ -45,6 +45,7 @@ async function getCommunitySitemapEntries(
     });
 
     if (!response || response.status !== 200) {
+      console.warn("[sitemap] Community first page unavailable", { status: response?.status });
       return [];
     }
 
@@ -64,6 +65,16 @@ async function getCommunitySitemapEntries(
         }),
       ),
     );
+
+    const failedPages = additionalResponses.flatMap((result, index) =>
+      result.status === "rejected" || result.value.status !== 200 ? [index + 1] : [],
+    );
+    if (failedPages.length) {
+      console.warn("[sitemap] Community pages omitted", { pages: failedPages });
+    }
+    if (totalElements > COMMUNITY_PAGE_SIZE * MAX_COMMUNITY_PAGE_COUNT) {
+      console.warn("[sitemap] Community pagination limit reached", { totalElements });
+    }
 
     const additionalPageData = additionalResponses
       .flatMap((result) => result.status === "fulfilled" && result.value.status === 200
@@ -100,10 +111,9 @@ async function getQuestionLastModified() {
     const response = await hotIssue.getActivatedList();
     if (!response || response.status !== 200) return undefined;
     const parsedData = response.data as HotIssueResponse;
-    const dates = (parsedData.list ?? [])
-      .map((question) => toDate(question.modifiedAt ?? question.createdAt))
-      .filter((date): date is Date => date !== undefined);
-    return dates.length ? new Date(Math.max(...dates.map((date) => date.getTime()))) : undefined;
+    // /question renders only list[0], including its title and metadata.
+    const question = parsedData.list?.[0];
+    return toDate(question?.modifiedAt) ?? toDate(question?.createdAt);
   } catch (error) {
     console.error(error);
     return undefined;

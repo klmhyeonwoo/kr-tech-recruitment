@@ -29,7 +29,7 @@ function fixture({ offline = false } = {}) {
       } };
     } },
     "@/api/domain/hotIssue": { getActivatedList: async () => ({ status: 200, data: { list: [
-      { modifiedAt: "2026-01-01" }, { modifiedAt: "2026-10-01" },
+      { modifiedAt: "invalid", createdAt: "2026-01-01" }, { modifiedAt: "2026-10-01" },
     ] } }) },
     "@/components/card/Section": () => null,
     "@/components/loading/eyes-loading": () => null,
@@ -78,7 +78,7 @@ function fixture({ offline = false } = {}) {
   assert.equal(urls.find((entry) => entry.url.endsWith("/tech-articles")).lastModified, undefined);
   assert.equal(urls.find((entry) => entry.url.endsWith("/community/detail/1")).lastModified, undefined);
   assert.equal(urls.find((entry) => entry.url.endsWith("/community/detail/3")).lastModified.toISOString(), "2026-10-01T00:00:00.000Z");
-  assert.equal(urls.find((entry) => entry.url.endsWith("/question")).lastModified.toISOString(), "2026-10-01T00:00:00.000Z");
+  assert.equal(urls.find((entry) => entry.url.endsWith("/question")).lastModified.toISOString(), "2026-01-01T00:00:00.000Z");
 
   const offline = fixture({ offline: true });
   const fallback = await offline("@/lib/seo/companies").getRecruitmentCompanies();
