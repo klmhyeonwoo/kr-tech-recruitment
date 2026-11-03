@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/lib/seo/site";
 import type { Metadata } from "next";
 import Link from "next/link";
 import DefaultLayout from "@/components/layout/DefaultLayout";
@@ -138,7 +139,7 @@ export const metadata: Metadata = {
     description:
       "완전 원격 및 부분 원격이 가능한 국내 회사 목록을 확인해보세요.",
     type: "website",
-    url: "https://nklcb.kr/remote-work-companies",
+    url: `${SITE_URL}/remote-work-companies`,
     siteName: "네카라쿠배 채용",
     locale: "ko_KR",
     images: [
@@ -158,7 +159,7 @@ export const metadata: Metadata = {
     images: ["https://raw.githubusercontent.com/klmhyeonwoo/Asset-Archieve./main/nklcb.png"],
   },
   alternates: {
-    canonical: "https://nklcb.kr/remote-work-companies",
+    canonical: `${SITE_URL}/remote-work-companies`,
   },
 };
 
@@ -192,7 +193,7 @@ export default async function RemoteWorkCompaniesPage({
   const pageQuery = new URLSearchParams();
   if (filterType !== "all") pageQuery.set("type", filterType);
   if (query) pageQuery.set("q", query);
-  const pageUrl = `https://nklcb.kr/remote-work-companies${
+  const pageUrl = `${SITE_URL}/remote-work-companies${
     pageQuery.toString() ? `?${pageQuery.toString()}` : ""
   }`;
 

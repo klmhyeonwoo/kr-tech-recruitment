@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/lib/seo/site";
 import type { Metadata } from "next";
 import DefaultLayout from "@/components/layout/DefaultLayout";
 import StructuredData from "@/lib/seo/structured-data";
@@ -6,7 +7,7 @@ import styles from "./page.module.scss";
 import data from "@/data/interview-questions.json";
 import "@/styles/domain/web.scss";
 
-const PAGE_URL = "https://nklcb.kr/interview-questions";
+const PAGE_URL = `${SITE_URL}/interview-questions`;
 const OG_IMAGE =
   "https://raw.githubusercontent.com/klmhyeonwoo/Asset-Archieve./main/nklcb.png";
 
@@ -122,7 +123,7 @@ export default function InterviewQuestionsPage() {
     isPartOf: {
       "@type": "WebSite",
       name: "네카라쿠배 채용",
-      url: "https://nklcb.kr",
+      url: SITE_URL,
     },
     mainEntity: {
       "@type": "ItemList",
@@ -164,7 +165,7 @@ export default function InterviewQuestionsPage() {
         "@type": "ListItem",
         position: 1,
         name: "홈",
-        item: "https://nklcb.kr",
+        item: SITE_URL,
       },
       {
         "@type": "ListItem",

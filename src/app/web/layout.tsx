@@ -1,3 +1,6 @@
+import { SITE_URL } from "@/lib/seo/site";
+import Link from "next/link";
+import { companyPath, getRecruitmentCompanies } from "@/lib/seo/companies";
 import { api } from "@/api";
 import { Fragment, Suspense } from "react";
 import TabSection from "@/components/tab/Section";
@@ -40,7 +43,7 @@ export const metadata: Metadata = {
     description:
       "각 기업별 채용 정보를 상세히 확인하세요. 기업별로 필터링하여 원하는 채용 공고를 쉽게 찾을 수 있습니다.",
     type: "website",
-    url: "https://nklcb.kr/web",
+    url: `${SITE_URL}/web`,
   },
   twitter: {
     card: "summary_large_image",
@@ -48,26 +51,14 @@ export const metadata: Metadata = {
     description: "각 기업별 채용 정보를 상세히 확인하세요",
   },
   alternates: {
-    canonical: "https://nklcb.kr/web",
+    canonical: `${SITE_URL}/web`,
   },
 };
 
 export const revalidate = 3600; // Revalidate every hour
 
-type CompanyType = { companyCode: string; name: string };
 type SearchCategoryType = { code: string; name: string };
-type CompanyListResponse = { companies: CompanyType[] };
 type StandardRecruitResponse = { list: SearchCategoryType[]; error?: unknown };
-
-async function getCompanyList(): Promise<CompanyListResponse> {
-  try {
-    const { data } = await api.get("/companies");
-    return data;
-  } catch (error) {
-    console.error("Error fetching data:", error);
-    return { companies: [] };
-  }
-}
 
 async function getStandardRecruitData(): Promise<StandardRecruitResponse> {
   try {
@@ -84,8 +75,8 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   // Fetch data in parallel for better performance
-  const [{ companies }, { list }] = await Promise.all([
-    getCompanyList(),
+  const [companies, { list }] = await Promise.all([
+    getRecruitmentCompanies(),
     getStandardRecruitData(),
   ]);
 
@@ -100,6 +91,14 @@ export default async function RootLayout({
               <SearchSection data={list || []} />
             </Suspense>
             {children}
+            <nav className="company-directory" aria-label="기업별 채용 공고 바로가기">
+              <h2>다른 기업 채용 공고</h2>
+              <ul>
+                {companies.map(({ companyCode, name }) => (
+                  <li key={companyCode}><Link href={companyPath(companyCode)}>{name} 채용</Link></li>
+                ))}
+              </ul>
+            </nav>
             <UserAds />
           </div>
         </article>

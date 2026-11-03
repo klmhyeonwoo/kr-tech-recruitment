@@ -74,3 +74,15 @@
     background-position-x: -200%;
   }
 }
+
+.recruitment-intro,
+.company-directory {
+  width: 100%;
+}
+
+.recruitment-intro .description { margin-top: 1rem; line-height: 1.6; }
+.company-directory {
+  h2 { font-size: 1.8rem; }
+  ul { display: flex; flex-wrap: wrap; gap: 1.2rem 2rem; margin-top: 1.6rem; }
+  a { font-size: 1.5rem; text-decoration: underline; text-underline-offset: 0.3rem; }
+}

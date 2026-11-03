@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/lib/seo/site";
 import hotIssue from "@/api/domain/hotIssue";
 import QuestionCommentPost from "./_components/question-comment-post";
 import QuestionTitle from "./_components/question-title";
@@ -7,7 +8,7 @@ import type { Metadata } from "next";
 import StructuredData from "@/lib/seo/structured-data";
 
 export const dynamic = "force-dynamic";
-const BASE_URL = "https://nklcb.kr/question";
+const BASE_URL = `${SITE_URL}/question`;
 
 type HotIssueQuestion = QuestionTypes["questionData"];
 type HotIssueComment = HotIssueQuestion["comments"][number];
