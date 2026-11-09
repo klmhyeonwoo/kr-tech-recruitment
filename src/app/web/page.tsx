@@ -111,9 +111,9 @@ async function RecruitDataSection({
   return (
     <Fragment>
       <header className="recruitment-intro">
-        <h1 className="title">기업별 채용</h1>
+        <h1 className="title">{companyName} 채용 공고</h1>
         <p className="description">
-          기업을 고르고 키워드나 직무로 공고를 좁혀 보세요.
+          {companyName}의 공고를 키워드나 직무로 좁혀 보세요.
         </p>
       </header>
       <StructuredData
