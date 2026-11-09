@@ -7,7 +7,7 @@ interface LoadingProps {
 }
 
 function Loading({
-  message = "정보들을 열심히 가져오고 있어요",
+  message = "",
 }: LoadingProps) {
   return (
     <div className={styles.loading__container}>

@@ -1,0 +1,152 @@
+/*
+ * Seoul Dev Club - 화이트 톤 라이트 테마 (모든 페이지 공통, 라이트 모드 전용)
+ * layout.tsx 에서 마지막에 import 되어 기존 토큰을 덮어씁니다.
+ *
+ * 쓰는 법
+ *  - 배경/면: var(--bg) var(--surface) var(--surface-2) var(--surface-3)
+ *  - 글자:    var(--text) var(--muted) var(--faint)
+ *  - 선:      var(--line) var(--line-strong)
+ *  - 포인트:  var(--accent) = 잉크 블랙(버튼/선택 상태), var(--hl) = 연한 회색(선택·강조 배경)
+ *  - 로고만 픽셀 폰트("Pixel")를 씁니다. 나머지는 모두 Pretendard.
+ *  - 페이지 본문 너비는 모두 var(--page-width) 하나로 맞춥니다.
+ */
+:root {
+  color-scheme: light;
+
+  --bg: #ffffff;
+  --surface: #ffffff;
+  --surface-2: #f6f6f6;
+  --surface-3: #ececec;
+  --text: #222222;
+  --muted: #666666;
+  --faint: #8a8a8a;
+  --line: #ebebeb;
+  --line-strong: #d3d3d3;
+
+  --accent: #222222;
+  --accent-hover: #3d3d3d;
+  --accent-text: #222222;
+  --accent-bg: #f4f4f4;
+  --on-accent: #ffffff;
+  --hl: #f1f1f1;
+  --success: #12805c;
+  --danger: #d6363c;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --header-height: 112px;
+  --page-width: 1200px;
+  --page-gutter: 24px;
+  --shadow-card: 0 1px 2px rgba(34, 34, 34, 0.04), 0 8px 24px rgba(34, 34, 34, 0.06);
+
+  /* 예전 이름 호환 */
+  --blue: var(--accent);
+  --yellow: var(--accent);
+  --mint: var(--muted);
+  --violet: var(--muted);
+
+  --font-pixel: "PretendardVariable", sans-serif;
+  --font-body: "PretendardVariable", sans-serif;
+
+  --pixel-border: 0 0 0 1px var(--line);
+  --pixel-border-strong: 0 0 0 1px var(--line-strong);
+  --pixel-border-accent: 0 0 0 1px var(--accent);
+  --pixel-clip: none;
+  --pixel-clip-lg: none;
+
+  /* 기존 토큰을 라이트 값으로 (50 = 가장 밝은 면, 900 = 가장 진한 글자) */
+  --background: #ffffff;
+  --layeredBackground: #ffffff;
+  --floatBackground: #ffffff;
+  --greyBackground: #f6f6f6;
+  --grey50: #fafafa;
+  --grey100: #f6f6f6;
+  --grey200: #ebebeb;
+  --grey300: #d3d3d3;
+  --grey400: #aaaaaa;
+  --grey500: #8a8a8a;
+  --grey600: #6a6a6a;
+  --grey700: #4d4d4d;
+  --grey800: #2e2e2e;
+  --grey900: #222222;
+  --greyOpacity50: rgba(34, 34, 34, 0.03);
+  --greyOpacity100: rgba(34, 34, 34, 0.05);
+  --greyOpacity200: rgba(34, 34, 34, 0.09);
+  --greyOpacity300: rgba(34, 34, 34, 0.14);
+  --greyOpacity400: rgba(34, 34, 34, 0.3);
+  --greyOpacity500: rgba(34, 34, 34, 0.5);
+  --greyOpacity600: rgba(34, 34, 34, 0.62);
+  --greyOpacity700: rgba(34, 34, 34, 0.74);
+  --greyOpacity800: rgba(34, 34, 34, 0.86);
+  --greyOpacity900: rgba(34, 34, 34, 0.94);
+  --inverseGrey50: #111318;
+  --inverseGrey500: rgba(34, 34, 34, 0.6);
+  --blue500: #111318;
+  --blue600: #000000;
+}
+
+html {
+  scrollbar-gutter: stable; /* 스크롤바 유무로 화면이 좌우로 흔들리지 않게 */
+}
+
+/* 내용이 잠시 비어도 푸터가 위로 올라오지 않게 본문 영역에 최소 높이를 둡니다. */
+.page-shell {
+  position: relative;
+  min-height: calc(100dvh - var(--header-height, 112px) - 140px);
+}
+
+html,
+body {
+  background: var(--bg);
+  color: var(--text);
+}
+
+body {
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background: var(--hl);
+  color: var(--text);
+}
+
+:focus-visible {
+  outline-color: var(--accent);
+}
+
+/* 스크린리더/키보드용 본문 바로가기 */
+.skip-link {
+  position: fixed;
+  top: 8px;
+  left: 8px;
+  z-index: 10000;
+  padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  background: var(--accent);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  transform: translateY(-200%);
+  &:focus { transform: none; }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+* {
+  scrollbar-color: #d3d3d3 transparent;
+}
+
+@media (max-width: 640px) {
+  :root { --page-gutter: 16px; --header-height: 100px; }
+  /* iOS 에서 입력창을 누를 때 화면이 확대되지 않도록 16px 이상으로 둡니다. */
+  input, select, textarea { font-size: 16px !important; }
+}

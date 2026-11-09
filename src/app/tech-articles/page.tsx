@@ -1,8 +1,11 @@
 import { SITE_URL } from "@/lib/seo/site";
 import type { Metadata } from "next";
+import { Fragment } from "react";
 import Link from "next/link";
+import AdSlot from "@/components/ads/ad-slot";
 import { redirect } from "next/navigation";
 import DefaultLayout from "@/components/layout/DefaultLayout";
+import titleStyles from "@/styles/components/title.module.scss";
 import styles from "./page.module.scss";
 import "@/styles/domain/web.scss";
 import { api } from "@/api";
@@ -211,9 +214,9 @@ export default async function TechArticlesPage({ searchParams }: Props) {
             __html: JSON.stringify(structuredData).replace(/</g, "\\u003c"),
           }}
         />}
-        <header className={styles.intro}>
-          <h1>테크 아티클</h1>
-          <p>관심 있는 수집처의 개발 이야기와 기술 글을 모아볼 수 있어요.</p>
+        <header className={titleStyles.title__container}>
+          <h1 className={titleStyles.title}>테크 아티클</h1>
+          <p className={titleStyles.description}>관심 있는 수집처의 개발 이야기와 기술 글을 모아볼 수 있어요.</p>
         </header>
 
         <section className={styles.toolbar} aria-label="테크 아티클 필터">
@@ -239,14 +242,22 @@ export default async function TechArticlesPage({ searchParams }: Props) {
           <PageSizeSelect pageSize={pageSize} source={source} />
         </section>
 
+        {techArticlesData && (
+          <p className={styles.summaryText} role="status">
+            이 페이지 {techArticlesData.list.length}개 · {source ? techArticlesCollection.find(({ code }) => code === source)?.korean : "전체 수집처"}
+          </p>
+        )}
+
         {!techArticlesData ? (
           <p className={styles.empty} role="status">
             글을 불러오지 못했어요. 잠시 후 다시 시도해 주세요.
           </p>
         ) : techArticlesData.list.length ? (
           <ul className={styles.list}>
-            {techArticlesData.list.map((article) => (
-              <li key={article.techArticleId}>
+            {techArticlesData.list.map((article, index) => (
+              <Fragment key={article.techArticleId}>
+              {index === 5 && <li><AdSlot variant="infeed" placement="articles-feed" /></li>}
+              <li>
                 <a
                   href={article.link}
                   target="_blank"
@@ -273,6 +284,7 @@ export default async function TechArticlesPage({ searchParams }: Props) {
                   </span>
                 </a>
               </li>
+              </Fragment>
             ))}
           </ul>
         ) : (
@@ -280,6 +292,8 @@ export default async function TechArticlesPage({ searchParams }: Props) {
             표시할 글이 없어요.
           </p>
         )}
+
+        {(techArticlesData?.list.length ?? 0) > 0 && <AdSlot variant="multiplex" placement="articles-bottom" />}
 
         {totalPageCount > 1 && (
           <nav className={styles.pagination} aria-label="아티클 페이지">

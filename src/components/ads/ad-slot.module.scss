@@ -1,0 +1,42 @@
+.slot {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  /* 광고가 늦게 채워져도 아래 내용이 밀리지 않도록 자리를 먼저 잡아 둡니다. */
+  min-height: 130px;
+  padding: 8px 0 12px;
+
+  /* 광고가 채워지지 않았으면 자리를 접습니다. */
+  &:has(ins[data-ad-status="unfilled"]) { display: none; }
+}
+
+.label {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--faint);
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+.frame { width: 100%; min-height: 90px; overflow: hidden; }
+
+/* 네이티브 광고는 더 큰 자리를 먼저 잡아 둡니다. */
+.slot[data-variant="infeed"] { min-height: 190px; }
+.slot[data-variant="multiplex"] { min-height: 300px; margin-top: 24px; }
+.slot[data-variant="infeed"] .frame, .slot[data-variant="infeed"] .placeholder { min-height: 150px; }
+.slot[data-variant="multiplex"] .frame, .slot[data-variant="multiplex"] .placeholder { min-height: 260px; }
+
+.placeholder {
+  display: grid;
+  place-items: center;
+  min-height: 90px;
+  border: 1px dashed var(--line-strong);
+  border-radius: 12px;
+  color: var(--faint);
+  font-size: 13px;
+}
+
+@media (max-width: 640px) {
+  .slot { min-height: 110px; }
+  .frame, .placeholder { min-height: 70px; }
+}

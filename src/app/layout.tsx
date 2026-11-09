@@ -9,6 +9,7 @@ import "@/styles/schema.scss";
 import "@/styles/error.scss";
 import "@/styles/common.scss";
 import "@/styles/utility.scss";
+import "@/styles/theme.scss";
 import { baseMetaData } from "@/og";
 import SubscriptionPopup from "@/components/popup/subscription";
 import KakaoScript from "@/lib/auth/kakao-script";
@@ -19,6 +20,8 @@ import LenisProvider from "@/lib/lenis/lenis-provider";
 import ScrollFloationButton from "@/components/common/floating/scroll-floating-button";
 import ChannelTalk from "@/components/common/floating/channel-talk";
 import PwaRegister from "@/components/common/pwa-register";
+import SiteFooter from "@/components/common/site-footer";
+import Header from "@/components/common/navigation/header";
 import { SITE_NAME, SITE_URL } from "@/lib/seo/site";
 
 export const metadata: Metadata = {
@@ -29,7 +32,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#222222",
+  themeColor: "#ffffff",
 };
 
 const siteStructuredData = {
@@ -52,6 +55,14 @@ const siteStructuredData = {
       publisher: {
         "@id": `${SITE_URL}/#organization`,
       },
+      potentialAction: {
+        "@type": "SearchAction",
+        target: {
+          "@type": "EntryPoint",
+          urlTemplate: `${SITE_URL}/?q={search_term_string}`,
+        },
+        "query-input": "required name=search_term_string",
+      },
     },
   ],
 };
@@ -69,24 +80,24 @@ export default async function RootLayout({
           content="628fcc13f939f4cf5b58a91fc0c19cc04c9c4acb"
         />
       </head>
-      <Analytics />
-      <GoogleAnalytics gaId="G-6M2JP9HLCY" />
-      <StructuredData data={siteStructuredData} />
-      <Script
-        src="https://cmp.gatekeeperconsent.com/min.js"
-        data-cfasync="false"
-        strategy="afterInteractive"
-      />
-      <Script
-        src="https://the.gatekeeperconsent.com/cmp.min.js"
-        data-cfasync="false"
-        strategy="afterInteractive"
-      />
-      <Script
-        src="//t1.daumcdn.net/kas/static/ba.min.js"
-        strategy="afterInteractive"
-      />
       <body>
+        <Analytics />
+        <GoogleAnalytics gaId="G-6M2JP9HLCY" />
+        <StructuredData data={siteStructuredData} />
+        <Script
+          src="https://cmp.gatekeeperconsent.com/min.js"
+          data-cfasync="false"
+          strategy="afterInteractive"
+        />
+        <Script
+          src="https://the.gatekeeperconsent.com/cmp.min.js"
+          data-cfasync="false"
+          strategy="afterInteractive"
+        />
+        <Script
+          src="//t1.daumcdn.net/kas/static/ba.min.js"
+          strategy="afterInteractive"
+        />
         <ClarityProvider>
           <QueryProvider>
             <LenisProvider>
@@ -95,12 +106,14 @@ export default async function RootLayout({
               <SubscriptionPopup />
               <ChannelTalk />
               <ScrollFloationButton />
-              {children}
+              <Header />
+              <div className="page-shell">{children}</div>
+              <SiteFooter />
             </LenisProvider>
           </QueryProvider>
         </ClarityProvider>
+        <KakaoScript />
       </body>
-      <KakaoScript />
     </html>
   );
 }

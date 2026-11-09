@@ -1,25 +1,36 @@
+/* 페이지 제목 배너: 홈 상단과 같은 회색 둥근 면 */
 .title__container {
+  box-sizing: border-box;
+  width: 100%;
+  margin-top: 8px;
+  padding: 40px 48px;
+  border-radius: 24px;
+  background: var(--surface-2);
   display: flex;
   flex-direction: column;
   gap: 10px;
-  width: 100%;
-  padding: 8px 0;
+
+  > div { display: flex; flex-direction: column; gap: 10px; }
 }
 
 .title {
   margin: 0;
-  color: #191f28;
+  color: var(--text);
   font-size: clamp(26px, 3.2vw, 34px);
-  font-weight: 700;
-  letter-spacing: -0.04em;
+  font-weight: 800;
+  letter-spacing: -1px;
   line-height: 1.35;
 }
 
 .description {
   margin: 0;
-  color: #6b7684;
+  color: var(--muted);
   font-size: clamp(14px, 1.6vw, 16px);
   font-weight: 400;
   line-height: 1.65;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.2px;
+}
+
+@media (max-width: 640px) {
+  .title__container { padding: 28px 20px; border-radius: 20px; }
 }

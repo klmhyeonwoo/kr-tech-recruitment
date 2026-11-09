@@ -1,5 +1,6 @@
 "use client";
 import React, { createContext, useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import { Portal } from "../../common/overlay/portal";
 import Popup from "../../common/overlay/popup";
 import { useAtom } from "jotai";
@@ -29,9 +30,14 @@ export const SubsecriptionContext = createContext<SubscriptionContextType>({
   selectedSubscriptionCategories: [],
 });
 
+const AUTO_OPEN_DELAY_MS = 8000;
+const SUBSCRIBED_KEY = "sdc-subscribed";
+
 function SubscriptionPopup() {
   const [isShowPopup, setIsShowPopup] = useAtom(PORTAL_STORE);
-  const { data: subscriberTotal } = useGetSubscribeTotal(isShowPopup);
+  const pathname = usePathname();
+  const [prefetchCount, setPrefetchCount] = useState(false);
+  const { data: subscriberTotal } = useGetSubscribeTotal(isShowPopup || prefetchCount);
   const { email, isValidEmail, handleEmailChange, handleCleanUpEmail } =
     useCheckEmail();
   const [standardCategories, setStandardCategories] = useState<{
@@ -78,6 +84,7 @@ function SubscriptionPopup() {
         standardCategories: selectedSubscriptionCategories,
       });
       if (status === 204) {
+        try { localStorage.setItem(SUBSCRIBED_KEY, "1"); } catch {}
         setPhase((prev) => prev + 1);
       }
     }
@@ -151,16 +158,16 @@ function SubscriptionPopup() {
     {
       title: (
         <>
-          서비스의 다양한 소식과 <br />
-          여러 빅테크 기업의 채용 소식을 <br />
+          서울데브클럽을 구독하면 <br />
+          커뮤니티 소식과 주요 기업의 <br />
+          채용 소식을 받아볼 수 있어요 <br />
           {typeof subscriberTotal?.count === "number" &&
           Number.isFinite(subscriberTotal.count) ? (
             <>
-              현재 <CountUp end={subscriberTotal.count} separator="," />명이
-              구독하고 있어요
+              <span className="popup-count"><i aria-hidden="true" /><span>현재 <b><CountUp end={subscriberTotal.count} separator="," duration={1.4} />명</b>이 구독 중이에요</span></span>
             </>
           ) : (
-            <>메일로 받아보세요</>
+            <span className="popup-count">메일로 편하게 받아보세요</span>
           )}
         </>
       ),
@@ -188,6 +195,19 @@ function SubscriptionPopup() {
       },
     },
   ];
+
+  /**
+   * @description 몇 초 뒤 자동으로 구독 팝업을 띄웁니다. (오늘 닫았거나 이미 구독했다면 띄우지 않아요)
+   */
+  useEffect(() => {
+    if (pathname?.startsWith("/subscribe")) return;
+    if (Cookies.get("subscriptionPopup") === "closed") return;
+    try { if (localStorage.getItem(SUBSCRIBED_KEY)) return; } catch {}
+    // 팝업이 뜨기 전에 구독자 수를 미리 받아 둬서, 열릴 때 바로 숫자가 보이게 합니다.
+    const prefetch = window.setTimeout(() => setPrefetchCount(true), AUTO_OPEN_DELAY_MS / 2);
+    const timer = window.setTimeout(() => setIsShowPopup(true), AUTO_OPEN_DELAY_MS);
+    return () => { window.clearTimeout(timer); window.clearTimeout(prefetch); };
+  }, [pathname, setIsShowPopup]);
 
   /**
    * @description 직무 별 카테고리 성공 여부 감지를 위한 UseEffect 함수
@@ -231,6 +251,7 @@ function SubscriptionPopup() {
             isDisabledButton={phaseTextSet[phase]?.isDisabledButton}
             options={phaseTextSet[phase]?.options}
             loader={loader || isLoadingStandardJobCategories}
+            onClose={handleClose}
           >
             {phase === 1 && (
               <Progress

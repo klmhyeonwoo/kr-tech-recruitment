@@ -1,7 +1,9 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect, useSyncExternalStore } from "react";
 import styles from "../page.module.scss";
+import kit from "@/styles/components/page-kit.module.scss";
+import Input from "@/components/search/Input";
 import useTechInterviewAnswer from "@/hooks/api/useGetTechInterviewAnswer";
 
 type Question = {
@@ -28,18 +30,34 @@ type InterviewData = {
 
 const STORAGE_KEY = "nklcb__interview_checked";
 
+const emptyChecked: Record<string, boolean> = {};
+const checkedListeners = new Set<() => void>();
+let checkedSnapshot = emptyChecked as Record<string, boolean>;
+let checkedRaw: string | null = null;
+function subscribeChecked(callback: () => void) {
+  checkedListeners.add(callback);
+  window.addEventListener("storage", callback);
+  return () => { checkedListeners.delete(callback); window.removeEventListener("storage", callback); };
+}
 function loadChecked(): Record<string, boolean> {
-  if (typeof window === "undefined") return {};
+  if (typeof window === "undefined") return emptyChecked;
   try {
-    return JSON.parse(localStorage.getItem(STORAGE_KEY) ?? "{}");
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw !== checkedRaw) {
+      const parsed = JSON.parse(raw ?? "{}");
+      checkedSnapshot = parsed && typeof parsed === "object" && !Array.isArray(parsed) ? parsed : emptyChecked;
+      checkedRaw = raw;
+    }
+    return checkedSnapshot;
   } catch {
-    return {};
+    return emptyChecked;
   }
 }
 
 function saveChecked(state: Record<string, boolean>) {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    checkedListeners.forEach((callback) => callback());
   } catch {
     // ignore
   }
@@ -214,7 +232,8 @@ function QuestionItem({
             e.stopPropagation();
             onToggleCheck(question.id);
           }}
-          aria-label={checked ? "완료 취소" : "완료 표시"}
+          aria-label={`${question.title} 학습 완료`}
+          aria-pressed={checked}
           type="button"
         >
           {checked && (
@@ -231,6 +250,8 @@ function QuestionItem({
         </button>
 
         <button
+          aria-expanded={expanded}
+          aria-controls={`answer-${question.id}`}
           className={styles.questionTitle}
           onClick={() => setExpanded((p) => !p)}
           type="button"
@@ -254,7 +275,7 @@ function QuestionItem({
       </div>
 
       {expanded && (
-        <div className={styles.answerWrapper}>
+        <div id={`answer-${question.id}`} className={styles.answerWrapper}>
           <AnswerPanel questionId={question.id} />
         </div>
       )}
@@ -266,7 +287,9 @@ function CategorySection({
   category,
   checkedState,
   onToggleCheck,
+  searching,
 }: {
+  searching: boolean;
   category: Category;
   checkedState: Record<string, boolean>;
   onToggleCheck: (id: string) => void;
@@ -283,7 +306,7 @@ function CategorySection({
         className={styles.categoryHeader}
         onClick={() => setOpen((p) => !p)}
         type="button"
-        aria-expanded={open}
+        aria-expanded={open || searching}
       >
         <div className={styles.categoryMeta}>
           <span className={styles.categoryLabel}>{category.label}</span>
@@ -317,7 +340,7 @@ function CategorySection({
         </div>
       </button>
 
-      {open && (
+      {(open || searching) && (
         <div className={styles.questionList}>
           <p className={styles.categoryDescription}>{category.description}</p>
           {category.questions.map((q) => (
@@ -342,16 +365,21 @@ export default function InterviewQuestionsClient({
   const [activeTab, setActiveTab] = useState<"frontend" | "backend">(
     "frontend",
   );
-  const [checkedState, setCheckedState] = useState<Record<string, boolean>>(
-    () => loadChecked(),
-  );
+  const checkedState = useSyncExternalStore(subscribeChecked, loadChecked, () => emptyChecked);
+  const [query, setQuery] = useState("");
+
+  // 통합 검색에서 넘어온 검색어와 분야를 적용합니다.
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const q = params.get("q");
+    const tab = params.get("tab");
+    if (tab === "frontend" || tab === "backend") setActiveTab(tab);
+    if (q) setQuery(q);
+  }, []);
 
   const handleToggleCheck = useCallback((id: string) => {
-    setCheckedState((prev) => {
-      const next = { ...prev, [id]: !prev[id] };
-      saveChecked(next);
-      return next;
-    });
+    const previous = loadChecked();
+    saveChecked({ ...previous, [id]: !previous[id] });
   }, []);
 
   const currentData = data[activeTab];
@@ -367,24 +395,47 @@ export default function InterviewQuestionsClient({
   const progressPercent =
     totalQuestions > 0 ? Math.round((checkedCount / totalQuestions) * 100) : 0;
 
+  const filteredCategories = currentData.categories.map((category) => ({
+    ...category,
+    questions: category.questions.filter((question) => `${category.label} ${question.title}`.toLowerCase().includes(query.trim().toLowerCase())),
+  })).filter((category) => category.questions.length > 0);
+
   return (
     <div className={styles.clientRoot}>
-      <div className={styles.tabRow}>
-        <button
-          className={`${styles.tabBtn} ${activeTab === "frontend" ? styles.tabBtnActive : ""}`}
-          onClick={() => setActiveTab("frontend")}
-          type="button"
-        >
-          프론트엔드
-        </button>
-        <button
-          className={`${styles.tabBtn} ${activeTab === "backend" ? styles.tabBtnActive : ""}`}
-          onClick={() => setActiveTab("backend")}
-          type="button"
-        >
-          백엔드
-        </button>
+      <div className={kit.controls}>
+        <div className={kit.chips} role="group" aria-label="분야 선택">
+          {([["frontend", "프론트엔드"], ["backend", "백엔드"]] as const).map(([key, label]) => (
+            <button
+              key={key}
+              type="button"
+              className={kit.chip}
+              aria-current={activeTab === key ? "true" : undefined}
+              aria-pressed={activeTab === key}
+              onClick={() => setActiveTab(key)}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
+        <div className={kit.search}>
+          <Input
+            type="search"
+            value={query}
+            onChange={(event) => setQuery(event.target.value)}
+            placeholder="질문이나 기술 이름으로 검색"
+            aria-label="질문 검색"
+            autoComplete="off"
+          />
+        </div>
       </div>
+
+      <p className={kit.summary} role="status">
+        <span>
+          질문 <strong>{filteredCategories.reduce((count, category) => count + category.questions.length, 0)}</strong>개
+          {query.trim() ? ` · “${query.trim()}”` : ""}
+        </span>
+        {query.trim() && <button type="button" className={styles.resetLink} onClick={() => setQuery("")}>검색 초기화</button>}
+      </p>
 
       <div className={styles.progressCard}>
         <div className={styles.progressHeader}>
@@ -405,10 +456,12 @@ export default function InterviewQuestionsClient({
       </div>
 
       <div className={styles.categoriesList}>
-        {currentData.categories.map((category) => (
+        {filteredCategories.length === 0 && <p role="status" className={styles.emptyNote}>일치하는 질문이 없어요.</p>}
+        {filteredCategories.map((category) => (
           <CategorySection
             key={category.id}
             category={category}
+            searching={query.trim().length > 0}
             checkedState={checkedState}
             onToggleCheck={handleToggleCheck}
           />

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import titleStyles from "@/styles/components/title.module.scss";
 import DefaultLayout from "@/components/layout/DefaultLayout";
 import TrendChart from "./_components/TrendChart";
 import CriteriaAccordion from "./_components/CriteriaAccordion";
@@ -89,11 +90,11 @@ export default async function TechTrendsPage() {
     <DefaultLayout>
       <StructuredData id="structured-data-tech-trends" data={structuredData} />
       <main className={styles.page}>
-        <section className={styles.intro}>
-          <h1 className="title">오늘의 개발 트렌드</h1>
-          <p className="description">
-            오늘 업데이트 된 개발 스택에 대한 트랜드를 파악해보세요
-          </p>
+        <section className={titleStyles.title__container}>
+          <div>
+            <h1 className={titleStyles.title}>개발 트렌드</h1>
+            <p className={titleStyles.description}>분야별로 지금 주목받는 기술 스택을 확인해요.</p>
+          </div>
         </section>
 
         <CriteriaAccordion />

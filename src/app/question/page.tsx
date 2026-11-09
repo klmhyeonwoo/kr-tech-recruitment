@@ -88,7 +88,7 @@ export default async function page() {
   if (!latestQuestion) {
     return (
       <Fragment>
-        <QuestionTitle title="이번 주 질문이 아직 준비 중이에요" />
+        <h1>이번 주 질문이 아직 준비 중이에요</h1>
       </Fragment>
     );
   }

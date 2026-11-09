@@ -1,13 +1,13 @@
 .hero {
   width: 100%;
   min-width: 0;
-  background: #fff;
+  background: var(--surface);
 }
 
 .introduction {
   h1 {
     margin: 8px 0 0;
-    color: #191f28;
+    color: var(--text);
     font-size: 40px;
     font-weight: 700;
     line-height: 1.25;
@@ -17,7 +17,7 @@
 
 .eyebrow {
   margin: 0;
-  color: #6b7684;
+  color: var(--muted);
   font-size: 13px;
   font-weight: 500;
   line-height: 1.5;
@@ -26,7 +26,7 @@
 .description {
   max-width: 480px;
   margin: 12px 0 0;
-  color: #6b7684;
+  color: var(--muted);
   font-size: 16px;
   line-height: 1.6;
   word-break: keep-all;
@@ -42,8 +42,8 @@
   padding: 0 18px;
   box-sizing: border-box;
   border-radius: 12px;
-  background: #191f28;
-  color: #fff;
+  background: var(--yellow);
+  color: var(--on-accent);
   font-size: 15px;
   font-weight: 600;
   line-height: 1.4;
@@ -51,7 +51,7 @@
   transition: background-color 0.2s ease;
 
   &:hover {
-    background: #333d4b;
+    background: var(--yellow);
   }
 
   svg {
@@ -64,8 +64,8 @@
   grid-template-columns: repeat(4, minmax(0, 1fr));
   margin: 40px 0 0;
   padding: 0;
-  border-top: 1px solid #e5e8eb;
-  border-bottom: 1px solid #e5e8eb;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
   list-style: none;
 
   li {
@@ -80,14 +80,14 @@
   min-height: 68px;
   padding: 0 16px;
   box-sizing: border-box;
-  border-right: 1px solid #e5e8eb;
+  border-right: 1px solid var(--line);
   text-decoration: none;
   transition:
     background-color 0.2s ease,
     color 0.2s ease;
 
   &:hover {
-    background: #f2f4f6;
+    background: var(--surface);
   }
 }
 
@@ -96,7 +96,7 @@
 }
 
 .destinationTitle {
-  color: #333d4b;
+  color: var(--text);
   font-size: 14px;
   font-weight: 600;
   line-height: 1.4;
@@ -105,12 +105,12 @@
 
 .destinationLink svg {
   flex-shrink: 0;
-  color: #8b95a1;
+  color: var(--muted);
 }
 
 .primaryLink:focus-visible,
 .destinationLink:focus-visible {
-  outline: 2px solid #3182f6;
+  outline: 2px solid var(--line);
   outline-offset: 4px;
 }
 
@@ -131,11 +131,11 @@
   }
 
   .destinations li:nth-child(odd) .destinationLink {
-    border-right: 1px solid #e5e8eb;
+    border-right: 1px solid var(--line);
   }
 
   .destinations li:nth-child(-n + 2) .destinationLink {
-    border-bottom: 1px solid #e5e8eb;
+    border-bottom: 1px solid var(--line);
   }
 
   .destinations li:last-child .destinationLink {

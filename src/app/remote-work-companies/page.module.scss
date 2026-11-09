@@ -1,8 +1,11 @@
 .page {
   width: 100%;
+  max-width: none;
+  margin: 0 auto;
+  min-width: 0;
   display: flex;
   flex-direction: column;
-  row-gap: 1.4rem;
+  row-gap: 26px;
 }
 
 .sourceNotice {
@@ -49,8 +52,10 @@
 
 .summaryText {
   margin: 0;
-  font-size: 1.3rem;
-  color: var(--greyOpacity500);
+  font-size: 14px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+  color: var(--muted);
 }
 
 .controls {
@@ -86,7 +91,7 @@
 }
 
 .companyCard {
-  background-color: rgb(249, 250, 251);
+  background-color: var(--surface);
   border-radius: 2rem;
   padding: 2.2rem;
   line-height: 1.4;
@@ -100,7 +105,7 @@
 }
 
 .companyCard:hover {
-  background-color: #222;
+  background-color: var(--accent);
   color: #fff;
 
   .cardHeader h2,
@@ -144,9 +149,9 @@
   line-height: 1;
   border-radius: 9999px;
   padding: 0.55rem 0.85rem;
-  color: #334155;
-  border: 1px solid #d4dbe5;
-  background: #fff;
+  color: var(--text);
+  border: 1px solid var(--line);
+  background: var(--surface);
 }
 
 .infoList {
@@ -185,9 +190,9 @@
 
   a {
     text-decoration: none;
-    border: 1px solid #d4dbe5;
-    background: #fff;
-    color: #334155;
+    border: 1px solid var(--line);
+    background: var(--surface);
+    color: var(--text);
     border-radius: 0.8rem;
     padding: 0.45rem 0.75rem;
     font-size: 1.2rem;
@@ -211,4 +216,8 @@
     flex-direction: column;
     align-items: stretch;
   }
+}
+
+@media (max-width: 640px) {
+  .page { row-gap: 20px; }
 }

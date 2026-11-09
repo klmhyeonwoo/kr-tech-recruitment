@@ -1,3 +1,1 @@
-# Redirect to Ezoic Ads.txt Manager
-subdomain=serving
-https://srv.adstxtmanager.com/79067/nklcb.kr
+google.com, pub-1550225145364569, DIRECT, f08c47fec0942fa0

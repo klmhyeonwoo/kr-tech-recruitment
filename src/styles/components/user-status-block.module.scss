@@ -18,12 +18,12 @@
   appearance: none;
 
   font-size: 1.6rem;
-  color: #222;
+  color: var(--text);
 
   &[data-login="false"] {
     cursor: pointer;
-    background-color: #222;
-    color: #fff;
+    background-color: var(--yellow);
+    color: var(--on-accent);
   }
 
   &[data-login="false"]:hover {
@@ -39,8 +39,8 @@
   }
 
   &[data-compact="true"][data-login="false"] {
-    background-color: #222;
-    border: 0.05rem solid #3b3b3b;
+    background-color: var(--yellow);
+    border: 0.05rem solid var(--line-strong);
     color: #f5f5f5;
   }
 }

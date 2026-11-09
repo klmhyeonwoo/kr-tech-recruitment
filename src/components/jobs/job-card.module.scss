@@ -1,0 +1,113 @@
+/* KREAM 상품 카드처럼: 회색 썸네일 + 굵은 회사명 + 두 줄 제목 + 작은 회색 정보 */
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+
+  &[data-closed="true"] { opacity: 0.55; }
+}
+
+.thumb {
+  position: relative;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 4 / 3;
+  border-radius: 12px;
+  background: var(--surface-2);
+  transition: background-color 0.15s;
+}
+
+.card:hover .thumb,
+.card:focus-within .thumb { background: var(--surface-3); }
+
+.logo { width: 112px; height: 40px; object-fit: contain; } /* 모든 로고를 같은 칸(112×40)에 맞춰 크기를 통일합니다. */
+
+.initial { color: var(--grey400); font-size: 40px; font-weight: 800; }
+
+.deadline {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  padding: 3px 9px;
+  border-radius: 6px;
+  background: #fff;
+  color: var(--text);
+  font-size: 12.5px;
+  font-weight: 800;
+
+  &[data-tone="open"] { color: var(--muted); font-weight: 650; }
+  &[data-tone="urgent"] { background: var(--danger); color: #fff; }
+  &[data-tone="closed"] { color: var(--faint); }
+}
+
+.actions { position: absolute; top: 6px; right: 6px; z-index: 2; display: flex; gap: 2px; }
+
+.iconButton {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  transition: color 0.15s, background-color 0.15s;
+
+  svg { width: 20px; height: 20px; }
+  &:hover { color: var(--text); background: rgba(255, 255, 255, 0.8); }
+  &[data-on="true"] { color: var(--text); }
+  &:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+}
+
+.info { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+
+.company { margin: 0; overflow: hidden; color: var(--text); font-size: 14px; font-weight: 800; text-overflow: ellipsis; white-space: nowrap; }
+
+.title {
+  display: -webkit-box;
+  min-height: 2.9em;
+  margin: 0;
+  overflow: hidden;
+  font-size: 14.5px;
+  font-weight: 400;
+  line-height: 1.45;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+/* 카드 전체를 눌러도 공고가 열리도록 링크를 카드 크기로 펼칩니다. */
+.link {
+  color: var(--text);
+
+  &::after { content: ""; position: absolute; inset: 0; z-index: 1; border-radius: 12px; }
+  &:focus-visible { outline: none; }
+  &:focus-visible::after { outline: 2px solid var(--accent); outline-offset: 3px; }
+}
+
+.meta { margin: 2px 0 0; overflow: hidden; color: var(--muted); font-size: 13px; text-overflow: ellipsis; white-space: nowrap; }
+.period { margin: 4px 0 0; color: var(--faint); font-size: 12.5px; font-variant-numeric: tabular-nums; }
+
+.toast {
+  position: absolute;
+  top: 50px;
+  right: 8px;
+  z-index: 3;
+  border-radius: 6px;
+  background: var(--text);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  pointer-events: none;
+
+  &:not(:empty) { padding: 6px 10px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .thumb, .iconButton { transition: none; }
+}

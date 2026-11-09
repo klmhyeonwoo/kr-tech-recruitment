@@ -9,7 +9,7 @@
   box-shadow: 0 0.2rem 1.2rem rgba(0, 0, 0, 0.06);
   transition: box-shadow 0.2s ease;
 
-  @media (prefers-color-scheme: dark) {
+  @media not all {
     background: var(--darkLayeredBackground);
     border-color: var(--inverseGrey200);
     box-shadow: 0 0.2rem 1.2rem rgba(0, 0, 0, 0.3);
@@ -65,7 +65,7 @@
     color: var(--grey900);
     line-height: 1.3;
 
-    @media (prefers-color-scheme: dark) {
+    @media not all {
       color: var(--inverseGrey900);
     }
   }
@@ -76,7 +76,7 @@
     color: var(--grey600);
     line-height: 1.5;
 
-    @media (prefers-color-scheme: dark) {
+    @media not all {
       color: var(--inverseGrey600);
     }
   }
@@ -116,7 +116,7 @@
     transform: scale(0.97);
   }
 
-  @media (prefers-color-scheme: dark) {
+  @media not all {
     background: var(--inverseGrey900);
     color: var(--darkBackground);
 
@@ -147,7 +147,7 @@
     color: var(--grey700);
   }
 
-  @media (prefers-color-scheme: dark) {
+  @media not all {
     color: var(--inverseGrey500);
 
     &:hover {
@@ -164,7 +164,7 @@
   padding-top: 1.2rem;
   border-top: 0.1rem solid var(--grey200);
 
-  @media (prefers-color-scheme: dark) {
+  @media not all {
     border-top-color: var(--inverseGrey200);
   }
 }
@@ -175,7 +175,7 @@
   color: var(--grey800);
   margin: 0;
 
-  @media (prefers-color-scheme: dark) {
+  @media not all {
     color: var(--inverseGrey800);
   }
 }
@@ -196,7 +196,7 @@
   font-size: 1.4rem;
   color: var(--grey700);
 
-  @media (prefers-color-scheme: dark) {
+  @media not all {
     color: var(--inverseGrey700);
   }
 }
@@ -214,7 +214,7 @@
   font-weight: 700;
   flex-shrink: 0;
 
-  @media (prefers-color-scheme: dark) {
+  @media not all {
     background: var(--inverseGrey100);
     color: var(--inverseGrey800);
   }
@@ -226,7 +226,7 @@
   margin: 0;
   line-height: 1.5;
 
-  @media (prefers-color-scheme: dark) {
+  @media not all {
     color: var(--inverseGrey500);
   }
 }

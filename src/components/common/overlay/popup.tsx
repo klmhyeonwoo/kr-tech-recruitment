@@ -11,6 +11,7 @@ type PopupType = {
   positiveButtonText?: string;
   negativeButtonText?: string;
   loader?: boolean;
+  onClose?: () => void;
   isDisabledButton?: boolean;
   options?: {
     isPositiveButton?: boolean;
@@ -28,6 +29,7 @@ function Popup({
   negativeButtonText,
   visibleButton = true,
   loader = false,
+  onClose,
   isDisabledButton = false,
   options = {
     isPositiveButton: true,
@@ -36,16 +38,25 @@ function Popup({
   },
 }: PopupType) {
   return (
-    <div className={styles.popup__container}>
+    <div className={styles.popup__container} role="dialog" aria-label="서울데브클럽 구독">
+      {onClose && (
+        <button type="button" className={styles.popup__close} onClick={onClose} aria-label="닫기">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" /></svg>
+        </button>
+      )}
       {options.isTitle && <div className={styles.popup__title}> {title} </div>}
       <div className={styles.popup__content}>
         {Children.toArray(children).length > 0 ? (
           children
         ) : (
-          <div className={styles.popup__content__text}>
-            <video preload="auto" playsInline autoPlay loop muted>
-              <source src="/video/basket.mp4" type="video/mp4" />
-            </video>
+          <div className={styles.popup__visual} aria-hidden="true">
+            <span className={`${styles.popup__logo} ${styles.popup__logo_a}`}><img src="/images/companies/naver.svg" alt="" /></span>
+            <span className={`${styles.popup__logo} ${styles.popup__logo_b}`}><img src="/images/companies/toss.svg" alt="" /></span>
+            <span className={`${styles.popup__logo} ${styles.popup__logo_c}`}><img src="/images/companies/kakao.svg" alt="" /></span>
+            <span className={`${styles.popup__logo} ${styles.popup__logo_d}`}><img src="/images/companies/daangn.svg" alt="" /></span>
+            <span className={styles.popup__mail}>
+              <svg viewBox="0 0 48 48" width="34" height="34" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round"><rect x="6" y="11" width="36" height="26" rx="5" /><path d="m8 15 16 12 16-12" /></svg>
+            </span>
           </div>
         )}
       </div>

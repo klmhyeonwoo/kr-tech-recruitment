@@ -268,22 +268,22 @@
 
 // Border utilities
 .border {
-  border: 1px solid #dee2e6 !important;
+  border: 1px solid var(--line) !important;
 }
 .border-0 {
   border: 0 !important;
 }
 .border-top {
-  border-top: 1px solid #dee2e6 !important;
+  border-top: 1px solid var(--line) !important;
 }
 .border-right {
-  border-right: 1px solid #dee2e6 !important;
+  border-right: 1px solid var(--line) !important;
 }
 .border-bottom {
-  border-bottom: 1px solid #dee2e6 !important;
+  border-bottom: 1px solid var(--line) !important;
 }
 .border-left {
-  border-left: 1px solid #dee2e6 !important;
+  border-left: 1px solid var(--line) !important;
 }
 
 .rounded {

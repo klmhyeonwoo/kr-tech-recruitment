@@ -55,12 +55,21 @@ const nextConfig: NextConfig = {
     ];
   },
   redirects: async () => {
+    // 예전 홈 탭 주소(/?view=...)는 각 페이지의 실제 주소로 영구 이동합니다.
+    const legacyViews = {
+      remote: "/remote-work-companies",
+      activities: "/dev-activities",
+      interview: "/interview-questions",
+      trends: "/tech-trends",
+      community: "/community",
+    } as const;
     return [
-      {
-        source: "/ads.txt",
-        destination: "https://srv.adstxtmanager.com/79067/nklcb.kr",
+      ...Object.entries(legacyViews).map(([view, destination]) => ({
+        source: "/",
+        has: [{ type: "query" as const, key: "view", value: view }],
+        destination,
         permanent: true,
-      },
+      })),
     ];
   },
 };

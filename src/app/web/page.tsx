@@ -1,6 +1,7 @@
 import { companyUrl, getRecruitmentCompanies, normalizeCompanyCode } from "@/lib/seo/companies";
 import { api } from "@/api";
-import CardSection from "@/components/card/Section";
+import CompanyRecruitments from "./_components/company-recruitments";
+import TabSection from "@/components/tab/Section";
 import type { RecruitData } from "@/components/card/Section";
 import type { Metadata } from "next";
 import { Fragment, Suspense } from "react";
@@ -40,7 +41,8 @@ async function getRecruitData({
     const { data } = await api.get(`/recruitment-notices/redirections`, {
       params,
     });
-    const list = data.list || [];
+    if (!Array.isArray(data?.list)) throw new Error("Invalid recruitment response");
+    const list = data.list;
     const scaledData = {
       ...data,
       list: list.map((item: { url: string }) => ({
@@ -70,7 +72,7 @@ async function RecruitDataSection({
   company: string;
   category?: string;
 }) {
-  const [{ list }, companies] = await Promise.all([
+  const [{ list, error }, companies, categories] = await Promise.all([
     getRecruitData({
       params: {
         companyCode: company,
@@ -80,6 +82,9 @@ async function RecruitDataSection({
       },
     }),
     getRecruitmentCompanies(),
+    api.get<{ list: { code: string; name: string }[] }>("/companies/standard-categories")
+      .then(({ data }) => ({ list: Array.isArray(data?.list) ? data.list : [], failed: !Array.isArray(data?.list) }))
+      .catch(() => ({ list: [], failed: true })),
   ]);
   const companyName = companies.find((item) => item.companyCode === company)?.name ?? "기업별";
   const pageUrl = companyUrl(company);
@@ -108,16 +113,19 @@ async function RecruitDataSection({
       <header className="recruitment-intro">
         <h1 className="title">{companyName} 채용 공고</h1>
         <p className="description">
-          직무별 공고를 살펴보고 관심 있는 공고의 원문에서 지원 자격과 전형 절차를 확인하세요.
-          모집 상태와 마감일은 기업의 원문 공고를 기준으로 확인해 주세요.
+          {companyName}의 공고를 키워드나 직무로 좁혀 보세요.
         </p>
       </header>
       <StructuredData
         id={`structured-data-web-${company || "all"}-${category || "all"}`}
         data={collectionStructuredData}
       />
-      <Suspense key={`${company}-${category}`} fallback={<EyesLoading />}>
-        <CardSection data={list} />
+      <Suspense fallback={<EyesLoading />}>
+        <section className="company-picker" aria-label="기업 선택">
+          <h2>기업 선택</h2><TabSection data={companies} />
+        </section>
+        <CompanyRecruitments data={list} companyName={companyName} companyCode={company} failed={!!error}
+          categories={categories.list} categoriesFailed={categories.failed} />
       </Suspense>
     </Fragment>
   );
@@ -126,7 +134,7 @@ async function RecruitDataSection({
 export default async function Home({ searchParams }: paramsType) {
   const { company, category } = await searchParams;
   return (
-    <Suspense key={`${company}`} fallback={<EyesLoading />}>
+    <Suspense fallback={<EyesLoading />}>
       <RecruitDataSection company={normalizeCompanyCode(company)} category={Array.isArray(category) ? category[0] : category} />
     </Suspense>
   );

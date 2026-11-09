@@ -1,4 +1,3 @@
-import Header from "@/components/common/navigation/header";
 import React, { Fragment } from "react";
 
 export default function DefaultLayout({
@@ -8,7 +7,6 @@ export default function DefaultLayout({
 }) {
   return (
     <Fragment>
-      <Header />
       <section>
         <article className="content-wrapper">
           <div> {children} </div>

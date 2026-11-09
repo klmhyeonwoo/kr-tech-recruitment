@@ -1,12 +1,8 @@
 import { SITE_URL } from "@/lib/seo/site";
 import Link from "next/link";
 import { companyPath, getRecruitmentCompanies } from "@/lib/seo/companies";
-import { api } from "@/api";
-import { Fragment, Suspense } from "react";
-import TabSection from "@/components/tab/Section";
+import { Fragment } from "react";
 import "@/styles/domain/web.scss";
-import Header from "@/components/common/navigation/header";
-import SearchSection from "@/components/search/Section";
 import { Metadata } from "next";
 import UserAds from "@/components/ads/user-ads";
 
@@ -57,39 +53,18 @@ export const metadata: Metadata = {
 
 export const revalidate = 3600; // Revalidate every hour
 
-type SearchCategoryType = { code: string; name: string };
-type StandardRecruitResponse = { list: SearchCategoryType[]; error?: unknown };
-
-async function getStandardRecruitData(): Promise<StandardRecruitResponse> {
-  try {
-    const { data } = await api.get(`/companies/standard-categories`);
-    return data;
-  } catch (error) {
-    return { list: [], error };
-  }
-}
-
 export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // Fetch data in parallel for better performance
-  const [companies, { list }] = await Promise.all([
-    getRecruitmentCompanies(),
-    getStandardRecruitData(),
-  ]);
+  const companies = await getRecruitmentCompanies();
 
   return (
     <Fragment>
-      <Header wide />
       <section>
         <article className="content-wrapper" data-layout="recruit">
           <div>
-            <Suspense>
-              <TabSection data={companies} />
-              <SearchSection data={list || []} />
-            </Suspense>
             {children}
             <nav className="company-directory" aria-label="기업별 채용 공고 바로가기">
               <h2>다른 기업 채용 공고</h2>

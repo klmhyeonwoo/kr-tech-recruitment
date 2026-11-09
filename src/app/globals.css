@@ -3,7 +3,7 @@
   --foreground: #171717;
 }
 
-@media (prefers-color-scheme: dark) {
+@media not all {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
@@ -35,7 +35,7 @@ a {
   text-decoration: none;
 }
 
-@media (prefers-color-scheme: dark) {
+@media not all {
   html {
     color-scheme: dark;
   }
