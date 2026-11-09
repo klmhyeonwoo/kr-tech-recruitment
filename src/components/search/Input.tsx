@@ -27,13 +27,21 @@ function Input({
           height={16}
         />
       ) : null}
-      <input
-        type="text"
-        value={value}
-        onChange={onChange}
-        placeholder={placeholder}
-        {...props}
-      />
+      {/* 커서가 있을 때는 기본 placeholder 가 "…" 없이 잘려서, 직접 그려 줍니다. */}
+      <div className={styles.input__field}>
+        <input
+          type="text"
+          value={value}
+          onChange={onChange}
+          aria-label={props["aria-label"] ?? placeholder}
+          {...props}
+        />
+        {!value && placeholder ? (
+          <div className={styles.input__placeholder} aria-hidden="true">
+            <span>{placeholder}</span>
+          </div>
+        ) : null}
+      </div>
     </div>
   );
 }

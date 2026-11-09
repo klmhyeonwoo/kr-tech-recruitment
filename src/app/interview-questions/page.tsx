@@ -1,12 +1,14 @@
+import { SITE_URL } from "@/lib/seo/site";
 import type { Metadata } from "next";
 import DefaultLayout from "@/components/layout/DefaultLayout";
 import StructuredData from "@/lib/seo/structured-data";
 import InterviewQuestionsClient from "./_components/InterviewQuestionsClient";
 import styles from "./page.module.scss";
+import titleStyles from "@/styles/components/title.module.scss";
 import data from "@/data/interview-questions.json";
 import "@/styles/domain/web.scss";
 
-const PAGE_URL = "https://nklcb.kr/interview-questions";
+const PAGE_URL = `${SITE_URL}/interview-questions`;
 const OG_IMAGE =
   "https://raw.githubusercontent.com/klmhyeonwoo/Asset-Archieve./main/nklcb.png";
 
@@ -122,7 +124,7 @@ export default function InterviewQuestionsPage() {
     isPartOf: {
       "@type": "WebSite",
       name: "네카라쿠배 채용",
-      url: "https://nklcb.kr",
+      url: SITE_URL,
     },
     mainEntity: {
       "@type": "ItemList",
@@ -164,7 +166,7 @@ export default function InterviewQuestionsPage() {
         "@type": "ListItem",
         position: 1,
         name: "홈",
-        item: "https://nklcb.kr",
+        item: SITE_URL,
       },
       {
         "@type": "ListItem",
@@ -190,37 +192,16 @@ export default function InterviewQuestionsPage() {
         data={breadcrumbStructuredData}
       />
       <main className={styles.page}>
-        <section className={styles.intro}>
-          <h1 className="title">매일메일 기술 인터뷰 질문 모음</h1>
-          <p className="description">
-            매일메일 서비스 종료 후 공개된 프론트엔드·백엔드 기술 인터뷰 질문과
-            답변을 카테고리별로 확인해보세요
+        <section className={titleStyles.title__container}>
+          <h1 className={titleStyles.title}>면접 준비</h1>
+          <p className={titleStyles.description}>
+            프론트엔드·백엔드 기술 인터뷰 질문과 답변을 카테고리별로 확인해보세요.
           </p>
         </section>
 
-        <section
-          className={styles.categoryOverview}
-          aria-label="기술 인터뷰 카테고리 개요"
-        >
-          <h2 className={styles.categoryOverviewHeading}>
-            카테고리별 기술 인터뷰 질문들을 제공해요
-          </h2>
-          <div className={styles.categoryOverviewGrid}>
-            {allCategories.map((category) => (
-              <div key={category.id} className={styles.categoryOverviewCard}>
-                <p className={styles.categoryOverviewLabel}>{category.label}</p>
-                <p className={styles.categoryOverviewDesc}>
-                  {category.description}
-                </p>
-                <p className={styles.categoryOverviewCount}>
-                  기술 인터뷰 질문 {category.questions.length}개
-                </p>
-              </div>
-            ))}
-          </div>
-        </section>
-
         <InterviewQuestionsClient data={data} />
+
+
 
         <footer className={styles.sourceNotice}>
           <a
@@ -239,9 +220,7 @@ export default function InterviewQuestionsPage() {
             </svg>
             maeil-mail/maeil-mail-contents
           </a>
-          <span>
-            매일메일 서비스 종료 후 공개된 콘텐츠를 기반으로 서비스됩니다.
-          </span>
+          <span>매일메일 공개 콘텐츠를 기반으로 해요.</span>
         </footer>
       </main>
     </DefaultLayout>

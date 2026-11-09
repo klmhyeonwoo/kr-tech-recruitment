@@ -3,44 +3,41 @@ import { redirect } from "next/navigation";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  robots: {
-    index: false,
-    follow: false,
-  },
+  robots: { index: false, follow: false },
 };
 
-async function getRecruitmentInfo({
-  id,
-}: {
-  id: number;
-}): Promise<{ status: number }> {
-  try {
-    const { status } = await api.post(`/recruitment-notices/${id}/click`);
-    // await new Promise((resolve) => setTimeout(resolve, 2000));
-    return {
-      status,
-    };
-  } catch (error) {
-    console.error("Failed to fetch recruitment info:", error);
-    return { status: 500 };
-  }
-}
+type SearchParams = {
+  id?: string | string[];
+  path?: string | string[];
+};
 
-async function Page({
+export default async function Page({
   searchParams,
 }: {
-  searchParams: Promise<{ id: number; path: string }>;
+  searchParams: Promise<SearchParams>;
 }) {
   const { id, path } = await searchParams;
-  const { status } = await getRecruitmentInfo({
-    id,
-  });
+  const noticeId = typeof id === "string" && /^[1-9]\d*$/.test(id)
+    ? Number(id)
+    : NaN;
+  let destination: URL | undefined;
 
-  if (status === 500 || !id || !path) {
-    return redirect("/error");
+  if (Number.isSafeInteger(noticeId) && typeof path === "string") {
+    try {
+      const url = new URL(atob(path));
+      if (["https:", "http:"].includes(url.protocol)) destination = url;
+    } catch {
+      // Invalid or incomplete shared links return to the recruitment list.
+    }
   }
 
-  redirect(atob(path));
-}
+  if (!destination) redirect("/web");
 
-export default Page;
+  try {
+    await api.post(`/recruitment-notices/${noticeId}/click`);
+  } catch {
+    // Click tracking must not prevent opening an otherwise valid posting.
+  }
+
+  redirect(destination.href);
+}

@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/lib/seo/site";
 import "@/styles/domain/web.scss";
 import { Metadata } from "next";
 import React from "react";
@@ -20,7 +21,7 @@ export const metadata: Metadata = {
     description:
       "IT 기업 채용 정보와 취업 팁을 공유하고, 다른 구직자들과 소통하세요",
     type: "website",
-    url: "https://nklcb.kr/community",
+    url: `${SITE_URL}/community`,
   },
   twitter: {
     card: "summary_large_image",
@@ -29,7 +30,7 @@ export const metadata: Metadata = {
       "IT 기업 채용 정보와 취업 팁을 공유하고, 다른 구직자들과 소통하세요",
   },
   alternates: {
-    canonical: "https://nklcb.kr/community",
+    canonical: `${SITE_URL}/community`,
   },
 };
 

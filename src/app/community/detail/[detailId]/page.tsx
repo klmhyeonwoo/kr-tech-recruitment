@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/lib/seo/site";
 import community from "@/api/domain/community";
 import React from "react";
 import "@/styles/domain/community-detail.scss";
@@ -45,7 +46,7 @@ type BoardDetailData = {
   likes: BoardLike[];
 };
 
-const BASE_URL = "https://nklcb.kr";
+const BASE_URL = SITE_URL;
 
 const toMetaDescription = (content?: string) => {
   if (!content) return "네카라쿠배 커뮤니티 게시글 상세 내용을 확인해보세요.";

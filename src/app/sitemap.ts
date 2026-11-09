@@ -1,5 +1,5 @@
 import { MetadataRoute } from "next";
-import { SERVICE_CATEGORY } from "@/utils/const";
+import { companyUrl, getRecruitmentCompanies } from "@/lib/seo/companies";
 import community from "@/api/domain/community";
 import hotIssue from "@/api/domain/hotIssue";
 import { SITE_URL } from "@/lib/seo/site";
@@ -30,9 +30,9 @@ type HotIssueResponse = {
 };
 
 const toDate = (value?: string) => {
-  if (!value) return new Date();
+  if (!value) return undefined;
   const parsedDate = new Date(value);
-  return Number.isNaN(parsedDate.getTime()) ? new Date() : parsedDate;
+  return Number.isNaN(parsedDate.getTime()) ? undefined : parsedDate;
 };
 
 async function getCommunitySitemapEntries(
@@ -56,7 +56,7 @@ async function getCommunitySitemapEntries(
       MAX_COMMUNITY_PAGE_COUNT,
     );
 
-    const additionalResponses = await Promise.all(
+    const additionalResponses = await Promise.allSettled(
       Array.from({ length: Math.max(0, totalPageCount - 1) }, (_, index) =>
         community.standardList({
           page: index + 1,
@@ -66,8 +66,9 @@ async function getCommunitySitemapEntries(
     );
 
     const additionalPageData = additionalResponses
-      .filter((response) => response.status === 200)
-      .map((response) => response.data as CommunityListResponse);
+      .flatMap((result) => result.status === "fulfilled" && result.value.status === 200
+        ? [result.value.data as CommunityListResponse]
+        : []);
 
     const mergedBoardList = [firstPageData, ...additionalPageData].flatMap(
       (pageData) => pageData.list,
@@ -97,27 +98,27 @@ async function getCommunitySitemapEntries(
 async function getQuestionLastModified() {
   try {
     const response = await hotIssue.getActivatedList();
-    if (!response || response.status !== 200) return new Date();
+    if (!response || response.status !== 200) return undefined;
     const parsedData = response.data as HotIssueResponse;
-    const latestQuestion = parsedData.list?.[0];
-    return toDate(latestQuestion?.modifiedAt ?? latestQuestion?.createdAt);
+    const dates = (parsedData.list ?? [])
+      .map((question) => toDate(question.modifiedAt ?? question.createdAt))
+      .filter((date): date is Date => date !== undefined);
+    return dates.length ? new Date(Math.max(...dates.map((date) => date.getTime()))) : undefined;
   } catch (error) {
     console.error(error);
-    return new Date();
+    return undefined;
   }
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = SITE_URL;
-  const [communityEntries, questionLastModified] = await Promise.all([
+  const [communityEntries, questionLastModified, companies] = await Promise.all([
     getCommunitySitemapEntries(baseUrl),
     getQuestionLastModified(),
+    getRecruitmentCompanies(),
   ]);
-  const now = new Date();
-
-  const companyUrls = Object.keys(SERVICE_CATEGORY).map((company) => ({
-    url: `${baseUrl}/web?company=${company}`,
-    lastModified: now,
+  const companyUrls = companies.map(({ companyCode }) => ({
+    url: companyUrl(companyCode),
     changeFrequency: "daily" as const,
     priority: 0.9,
   }));
@@ -125,43 +126,31 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticPages = [
     {
       url: `${baseUrl}/tech-articles`,
-      lastModified: now,
       changeFrequency: "daily" as const,
       priority: 0.8,
     },
     {
       url: `${baseUrl}/tech-trends`,
-      lastModified: now,
       changeFrequency: "daily" as const,
       priority: 0.8,
     },
     {
       url: `${baseUrl}/subscribe`,
-      lastModified: now,
       changeFrequency: "monthly" as const,
       priority: 0.7,
     },
     {
-      url: `${baseUrl}/web`,
-      lastModified: now,
-      changeFrequency: "daily" as const,
-      priority: 0.9,
-    },
-    {
       url: `${baseUrl}/remote-work-companies`,
-      lastModified: now,
       changeFrequency: "weekly" as const,
       priority: 0.8,
     },
     {
       url: `${baseUrl}/dev-activities`,
-      lastModified: now,
       changeFrequency: "weekly" as const,
       priority: 0.8,
     },
     {
       url: `${baseUrl}/community`,
-      lastModified: now,
       changeFrequency: "hourly" as const,
       priority: 0.8,
     },
@@ -173,7 +162,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
     {
       url: `${baseUrl}/interview-questions`,
-      lastModified: now,
       changeFrequency: "daily" as const,
       priority: 0.95,
     },
@@ -182,7 +170,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   return [
     {
       url: baseUrl,
-      lastModified: now,
       changeFrequency: "daily",
       priority: 1,
     },

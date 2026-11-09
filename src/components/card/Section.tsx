@@ -2,16 +2,16 @@
 
 import { Fragment } from "react";
 import Ads from "@/components/ads/ads";
-import Card from "@/components/card/RecruitCard";
-import RecruitCardAd from "@/components/ads/recruit-card-ad";
-import styles from "@/styles/components/recruit-card.module.scss";
+import JobCard from "@/components/jobs/job-card";
+import useBookmarks from "@/utils/use-bookmarks";
+import AdSlot from "@/components/ads/ad-slot";
 import feedStyles from "./recruit-feed.module.scss";
 import { useAtom } from "jotai";
 import { SEARCH_KEYWORD_STORE } from "../../store";
 import { scaledPositionName } from "@/utils/common";
 import NotDataSwimming from "../common/feedback/not-data";
 
-const LEADING_RECRUIT_COUNT = 2;
+const LEADING_RECRUIT_COUNT = 3;
 const SECONDARY_AD_AFTER = 14;
 
 export type RecruitData = {
@@ -33,56 +33,39 @@ export type RecruitData = {
 
 export default function CardSection({ data }: { data: RecruitData[] }) {
   const [keyword] = useAtom(SEARCH_KEYWORD_STORE);
+  const bookmarks = useBookmarks();
   const filteredData =
     data?.filter((item) => {
-      if (keyword === null) return true;
+      const query = (keyword ?? "").trim().toLowerCase();
+      if (!query) return true;
       return (
-        item.jobOfferTitle?.toLowerCase().includes(keyword) ||
-        item.jobOfferTitle.includes(keyword) ||
+        item.jobOfferTitle?.toLowerCase().includes(query) ||
+        item.companyName?.toLowerCase().includes(query) ||
         item.categories?.some((category) => {
           const originalCategory = category?.toLowerCase().trim();
           const scaledCategory = scaledPositionName(
             category?.trim(),
           )?.toLowerCase();
           return (
-            originalCategory?.includes(keyword) ||
-            scaledCategory?.includes(keyword)
+            originalCategory?.includes(query) ||
+            scaledCategory?.includes(query)
           );
         })
       );
     }) ?? [];
-  const generateCompanyName = (item: RecruitData) => {
-    if (item.corporates.length > 0) {
-      if (item.corporates.length === 1) {
-        return item.corporates[0].corporateName;
-      } else {
-        return `${item.corporates[0].corporateName} 외 ${
-          item.corporates.length - 1
-        }개 계열사`;
-      }
-    }
-    return item.companyName;
-  };
-
   const renderRecruitCard = (item: RecruitData) => (
-    <Card key={item.recruitmentNoticeId}>
-      <Card.CardContent
-        id={item.recruitmentNoticeId}
-        title={item.jobOfferTitle}
-        company={generateCompanyName(item)}
-        corporates={item.corporates}
-        position={item.standardCategory}
-        fromDate={item.startAt}
-        toDate={item.endAt}
-        link={item.url}
-      />
-    </Card>
+    <JobCard
+      key={item.recruitmentNoticeId}
+      item={item}
+      bookmarked={bookmarks.ids.includes(item.recruitmentNoticeId)}
+      onToggleBookmark={bookmarks.toggle}
+    />
   );
 
   if (filteredData.length < 4) {
     return (
       <section
-        className={styles.card__section}
+        className={feedStyles.cards}
         data-exists={!!filteredData.length}
         aria-label="채용 공고"
       >
@@ -101,7 +84,7 @@ export default function CardSection({ data }: { data: RecruitData[] }) {
   return (
     <div className={feedStyles.feed}>
       <section
-        className={`${styles.card__section} ${feedStyles.leading}`}
+        className={`${feedStyles.cards} ${feedStyles.leading}`}
         data-exists="true"
         aria-label="첫 채용 공고"
       >
@@ -113,7 +96,7 @@ export default function CardSection({ data }: { data: RecruitData[] }) {
         </div>
       </div>
       <section
-        className={`${styles.card__section} ${feedStyles.remaining}`}
+        className={`${feedStyles.cards} ${feedStyles.remaining}`}
         data-exists="true"
         aria-label="더 많은 채용 공고"
       >
@@ -128,7 +111,7 @@ export default function CardSection({ data }: { data: RecruitData[] }) {
               {renderRecruitCard(item)}
               {showSecondaryAd && (
                 <div className={feedStyles.inlineAd}>
-                  <RecruitCardAd />
+                  <AdSlot variant="infeed" placement="web-feed" />
                 </div>
               )}
             </Fragment>

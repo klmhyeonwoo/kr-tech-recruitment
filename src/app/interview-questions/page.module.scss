@@ -1,8 +1,11 @@
 .page {
   width: 100%;
+  max-width: none;
+  margin: 0 auto;
+  min-width: 0;
   display: flex;
   flex-direction: column;
-  row-gap: 1.4rem;
+  row-gap: 26px;
 }
 
 /* ── 카테고리 개요 (SEO 서버 렌더링) ── */
@@ -33,7 +36,7 @@
 }
 
 .categoryOverviewCard {
-  background: rgb(249, 250, 251);
+  background: var(--surface);
   border-radius: 1.4rem;
   padding: 1.6rem 1.8rem;
   display: flex;
@@ -112,8 +115,14 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  row-gap: 1.4rem;
+  row-gap: 0;
+  min-height: 640px;
+
+  > .progressCard { margin-bottom: 16px; }
 }
+.categoriesList { display: flex; flex-direction: column; gap: 12px; }
+.resetLink { padding: 0; border: 0; background: transparent; color: var(--muted); font-size: 14px; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.emptyNote { margin: 0; padding: 80px 0; color: var(--muted); text-align: center; }
 
 /* ── 탭 ── */
 .tabRow {
@@ -124,8 +133,8 @@
 .tabBtn {
   padding: 0.7rem 1.6rem;
   border-radius: 9999px;
-  border: 1.5px solid #d4dbe5;
-  background: #fff;
+  border: 1.5px solid var(--line);
+  background: var(--surface);
   font-size: 1.35rem;
   font-weight: 600;
   color: var(--grey600);
@@ -139,14 +148,14 @@
 }
 
 .tabBtnActive {
-  background: #222;
-  border-color: #222;
-  color: #fff;
+  background: var(--yellow);
+  border-color: var(--line-strong);
+  color: var(--on-accent);
 
   &:hover {
-    background: #111;
-    border-color: #111;
-    color: #fff;
+    background: var(--accent-hover);
+    border-color: var(--accent-hover);
+    color: var(--on-accent);
   }
 }
 
@@ -154,9 +163,9 @@
 .progressCard {
   width: 100%;
   box-sizing: border-box;
-  background: rgb(249, 250, 251);
-  border-radius: 2rem;
-  padding: 2rem 2.2rem;
+  background: var(--surface-2);
+  border-radius: 16px;
+  padding: 24px;
   display: flex;
   flex-direction: column;
   row-gap: 1rem;
@@ -187,14 +196,14 @@
 .progressBar {
   width: 100%;
   height: 0.7rem;
-  background: #e5e8eb;
+  background: var(--surface-3);
   border-radius: 9999px;
   overflow: hidden;
 }
 
 .progressFill {
   height: 100%;
-  background: #222;
+  background: var(--yellow);
   border-radius: 9999px;
   transition: width 0.45s ease;
   min-width: 0;
@@ -219,13 +228,13 @@
 .categoryCard {
   width: 100%;
   box-sizing: border-box;
-  background-color: rgb(249, 250, 251);
-  border-radius: 2rem;
+  background-color: var(--surface-2);
+  border-radius: 16px;
   overflow: hidden;
-  transition: background-color 0.2s ease;
+  transition: background-color 0.15s ease;
 
   &:hover {
-    background-color: #f0f1f2;
+    background-color: var(--surface-3);
   }
 }
 
@@ -263,9 +272,9 @@
   flex-shrink: 0;
   font-size: 1.15rem;
   font-weight: 600;
-  color: #334155;
-  border: 1px solid #d4dbe5;
-  background: #fff;
+  color: var(--text);
+  border: 1px solid var(--line);
+  background: var(--surface);
   padding: 0.3rem 0.7rem;
   border-radius: 9999px;
   white-space: nowrap;
@@ -281,7 +290,7 @@
 .categoryMiniBar {
   width: 5rem;
   height: 0.45rem;
-  background: #d4dbe5;
+  background: var(--surface-3);
   border-radius: 9999px;
   overflow: hidden;
 
@@ -299,7 +308,7 @@
 
 /* ── 질문 목록 ── */
 .questionList {
-  border-top: 1px solid #e9ebee;
+  border-top: 1px solid var(--line);
   display: flex;
   flex-direction: column;
 }
@@ -310,14 +319,14 @@
   font-size: 1.3rem;
   color: var(--grey500);
   line-height: 1.6;
-  background: #fafafa;
-  border-bottom: 1px solid #e9ebee;
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
   word-break: keep-all;
 }
 
 /* ── 질문 아이템 ── */
 .questionItem {
-  border-bottom: 1px solid #e9ebee;
+  border-bottom: 1px solid var(--line);
 
   &:last-child {
     border-bottom: none;
@@ -343,8 +352,8 @@
   height: 2rem;
   flex-shrink: 0;
   border-radius: 0.5rem;
-  border: 1.5px solid #d4dbe5;
-  background: #fff;
+  border: 1.5px solid var(--line);
+  background: var(--surface);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -363,13 +372,13 @@
 }
 
 .checkboxChecked {
-  background: #222;
-  border-color: #222;
-  color: #fff;
+  background: var(--yellow);
+  border-color: var(--line-strong);
+  color: var(--on-accent);
 
   &:hover {
-    background: #111;
-    border-color: #111;
+    background: var(--accent-hover);
+    border-color: var(--accent-hover);
   }
 }
 
@@ -422,7 +431,7 @@
   font-size: 1.4rem;
   line-height: 1.8;
   color: var(--grey700);
-  border-top: 1px solid #e9ebee;
+  border-top: 1px solid var(--line);
   padding-top: 1.6rem;
 
   h1,
@@ -465,7 +474,7 @@
   }
 
   a {
-    color: #1d4ed8;
+    color: var(--muted);
     text-decoration: none;
     word-break: break-all;
 
@@ -477,7 +486,7 @@
   code {
     font-family: "SFMono-Regular", "Consolas", "Liberation Mono", monospace;
     font-size: 1.25rem;
-    background: #f1f3f5;
+    background: var(--surface);
     padding: 0.15rem 0.45rem;
     border-radius: 0.4rem;
     color: var(--grey800);
@@ -501,8 +510,8 @@
   }
 
   details {
-    background: rgb(249, 250, 251);
-    border: 1px solid #e5e8eb;
+    background: var(--surface);
+    border: 1px solid var(--line);
     border-radius: 1rem;
     padding: 1rem 1.4rem;
     margin: 1rem 0;
@@ -544,7 +553,7 @@
   justify-content: center;
   gap: 0.5rem;
   padding: 2.4rem 0;
-  border-top: 1px solid #e9ebee;
+  border-top: 1px solid var(--line);
 }
 
 .loadingDot {
@@ -580,8 +589,35 @@
 /* ── 에러 ── */
 .answerError {
   padding: 1.6rem 0;
-  border-top: 1px solid #e9ebee;
+  border-top: 1px solid var(--line);
   font-size: 1.35rem;
   color: var(--grey500);
   text-align: center;
 }
+
+.search {
+  display: flex;
+  flex-direction: column;
+  gap: .8rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  input {
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 4.8rem;
+    padding: 1.2rem;
+    border: 1px solid var(--grey300);
+    border-radius: .8rem;
+    background: var(--surface);
+    color: var(--grey800);
+    font: inherit;
+    &:focus-visible { outline: 2px solid var(--line-strong); outline-offset: 2px; }
+  }
+}
+.categoryOverviewHeading { cursor: pointer; padding: 1.2rem 0; }
+
+@media (max-width: 640px) {
+  .page { row-gap: 20px; }
+}
+
+.resultSummary { margin: 0; font-size: 14px; line-height: 1.5; color: var(--muted); overflow-wrap: anywhere; }

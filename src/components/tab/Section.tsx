@@ -49,7 +49,7 @@ function TabSection({ data, currentIndex }: TabData) {
     // 카테고리 이동 시 기존 카테고리 및 키워드 파라미터를 제거
     // if (params.has("category")) params.delete("category");
     if (keyword) setKeyword("");
-    router.replace(`${pathname}/?${params.toString()}`);
+    router.replace(`${pathname}?${params.toString()}`, { scroll: false });
   };
 
   function handleKeyboard(event: KeyboardEvent<HTMLButtonElement>, index: number) {
@@ -110,6 +110,7 @@ function TabSection({ data, currentIndex }: TabData) {
           <Tab
             key={code}
             id={`company-tab-${code}`}
+            aria-controls="company-results"
             label={name}
             value={code}
             index={id}

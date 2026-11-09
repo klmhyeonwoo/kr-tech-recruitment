@@ -127,6 +127,17 @@ textarea {
   margin: 0; /* 2 */
 }
 
+/* 입력창보다 긴 안내 문구는 잘리지 않고 "…" 으로 줄입니다. (입력창에 커서가 있을 때도 적용) */
+input,
+textarea {
+  text-overflow: ellipsis;
+}
+
+input::placeholder,
+textarea::placeholder {
+  text-overflow: ellipsis;
+}
+
 select {
   background-color: transparent;
   background-image: none;

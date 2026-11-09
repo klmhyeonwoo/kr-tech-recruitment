@@ -215,8 +215,6 @@ export default function List({ embedded = false }: { embedded?: boolean }) {
           </div>
         </div>
 
-        {!keyword && <HotListItem />}
-
         <section className={styles.results} aria-labelledby="community-results-title">
           <div className={styles.resultsHeader}>
             <div className={styles.resultsTitle}>
@@ -234,6 +232,8 @@ export default function List({ embedded = false }: { embedded?: boolean }) {
             )}
           </div>
           {keyword && <p className={styles.querySummary}>‘{keyword}’ 검색 결과</p>}
+
+          {!keyword && <HotListItem />}
 
           <div className={styles.resultBody} aria-busy={status === "loading"}>
             {status === "loading" && (

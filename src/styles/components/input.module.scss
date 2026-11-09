@@ -23,8 +23,8 @@
   flex-direction: column;
   box-shadow: var(--greyOpacity200) 0rem 0.2rem 1rem,
     var(--greyOpacity100) 0rem 0.3rem 0.2rem;
-  color: rgb(78, 89, 104);
-  background-color: rgb(255, 255, 255);
+  color: var(--muted);
+  background-color: var(--surface);
   border-radius: 1.2rem;
   width: 100%;
   max-height: 30rem;
@@ -79,6 +79,8 @@
 
   input {
     width: 100%;
+    min-width: 0;
+    text-overflow: ellipsis;
     border: none;
     color: inherit;
     font-weight: inherit;
@@ -103,6 +105,30 @@
   }
 }
 
+.input__field {
+  position: relative;
+  display: flex;
+  flex: 1;
+  align-items: center;
+  min-width: 0;
+}
+
+.input__placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  padding-left: 2px;
+  pointer-events: none;
+
+  span {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
 .textarea__box {
   textarea {
     width: 100%;
@@ -123,10 +149,21 @@
 .select__box {
   cursor: pointer;
 
+  /* 해제(X) · 화살표 아이콘은 항상 맨 오른쪽에 붙입니다. */
+  > img:last-of-type { margin-left: auto; flex: none; }
+
   &[data-mobile="true"] {
     select {
       width: 100%;
+      min-width: 0;
       color: inherit;
+      text-overflow: ellipsis;
+    }
+
+    /* 선택 해제(X)가 없을 때만 오른쪽에 화살표를 보여줍니다. */
+    &:not(:has(.clear__button)) select {
+      padding-right: 22px;
+      background: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 20 20%27 fill=%27none%27 stroke=%27%23999%27 stroke-width=%271.8%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27%3E%3Cpath d=%27m5 7.5 5 5 5-5%27/%3E%3C/svg%3E") no-repeat right center / 16px;
     }
   }
 
@@ -155,6 +192,6 @@
   cursor: pointer;
 
   &:hover {
-    background-color: rgba(0, 23, 51, 0.04);
+    background-color: var(--surface-2);
   }
 }

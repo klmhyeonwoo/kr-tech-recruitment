@@ -1,19 +1,25 @@
 .page {
   width: 100%;
+  max-width: none;
+  min-width: 0;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
 }
 .intro {
   padding: 3.2rem 0 2rem;
 }
 .intro h1 {
   margin: 0;
-  color: #191919;
+  color: var(--text);
   font-size: clamp(2.8rem, 4vw, 3.6rem);
   line-height: 1.25;
   letter-spacing: -0.04em;
 }
 .intro p {
   margin: 0.8rem 0 0;
-  color: #767676;
+  color: var(--muted);
   font-size: 1.4rem;
   line-height: 1.6;
 }
@@ -22,7 +28,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 1.6rem;
-  margin-bottom: 2.4rem;
+  margin: 0;
 }
 .sourceFilters {
   display: flex;
@@ -31,9 +37,9 @@
 }
 .sourceFilters a {
   padding: 0.75rem 1.3rem;
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--line);
   border-radius: 10rem;
-  color: #666;
+  color: var(--muted);
   font-size: 1.35rem;
   line-height: 1;
   text-decoration: none;
@@ -43,45 +49,45 @@
     color 0.15s;
 }
 .sourceFilters a:hover {
-  border-color: #aaa;
-  color: #222;
+  border-color: var(--line);
+  color: var(--text);
 }
 .sourceFilters a.activeSource {
-  border-color: #222;
-  background: #222;
-  color: #fff;
+  border-color: var(--line-strong);
+  background: var(--yellow);
+  color: var(--on-accent);
 }
 .pageSizeLabel {
   display: inline-flex;
   align-items: center;
   flex: none;
   gap: 0.8rem;
-  color: #666;
+  color: var(--muted);
   font-size: 1.3rem;
   white-space: nowrap;
 }
 .pageSizeSelect {
   padding: 0.7rem 2.8rem 0.7rem 1rem;
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--line);
   border-radius: 0.8rem;
-  background-color: #fff;
-  color: #222;
+  background-color: var(--surface);
+  color: var(--text);
   font: inherit;
   font-size: 1.3rem;
   cursor: pointer;
 }
 .pageSizeSelect:focus-visible {
-  outline: 2px solid #222;
+  outline: 2px solid var(--line-strong);
   outline-offset: 2px;
 }
 .list {
   padding: 0;
   margin: 0;
-  border-top: 1px solid #e9e9e9;
+  border-top: 1px solid var(--line);
   list-style: none;
 }
 .list li {
-  border-bottom: 1px solid #e9e9e9;
+  border-bottom: 1px solid var(--line);
 }
 .row {
   display: flex;
@@ -89,7 +95,7 @@
   justify-content: space-between;
   gap: 2rem;
   padding: 2.3rem 0.2rem;
-  color: #191919;
+  color: var(--text);
   text-decoration: none;
 }
 .row:hover h2 {
@@ -98,7 +104,7 @@
 }
 .row:focus-visible,
 .pagination a:focus-visible {
-  outline: 2px solid #222;
+  outline: 2px solid var(--line-strong);
   outline-offset: 3px;
 }
 .rowContent {
@@ -118,26 +124,26 @@
   display: -webkit-box;
   margin: 0;
   overflow: hidden;
-  color: #666;
+  color: var(--muted);
   font-size: 1.35rem;
   line-height: 1.55;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
 }
 .meta {
-  color: #888;
+  color: var(--muted);
   font-size: 1.25rem;
   line-height: 1.5;
 }
 .arrow {
   flex: none;
-  color: #999;
+  color: var(--muted);
   font-size: 1.8rem;
 }
 .empty {
   margin: 0;
   padding: 5rem 0;
-  color: #888;
+  color: var(--muted);
   font-size: 1.4rem;
   text-align: center;
 }
@@ -156,15 +162,15 @@
   height: 3.2rem;
   place-items: center;
   border-radius: 0.8rem;
-  color: #555;
+  color: var(--muted);
   text-decoration: none;
 }
 .pagination a:hover {
-  background: #f5f5f5;
+  background: var(--surface);
 }
 .pagination a.currentPage {
-  background: #222;
-  color: #fff;
+  background: var(--yellow);
+  color: var(--on-accent);
   font-weight: 700;
 }
 .pagination .disabledPage {
@@ -191,4 +197,16 @@
   .row h2 {
     font-size: 1.6rem;
   }
+}
+
+.summaryText {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 640px) {
+  .page { gap: 20px; }
 }

@@ -47,7 +47,7 @@ const onRequest = (
 
 /** request 요청 시, 발생하는 에러를 처리하는 함수 */
 const onErrorRequest = (error: AxiosError<AxiosRequestConfig>) => {
-  const { status } = error?.response as AxiosResponse;
+  const status = error.response?.status ?? 0;
 
   if (error?.config) {
     onError(status, "에러: 요청 실패");
@@ -73,9 +73,16 @@ const onResponse = (response: AxiosResponse): AxiosResponse => {
 const onErrorResponse = (error: AxiosError | Error) => {
   if (axios.isAxiosError(error)) {
     const { message } = error;
-    const { method, url } = error?.config as AxiosRequestConfig;
-    const { status, statusText, data } =
-      error?.response as AxiosResponse<ErrorResponse>;
+    const { method, url } = error.config ?? {};
+    const { status = 0, statusText = "", data } =
+      error.response ?? {};
+
+    if (!error.response) {
+      const timedOut = ["ECONNABORTED", "ETIMEDOUT"].includes(error.code ?? "");
+      onError(0, timedOut
+        ? "요청 시간이 초과되었어요. 다시 시도해 주세요."
+        : "서버에 연결하지 못했어요. 연결 상태를 확인해 주세요.");
+    }
 
     logOnDev(
       `[API ERROR_RESPONSE ${status} | ${statusText} | ${message}] ${method?.toUpperCase()} ${url}`,
@@ -106,7 +113,7 @@ const onErrorResponse = (error: AxiosError | Error) => {
         onError(status, `기타 에러가 발생했어요 : ${error?.message}`, data);
       }
     }
-  } else if (error instanceof Error && error?.name === "TimoutError") {
+  } else if (error instanceof Error && error?.name === "TimeoutError") {
     logOnDev(`[API TIME_ERROR] ${error?.toString()}`);
     onError(0, "요청 시간이 초과되었어요");
   } else {

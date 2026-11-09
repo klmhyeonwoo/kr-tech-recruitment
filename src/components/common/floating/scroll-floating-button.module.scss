@@ -14,11 +14,12 @@
 }
 
 .scroll-button {
-  width: 5.2rem;
-  height: 5.2rem;
-  border: 1px solid #d4d4d4;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--line-strong);
   border-radius: 999px;
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 4px 16px rgba(17, 19, 24, 0.12);
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
   display: flex;
@@ -34,12 +35,19 @@
 
 .scroll-button:hover {
   transform: translateY(-1px);
-  background-color: rgba(255, 255, 255, 0.97);
+  background-color: #fff;
   box-shadow: 0 0.3rem 0.8rem rgba(0, 0, 0, 0.15);
 }
 
 .arrow-icon {
   display: block;
+  width: 18px;
+  height: 18px;
+}
+
+/* 아래로 이동 버튼은 쓰임이 적어 감춥니다. 위로 가기만 남겨요. */
+.scroll-bottom {
+  display: none;
 }
 
 .arrow-up {

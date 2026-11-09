@@ -76,7 +76,7 @@
     row-gap: 1.5rem;
     width: 100%;
 
-    background-color: rgb(249, 250, 251);
+    background-color: var(--surface);
     padding: 2rem 2.5rem;
     border-radius: 1.3rem;
     box-sizing: border-box;
@@ -142,13 +142,13 @@
   }
 
   button {
-    color: #222;
+    color: var(--text);
   }
 
   .question__submit__button {
-    background-color: #222;
+    background-color: var(--yellow);
     font-size: 1.4rem;
-    color: #fff;
+    color: var(--on-accent);
   }
 }
 

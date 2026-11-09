@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/lib/seo/site";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Suspense } from "react";
@@ -6,8 +7,9 @@ import StructuredData from "@/lib/seo/structured-data";
 import activitiesData from "@/data/dev-activities.json";
 import UserAds from "@/components/ads/user-ads";
 import SearchInput from "./_components/SearchInput";
-import styles from "./page.module.scss";
-import tabStyles from "@/styles/components/tab.module.scss";
+import AdSlot from "@/components/ads/ad-slot";
+import kit from "@/styles/components/page-kit.module.scss";
+import titleStyles from "@/styles/components/title.module.scss";
 import "@/styles/domain/web.scss";
 
 type ActivityCategory = "all" | "club" | "education" | "meetup" | "conference";
@@ -86,7 +88,7 @@ export const metadata: Metadata = {
     description:
       "개발자 동아리, 교육/부트캠프, 모임/밋업, 행사/컨퍼런스를 한 곳에서 확인하세요.",
     type: "website",
-    url: "https://nklcb.kr/dev-activities",
+    url: `${SITE_URL}/dev-activities`,
     siteName: "네카라쿠배 채용",
     locale: "ko_KR",
     images: [
@@ -106,7 +108,7 @@ export const metadata: Metadata = {
     images: ["https://raw.githubusercontent.com/klmhyeonwoo/Asset-Archieve./main/nklcb.png"],
   },
   alternates: {
-    canonical: "https://nklcb.kr/dev-activities",
+    canonical: `${SITE_URL}/dev-activities`,
   },
 };
 
@@ -142,11 +144,11 @@ export default async function DevActivitiesPage({ searchParams }: PageProps) {
   };
 
   const tabs: Array<{ key: ActivityCategory; label: string }> = [
-    { key: "all", label: `전체 (${summary.total})` },
-    { key: "club", label: `동아리 (${summary.club})` },
-    { key: "education", label: `교육 · 부트캠프 (${summary.education})` },
-    { key: "meetup", label: `모임 · 밋업 (${summary.meetup})` },
-    { key: "conference", label: `행사 · 컨퍼런스 (${summary.conference})` },
+    { key: "all", label: `전체 ${summary.total}` },
+    { key: "club", label: `동아리 ${summary.club}` },
+    { key: "education", label: `교육 · 부트캠프 ${summary.education}` },
+    { key: "meetup", label: `모임 · 밋업 ${summary.meetup}` },
+    { key: "conference", label: `행사 · 컨퍼런스 ${summary.conference}` },
   ];
 
   const collectionStructuredData = {
@@ -155,7 +157,7 @@ export default async function DevActivitiesPage({ searchParams }: PageProps) {
     name: "개발자 대외활동 모음",
     description:
       "개발자 동아리, 교육/부트캠프, 모임/밋업, 행사/컨퍼런스 정보를 모아둔 컬렉션 페이지",
-    url: "https://nklcb.kr/dev-activities",
+    url: `${SITE_URL}/dev-activities`,
     mainEntity: {
       "@type": "ItemList",
       itemListOrder: "https://schema.org/ItemListUnordered",
@@ -166,10 +168,12 @@ export default async function DevActivitiesPage({ searchParams }: PageProps) {
           "@type": "ListItem",
           position: index + 1,
           name: activity.name,
-          url: activity.links[0]?.url ?? "https://nklcb.kr/dev-activities",
+          url: activity.links[0]?.url ?? `${SITE_URL}/dev-activities`,
         })),
     },
   };
+
+  const AD_AFTER = 9;
 
   return (
     <DefaultLayout>
@@ -177,63 +181,60 @@ export default async function DevActivitiesPage({ searchParams }: PageProps) {
         id="structured-data-dev-activities"
         data={collectionStructuredData}
       />
-      <main className={styles.page}>
-        <UserAds />
-
-        <section className={styles.intro}>
+      <main className={kit.page}>
+        <section className={titleStyles.title__container}>
           <div>
-            <h1 className="title">개발자 대외활동 모음</h1>
-            <p className="description">
-              개발자 동아리, 교육/부트캠프, 모임/밋업, 행사/컨퍼런스를 한 곳에서
-              확인하세요.
+            <h1 className={titleStyles.title}>개발자 대외활동</h1>
+            <p className={titleStyles.description}>
+              동아리, 교육·부트캠프, 모임·밋업, 컨퍼런스를 한곳에 모았어요.
             </p>
           </div>
         </section>
 
-        <section className={styles.controls}>
-          <div className={tabStyles.tab__container}>
+        <section className={kit.controls}>
+          <nav className={kit.chips} aria-label="활동 분류">
             {tabs.map((tab) => (
               <Link
                 key={tab.key}
                 href={buildFilterHref(tab.key, query)}
-                className={tabStyles.tab}
-                aria-selected={filterCategory === tab.key}
+                className={kit.chip}
+                aria-current={filterCategory === tab.key ? "true" : undefined}
               >
                 {tab.label}
               </Link>
             ))}
-          </div>
-
-          <div className={styles.searchForm}>
+          </nav>
+          <div className={kit.search}>
             <Suspense>
               <SearchInput initialQuery={query} />
             </Suspense>
           </div>
         </section>
 
-        {filteredActivities.length ? (
-          <ul className={styles.activityGrid}>
-            {filteredActivities.map((activity) => (
-              <li key={activity.id} className={styles.activityCard}>
-                <div className={styles.cardHeader}>
+        <p className={kit.summary} role="status">
+          <span>
+            활동 <strong>{filteredActivities.length}</strong>개
+            {query ? ` · “${query}”` : ""}
+          </span>
+          {(query || filterCategory !== "all") && <Link href="/dev-activities">조건 초기화</Link>}
+        </p>
+
+        <ul className={kit.grid}>
+          {filteredActivities.length === 0 && (
+            <li className={kit.empty}>조건에 맞는 활동이 없어요.</li>
+          )}
+          {filteredActivities.flatMap((activity, index) => {
+            const card = (
+              <li key={activity.id} className={kit.card}>
+                <div className={kit.cardHead}>
                   <h2>{activity.name}</h2>
-                  <span className={styles.categoryBadge}>
-                    {
-                      CATEGORY_LABEL[
-                        activity.category as Exclude<ActivityCategory, "all">
-                      ]
-                    }
+                  <span className={kit.badge}>
+                    {CATEGORY_LABEL[activity.category as Exclude<ActivityCategory, "all">]}
                   </span>
                 </div>
-
-                {activity.description && (
-                  <p className={styles.cardDescription}>
-                    {activity.description}
-                  </p>
-                )}
-
+                {activity.description && <p className={kit.desc}>{activity.description}</p>}
                 {activity.links.length > 0 && (
-                  <div className={styles.linkList}>
+                  <div className={kit.links}>
                     {activity.links.map((link) => (
                       <a
                         key={`${activity.id}-${link.url}`}
@@ -247,32 +248,28 @@ export default async function DevActivitiesPage({ searchParams }: PageProps) {
                   </div>
                 )}
               </li>
-            ))}
-          </ul>
-        ) : (
-          <p className={styles.emptyState}>
-            조건에 맞는 항목이 없습니다. 검색어 또는 필터를 변경해보세요.
-          </p>
-        )}
+            );
+            return index + 1 === AD_AFTER && index < filteredActivities.length - 1
+              ? [card, <li key="ad" className={kit.adRow}><AdSlot variant="infeed" placement="activities-feed" /></li>]
+              : [card];
+          })}
+        </ul>
 
-        <footer className={styles.sourceNotice}>
+        <UserAds />
+
+        <footer className={kit.source}>
           <a
             href="https://github.com/brave-people/Dev-Event"
             target="_blank"
             rel="noreferrer noopener"
             aria-label="원본 GitHub 저장소 보기"
           >
-            <svg
-              viewBox="0 0 24 24"
-              fill="currentColor"
-              aria-hidden="true"
-              focusable="false"
-            >
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
               <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.85 10.91.57.1.78-.25.78-.55 0-.27-.01-.99-.02-1.95-3.19.69-3.86-1.54-3.86-1.54-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.75 1.18 1.75 1.18 1.02 1.75 2.67 1.25 3.32.96.1-.74.4-1.25.73-1.54-2.55-.29-5.23-1.27-5.23-5.67 0-1.25.45-2.27 1.18-3.07-.12-.29-.51-1.46.11-3.05 0 0 .96-.31 3.14 1.17a10.9 10.9 0 0 1 5.72 0c2.18-1.48 3.14-1.17 3.14-1.17.62 1.59.23 2.76.11 3.05.73.8 1.18 1.82 1.18 3.07 0 4.41-2.68 5.38-5.24 5.66.41.35.77 1.03.77 2.08 0 1.5-.01 2.71-.01 3.08 0 .3.21.66.79.55A11.52 11.52 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z" />
             </svg>
             brave-people/Dev-Event
           </a>
-          <span>최신화된 정보가 아닐 수 있어 참고용으로 확인해주세요.</span>
+          <span>최신 정보가 아닐 수 있어요.</span>
         </footer>
       </main>
     </DefaultLayout>

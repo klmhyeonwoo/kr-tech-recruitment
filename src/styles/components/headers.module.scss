@@ -76,28 +76,43 @@
 .header__nav {
   display: flex;
   align-items: center;
-  overflow-x: auto;
   min-width: 0;
-  scrollbar-width: none;
-  &::-webkit-scrollbar { display: none; }
-  column-gap: 1.3rem;
+  column-gap: 1.4rem;
   font-weight: 700;
   font-size: 1.5rem;
   letter-spacing: -0.03rem;
   color: var(--inverseGrey500);
   white-space: nowrap;
 
-  span {
-    transition: color 0.3s;
-
-    &.active,
-    &:hover {
-      color: var(--inverseGrey50);
-    }
-  }
 }
 
-@media (max-width: 768px) {
+.navLink, .moreButton {
+  color: inherit;
+  font: inherit;
+  text-decoration: none;
+  transition: color .2s;
+  &:hover, &[aria-current="page"], &[data-active="true"] { color: var(--inverseGrey50); }
+  &:focus-visible { outline: 2px solid #222; outline-offset: 4px; }
+}
+
+.more { position: relative; }
+.moreButton { border: 0; padding: 1rem 0; background: transparent; cursor: pointer; white-space: nowrap; }
+.moreMenu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  min-width: 17rem;
+  padding: .6rem;
+  border: 1px solid var(--greyOpacity200);
+  border-radius: .8rem;
+  background: #fff;
+  box-shadow: 0 .8rem 2.4rem rgb(0 0 0 / 10%);
+  a { padding: 1rem; border-radius: .4rem; }
+  a:hover { background: #f5f5f5; }
+  &[hidden] { display: none; }
+}
+
+@media (max-width: 1024px) {
   .menuButton { display: flex; }
 
   .header__nav {
@@ -123,4 +138,82 @@
       font-size: 1.6rem;
     }
   }
+  .moreButton { width: 100%; padding: 1.2rem .2rem; text-align: left; font-size: 1.6rem; }
+  .moreMenu {
+    position: static;
+    padding: 0 0 .4rem 1.2rem;
+    border: 0;
+    box-shadow: none;
+  }
+}
+
+.navLink, .moreButton {
+  display: inline-flex;
+  align-items: center;
+  min-height: 4.4rem;
+  box-sizing: border-box;
+}
+.moreButton {
+  gap: .6rem;
+  svg { width: 1.6rem; height: 1.6rem; flex: none; }
+  &[aria-expanded="true"] svg { transform: rotate(180deg); }
+}
+@media (max-width: 1024px) {
+  .moreButton { justify-content: space-between; }
+}
+
+/* ───────── 홈 전용: 떠 있는 알약형 내비게이션 ───────── */
+.header__container[data-floating="true"] {
+  top: 1.6rem;
+  height: 6rem;
+  border-bottom: 0;
+  background: transparent;
+  pointer-events: none;
+
+  .header__wrapper {
+    pointer-events: auto;
+    width: calc(100% - 3.2rem);
+    max-width: 98rem;
+    padding: 0 2.4rem;
+    border: 1px solid rgb(255 255 255 / 8%);
+    border-radius: 99rem;
+    background: rgb(38 38 38 / 82%);
+    box-shadow: 0 1.2rem 3.2rem rgb(0 0 0 / 22%);
+    backdrop-filter: blur(20px) saturate(1.4);
+    color: #fff;
+  }
+  .header__wrapper[data-wide="true"] { width: calc(100% - 3.2rem); max-width: 98rem; padding: 0 2.4rem; }
+  .header__logo { color: #fff; }
+  .header__nav { margin-left: auto; color: rgb(255 255 255 / 68%); column-gap: 1.8rem; font-size: 1.45rem; }
+  .navLink, .moreButton {
+    &:hover, &[aria-current="page"], &[data-active="true"] { color: #fff; }
+    &:focus-visible { outline-color: #fff; }
+  }
+  .menuButton { color: #fff; &:focus-visible { outline-color: #fff; } }
+  .moreMenu {
+    top: calc(100% + 1.2rem);
+    border-color: rgb(255 255 255 / 10%);
+    border-radius: 1.8rem;
+    background: #262626;
+    box-shadow: 0 1.2rem 3.2rem rgb(0 0 0 / 35%);
+    a { border-radius: 1rem; }
+    a:hover { background: rgb(255 255 255 / 8%); }
+  }
+}
+.header__container[data-floating="true"] + .header__overlay { height: 0; }
+
+@media (max-width: 1024px) {
+  .header__container[data-floating="true"] .header__nav {
+    top: calc(100% + 1rem);
+    left: 0;
+    right: 0;
+    margin-left: 0;
+    padding: 1rem 2rem 1.4rem;
+    border: 1px solid rgb(255 255 255 / 10%);
+    border-radius: 2.4rem;
+    background: #262626;
+    box-shadow: 0 1.6rem 4rem rgb(0 0 0 / 40%);
+    color: rgb(255 255 255 / 80%);
+  }
+  .header__container[data-floating="true"] .moreMenu { top: auto; background: transparent; }
 }

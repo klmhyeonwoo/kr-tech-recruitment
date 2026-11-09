@@ -12,10 +12,10 @@
     justify-content: center;
     align-items: center;
     row-gap: 2rem;
-    padding: 3rem 1.3rem 3rem 1.3rem;
+    padding: 32px var(--page-gutter, 24px) 48px;
     width: 100%;
     box-sizing: border-box;
-    max-width: 110rem;
+    max-width: var(--page-width, 1120px);
 
     .text-wrapper {
       display: flex;
@@ -25,7 +25,7 @@
       font-size: 1.6rem;
       line-height: 1.4;
       letter-spacing: -0.03rem;
-      color: #222;
+      color: var(--text);
 
       > div {
         display: flex;
@@ -47,12 +47,8 @@
 }
 
 .content-wrapper[data-layout="recruit"] > div {
-  max-width: 124rem;
-  padding: 3.2rem 2rem 4.8rem;
-
-  @media (min-width: 1200px) {
-    width: calc(100% - 16rem);
-  }
+  max-width: var(--page-width, 1120px);
+  padding: 32px var(--page-gutter, 24px) 48px;
 
   @media (max-width: 768px) {
     padding: 2rem 1.3rem 3.2rem;
@@ -62,8 +58,8 @@
 .card__skeleton {
   width: 100%;
   height: 200px;
-  background: #eee;
-  background: linear-gradient(110deg, #ececec 8%, #f5f5f5 18%, #ececec 33%);
+  background: var(--surface);
+  background: linear-gradient(110deg, var(--surface-2) 8%, var(--surface) 18%, var(--surface-2) 33%);
   border-radius: 1rem;
   background-size: 200% 100%;
   animation: 1.5s shine linear infinite;
@@ -73,4 +69,83 @@
   to {
     background-position-x: -200%;
   }
+}
+
+.recruitment-intro,
+.company-directory {
+  width: 100%;
+}
+
+.recruitment-intro .description { margin-top: 1rem; line-height: 1.6; }
+.company-directory {
+  h2 { font-size: 1.8rem; }
+  ul { display: flex; flex-wrap: wrap; gap: 8px 20px; margin: 12px 0 0; padding: 0; list-style: none; }
+  a { display: inline-flex; align-items: center; min-height: 36px; color: var(--muted); font-size: 14.5px; }
+  a:hover { color: var(--text); text-decoration: underline; text-underline-offset: 3px; }
+}
+
+.content-wrapper[data-layout="recruit"] > div {
+  width: 100%; max-width: var(--page-width, 1120px); padding: 40px var(--page-gutter, 24px) 64px; align-items: stretch; gap: 28px;
+}
+.recruitment-intro {
+  .title { margin: 0; font-size: 34px; font-weight: 700; line-height: 1.3; letter-spacing: -1.2px; text-align: left; color: var(--grey900); }
+  .description { max-width: 600px; margin: 12px 0 0; font-size: 16px; color: var(--grey700); line-height: 1.7; }
+}
+.company-picker {
+  min-width: 0;
+  h2 { font-size: 14px; font-weight: 600; color: var(--grey700); margin: 0 0 12px; }
+  [role="tablist"] { justify-content: flex-start; gap: 8px; padding-block: 3px; }
+  [role="tab"] { width: auto; min-height: 42px; padding: 10px 16px; font-size: 15px; font-weight: 500; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); color: var(--muted); transition: background-color 0.15s, color 0.15s; }
+  [role="tab"]:hover { background: var(--surface-2); color: var(--text); }
+  [role="tab"][aria-selected="true"] { color: var(--on-accent); background: var(--accent); border-color: var(--accent); font-weight: 650; }
+  [role="tab"]:focus-visible { outline: 2px solid var(--accent-text); outline-offset: 2px; }
+}
+.company-results { width: 100%; min-width: 0; font-size: 16px; line-height: 1.6; }
+.company-filters {
+  display: flex; align-items: end; gap: 12px; flex-wrap: wrap;
+  label { display: flex; flex-direction: column; gap: 8px; font-size: 14px; font-weight: 500; color: var(--grey700); min-width: 0; flex: 1 1 170px; }
+  label:first-child { flex-grow: 2; }
+  input, select { width: 100%; min-width: 0; height: 48px; padding: 12px 16px; border: 0; border-radius: 10px; background: var(--grey100); color: var(--grey900); font: inherit; font-size: 16px; box-sizing: border-box; }
+  input { padding-left: 44px; background: transparent; }
+  input::placeholder { color: var(--grey600); }
+  > button { color: var(--grey700); background: none; border: 0; }
+}
+.company-search-field { display: flex; align-items: center; position: relative; border-radius: 10px; background: var(--grey100); }
+.company-search-field svg { position: absolute; left: 14px; color: var(--grey600); pointer-events: none; }
+.company-results button { min-height: 44px; padding: 10px 14px; border: 0; border-radius: 8px; color: var(--grey700); background: var(--grey100); font: inherit; font-size: 14px; font-weight: 500; cursor: pointer; }
+.company-results button:disabled { opacity: .5; cursor: default; }
+.company-results :is(a, button, input, select):focus-visible { outline: 2px solid var(--accent-text); outline-offset: 3px; }
+.company-result-summary { display: flex; align-items: baseline; flex-wrap: wrap; justify-content: space-between; gap: 8px 16px; margin-top: 40px; padding-bottom: 20px; border-bottom: 1px solid var(--grey200); }
+.company-result-meta { display: flex; align-items: baseline; gap: 16px; min-width: 0; }
+.company-results button.company-reset { min-height: 0; padding: 0; border-radius: 0; background: transparent; color: var(--muted); font-size: 14px; text-decoration: underline; text-underline-offset: 3px; }
+.company-results button.company-reset:hover { color: var(--text); }
+.company-result-summary h2 { margin: 0; font-size: 20px; font-weight: 650; letter-spacing: -.5px; color: var(--grey900); }
+.company-result-summary p, .company-note { margin: 0; color: var(--grey600); font-size: 14px; overflow-wrap: anywhere; }
+.company-job-list { list-style: none; padding: 0; margin: 0; }
+.company-job { display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: 24px; padding: 28px 0; border-bottom: 1px solid var(--grey200); overflow-wrap: anywhere; }
+.company-job h3 { grid-column: 1; font-size: 19px; line-height: 1.5; font-weight: 650; letter-spacing: -.35px; margin: 0 0 6px; color: var(--grey900); }
+.company-job h3 a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.company-job p { margin: 0; grid-column: 1; font-size: 14px; color: var(--grey700); }
+.company-job dl { grid-column: 1; display: flex; flex-wrap: wrap; gap: 8px 20px; margin-top: 12px; font-size: 14px; }
+.company-job dl div { display: flex; gap: 8px; }
+.company-job dt { color: var(--grey600); }
+.company-job dd { margin: 0; color: var(--grey700); }
+.company-job-actions { grid-column: 2; grid-row: 1 / span 3; display: flex; align-items: center; gap: 8px; }
+.company-job-actions a { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 10px 16px; border-radius: 8px; background: var(--accent); color: var(--on-accent); font-size: 14px; font-weight: 600; box-sizing: border-box; }
+.company-job-actions button { background: transparent; }
+.company-feedback { display: flex; flex-direction: column; align-items: center; padding: 56px 16px; text-align: center; }
+.company-feedback h3 { margin: 0; font-size: 20px; font-weight: 650; letter-spacing: -.4px; }
+.company-feedback p { margin: 10px 0 20px; font-size: 15px; color: var(--grey700); }
+.company-note:empty { display: none; }
+.company-results > aside { margin-top: 40px; }
+@media (max-width: 600px) {
+  .content-wrapper[data-layout="recruit"] > div { padding-top: 32px; gap: 28px; }
+  .recruitment-intro .title { font-size: 30px; }
+  .recruitment-intro .description { font-size: 15px; }
+  .company-filters label:first-child { flex-basis: 100%; }
+  .company-filters label { flex-basis: 140px; }
+  .company-result-summary { margin-top: 32px; }
+  .company-job { grid-template-columns: minmax(0, 1fr); padding: 24px 0; }
+  .company-job h3 { font-size: 18px; }
+  .company-job-actions { grid-column: 1; grid-row: auto; margin-top: 16px; }
 }

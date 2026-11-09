@@ -97,27 +97,27 @@ export default function TrendChart({ data }: { data: TrendsData }) {
               <XAxis
                 type="number"
                 domain={[0, 100]}
-                tick={{ fill: "#9ca3af", fontSize: 11 }}
+                tick={{ fill: "#8b919d", fontSize: 11 }}
                 axisLine={false}
                 tickLine={false}
               />
               <YAxis
                 type="category"
                 dataKey="name"
-                width={96}
-                tick={{ fill: "#374151", fontSize: 12.5 }}
+                width={150}
+                tick={{ fill: "#2d313b", fontSize: 12.5 }}
                 axisLine={false}
                 tickLine={false}
               />
               <Tooltip
                 content={<CustomTooltip />}
-                cursor={{ fill: "rgba(0,0,0,0.03)" }}
+                cursor={{ fill: "rgba(17,19,24,0.05)" }}
               />
               <Bar dataKey="score" radius={[0, 6, 6, 0]} maxBarSize={18}>
                 {chartData.map((_, i) => (
                   <Cell
                     key={i}
-                    fill={i < 3 ? "#111827" : "#d1d5db"}
+                    fill={i < 3 ? "#111318" : "#cdd1d8"}
                     fillOpacity={i < 3 ? 1 - i * 0.15 : 1 - (i - 3) * 0.06}
                   />
                 ))}
